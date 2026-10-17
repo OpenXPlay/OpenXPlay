@@ -24,7 +24,7 @@ OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone CarPlay。由�
 
 ### 哪些车机可以用？ {#which-head-units}
 
-OpenXPlay 目前还没有发布支持的车机列表。对网页接收端来说，关键在于车机浏览器：它需要支持 WebCodecs H.264 解码。请在车机浏览器中打开[检测车机](/check)测试，并把结果分享到交流群。
+OpenXPlay 实测过的车机列在[车机资料](/head-units)中，目前收录了小鹏 G6。对网页接收端来说，关键在于车机浏览器：它需要支持 WebCodecs H.264 解码。如果你的车机还没有测试过，请在车机浏览器中打开[检测车机](/check)测试，并把结果分享到交流群。
 
 ### OpenXPlay 和 DiPlay 有什么区别？ {#diplay}
 

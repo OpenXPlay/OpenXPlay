@@ -44,6 +44,13 @@ Created by riko chen on 2026-10-17
   max-width: 540px;
 }
 
+/* Reference pages (pageClass: oxp-reference): keep short Chinese labels in table headers and
+   first columns whole instead of breaking them one character per line on narrow screens. */
+.oxp-reference .vp-doc th,
+.oxp-reference .vp-doc td:first-child {
+  word-break: keep-all;
+}
+
 /* The home hero has no image, so let its text use the full width on large screens. */
 @media (min-width: 960px) {
   .VPHero:not(.has-image) .name,

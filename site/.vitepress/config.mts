@@ -20,6 +20,7 @@ const english: DefaultTheme.Config = {
   nav: [
     { text: 'Quick start', link: '/en/quick-start' },
     { text: 'Check your head unit', link: '/en/check' },
+    { text: 'Head units', link: '/en/head-units' },
     { text: 'FAQ', link: '/en/faq' },
     { text: 'Developers', link: '/en/developers' },
   ],
@@ -41,6 +42,7 @@ const chinese: DefaultTheme.Config = {
   nav: [
     { text: '快速开始', link: '/quick-start' },
     { text: '检测车机', link: '/check' },
+    { text: '车机资料', link: '/head-units' },
     { text: '常见问题', link: '/faq' },
     { text: '开发者', link: '/developers' },
   ],

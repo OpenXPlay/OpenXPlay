@@ -58,7 +58,7 @@ export const LOCALES: Record<LocaleKey, LocaleInfo> = {
 export const FALLBACK_LOCALE: LocaleKey = 'en'
 
 /** The pages every locale has, in reading order. '' is the home page. */
-export const PAGE_SLUGS = ['', 'quick-start', 'check', 'faq', 'developers'] as const
+export const PAGE_SLUGS = ['', 'quick-start', 'check', 'head-units', 'faq', 'developers'] as const
 
 /** Splits a source path such as 'en/quick-start.md' into its locale and slug ('' for a home page). */
 export function pageRoute(relativePath: string): { locale: LocaleKey; slug: string } {

@@ -1,0 +1,96 @@
+---
+# SPDX-FileCopyrightText: 2026 OpenXPlay.org
+# SPDX-License-Identifier: CC-BY-4.0
+# Created by riko chen on 2026-10-17
+title: 车机资料：实测车机与推荐设置
+description: OpenXPlay 实测过的安卓车机：浏览器（网页接收端）和 Carlink 应用能否使用、能解码哪些视频格式，以及推荐设置。目前收录小鹏 G6。
+breadcrumb: 车机资料
+pageClass: oxp-reference
+---
+
+# 车机资料
+
+本页记录 OpenXPlay 实测过的车机：车机的浏览器和 Carlink 应用能否显示 CarPlay、能解码哪些视频格式，以及怎样设置效果最好。所有结果都来自 OpenXPlay 自己的测试；同一款车在不同系统版本上可能有所不同。
+
+使用网页接收端时，关键在于车机自带的浏览器：它需要支持 WebCodecs 视频解码。如果你的车机不在下面，请在车机浏览器中打开[检测车机](/check)测试，并把结果分享到[交流群](/#community)。
+
+## 小鹏 G6 {#xpeng-g6}
+
+2026 年 10 月测试。
+
+| 路线 | 可用 | 说明 |
+| --- | --- | --- |
+| 浏览器 | 可以 | 已用 UFI003 USB 随身 Wi-Fi 上的 Linux 中继测试。内置 Chromium 120 浏览器，H.264 和 H.265 都能硬件解码。浏览器不能全屏，画面只占屏幕的一部分。 |
+| Carlink | 可以 | 已用安卓中继测试。Carlink 应用只接受 720p、30 帧/秒的 H.264，由中继转换视频。中继需要支持 5 GHz Wi-Fi。 |
+
+### 浏览器（网页接收端） {#xpeng-g6-browser}
+
+小鹏 G6 内置基于 Chromium 120 的浏览器，支持 WebCodecs。H.264（Baseline、Main、High）和 H.265 在 720p 和 1080p、30 和 60 帧/秒下都能硬件解码。浏览器不能全屏运行：屏幕为 1372×686 CSS 像素，网页只能使用约 876×518。浏览器支持 5 点触控，也支持 AudioWorklet，CarPlay 的声音可以在浏览器中播放。
+
+#### 浏览器参数 {#xpeng-g6-browser-details}
+
+测试时 OpenXPlay 从车机浏览器读取到的信息。[检测车机](/check)会报告同类项目，可以拿来对照。
+
+| 项目 | 结果 |
+| --- | --- |
+| 浏览器 | Chromium 120.0.6099.144（用户代理自称桌面版 Linux x86_64） |
+| 图形处理器 | Qualcomm Adreno 640（经 ANGLE），OpenGL ES 3.2；最大纹理尺寸 4096；不提供 WebGPU |
+| 处理器 | 8 核 |
+| 内存 | 报告的设备内存为 8 GB；JavaScript 堆上限约 1.1 GB |
+| 屏幕 | 1372×686 CSS 像素，设备像素比 1.75（约 2400×1200 物理像素），横屏，59.9 Hz |
+| 浏览器窗口 | 876×518 CSS 像素（不能全屏） |
+| 触控 | 5 个触摸点 |
+| Web API | WebCodecs（VideoDecoder、VideoFrame）、OffscreenCanvas、requestVideoFrameCallback、AudioWorklet；安全上下文 |
+| 音频 | AAC 和 Opus 解码器；采样率 48 kHz；基础延迟 5 ms |
+
+#### 视频解码 {#xpeng-g6-browser-video}
+
+下表中的格式在 30 和 60 帧/秒下都受支持。
+
+| 格式 | 1280×720 | 1920×1080 |
+| --- | --- | --- |
+| H.264 Baseline | 硬件解码 | 硬件解码 |
+| H.264 Main | 硬件解码 | 硬件解码 |
+| H.264 High | 硬件解码 | 硬件解码 |
+| H.265 Main | 硬件解码 | 硬件解码 |
+
+“硬件解码”表示浏览器报告可以低功耗解码这种格式，通常意味着由硬件解码器处理。
+
+- 浏览器报告的“流畅”（smooth）标志不可靠：它把 720p、30 帧/秒的 H.264 High 报告为不流畅，却把 60 帧/秒和 1080p 报告为流畅。
+- 实测解码延迟：H.264 每帧约 33–59 ms，H.265 约 28 ms。这是硬件解码器的流水线延迟，并不说明解码速度跟不上。
+
+#### 使用建议 {#xpeng-g6-browser-tips}
+
+- **视频格式：** 目前 H.264 最可靠。这台车也能硬件解码 H.265，但使用 H.265 时，中途打开或刷新网页后可能要等较长时间才出现画面，这个问题仍在修复。
+- **帧率：** 中继只有 2.4 GHz Wi-Fi 时（例如 UFI003），请在网页接收端的设置中把帧率设为 30。测试中，经 2.4 GHz 连接以 60 帧/秒播放会卡顿；30 帧/秒明显更流畅，偶尔仍有轻微卡顿。
+
+### Carlink 应用 {#xpeng-g6-carlink}
+
+已用安卓中继测试，可以使用。
+
+#### Carlink 视频支持 {#xpeng-g6-carlink-video}
+
+| 项目 | 车机的 Carlink 应用 |
+| --- | --- |
+| 视频格式 | 仅 H.264 Constrained Baseline，不支持 Constrained High |
+| 级别 | 3.1 |
+| 原生视频模式 | 1280×720，逐行扫描，30 帧/秒 |
+| H.265 | 不支持 |
+| 显示尺寸 | Carlink 应用报告为 1156×764，与 1280×720 的视频模式不同；中继按 1280×720 发送视频 |
+| 媒体音频 | AAC |
+
+iPhone 发出的视频是 H.264 High，车机的 Carlink 应用无法显示，所以中继会把它转换为 1280×720 的 H.264 Constrained Baseline 3.1，安卓中继用硬件编码器完成转换。从上面的浏览器结果可以看出，车机硬件能解码的格式远多于 Carlink 应用接受的格式：限制来自 Carlink 应用，而不是芯片。
+
+#### 连接 {#xpeng-g6-carlink-connection}
+
+| 项目 | 情况 |
+| --- | --- |
+| Wi-Fi | 车机为 Carlink 建立自己的 5 GHz Wi-Fi，中继加入这个网络，因此中继需要支持 5 GHz Wi-Fi。只有 2.4 GHz 的 UFI003 无法连接。 |
+| 配对 | 第一次连接时，在中继中输入车机屏幕上显示的配对码；之后会自动重新连接。 |
+| 车辆信息 | 通过 Carlink 获取车辆信息尚未测试。 |
+
+### 推荐设置 {#xpeng-g6-setup}
+
+- **浏览器路线：** 中继只有 2.4 GHz Wi-Fi 时（例如 UFI003），在网页接收端的设置中把帧率设为 30。视频格式目前以 H.264 最可靠。
+- **Carlink 路线：** 用支持 5 GHz Wi-Fi 的安卓手机作中继（Carlink 需要 Android 10 及以上）。第一次连接时，在中继中输入车机屏幕上的配对码。
+- **怎么选：** 浏览器路线直接显示 iPhone 的视频，不需要转换，但浏览器不能全屏；Carlink 路线的视频由中继转换为 720p、30 帧/秒。
