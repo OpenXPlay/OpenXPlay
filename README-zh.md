@@ -4,7 +4,7 @@
 
 **车机装不了软件，也有 CarPlay 的解法。**
 
-OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使用 CarPlay 的车主**。通过手机或外部设备，利用车机已有的浏览器、CarLink 等入口，让 CarPlay 显示在原有车机屏幕上。
+OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使用 CarPlay 的车主**。通过手机或外部设备，利用车机已有的浏览器、Carlink 等入口，让 CarPlay 显示在原有车机屏幕上。
 
 你可以把它理解为一套可自由组合的 CarPlay 接入方案：涵盖部分市售 CarPlay 盒子的能力，同时提供更多连接与显示路径，根据车机条件和手头设备选择适合自己的组合。
 
@@ -36,7 +36,7 @@ iPhone 通过安卓或 Linux 中继，连接车机已有的浏览器、Carlink�
   将接收与连接能力交给手机或外部设备，利用车机已有入口显示 CarPlay，无需为了安装接收端应用而修改车机系统。
 
 - **根据现有条件组合方案**  
-  整合 Android、Linux 和 iOS 端实现，围绕 USB、蓝牙、Wi-Fi 连接及浏览器、CarLink 等显示方式，提供不同的设备组合与接入路径。
+  整合 Android、Linux 和 iOS 端实现，围绕 USB、蓝牙、Wi-Fi 连接及浏览器、Carlink 等显示方式，提供不同的设备组合与接入路径。
 
 ## 与 DiPlay 有什么区别？
 
@@ -45,7 +45,7 @@ iPhone 通过安卓或 Linux 中继，连接车机已有的浏览器、Carlink�
 | 项目 | 主要使用方式 |
 | --- | --- |
 | **DiPlay** | 在兼容的 Android 车机上安装应用，由车机直接接收并显示 CarPlay |
-| **OpenXPlay** | 通过手机或外部设备承接相关能力，借助车机已有的浏览器、CarLink 等入口显示 CarPlay |
+| **OpenXPlay** | 通过手机或外部设备承接相关能力，借助车机已有的浏览器、Carlink 等入口显示 CarPlay |
 
 两者的侧重点不同。OpenXPlay 希望为无法安装应用的车机提供更多选择，让车主能够利用现有设备找到合适的接入方式。
 
@@ -55,7 +55,7 @@ iPhone 通过安卓或 Linux 中继，连接车机已有的浏览器、Carlink�
 | --- | --- |
 | [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) | OpenXPlay Relay：Android 应用和 Linux 中继 |
 | [OpenXPlay-DiPlay](https://github.com/OpenXPlay/OpenXPlay-DiPlay) | 中继使用的 CarPlay 接收端，派生自 DiPlay |
-| [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) | 输出到车机接收端：浏览器、CarLink 和投屏 |
+| [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) | 输出到车机接收端：浏览器、Carlink 和投屏 |
 | [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) | 中继设备的支持文件 |
 
 ## 加入交流群
