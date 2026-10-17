@@ -1,0 +1,59 @@
+/*
+SPDX-FileCopyrightText: 2026 OpenXPlay.org
+SPDX-License-Identifier: MIT
+Created by riko chen on 2026-10-17
+*/
+
+/* Brand colours follow the relay diagram: blue for the Android relay, purple for Linux. */
+:root {
+  --vp-c-brand-1: #0060c7;
+  --vp-c-brand-2: #0a72de;
+  --vp-c-brand-3: #0a84ff;
+  --vp-c-brand-soft: rgba(10, 132, 255, 0.14);
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #0a84ff 20%, #8e5cf7);
+}
+
+.dark {
+  --vp-c-brand-1: #5aa9ff;
+  --vp-c-brand-2: #3d96fa;
+  --vp-c-brand-3: #0a84ff;
+  --vp-c-brand-soft: rgba(10, 132, 255, 0.2);
+}
+
+/* Figures keep their aspect ratio from the width/height attributes, so nothing shifts on load. */
+.vp-doc .oxp-figure {
+  margin: 24px 0;
+}
+
+.vp-doc .oxp-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+}
+
+.vp-doc .oxp-figure figcaption {
+  margin-top: 8px;
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+}
+
+.vp-doc .oxp-figure.is-narrow {
+  max-width: 540px;
+}
+
+/* The home hero has no image, so let its text use the full width on large screens. */
+@media (min-width: 960px) {
+  .VPHero:not(.has-image) .name,
+  .VPHero:not(.has-image) .text,
+  .VPHero:not(.has-image) .tagline {
+    max-width: 880px;
+  }
+
+  .VPHero .tagline {
+    font-size: 20px;
+    line-height: 1.6;
+  }
+}

@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: 2026 OpenXPlay.org
+# SPDX-License-Identifier: MIT
+# Created by riko chen on 2026-10-17
+#
+# Builds the website in site/ and deploys it to GitHub Pages. In the repository settings, set
+# Pages → Source to "GitHub Actions". SITE_URL and BASE can be set as repository variables.
+
+name: Pages
+
+on:
+  push:
+    branches: [main]
+    # The site plus the diagrams and QR codes its home pages show.
+    paths:
+      - site/**
+      - assets/**
+      - Group/**
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SITE_URL: ${{ vars.SITE_URL || 'https://openxplay.org' }}
+      BASE: ${{ vars.BASE || '/' }}
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Full history, so each page gets its last-updated date from git.
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site/.vitepress/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

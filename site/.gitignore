@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: 2026 OpenXPlay.org
+# SPDX-License-Identifier: MIT
+# Created by riko chen on 2026-10-17
+node_modules/
+.vitepress/dist/
+.vitepress/cache/
+.DS_Store

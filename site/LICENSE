@@ -1,0 +1,60 @@
+OpenXPlay website
+Copyright (c) 2026 OpenXPlay.org
+
+This directory holds the OpenXPlay website. It is licensed in two parts:
+
+- Code: everything that makes up the site's machinery, including .vitepress/,
+  scripts/, package.json, package-lock.json and the workflow
+  .github/workflows/pages.yml at the repository root, is licensed under the MIT
+  License below (SPDX: MIT).
+
+- Written content: the Markdown pages (index.md, quick-start.md, check.md,
+  faq.md, developers.md, the same pages under en/, and README.md) are licensed
+  under the Creative Commons Attribution 4.0 International License (SPDX:
+  CC-BY-4.0): https://creativecommons.org/licenses/by/4.0/legalcode
+
+Each source file states its licence in an SPDX header.
+
+Material from elsewhere keeps its own terms and is not covered by either
+licence: the pages show assets/openxplay-relay-animated.svg,
+assets/openxplay-relay-animated-zh.svg and Group/Wechat_QQ_Group.jpg; the
+diagrams use MiSans (https://hyperos.mi.com/font/), and public/og-image-en.png
+and public/og-image-zh.png are rendered from those diagrams. The icons in public/
+(logo.png, icon-192.png, favicon-32.png, apple-touch-icon.png) are rendered from
+the OpenXPlay Relay app icon (https://github.com/OpenXPlay/OpenXPlay-Relay).
+
+CarPlay and iPhone are trademarks of Apple Inc. OpenXPlay is an independent
+project and is not affiliated with, endorsed or certified by Apple.
+
+--------------------------------------------------------------------------------
+
+MIT License
+
+Copyright (c) 2026 OpenXPlay.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+You may share and adapt the written content for any purpose, including
+commercially, provided you give appropriate credit ("OpenXPlay.org"), provide
+a link to the licence and indicate if changes were made. The full legal code
+is at https://creativecommons.org/licenses/by/4.0/legalcode and governs.
