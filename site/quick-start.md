@@ -36,25 +36,26 @@ howtoTools:
 | 热点频段 | 自动、2.4 GHz 或 5 GHz | 仅 2.4 GHz |
 | Carlink 输出 | 需要 Android 10 及以上 | 支持（实验性） |
 | 设置位置 | 应用内，以及 6975 端口的网页管理页面 | 6975 端口的网页管理页面 |
-| 获取软件 | 从 [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) 构建 | 构建后用 [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) 打包安装 |
+| 获取软件 | [下载安装包](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)，或从源码构建 | 下载 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中的 Linux 中继包或自行构建，再用 [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) 打包安装 |
 
 ## 路线一：安卓手机作中继 {#android-relay}
 
 OpenXPlay Relay 应用运行在安卓手机上，使用 OpenXPlay-DiPlay 作为 CarPlay 接收端，并向车机提供网页接收端。
 
-1. **安装 OpenXPlay Relay。** 按 [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) README 的说明构建应用；安卓构建要求 OpenXPlay-DiPlay 和 OpenXPlay-Stream 检出在它旁边。现成的安装包待确认。
-2. **授予权限。** 打开应用，允许它申请的权限：附近的设备（蓝牙）、附近的 Wi-Fi 设备、通知和麦克风。只有允许了麦克风，CarPlay 才会提供 Siri 和通话功能。使用 USB 连接时，还需要同意 Android 的 VPN 请求，用于转发 iPhone 的网络。
-3. **导入 CarPlay 身份。** 在应用中导入你自行提供的配件身份。没有有效身份时，应用不会启动 CarPlay。
-4. **选择连接方式和输出。** 在“iPhone 连接方式”中选择无线（Wi-Fi 直连（推荐）、此手机的热点或共用 Wi-Fi）或 USB 线缆；在“输出”中选择车载浏览器、Carlink 应用或两者同时使用。
-5. **配对 iPhone。** 在中继手机上点“打开蓝牙设置”，然后在 iPhone 上打开“设置 → 蓝牙”，选择这台中继。
-6. **启动 CarPlay。** 点“开始”。应用会显示要在车载浏览器中打开的地址；如果开启了配对码，也会一并显示。接着参照[在车机上](#head-unit)操作。
+1. **安装 OpenXPlay Relay。** 在中继手机上下载并安装 [openxplay-relay.apk](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)（最新版本；历史版本见 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)），需要 Android 8.0 及以上，Carlink 输出需要 Android 10 及以上。安装时如果系统提示，请允许从浏览器或文件管理器安装应用。也可以按 [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) README 的说明自行构建。
+2. **按设置向导选择。** 第一次打开应用会进入设置向导：先选车机显示方式（车载浏览器或 Carlink 应用），再选 iPhone 连接方式（无线或 USB 数据线）；选无线时，还要选网络（Wi-Fi 直连、此手机的热点或共用 Wi-Fi）。向导会标出推荐的选项。
+3. **完成准备。** 向导列出还没完成的准备项，逐项处理：
+   - **权限**：附近的设备（蓝牙）、附近的 Wi-Fi 设备、通知和麦克风。只有允许了麦克风，CarPlay 才会提供 Siri 和通话功能。使用 USB 连接时，还需要同意 Android 的 VPN 请求，用于转发 iPhone 的网络。
+   - **CarPlay 身份**：导入你自行提供的配件身份。没有有效身份时，应用不会启动 CarPlay。
+   - **配对 iPhone**（无线连接）：在 iPhone 上打开“设置 → 蓝牙”，选择这台中继。
+4. **启动 CarPlay。** 在向导最后一步点“开启 CarPlay”。应用会显示要在车载浏览器中打开的地址；如果开启了配对码，也会一并显示。接着参照[在车机上](#head-unit)操作。以后每次打开应用，可以直接用上次的配置开启，也可以重新设置。
 
 ## 路线二：UFI003 USB 随身 Wi-Fi（Linux 中继） {#ufi003-relay}
 
 UFI003 是一款 msm8916 4G USB 随身 Wi-Fi。[OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) 提供了在它上面运行 Linux 中继所需的支持文件，系统为 OpenStick Debian 11 镜像（内核 `5.15.0-handsomekernel+`，aarch64）。它的 Wi-Fi 没有 5 GHz 频段，因此热点工作在 2.4 GHz。
 
 1. **准备设备。** 在 UFI003 上运行 OpenStick Debian 11 镜像。
-2. **构建中继。** 构建网页接收端（[OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) 的 `web/`）、管理页面（[OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) 的 `admin-web/`），并在两个仓库中用 `rust/scripts/build-aarch64.sh` 构建 aarch64 可执行文件。
+2. **获取中继。** 从 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 下载 `openxplay-relay-<版本>-linux-aarch64.tar.gz` 并解压，其中有两个 aarch64 可执行文件（`bin/openxplay-relay`、`bin/oxp-relay`）、网页接收端（`web/`）、管理页面（`admin/`）和 `rust/packaging/`。也可以自行构建：构建网页接收端（[OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) 的 `web/`）、管理页面（[OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) 的 `admin-web/`），并在两个仓库中用 `rust/scripts/build-aarch64.sh` 构建 aarch64 可执行文件。
 3. **制作安装包。** 在电脑上运行 `UFI003/install/make-bundle.sh`，传入构建产物、`UFI003/install/debs.txt` 中记录的 Debian 软件包，以及中继的 packaging 目录：
 
    ```sh

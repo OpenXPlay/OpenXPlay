@@ -36,25 +36,26 @@ To use OpenXPlay you need an iPhone, a relay and a head unit whose browser suppo
 | Hotspot band | Automatic, 2.4 GHz or 5 GHz | 2.4 GHz only |
 | Carlink output | Needs Android 10 or later | Yes, experimental |
 | Settings | In the app, and in the web admin page on port 6975 | In the web admin page on port 6975 |
-| Getting the software | Build it from [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) | Build it and install a bundle with [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) |
+| Getting the software | [Download the app](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk), or build it from source | Download the Linux relay package from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) or build it, then install a bundle with [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) |
 
 ## Route A: Android phone as relay {#android-relay}
 
 The OpenXPlay Relay app runs on an Android phone. It uses OpenXPlay-DiPlay as its CarPlay receiver and serves the web receiver to the head unit.
 
-1. **Install OpenXPlay Relay.** Build the app from [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) as its README describes; the Android build expects OpenXPlay-DiPlay and OpenXPlay-Stream checked out next to it. Ready-made downloads are to be confirmed.
-2. **Allow the permissions.** Open the app and allow what it asks for: nearby devices (Bluetooth), nearby Wi-Fi devices, notifications and the microphone. CarPlay offers Siri and calls only when the microphone is allowed. The USB connection also asks for Android VPN consent, which routes the iPhone’s network.
-3. **Import your CarPlay identity.** In the app, import the accessory identity you supply. The app doesn’t start CarPlay without a valid one.
-4. **Choose the connection and the output.** Under iPhone connection, choose Wireless — Wi-Fi Direct (recommended), this phone’s hotspot or shared Wi-Fi — or USB cable. Under Output, choose Car browser, Carlink app, or both.
-5. **Pair the iPhone.** Tap Open Bluetooth settings on the relay phone, then on the iPhone open Settings → Bluetooth and choose the relay.
-6. **Start CarPlay.** Tap Start. The app shows the address to open in the car’s browser, plus a pairing code if one is required. Continue with [On the head unit](#head-unit).
+1. **Install OpenXPlay Relay.** On the relay phone, download and install [openxplay-relay.apk](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk) (the latest release; earlier versions are on [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)). It needs Android 8.0 or later, and the Carlink output needs Android 10 or later. If Android asks, allow installing apps from your browser or file manager. You can also build the app yourself as the [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) README describes.
+2. **Follow the setup guide.** The first time you open the app, a setup guide asks how the car shows CarPlay (Car browser or Carlink app) and how the iPhone connects (Wireless or USB cable); for wireless, it also asks for the network (Wi-Fi Direct, this phone’s hotspot or shared Wi-Fi). The guide marks the recommended choices.
+3. **Finish the preparation.** The guide lists what is still missing; work through it:
+   - **Permissions:** nearby devices (Bluetooth), nearby Wi-Fi devices, notifications and the microphone. CarPlay offers Siri and calls only when the microphone is allowed. The USB connection also asks for Android VPN consent, which routes the iPhone’s network.
+   - **CarPlay identity:** import the accessory identity you supply. The app doesn’t start CarPlay without a valid one.
+   - **Pair the iPhone** (wireless): on the iPhone, open Settings → Bluetooth and choose the relay.
+4. **Start CarPlay.** On the guide’s last step, tap Start CarPlay. The app shows the address to open in the car’s browser, plus a pairing code if one is required. Continue with [On the head unit](#head-unit). Each time you open the app later, you can start with the last setup or set it up again.
 
 ## Route B: UFI003 USB dongle (Linux relay) {#ufi003-relay}
 
 The UFI003 is an msm8916 4G USB dongle. [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) has the support files for running the Linux relay on it with the OpenStick Debian 11 image (kernel `5.15.0-handsomekernel+`, aarch64). The dongle’s Wi-Fi has no 5 GHz band, so its hotspot runs on 2.4 GHz.
 
 1. **Prepare the dongle.** Run the OpenStick Debian 11 image on the UFI003.
-2. **Build the relay.** Build the web receiver (`web/` in [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream)), the admin page (`admin-web/` in [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay)) and the aarch64 binaries with `rust/scripts/build-aarch64.sh` in both repositories.
+2. **Get the relay.** Download `openxplay-relay-<version>-linux-aarch64.tar.gz` from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) and unpack it: it holds the two aarch64 binaries (`bin/openxplay-relay`, `bin/oxp-relay`), the web receiver (`web/`), the admin page (`admin/`) and `rust/packaging/`. Or build them yourself: the web receiver (`web/` in [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream)), the admin page (`admin-web/` in [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay)) and the aarch64 binaries with `rust/scripts/build-aarch64.sh` in both repositories.
 3. **Make an install bundle.** On your computer, run `UFI003/install/make-bundle.sh` with the build outputs, the Debian packages recorded in `UFI003/install/debs.txt` and the relay’s packaging directory:
 
    ```sh
