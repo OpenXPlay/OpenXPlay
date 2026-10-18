@@ -54,7 +54,6 @@ iPhone 通过安卓或 Linux 中继，连接车机已有的浏览器、Carlink�
 | 仓库 | 作用 |
 | --- | --- |
 | [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) | OpenXPlay Relay：Android 应用和 Linux 中继 |
-| [OpenXPlay-DiPlay](https://github.com/OpenXPlay/OpenXPlay-DiPlay) | 中继使用的 CarPlay 接收端，派生自 DiPlay |
 | [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) | 输出到车机接收端：浏览器、Carlink 和投屏 |
 | [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) | 中继设备的支持文件 |
 

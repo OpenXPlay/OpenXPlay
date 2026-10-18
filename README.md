@@ -47,7 +47,6 @@ The two have different focuses. OpenXPlay gives head units that can't install ap
 | Repository | Role |
 | --- | --- |
 | [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) | OpenXPlay Relay: the Android app and the Linux relay |
-| [OpenXPlay-DiPlay](https://github.com/OpenXPlay/OpenXPlay-DiPlay) | CarPlay receiver used by the relay, forked from DiPlay |
 | [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) | Outputs to head-unit receivers: browser, Carlink and screen casting |
 | [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) | Support files for relay devices |
 
