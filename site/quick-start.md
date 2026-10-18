@@ -2,56 +2,118 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
-title: 快速开始：通过中继使用 CarPlay
-description: 一步步设置 OpenXPlay：把安卓手机或 UFI003 USB 随身 Wi-Fi 设为中继，配对 iPhone，然后在车机浏览器或 Carlink 应用中打开 CarPlay。
+title: 快速开始：用车机浏览器显示 CarPlay
+description: 一步步设置 OpenXPlay：把安卓手机设为中继，配对 iPhone，然后在车机浏览器中打开 CarPlay。也介绍 UFI003 USB 随身 Wi-Fi 和 Carlink 应用路线。
 breadcrumb: 快速开始
 schema: howto
-howtoName: 设置 OpenXPlay，在安卓车机上显示 iPhone CarPlay
+howtoName: 用安卓手机作中继，在车机浏览器中显示 iPhone CarPlay
 howtoTools:
   - 支持 CarPlay 的 iPhone
-  - 中继：装有 OpenXPlay Relay 应用的安卓手机，或运行 Linux 中继的 UFI003 USB 随身 Wi-Fi
+  - 装有 OpenXPlay Relay 应用的安卓手机（Android 8.0 及以上）
   - 你自行提供的 Apple 配件（MFi）身份
-  - 浏览器支持 WebCodecs 或带有 Carlink 应用的安卓车机
+  - 浏览器支持 WebCodecs 的安卓车机
 ---
 
 # 快速开始
 
-使用 OpenXPlay 需要一部 iPhone、一台中继，以及浏览器支持 WebCodecs（或带有 Carlink 应用）的车机。先设置好中继，用蓝牙把 iPhone 和中继配对，再在车机浏览器中打开中继显示的车机访问地址（以 `https://` 开头）；第一次打开时接受证书警告即可。
+推荐的用法是：一部安卓手机作中继，车机用自带的浏览器显示 CarPlay。车机上不用安装任何软件。第一次设置大约需要 10 分钟，之后每次上车只要打开应用、在车机浏览器里打开同一个地址。
 
 ## 准备工作 {#requirements}
 
 | 需要准备 | 说明 |
 | --- | --- |
-| 支持 CarPlay 的 iPhone | 通过无线（蓝牙和 Wi-Fi）连接中继；使用安卓中继时也可以用 USB 线连接。 |
-| 一台中继 | 运行 OpenXPlay Relay 应用的安卓手机（Android 8.0 及以上），或运行 Linux 中继的 UFI003 USB 随身 Wi-Fi。 |
-| Apple 配件（MFi）身份 | 各仓库及其构建产物都不包含该身份。要正常使用，需要由你自行提供。 |
-| 车机上的入口 | 支持 WebCodecs 视频解码的浏览器（可用[检测车机](/check)测试），或 Carlink 应用（实验性）。 |
+| 支持 CarPlay 的 iPhone | 通过无线（蓝牙和 Wi-Fi）或 USB 线连接中继手机。 |
+| 一部安卓手机作中继 | Android 8.0 及以上，安装 OpenXPlay Relay 应用。 |
+| Apple 配件（MFi）身份 | `identity.pk8` 和 `certificate.p7b` 两个文件。各仓库及其构建产物都不包含该身份，需要由你自行提供。 |
+| 车机浏览器 | 需要支持 WebCodecs 视频解码，第 1 步会检测。 |
 
-## 选择路线 {#choose-a-route}
+没有安卓手机，也可以用 [UFI003 USB 随身 Wi-Fi](#ufi003-relay) 作中继；车机没有可用的浏览器时，可以试试 [Carlink 应用](#carlink)（实验性）。
 
-| | 安卓手机作中继 | UFI003 USB 随身 Wi-Fi |
+## 用车机浏览器：一步一步 {#browser-step-by-step}
+
+### 第 1 步：检测车机浏览器 {#step-check}
+
+在车机浏览器中打开 [openxplay.org/check](/check)。页面会检测浏览器能否解码 CarPlay 的视频；显示可以使用，再继续下面的步骤。
+
+### 第 2 步：安装 OpenXPlay Relay {#step-install}
+
+在中继手机上下载并安装 [openxplay-relay.apk](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)（最新版本；历史版本和[更新日志](/changelog)见 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)）。安装时如果系统提示，请允许从浏览器或文件管理器安装应用。也可以按 [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) README 的说明自行构建。
+
+### 第 3 步：在设置向导中选择 {#step-guide}
+
+第一次打开应用会进入设置向导，按顺序回答三个问题：
+
+1. **车机用什么显示 CarPlay？** 选“车载浏览器”。
+2. **iPhone 怎么连接这台手机？** 选“无线”：上车后 iPhone 会通过蓝牙和 Wi-Fi 自动连上。也可以选“数据线”，用 USB 线连接 iPhone 和中继手机，连接最稳定。
+3. **无线 CarPlay 用哪种网络？** iPhone、中继手机和车机之间需要能互相连通。按你的车选择：
+
+| 选项 | 怎么连 | 适合 |
 | --- | --- | --- |
-| 中继软件 | OpenXPlay Relay 应用 | Linux 中继 |
-| iPhone 连接方式 | 无线（Wi-Fi 直连、此手机的热点或共用 Wi-Fi）或 USB 线缆 | 无线，经随身 Wi-Fi 自己的热点或共用 Wi-Fi |
-| 热点频段 | 自动、2.4 GHz 或 5 GHz（推荐 5 GHz） | 仅 2.4 GHz |
-| Carlink 输出 | 需要 Android 10 及以上 | 支持（实验性） |
-| 设置位置 | 应用内，以及 6975 端口的网页管理页面 | 6975 端口的网页管理页面 |
-| 获取软件 | [下载安装包](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)，或从源码构建 | 下载 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中的 Linux 中继包或自行构建，再用 [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) 打包安装 |
+| Wi-Fi 直连（推荐） | iPhone 直接连接中继手机；中继手机连接车机的热点（或其他 Wi-Fi），车机通过这个 Wi-Fi 打开网页 | 车机有自己的 Wi-Fi 热点 |
+| 此手机的热点 | iPhone 和车机都连接中继手机的个人热点 | 车机没有热点，但能连接外部 Wi-Fi |
+| 共用 Wi-Fi | iPhone、中继手机和车机都连接同一个 Wi-Fi，例如随身 Wi-Fi | 已经有一个大家都能连的 Wi-Fi，且路由器允许设备之间互相访问 |
 
-## 路线一：安卓手机作中继 {#android-relay}
+选“此手机的热点”时，要在应用里填写与 Android 热点设置中相同的热点名称和密码。建议在 Android 热点设置中把频段改为 5 GHz，2.4 GHz 下画面容易卡顿；车机连不上 5 GHz 热点时再改回 2.4 GHz。部分手机连着 Wi-Fi 时只能开 2.4 GHz 热点，请先断开 Wi-Fi。
 
-OpenXPlay Relay 应用运行在安卓手机上，使用 OpenXPlay-DiPlay 作为 CarPlay 接收端，并向车机提供网页接收端。
+### 第 4 步：完成准备 {#step-prepare}
 
-1. **安装 OpenXPlay Relay。** 在中继手机上下载并安装 [openxplay-relay.apk](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)（最新版本；历史版本见 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)），需要 Android 8.0 及以上，Carlink 输出需要 Android 10 及以上。安装时如果系统提示，请允许从浏览器或文件管理器安装应用。也可以按 [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) README 的说明自行构建。
-2. **按设置向导选择。** 第一次打开应用会进入设置向导：先选车机显示方式（车载浏览器或 Carlink 应用），再选 iPhone 连接方式（无线或 USB 数据线）；选无线时，还要选网络（Wi-Fi 直连、此手机的热点或共用 Wi-Fi）。向导会标出推荐的选项。选“此手机的热点”时，建议在 Android 热点设置中把频段改为 5 GHz，2.4 GHz 下画面容易卡顿；车机连不上 5 GHz 热点时再改回 2.4 GHz。
-3. **完成准备。** 向导列出还没完成的准备项，逐项处理：
-   - **权限**：附近的设备（蓝牙）、附近的 Wi-Fi 设备、通知和麦克风。只有允许了麦克风，CarPlay 才会提供 Siri 和通话功能。使用 USB 连接时，还需要同意 Android 的 VPN 请求，用于转发 iPhone 的网络。
-   - **CarPlay 身份**：导入你自行提供的配件身份，即 `identity.pk8` 和 `certificate.p7b` 两个文件。可以在文件选择器中一次选中两个，也可以先后各选一个，顺序不限；也可以选择包含这两个文件的 ZIP。没有有效身份时，应用不会启动 CarPlay。
-   - **配对 iPhone**（无线连接）：在 iPhone 上打开“设置 → 蓝牙”，选择这台中继。
-4. **启动 CarPlay。** 在向导最后一步点“开启 CarPlay”。应用会显示要在车载浏览器中打开的地址，注意它以 `https://` 开头。接着参照[在车机上](#head-unit)操作。以后每次打开应用，可以直接用上次的配置开启，也可以重新设置。
-5. **选择车型（可选）。** 在“设置 → 车型与屏幕”中选择车的品牌和型号，目前内置了小鹏 G6 2023 款的屏幕数据；列表里没有你的车时，选“其他”并输入品牌和型号。同一处的“CarPlay 显示区域”默认开启：车机浏览器窗口变化时（进入或退出全屏、分屏），CarPlay 画面随之调整，不用重新连接。这里还会显示中继检测到的车机屏幕数据，下次启动 CarPlay 时会用这些数据优化显示。如果你的车型不在列表里，欢迎点“点击该按钮复制我的车机屏幕数据”，到[交流群](/#community)发给开发者，之后的版本就会自带你的车型数据。
+向导列出还没完成的准备项，逐项处理。这些只需要做一次，之后会自动记住。
 
-## 路线二：UFI003 USB 随身 Wi-Fi（Linux 中继） {#ufi003-relay}
+- **允许所需权限**：附近的设备（蓝牙）、附近的 Wi-Fi 设备、通知和麦克风。只有允许了麦克风，CarPlay 才会提供 Siri 和通话功能。使用 USB 连接时，还需要同意 Android 的 VPN 请求，用于转发 iPhone 的网络。
+- **导入 CarPlay 身份**：选择 `identity.pk8` 和 `certificate.p7b`。可以在文件选择器中一次选中两个，也可以先后各选一个，顺序不限；也可以选择包含这两个文件的 ZIP。只选了一个时，应用会提示还缺哪一个。
+- **配对 iPhone**（无线连接）：在 iPhone 上打开“设置 → 蓝牙”，选择这台中继手机，并按 iPhone 的提示允许使用 CarPlay。
+
+### 第 5 步：连接车机网络 {#step-network}
+
+让车机和中继手机连上第 3 步选择的网络：
+
+- **Wi-Fi 直连**：在车机上打开 Wi-Fi 热点，中继手机连接这个热点。
+- **此手机的热点**：在中继手机上打开个人热点，车机连接这个热点。
+- **共用 Wi-Fi**：中继手机和车机都连接那个 Wi-Fi。
+
+### 第 6 步：开启 CarPlay {#step-start}
+
+在向导最后一步点“开启 CarPlay”。第一次连接时，请把 iPhone 解锁并放在中继手机附近。CarPlay 运行后，应用首页会显示“在车载浏览器中打开此地址”和一个以 `https://` 开头的地址，例如 `https://192.168.43.20:8443/`。
+
+### 第 7 步：在车机浏览器中打开地址 {#step-open}
+
+1. 在车机浏览器的地址栏中输入首页显示的地址。注意以 `https://` 开头，不是 `http://`，冒号后面的端口号也要一起输入。
+2. 第一次打开时，浏览器会提示无法验证证书。这是正常现象：点“高级”（或类似选项），再选择继续访问。原因见[关于证书警告](#certificate-warning)。
+3. 建议把这个页面加入书签，下次直接打开。
+
+### 第 8 步：开始使用 {#step-use}
+
+页面提示轻触时，轻触一下屏幕：网页会进入全屏并开启声音，这一下不会点到 CarPlay。之后 CarPlay 就会在车机屏幕上运行，可以直接用手指操作。
+
+点网页角落的齿轮按钮可以打开设置：
+
+- **分辨率**：自动、原画、1080p、720p、整屏。“原画”按车机屏幕的原始像素显示，画面最清晰，但需要更多 Wi-Fi 带宽；车机浏览器解码不了时会自动降低。
+- **CarPlay 屏幕宽度**：125、200、250、300 mm。这是告诉 iPhone 的屏幕尺寸，数值越大，一屏显示的图标越多，默认 200 mm。
+- **全屏**和**轻触恢复全屏**：倒车影像等界面会让浏览器退出全屏。回到网页后，页面会提示“轻触屏幕恢复全屏”，轻触一下即可。浏览器规定进入全屏必须由一次点击触发，所以需要轻触这一下。关闭“轻触恢复全屏”后，页面保持窗口，CarPlay 画面会适配窗口。
+
+更改分辨率或屏幕宽度后，CarPlay 会在几秒后重新连接。
+
+### 第 9 步（可选）：选择车型 {#step-car}
+
+在应用的“设置 → 车型与屏幕”中选择车的品牌和型号，目前内置了小鹏 G6 2023 款的屏幕数据；列表里没有你的车时，选“其他”并输入品牌和型号。
+
+同一处的“CarPlay 显示区域”默认开启：车机浏览器窗口变化时（进入或退出全屏、分屏），CarPlay 画面随之调整，不用重新连接。这里还会显示中继检测到的车机屏幕数据，下次启动 CarPlay 时会用这些数据优化显示。如果你的车型不在列表里，欢迎点“点击该按钮复制我的车机屏幕数据”，到[交流群](/#community)发给开发者，之后的版本就会自带你的车型数据。
+
+### 以后每次使用 {#daily}
+
+1. 上车后打开 OpenXPlay Relay，点“用上次的配置开启”。开启自动连接时，5 秒后会自动用上次的配置开启。
+2. 确认车机和中继手机已连上同一个网络。
+3. 在车机浏览器中打开书签里的地址，轻触一下屏幕。
+
+应用更新后，车机网页会自动刷新一次，换成新版本。
+
+::: tip 安卓中继不用配对码
+车机打开地址即可连接，所以请务必给热点设置密码，只让你自己的设备连接。
+:::
+
+## 其他路线 {#other-routes}
+
+### UFI003 USB 随身 Wi-Fi（Linux 中继） {#ufi003-relay}
 
 UFI003 是一款 msm8916 4G USB 随身 Wi-Fi。[OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) 提供了在它上面运行 Linux 中继所需的支持文件，系统为 OpenStick Debian 11 镜像（内核 `5.15.0-handsomekernel+`，aarch64）。它的 Wi-Fi 没有 5 GHz 频段，因此热点工作在 2.4 GHz。
 
@@ -67,34 +129,18 @@ UFI003 是一款 msm8916 4G USB 随身 Wi-Fi。[OpenXPlay-Hardware](https://gith
 5. **添加 CarPlay 身份。** 安装包中绝不包含 Apple 配件（MFi）身份。请按 [UFI003 README](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003#one-step-installer) 的说明另行放入你自己的身份，然后启动中继。
 6. **打开管理页面。** 在连入中继网络的手机或电脑上打开 `https://openxplay-linux.local:6975`。接受证书警告后登录（登录页会显示首次使用的密码），并设置你自己的管理密码。
 7. **选择网络。** 默认的“此设备的热点”会打开中继自己的热点：iPhone 自动加入，车机也连接这个热点。“共用 Wi-Fi”则让中继、iPhone 和车机都连接同一个现有的 2.4 GHz 网络。
-8. **配对 iPhone。** 点“配对 iPhone”，配对窗口会开放 10 分钟；在 iPhone 上打开“设置 → 蓝牙”，选择这台中继。接着参照[在车机上](#head-unit)操作。
+8. **配对 iPhone。** 点“配对 iPhone”，配对窗口会开放 10 分钟；在 iPhone 上打开“设置 → 蓝牙”，选择这台中继。
+9. **在车机浏览器中打开。** 车机连接中继的网络，在浏览器中打开 `https://10.77.0.1:8443/`（使用中继自己的热点时），也可以用 `https://openxplay-linux.local:8443/`。第一次打开时接受证书警告。如果在管理页面开启了配对码，输入中继上显示的 8 位数字。
 
 ::: info 待确认
 第 6 步中，刚安装好的设备如何首次连入其网络，仓库中暂时还没有说明。遇到问题可以到[交流群](/#community)提问。
 :::
 
-## 在车机上 {#head-unit}
-
-### 浏览器（网页接收端） {#browser}
-
-网页接收端是中继提供给车机浏览器的一个网页。浏览器用 WebCodecs 解码 CarPlay 视频，并把你的触控操作传回 iPhone。建议先用[检测车机](/check)测试一下浏览器。
-
-1. **连接中继的网络。** 在车机上连接中继的热点，名称和密码显示在中继应用或管理页面中；如果选择了共用 Wi-Fi，就连接那个网络。
-2. **打开车机访问地址。** 在车机浏览器中打开中继“车机访问地址”中列出的地址。注意地址以 `https://` 开头，不是 `http://`。网页接收端使用 8443 端口：使用 Linux 中继自己的热点时，地址通常是 `https://10.77.0.1:8443/`，中继也提供 `https://openxplay-linux.local:8443/` 这样的域名地址。
-3. **接受证书警告。** 第一次打开时，浏览器会提示无法验证证书。这是正常现象，详见[关于证书警告](#certificate-warning)。
-4. **Linux 中继：按提示输入配对码。** 如果在管理页面开启了配对码，输入中继上显示的 8 位数字。安卓中继不使用配对码，车机打开地址即可连接，所以请务必给中继的热点设置密码。
-5. **轻触开启声音。** 如果页面提示声音已暂停，轻触一下屏幕即可。之后 CarPlay 就会在车机屏幕上运行。
-
-使用安卓中继时，车机网页还有这些功能：
-
-- **恢复全屏**：倒车影像等界面会让浏览器退出全屏。回到网页后，页面会提示“轻触屏幕恢复全屏”，轻触一下即可，这一下不会点到 CarPlay。浏览器规定进入全屏必须由一次点击触发，所以需要轻触这一下。在网页的设置中关闭“轻触恢复全屏”后，页面保持窗口，CarPlay 画面会适配窗口。
-- **画面设置**：在网页的设置中可以调整分辨率（自动、原画、1080p、720p、整屏）和图标大小（小、标准、大）。“原画”按车机屏幕的原始像素显示，画面最清晰，但需要更多 Wi-Fi 带宽；车机浏览器解码不了时会自动降低。更改后，CarPlay 会在几秒后重新连接。
-
 ### Carlink 应用（实验性） {#carlink}
 
 Carlink 输出是实验性功能，有可能连接失败。它通过 Wi-Fi 连接车机上的 Carlink 应用，始终使用 H.264 视频。
 
-1. **开启 Carlink 输出。** 在中继中把输出方式设为 Carlink，或“浏览器和 Carlink”。
+1. **开启 Carlink 输出。** 在设置向导中把车机显示方式选为“Carlink 应用”，或在中继中把输出方式设为“浏览器和 Carlink”。
 2. **在车机上打开 Carlink。** 启动车机上的 Carlink 应用。
 3. **输入配对码。** 把车机屏幕上显示的配对码输入中继，并马上连接；配对码每 2 分钟更换一次。
 
@@ -114,5 +160,6 @@ Carlink 输出是实验性功能，有可能连接失败。它通过 Wi-Fi 连�
 ## 下一步 {#next-steps}
 
 - 遇到问题？请看[常见问题与故障排查](/faq)。
+- 想知道每个版本改了什么？请看[更新日志](/changelog)。
 - 想测试另一台车机？在它的浏览器中打开[检测车机](/check)。
 - 想参与构建或贡献？请看[开发者与许可证](/developers)。

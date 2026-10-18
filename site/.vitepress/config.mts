@@ -22,6 +22,7 @@ const english: DefaultTheme.Config = {
     { text: 'Check your head unit', link: '/en/check' },
     { text: 'Head units', link: '/en/head-units' },
     { text: 'FAQ', link: '/en/faq' },
+    { text: 'Changelog', link: '/en/changelog' },
     { text: 'Developers', link: '/en/developers' },
   ],
   footer: {
@@ -44,6 +45,7 @@ const chinese: DefaultTheme.Config = {
     { text: '检测车机', link: '/check' },
     { text: '车机资料', link: '/head-units' },
     { text: '常见问题', link: '/faq' },
+    { text: '更新日志', link: '/changelog' },
     { text: '开发者', link: '/developers' },
   ],
   footer: {

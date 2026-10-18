@@ -2,56 +2,118 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
-title: 'Quick start: set up CarPlay through a relay'
-description: Set up OpenXPlay step by step. Use an Android phone or a UFI003 USB dongle as the relay, pair your iPhone, then open CarPlay in the head unit’s browser or Carlink app.
+title: 'Quick start: CarPlay in the head unit’s browser'
+description: Set up OpenXPlay step by step. Use an Android phone as the relay, pair your iPhone, then open CarPlay in the head unit’s browser. The UFI003 USB dongle and Carlink app routes are covered too.
 breadcrumb: Quick start
 schema: howto
-howtoName: Set up OpenXPlay to show iPhone CarPlay on an Android head unit
+howtoName: Show iPhone CarPlay in the head unit’s browser with an Android phone as the relay
 howtoTools:
   - iPhone with CarPlay
-  - 'Relay: an Android phone with the OpenXPlay Relay app, or a UFI003 USB dongle with the Linux relay'
+  - Android phone (Android 8.0 or later) with the OpenXPlay Relay app
   - Apple accessory (MFi) identity that you supply
-  - Android head unit with a browser that supports WebCodecs, or a Carlink app
+  - Android head unit with a browser that supports WebCodecs
 ---
 
 # Quick start
 
-To use OpenXPlay you need an iPhone, a relay and a head unit whose browser supports WebCodecs (or that has a Carlink app). Set up the relay, pair your iPhone with it over Bluetooth, then open the car-screen address the relay shows (it starts with `https://`) in the head unit’s browser and accept the certificate warning the first time.
+The recommended setup is an Android phone as the relay and the head unit’s own browser to show CarPlay. Nothing is installed on the head unit. The first setup takes about 10 minutes; after that, each drive starts with opening the app and the same address in the head unit’s browser.
 
 ## What you need {#requirements}
 
 | You need | Details |
 | --- | --- |
-| An iPhone with CarPlay | It connects to the relay wirelessly (Bluetooth and Wi-Fi), or by USB cable on the Android relay. |
-| A relay | An Android phone (Android 8.0 or later) running the OpenXPlay Relay app, or a UFI003 USB dongle running the Linux relay. |
-| An Apple accessory (MFi) identity | The repositories and their builds contain none. A working setup needs one that you supply. |
-| An entry point on the head unit | A browser with WebCodecs video decoding — test it with [Check your head unit](/en/check) — or a Carlink app (experimental). |
+| An iPhone with CarPlay | It connects to the relay phone wirelessly (Bluetooth and Wi-Fi) or by USB cable. |
+| An Android phone as the relay | Android 8.0 or later, with the OpenXPlay Relay app. |
+| An Apple accessory (MFi) identity | The two files `identity.pk8` and `certificate.p7b`. The repositories and their builds contain none; you supply your own. |
+| The head unit’s browser | It must decode video with WebCodecs; step 1 checks it. |
 
-## Choose a route {#choose-a-route}
+Without an Android phone, a [UFI003 USB dongle](#ufi003-relay) can be the relay; if the head unit has no usable browser, try the [Carlink app](#carlink) (experimental).
 
-| | Android phone as relay | UFI003 USB dongle |
+## Head-unit browser, step by step {#browser-step-by-step}
+
+### Step 1: Check the head unit’s browser {#step-check}
+
+In the head unit’s browser, open [openxplay.org/check](/en/check). The page tests whether the browser can decode CarPlay’s video; continue once it says the browser works.
+
+### Step 2: Install OpenXPlay Relay {#step-install}
+
+On the relay phone, download and install [openxplay-relay.apk](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk) (the latest release; earlier versions are on [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), and what changed is in the [changelog](/en/changelog)). If Android asks, allow installing apps from your browser or file manager. You can also build the app yourself as the [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) README describes.
+
+### Step 3: Answer the setup guide {#step-guide}
+
+The first time you open the app, a setup guide asks three questions:
+
+1. **How does the car show CarPlay?** Choose *Car browser*.
+2. **How does the iPhone connect to this phone?** Choose *Wireless*: in the car, the iPhone connects by itself over Bluetooth and Wi-Fi. *USB* connects the iPhone to the relay phone by cable and is the most stable.
+3. **Which network does wireless CarPlay use?** The iPhone, the relay phone and the head unit must reach each other. Choose for your car:
+
+| Choice | How it connects | Good for |
 | --- | --- | --- |
-| Relay software | OpenXPlay Relay app | Linux relay |
-| iPhone connection | Wireless (Wi-Fi Direct, this phone’s hotspot or shared Wi-Fi) or USB cable | Wireless, through the dongle’s own hotspot or a shared Wi-Fi |
-| Hotspot band | Automatic, 2.4 GHz or 5 GHz (5 GHz recommended) | 2.4 GHz only |
-| Carlink output | Needs Android 10 or later | Yes, experimental |
-| Settings | In the app, and in the web admin page on port 6975 | In the web admin page on port 6975 |
-| Getting the software | [Download the app](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk), or build it from source | Download the Linux relay package from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) or build it, then install a bundle with [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) |
+| Wi-Fi Direct (recommended) | The iPhone connects straight to the relay phone; the relay phone joins the head unit’s hotspot (or another Wi-Fi), over which the head unit opens the page | Head units with their own Wi-Fi hotspot |
+| This phone’s hotspot | The iPhone and the head unit both join the relay phone’s hotspot | Head units without a hotspot that can join a Wi-Fi network |
+| Shared Wi-Fi | The iPhone, the relay phone and the head unit join one Wi-Fi, such as a portable router | An existing Wi-Fi everyone can join, whose router lets devices reach each other |
 
-## Route A: Android phone as relay {#android-relay}
+With this phone’s hotspot, enter the hotspot name and password exactly as in Android’s hotspot settings. Set the band to 5 GHz there: on 2.4 GHz the picture stutters easily. Switch back to 2.4 GHz only if the head unit can’t join a 5 GHz hotspot. Some phones open only a 2.4 GHz hotspot while connected to Wi-Fi; disconnect Wi-Fi first.
 
-The OpenXPlay Relay app runs on an Android phone. It uses OpenXPlay-DiPlay as its CarPlay receiver and serves the web receiver to the head unit.
+### Step 4: Finish the preparation {#step-prepare}
 
-1. **Install OpenXPlay Relay.** On the relay phone, download and install [openxplay-relay.apk](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk) (the latest release; earlier versions are on [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)). It needs Android 8.0 or later, and the Carlink output needs Android 10 or later. If Android asks, allow installing apps from your browser or file manager. You can also build the app yourself as the [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) README describes.
-2. **Follow the setup guide.** The first time you open the app, a setup guide asks how the car shows CarPlay (Car browser or Carlink app) and how the iPhone connects (Wireless or USB cable); for wireless, it also asks for the network (Wi-Fi Direct, this phone’s hotspot or shared Wi-Fi). The guide marks the recommended choices. With this phone’s hotspot, set the band to 5 GHz in Android’s hotspot settings: on 2.4 GHz the picture stutters easily. Switch back to 2.4 GHz only if the head unit can’t join a 5 GHz hotspot.
-3. **Finish the preparation.** The guide lists what is still missing; work through it:
-   - **Permissions:** nearby devices (Bluetooth), nearby Wi-Fi devices, notifications and the microphone. CarPlay offers Siri and calls only when the microphone is allowed. The USB connection also asks for Android VPN consent, which routes the iPhone’s network.
-   - **CarPlay identity:** import the accessory identity you supply: the two files `identity.pk8` and `certificate.p7b`. Select both at once in the file picker, or one after the other in any order, or select a ZIP that contains both. The app doesn’t start CarPlay without a valid identity.
-   - **Pair the iPhone** (wireless): on the iPhone, open Settings → Bluetooth and choose the relay.
-4. **Start CarPlay.** On the guide’s last step, tap Start CarPlay. The app shows the address to open in the car’s browser; note that it starts with `https://`. Continue with [On the head unit](#head-unit). Each time you open the app later, you can start with the last setup or set it up again.
-5. **Choose your car (optional).** In Settings → Car and screen, choose the car’s brand and model; the XPeng G6 2023 comes with built-in screen data. If your car isn’t listed, choose Other and type the brand and model. *CarPlay view areas*, in the same place, is on by default: when the head unit’s browser window changes (entering or leaving full screen, split screen), CarPlay re-lays out to fit without reconnecting. The section also shows the head-unit screen data the relay has detected, which helps optimize the display at the next CarPlay start. If your car isn’t listed, tap *Copy my head-unit screen data* and send it to the developers in the [community](/en/#community), so a later release can include your car.
+The guide lists what is still missing; work through it. You do this once; the app remembers it.
 
-## Route B: UFI003 USB dongle (Linux relay) {#ufi003-relay}
+- **Allow the permissions:** nearby devices (Bluetooth), nearby Wi-Fi devices, notifications and the microphone. CarPlay offers Siri and calls only when the microphone is allowed. The USB connection also asks for Android VPN consent, which routes the iPhone’s network.
+- **Import the CarPlay identity:** select `identity.pk8` and `certificate.p7b`, both at once in the file picker or one after the other in any order, or select a ZIP that contains both. If you pick only one, the app says which one is still missing.
+- **Pair the iPhone** (wireless): on the iPhone, open Settings → Bluetooth, choose the relay phone and allow CarPlay when the iPhone asks.
+
+### Step 5: Connect the head unit’s network {#step-network}
+
+Put the head unit and the relay phone on the network you chose in step 3:
+
+- **Wi-Fi Direct:** turn on the head unit’s Wi-Fi hotspot and join it from the relay phone.
+- **This phone’s hotspot:** turn on the relay phone’s hotspot and join it from the head unit.
+- **Shared Wi-Fi:** join that Wi-Fi from both the relay phone and the head unit.
+
+### Step 6: Start CarPlay {#step-start}
+
+On the guide’s last step, tap *Start CarPlay*. For the first connection, keep the iPhone unlocked and near the relay phone. Once CarPlay runs, the app’s home screen shows *Open this address in the car’s browser* with an address that starts with `https://`, such as `https://192.168.43.20:8443/`.
+
+### Step 7: Open the address in the head unit’s browser {#step-open}
+
+1. Type the address from the home screen into the head unit’s browser. Note that it starts with `https://`, not `http://`, and include the port number after the colon.
+2. The first time, the browser warns that it can’t verify the certificate. This is expected: choose *Advanced* (or similar), then continue to the page. See [About the certificate warning](#certificate-warning).
+3. Bookmark the page so you can open it directly next time.
+
+### Step 8: Start using it {#step-use}
+
+When the page asks for a tap, tap the screen once: the page goes full screen and turns on sound, and the tap doesn’t reach CarPlay. CarPlay then runs on the head unit’s screen and responds to your touches.
+
+The gear button in a corner of the page opens the settings:
+
+- **Resolution:** Automatic, Native, 1080p, 720p, Whole screen. Native uses the head unit’s own screen pixels: the sharpest picture, but it needs more Wi-Fi bandwidth, and the relay lowers it when the browser can’t decode it.
+- **CarPlay screen width:** 125, 200, 250 or 300 mm. It is the size reported to the iPhone: larger values show more icons on one page; the default is 200 mm.
+- **Full screen** and **Tap to return to full screen:** a reverse camera or another screen can make the browser leave full screen. Back on the page, it shows *Tap to return to full screen*; tap once and it does. Browsers allow full screen only after a tap, which is why this tap is needed. With *Tap to return to full screen* off, the page stays a window and CarPlay fits it.
+
+After you change the resolution or the screen width, CarPlay reconnects in a few seconds.
+
+### Step 9 (optional): Choose your car {#step-car}
+
+In the app’s Settings → Car and screen, choose the car’s brand and model; the XPeng G6 2023 comes with built-in screen data. If your car isn’t listed, choose *Other* and type the brand and model.
+
+*CarPlay view areas*, in the same place, is on by default: when the head unit’s browser window changes (entering or leaving full screen, split screen), CarPlay re-lays out to fit without reconnecting. The section also shows the head-unit screen data the relay has detected, which helps optimize the display at the next CarPlay start. If your car isn’t listed, tap *Copy my head-unit screen data* and send it to the developers in the [community](/en/#community), so a later release can include your car.
+
+### Every drive after that {#daily}
+
+1. Open OpenXPlay Relay and tap *Start with the last setup*. With automatic start on, the last setup starts by itself after 5 seconds.
+2. Check that the head unit and the relay phone are on the same network.
+3. Open the bookmarked address in the head unit’s browser and tap the screen once.
+
+After an app update, the head-unit page reloads itself once to the new version.
+
+::: tip No pairing code on the Android relay
+Opening the address connects, so give the hotspot a password and let only your own devices join.
+:::
+
+## Other routes {#other-routes}
+
+### UFI003 USB dongle (Linux relay) {#ufi003-relay}
 
 The UFI003 is an msm8916 4G USB dongle. [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) has the support files for running the Linux relay on it with the OpenStick Debian 11 image (kernel `5.15.0-handsomekernel+`, aarch64). The dongle’s Wi-Fi has no 5 GHz band, so its hotspot runs on 2.4 GHz.
 
@@ -67,34 +129,18 @@ The UFI003 is an msm8916 4G USB dongle. [OpenXPlay-Hardware](https://github.com/
 5. **Add your CarPlay identity.** Bundles never contain an Apple accessory (MFi) identity. Supply your own separately, as the [UFI003 README](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003#one-step-installer) describes, then start the relay.
 6. **Open the admin page.** From a phone or computer on the relay’s network, open `https://openxplay-linux.local:6975`. Accept the certificate warning, log in (the login page shows the first-time password) and set your own admin password.
 7. **Choose the network.** *This device’s hotspot*, the default, opens the relay’s own hotspot: the iPhone joins it automatically and the head unit joins it too. *Shared Wi-Fi* puts the relay, the iPhone and the head unit on one existing 2.4 GHz network.
-8. **Pair the iPhone.** Choose Pair iPhone. Pairing stays open for 10 minutes; on the iPhone, open Settings → Bluetooth and choose the relay. Continue with [On the head unit](#head-unit).
+8. **Pair the iPhone.** Choose Pair iPhone. Pairing stays open for 10 minutes; on the iPhone, open Settings → Bluetooth and choose the relay.
+9. **Open it in the head unit’s browser.** Join the relay’s network from the head unit and open `https://10.77.0.1:8443/` (with the relay’s own hotspot) or `https://openxplay-linux.local:8443/`. Accept the certificate warning the first time. If pairing codes are turned on in the admin page, enter the 8-digit code the relay shows.
 
 ::: info To be confirmed
 How a freshly installed dongle’s network is first reached for step 6 isn’t documented in the repositories yet. If you get stuck, ask in the [community](/en/#community).
 :::
 
-## On the head unit {#head-unit}
-
-### Browser (web receiver) {#browser}
-
-The web receiver is a page the relay serves to the head unit’s browser. The browser decodes CarPlay video with WebCodecs and sends your touches back to the iPhone. Test the browser first with [Check your head unit](/en/check).
-
-1. **Join the relay’s network.** On the head unit, join the relay’s hotspot with the name and password shown in the relay app or admin page — or the shared Wi-Fi, if you chose that.
-2. **Open the car-screen address.** In the head unit’s browser, open the address the relay lists under car-screen addresses. Note that it starts with `https://`, not `http://`. The receiver uses port 8443: with the Linux relay’s own hotspot the address is usually `https://10.77.0.1:8443/`, and the relay also offers a name such as `https://openxplay-linux.local:8443/`.
-3. **Accept the certificate warning.** The first time, the browser warns that it can’t verify the certificate. This is expected; see [About the certificate warning](#certificate-warning).
-4. **Linux relay: enter the pairing code if asked.** If pairing codes are turned on in the admin page, enter the 8-digit code the relay shows. The Android relay uses no pairing code: opening the address connects, so give the relay’s hotspot a password.
-5. **Tap for sound.** If the page says sound is paused, tap the screen once to allow audio. CarPlay then runs on the head unit’s screen.
-
-With the Android relay, the head-unit page also offers:
-
-- **Back to full screen:** a reverse camera or another screen can make the browser leave full screen. Back on the page, it shows *Tap to return to full screen*; tap once and it does, without the tap reaching CarPlay. Browsers allow full screen only after a tap, which is why this tap is needed. Turn off *Tap to return to full screen* in the page’s settings to keep the window instead; CarPlay then fits the window.
-- **Picture settings:** in the page’s settings, choose the resolution (Automatic, Native, 1080p, 720p, Whole screen) and the icon size (Small, Standard, Large). Native uses the head unit’s own screen pixels: the sharpest picture, but it needs more Wi-Fi bandwidth, and the relay lowers it when the browser can’t decode it. After a change, CarPlay reconnects in a few seconds.
-
 ### Carlink app (experimental) {#carlink}
 
 The Carlink output is experimental and may fail to connect. It connects to the head unit’s Carlink app over Wi-Fi and always uses H.264 video.
 
-1. **Turn on the Carlink output.** In the relay, set the output to Carlink, or to browser and Carlink.
+1. **Turn on the Carlink output.** In the setup guide, choose *Carlink app* for how the car shows CarPlay, or set the relay’s output to browser and Carlink.
 2. **Open Carlink on the head unit.** Start the head unit’s Carlink app.
 3. **Pair with the code.** Enter the pairing code shown on the car screen into the relay and connect straight away; the code changes every 2 minutes.
 
@@ -114,5 +160,6 @@ The relay serves the receiver page over HTTPS because browsers allow WebCodecs v
 ## Next steps {#next-steps}
 
 - Something not working? See [FAQ and troubleshooting](/en/faq).
+- What changed in each release? See the [changelog](/en/changelog).
 - Testing another head unit? Open [Check your head unit](/en/check) in its browser.
 - Want to build or contribute? See [Developers and licensing](/en/developers).
