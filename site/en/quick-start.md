@@ -88,7 +88,7 @@ The web receiver is a page the relay serves to the head unit’s browser. The br
 With the Android relay, the head-unit page also offers:
 
 - **Back to full screen:** a reverse camera or another screen can make the browser leave full screen. Back on the page, it shows *Tap to return to full screen*; tap once and it does, without the tap reaching CarPlay. Browsers allow full screen only after a tap, which is why this tap is needed. Turn off *Tap to return to full screen* in the page’s settings to keep the window instead; CarPlay then fits the window.
-- **Picture settings:** in the page’s settings, choose the resolution (Automatic, 1080p, 720p, Whole screen) and the icon size (Small, Standard, Large). After a change, CarPlay reconnects in a few seconds.
+- **Picture settings:** in the page’s settings, choose the resolution (Automatic, Native, 1080p, 720p, Whole screen) and the icon size (Small, Standard, Large). Native uses the head unit’s own screen pixels: the sharpest picture, but it needs more Wi-Fi bandwidth, and the relay lowers it when the browser can’t decode it. After a change, CarPlay reconnects in a few seconds.
 
 ### Carlink app (experimental) {#carlink}
 
