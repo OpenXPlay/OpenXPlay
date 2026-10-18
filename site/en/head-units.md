@@ -16,16 +16,16 @@ For the web receiver, what matters is the head unit’s built-in browser: it nee
 
 ## Xpeng G6 {#xpeng-g6}
 
-Tested in October 2026.
+Tested in October 2026 on the 2023 model.
 
 | Route | Works? | Notes |
 | --- | --- | --- |
-| Browser | Yes | Tested with the Linux relay on a UFI003 USB dongle. Built-in Chromium 120 browser that decodes H.264 and H.265 in hardware. The browser doesn’t run full screen, so CarPlay fills only part of the screen. |
-| Carlink | Yes | Tested with the Android relay. The Carlink app accepts only 720p H.264 at 30 fps, so the relay converts the video. The relay needs 5 GHz Wi-Fi. |
+| Browser | Yes | Tested with the Android relay and with the Linux relay on a UFI003 USB dongle. Built-in Chromium 120 browser that decodes H.264 and H.265 in hardware. With the Android relay the page runs full screen; reversing makes the browser leave full screen, and one tap brings it back. |
+| Carlink | Not yet | Tested with the Android relay: it connects, but the car’s screen stays black; still being investigated. The Carlink app accepts only 720p H.264 at 30 fps, so the relay converts the video. The relay needs 5 GHz Wi-Fi. |
 
 ### Browser (web receiver) {#xpeng-g6-browser}
 
-The Xpeng G6 has a built-in browser based on Chromium 120 with WebCodecs. It decodes H.264 (Baseline, Main and High) and H.265 in hardware at 720p and 1080p, at 30 and 60 fps. The browser doesn’t run full screen: of the 1372×686 CSS-pixel screen, the page gets about 876×518. It supports 5 touch points and AudioWorklet, so CarPlay audio can play in the browser.
+The Xpeng G6 has a built-in browser based on Chromium 120 with WebCodecs. It decodes H.264 (Baseline, Main and High) and H.265 in hardware at 720p and 1080p, at 30 and 60 fps. The screen is 1372×686 CSS pixels. Outside full screen the page gets about 876×518; in full screen it gets either the whole screen or 876×579, and about 489×579 in split screen. It supports 5 touch points and AudioWorklet, so CarPlay audio can play in the browser.
 
 #### Browser details {#xpeng-g6-browser-details}
 
@@ -38,7 +38,7 @@ What OpenXPlay read from the car’s browser during the test. [Check your head u
 | CPU | 8 cores |
 | Memory | 8 GB reported device memory; JavaScript heap limit about 1.1 GB |
 | Screen | 1372×686 CSS pixels at device pixel ratio 1.75 (about 2400×1200 physical pixels), landscape, 59.9 Hz |
-| Browser window | 876×518 CSS pixels (not full screen) |
+| Browser window | 876×518 CSS pixels outside full screen; 1372×686 or 876×579 in full screen; about 489×579 in split screen |
 | Touch | 5 touch points |
 | Web APIs | WebCodecs (VideoDecoder, VideoFrame), OffscreenCanvas, requestVideoFrameCallback, AudioWorklet; secure context |
 | Audio | AAC and Opus decoders; 48 kHz; 5 ms base latency |
@@ -63,6 +63,8 @@ Every format below is supported at both 30 and 60 fps.
 
 - **Video format:** H.264 is the most reliable for now. The car also decodes H.265 in hardware, but with H.265 a page opened or reloaded mid-session can take a long time to show a picture; this is still being fixed.
 - **Frame rate:** On a relay with only 2.4 GHz Wi-Fi, such as the UFI003, set the frame rate to 30 in the web receiver’s settings. In the test, 60 fps stuttered over the 2.4 GHz link; 30 fps was clearly smoother, with occasional slight stutter.
+- **Full screen and reversing:** With the Android relay the page runs full screen by default. The reverse camera makes the browser leave full screen; back on the page, one tap restores it. This car’s browser doesn’t let the page return to full screen by itself.
+- **Car setting:** In the Android relay’s Settings → Car and screen, choose XPeng G6 2023: the relay uses its built-in screen data so CarPlay fits full screen, windows and split screen, switching without reconnecting.
 
 ### Carlink app {#xpeng-g6-carlink}
 
@@ -91,6 +93,6 @@ The iPhone sends H.264 High, which the car’s Carlink app can’t show, so the 
 
 ### Recommended setup {#xpeng-g6-setup}
 
-- **Browser route:** On a relay with only 2.4 GHz Wi-Fi, such as the UFI003, set the frame rate to 30 in the web receiver’s settings. H.264 is the most reliable video format for now.
-- **Carlink route:** Use an Android phone with 5 GHz Wi-Fi as the relay (Carlink needs Android 10 or later). On the first connection, enter the pairing code shown on the car’s screen into the relay.
-- **Which to choose:** The browser route shows the iPhone’s video as it is, without conversion, but the browser doesn’t run full screen. On the Carlink route the relay converts the video to 720p at 30 fps.
+- **Browser route:** Use the Android relay and choose XPeng G6 2023 in Settings → Car and screen. On a relay with only 2.4 GHz Wi-Fi, such as the UFI003, set the frame rate to 30 in the web receiver’s settings. H.264 is the most reliable video format for now.
+- **Carlink route:** Not recommended for now: on this car the screen stays black after connecting. It needs an Android phone with 5 GHz Wi-Fi as the relay (Carlink needs Android 10 or later); on the first connection, enter the pairing code shown on the car’s screen into the relay.
+- **Which to choose:** The browser route. It shows the iPhone’s video as it is, without conversion, and runs full screen with the Android relay.
