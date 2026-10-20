@@ -9,7 +9,7 @@ breadcrumb: Developers
 
 # Developers and licensing
 
-OpenXPlay is built from independent components: inputs that receive a projection session, outputs that deliver it to software on the head unit, and relay shells that wire the two together. Components talk to each other only through the OXP-Stream model. The code is open source under AGPL-3.0, and organisations that can’t use AGPL-3.0 can ask for an exemption at [support@openxplay.org](mailto:support@openxplay.org).
+OpenXPlay is built from independent components: inputs that receive a projection session, outputs that deliver it to software on the head unit, and relay shells that wire the two together. Components talk to each other only through the OXP-Stream model. Stream and Relay are open source under AGPL-3.0, and organisations that can’t use AGPL-3.0 can ask for an exemption at [support@openxplay.org](mailto:support@openxplay.org); the device support files in OpenXPlay-Hardware follow OpenStick’s terms: open source, no commercial use.
 
 ## Architecture {#architecture}
 
@@ -34,7 +34,7 @@ The web output sends H.264 video over a secure WebSocket; the head-unit browser 
 | [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) | OpenXPlay Relay: the Android app and the Linux relay, with the web admin page both share | AGPL-3.0-only; files derived from DiPlay and xcertplay stay GPL-3.0-only |
 | [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) | Outputs to head-unit receivers — browser, Carlink and screen casting — and the shared model | AGPL-3.0-only |
 | [OpenXPlay-DiPlay](https://github.com/OpenXPlay/OpenXPlay-DiPlay) | The CarPlay receiver used by the Android relay, forked from DiPlay | GPL-3.0 |
-| [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) | Support files for relay devices, one directory per device, such as `UFI003/` | AGPL-3.0-only; Linux kernel parts stay GPL-2.0-only |
+| [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) | Support files for relay devices, one directory per device, such as `UFI003/` | OpenXPlay-Hardware License (open source, no commercial use); Linux kernel parts stay GPL-2.0-only |
 | [OpenXPlay-Web-Plugins](https://github.com/OpenXPlay/OpenXPlay-Web-Plugins) | Optional plugins for the web receiver: spec, SDK, host, tools and official plugins | Apache-2.0 OR MIT |
 
 ### Build and test {#build}
@@ -54,16 +54,17 @@ The relays package Stream’s `web/dist`, so build the web receiver before a rel
 
 ## Licensing {#licensing}
 
-- **AGPL-3.0-only.** OpenXPlay-Stream, OpenXPlay-Relay and OpenXPlay-Hardware are licensed under the GNU Affero General Public License v3.0, version 3 only.
+- **AGPL-3.0-only.** OpenXPlay-Stream and OpenXPlay-Relay are licensed under the GNU Affero General Public License v3.0, version 3 only.
 - **Attribution.** Additional terms under AGPL-3.0 section 7 apply to OpenXPlay-Stream and OpenXPlay-Relay: modified versions must keep the notice “Powered by OpenXPlay.” and a visible link to the original project in their legal notices and in any prominent about, legal, footer or attribution location of their user interface. See their NOTICE files.
 - **Network use.** Relay builds include OpenXPlay-Stream, so the relay offers its source to everyone who uses it over a network, including through the head-unit browser.
-- **GPL-derived parts.** The CarPlay protocol crates `rust/carplay-iap2` and `rust/carplay-airplay`, and a few files in `rust/direlay-linux/src/network/`, are derived from DiPlay and xcertplay and stay GPL-3.0-only; GPLv3 section 13 permits combining them with the AGPL project. OpenXPlay-DiPlay is GPL-3.0. Files taken from or built from the Linux kernel in OpenXPlay-Hardware keep GPL-2.0-only.
+- **GPL-derived parts.** The CarPlay protocol crates `rust/carplay-iap2` and `rust/carplay-airplay`, and a few files in `rust/direlay-linux/src/network/`, are derived from DiPlay and xcertplay and stay GPL-3.0-only; GPLv3 section 13 permits combining them with the AGPL project. OpenXPlay-DiPlay is GPL-3.0.
+- **OpenXPlay-Hardware: open source, no commercial use.** The device support files follow the terms of [OpenStick](https://github.com/OpenStick/OpenStick) under the OpenXPlay-Hardware License: whoever distributes them or a derivative must publish the complete source under the same license, and commercial use is prohibited, including selling system images, packages or their derivatives that contain them, distributing build outputs for a fee, and selling devices with them installed in batches. Files taken from or built from the Linux kernel stay GPL-2.0-only.
 - **Plugins.** OpenXPlay-Web-Plugins is Apache-2.0 OR MIT, at your option. Some plugin assets have their own licences; see [Plugins](#plugins).
 - **No Apple identity.** The repositories and their builds contain no Apple accessory (MFi) identity; a working setup needs one supplied by the user.
 
 ### Commercial exemptions {#exemptions}
 
-If your organisation’s policies don’t permit AGPL-3.0 software, or you want to avoid the obligations of AGPL-3.0, contact [support@openxplay.org](mailto:support@openxplay.org). Exemptions cover the code OpenXPlay owns; the parts derived from DiPlay and xcertplay stay under GPL-3.0.
+If your organisation’s policies don’t permit AGPL-3.0 software, or you want to avoid the obligations of AGPL-3.0, contact [support@openxplay.org](mailto:support@openxplay.org). Exemptions cover the code OpenXPlay owns in OpenXPlay-Stream and OpenXPlay-Relay; the parts derived from DiPlay and xcertplay stay under GPL-3.0. OpenXPlay-Hardware has no exemptions.
 
 ## Contributing {#contributing}
 

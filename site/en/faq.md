@@ -32,7 +32,7 @@ DiPlay is for head units that can install apps: you install it on a compatible A
 
 ### Is OpenXPlay free? {#free}
 
-Yes. The software is open source under AGPL-3.0 and free to use. A working setup also needs an Apple accessory (MFi) identity that you supply; the repositories and their builds contain none. Organisations that can’t use AGPL-3.0 can ask for an exemption at [support@openxplay.org](mailto:support@openxplay.org).
+Yes. The software is open source under AGPL-3.0 and free to use. A working setup also needs an Apple accessory (MFi) identity that you supply; the repositories and their builds contain none. Organisations that can’t use AGPL-3.0 can ask for an exemption at [support@openxplay.org](mailto:support@openxplay.org). The device support files for devices such as the UFI003 (OpenXPlay-Hardware) follow OpenStick’s terms: free for personal use, no commercial use and no exemptions.
 
 ## Setup and connection {#setup}
 

@@ -32,7 +32,7 @@ DiPlay 面向能够安装应用的车机：在兼容的安卓车机上安装后�
 
 ### OpenXPlay 免费吗？ {#free}
 
-免费。软件以 AGPL-3.0 开源，可以免费使用。要正常使用，还需要一个由你自行提供的 Apple 配件（MFi）身份；各仓库及其构建产物都不包含该身份。无法使用 AGPL-3.0 的组织可以发邮件到 [support@openxplay.org](mailto:support@openxplay.org) 申请豁免。
+免费。软件以 AGPL-3.0 开源，可以免费使用。要正常使用，还需要一个由你自行提供的 Apple 配件（MFi）身份；各仓库及其构建产物都不包含该身份。无法使用 AGPL-3.0 的组织可以发邮件到 [support@openxplay.org](mailto:support@openxplay.org) 申请豁免。UFI003 等设备的支持文件（OpenXPlay-Hardware）沿用 OpenStick 的条款，个人可以免费使用，但禁止商用，也不提供豁免。
 
 ## 设置与连接 {#setup}
 

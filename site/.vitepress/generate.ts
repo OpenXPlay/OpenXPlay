@@ -45,7 +45,7 @@ const REPOSITORIES: [string, string][] = [
   ['OpenXPlay-Relay', 'OpenXPlay Relay: the Android app and the Linux relay (AGPL-3.0-only; DiPlay/xcertplay-derived files GPL-3.0-only)'],
   ['OpenXPlay-Stream', 'Outputs to head-unit receivers: browser, Carlink and screen casting (AGPL-3.0-only)'],
   ['OpenXPlay-DiPlay', 'CarPlay receiver used by the Android relay, forked from DiPlay (GPL-3.0)'],
-  ['OpenXPlay-Hardware', 'Device support files for relay hardware such as the UFI003 (AGPL-3.0-only; kernel parts GPL-2.0-only)'],
+  ['OpenXPlay-Hardware', 'Device support files for relay hardware such as the UFI003 (OpenXPlay-Hardware License: open source, no commercial use; kernel parts GPL-2.0-only)'],
   ['OpenXPlay-Web-Plugins', 'Optional, offline plugins for the web receiver (Apache-2.0 OR MIT)'],
 ]
 

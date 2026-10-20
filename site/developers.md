@@ -9,7 +9,7 @@ breadcrumb: 开发者
 
 # 开发者与许可证
 
-OpenXPlay 由相互独立的组件构成：输入负责接收投屏会话，输出负责把会话交给车机上的软件，中继外壳把两者连接起来。组件之间只通过 OXP-Stream 模型交互。代码以 AGPL-3.0 开源；无法使用 AGPL-3.0 的组织可以发邮件到 [support@openxplay.org](mailto:support@openxplay.org) 申请豁免。
+OpenXPlay 由相互独立的组件构成：输入负责接收投屏会话，输出负责把会话交给车机上的软件，中继外壳把两者连接起来。组件之间只通过 OXP-Stream 模型交互。Stream 和 Relay 以 AGPL-3.0 开源，无法使用 AGPL-3.0 的组织可以发邮件到 [support@openxplay.org](mailto:support@openxplay.org) 申请豁免；设备支持文件（OpenXPlay-Hardware）沿用 OpenStick 的条款，开源但禁止商用。
 
 ## 架构 {#architecture}
 
@@ -34,7 +34,7 @@ Web 输出把 H.264 视频经安全 WebSocket 发给车机，车机浏览器用 
 | [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) | OpenXPlay Relay：安卓应用和 Linux 中继，以及两者共用的网页管理页面 | AGPL-3.0-only；派生自 DiPlay 和 xcertplay 的文件仍为 GPL-3.0-only |
 | [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) | 输出到车机接收端（浏览器、Carlink 和投屏），以及共享模型 | AGPL-3.0-only |
 | [OpenXPlay-DiPlay](https://github.com/OpenXPlay/OpenXPlay-DiPlay) | 安卓中继使用的 CarPlay 接收端，派生自 DiPlay | GPL-3.0 |
-| [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) | 中继设备的支持文件，每种设备一个目录，例如 `UFI003/` | AGPL-3.0-only；Linux 内核部分仍为 GPL-2.0-only |
+| [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) | 中继设备的支持文件，每种设备一个目录，例如 `UFI003/` | OpenXPlay-Hardware License（开源，禁止商用）；Linux 内核部分仍为 GPL-2.0-only |
 | [OpenXPlay-Web-Plugins](https://github.com/OpenXPlay/OpenXPlay-Web-Plugins) | 网页接收端的可选插件：规范、SDK、宿主、工具和官方插件 | Apache-2.0 OR MIT |
 
 ### 构建与测试 {#build}
@@ -54,16 +54,17 @@ Web 输出把 H.264 视频经安全 WebSocket 发给车机，车机浏览器用 
 
 ## 许可证 {#licensing}
 
-- **AGPL-3.0-only。** OpenXPlay-Stream、OpenXPlay-Relay 和 OpenXPlay-Hardware 采用 GNU Affero General Public License v3.0，仅限第 3 版。
+- **AGPL-3.0-only。** OpenXPlay-Stream 和 OpenXPlay-Relay 采用 GNU Affero General Public License v3.0，仅限第 3 版。
 - **署名要求。** OpenXPlay-Stream 和 OpenXPlay-Relay 适用依据 AGPL-3.0 第 7 条设定的附加条款：修改版本必须在相应的法律声明中，以及用户界面中任何显著的“关于”、法律、页脚或署名位置，保留署名声明“Powered by OpenXPlay.”，并附上指向原项目的可见链接。详见两者的 NOTICE 文件。
 - **网络使用。** 中继的构建产物包含 OpenXPlay-Stream，因此中继会向所有通过网络使用它的人提供源代码，包括通过车机浏览器使用的人。
-- **GPL 派生部分。** CarPlay 协议 crate `rust/carplay-iap2`、`rust/carplay-airplay` 以及 `rust/direlay-linux/src/network/` 中的少量文件派生自 DiPlay 和 xcertplay，仍为 GPL-3.0-only；GPLv3 第 13 条允许将它们与 AGPL 项目组合。OpenXPlay-DiPlay 为 GPL-3.0。OpenXPlay-Hardware 中取自或构建自 Linux 内核的文件仍为 GPL-2.0-only。
+- **GPL 派生部分。** CarPlay 协议 crate `rust/carplay-iap2`、`rust/carplay-airplay` 以及 `rust/direlay-linux/src/network/` 中的少量文件派生自 DiPlay 和 xcertplay，仍为 GPL-3.0-only；GPLv3 第 13 条允许将它们与 AGPL 项目组合。OpenXPlay-DiPlay 为 GPL-3.0。
+- **OpenXPlay-Hardware：开源，禁止商用。** 设备支持文件沿用 [OpenStick](https://github.com/OpenStick/OpenStick) 的条款，采用 OpenXPlay-Hardware License：分发它或其衍生品时，必须以同一许可证公开完整源代码；禁止商用，包括售卖包含它的系统镜像、安装包或它们的衍生品，收费发布构建产物，以及批量售卖装有它的设备。其中取自或构建自 Linux 内核的文件仍为 GPL-2.0-only。
 - **插件。** OpenXPlay-Web-Plugins 采用 Apache-2.0 OR MIT，由你任选其一。部分插件素材另有许可证，见[插件](#plugins)。
 - **不含 Apple 身份。** 各仓库及其构建产物都不包含 Apple 配件（MFi）身份；要正常使用，需要由用户自行提供。
 
 ### 商业豁免 {#exemptions}
 
-如果贵组织的政策不允许使用 AGPL-3.0 软件，或你希望免于履行 AGPL-3.0 的开源义务，请联系 [support@openxplay.org](mailto:support@openxplay.org)。豁免范围为 OpenXPlay 拥有的代码；派生自 DiPlay 和 xcertplay 的部分仍受 GPL-3.0 约束。
+如果贵组织的政策不允许使用 AGPL-3.0 软件，或你希望免于履行 AGPL-3.0 的开源义务，请联系 [support@openxplay.org](mailto:support@openxplay.org)。豁免范围为 OpenXPlay-Stream 和 OpenXPlay-Relay 中 OpenXPlay 拥有的代码；派生自 DiPlay 和 xcertplay 的部分仍受 GPL-3.0 约束。OpenXPlay-Hardware 不提供豁免。
 
 ## 参与贡献 {#contributing}
 
