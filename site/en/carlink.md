@@ -9,10 +9,10 @@ breadcrumb: Carlink app
 
 # Carlink app <Badge type="warning" text="Experimental" />
 
-If the head unit has no usable browser but does have a Carlink app, try this route: the relay connects to the head unit’s Carlink app over Wi-Fi and always uses H.264 video.
+If the head unit has no usable browser but does have a Carlink app, try this route: the relay connects to the head unit’s Carlink app over Wi-Fi. When the head unit reports H.265 support, the Android relay sends the iPhone’s H.265 picture as it is; otherwise it converts the picture to H.264.
 
 ::: warning Experimental feature
-The Carlink output may fail to connect. On some head units, such as the Xpeng G6, the picture stays black; this is being investigated, see [Head units](/en/head-units#xpeng-g6). When the browser works, use the [browser route](/en/android-relay) instead.
+The Carlink output is still experimental and may fail to connect. Use Android app [0.1.5-beta.1](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5-beta.1) or later: it fixes a black screen with sound on some head units, such as the Xpeng G6. Test results are under [Head units](/en/head-units#xpeng-g6).
 :::
 
 ## Turn on the Carlink output {#step-enable .step}
@@ -33,3 +33,7 @@ Enter the pairing code shown on the car screen into the relay and connect straig
 | --- | --- |
 | Android phone | Carlink needs Android 10 or later. A single Wi-Fi radio may not handle wireless CarPlay and Carlink together, so USB CarPlay is more reliable. |
 | UFI003 | Its Wi-Fi is 2.4 GHz only, so it can’t join a head unit whose Carlink Wi-Fi runs on 5 GHz. |
+
+::: details Sound but a black picture on the head unit? {#black-screen}
+Some head units recognise a key frame only at the very start of a frame, and Android app 0.1.3 and earlier show a black screen on them. Update to Android app [0.1.5-beta.1](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5-beta.1) or later. The newer version also brings the picture back after the head unit shows the reverse camera.
+:::

@@ -9,10 +9,10 @@ breadcrumb: Carlink 应用
 
 # Carlink 应用 <Badge type="warning" text="实验性" />
 
-车机没有可用的浏览器、但装有 Carlink 应用时，可以试试这条路线：中继通过 Wi-Fi 连接车机上的 Carlink 应用，始终使用 H.264 视频。
+车机没有可用的浏览器、但装有 Carlink 应用时，可以试试这条路线：中继通过 Wi-Fi 连接车机上的 Carlink 应用。车机声明支持 H.265 时，安卓中继直接发送 iPhone 的 H.265 画面；否则把画面转换为 H.264。
 
 ::: warning 实验性功能
-Carlink 输出有可能连接失败。在部分车机上（例如小鹏 G6）画面一直是黑的，正在排查，见[车机资料](/head-units#xpeng-g6)。能用浏览器时，推荐用[浏览器路线](/android-relay)。
+Carlink 输出仍是实验性功能，有可能连接失败。请使用安卓应用 [0.1.5-beta.1](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5-beta.1) 或更新版本，它修复了部分车机（例如小鹏 G6）有声音但画面全黑的问题。实测情况见[车机资料](/head-units#xpeng-g6)。
 :::
 
 ## 开启 Carlink 输出 {#step-enable .step}
@@ -33,3 +33,7 @@ Carlink 输出有可能连接失败。在部分车机上（例如小鹏 G6）画
 | --- | --- |
 | 安卓手机 | Carlink 需要 Android 10 及以上。单个 Wi-Fi 射频可能无法同时支持无线 CarPlay 和 Carlink，用 USB 连接 CarPlay 更可靠。 |
 | UFI003 | 它的 Wi-Fi 仅支持 2.4 GHz，无法连接 Carlink Wi-Fi 工作在 5 GHz 的车机。 |
+
+::: details 车机上有声音，但画面是黑的？ {#black-screen}
+部分车机只在一帧的最开头识别关键帧，0.1.3 及更早的安卓应用在这些车机上会黑屏。请更新到安卓应用 [0.1.5-beta.1](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5-beta.1) 或更新版本。车机显示倒车影像后，新版本的画面也能恢复。
+:::

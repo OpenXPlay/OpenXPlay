@@ -15,7 +15,7 @@ next:
 
 # 刷入 UFI003 基础镜像
 
-UFI003 使用 OpenStick 的 [v1 版本](https://github.com/OpenStick/OpenStick/releases/tag/v1)（2022-02-08 发布），系统为 Debian 11。刷好后回到 [UFI003 作中继](/ufi003-relay#step-get)继续安装中继。
+UFI003 使用 OpenStick 的 [v1 版本](https://github.com/OpenStick/OpenStick/releases/tag/v1)（2022-02-08 发布），系统为 Debian 11。本页是[手动安装](/ufi003-relay#manual)的第一步，刷好后回到 [UFI003 作中继](/ufi003-relay#step-get)继续安装中继。推荐的安装方式是 [OpenXPlay Flasher](/ufi003-relay#flasher)，它的安装功能即将推出。
 
 ::: danger 刷机前请注意
 - 刷机包会覆盖原机的分区表和引导程序，之后无法再运行原厂安卓系统，OpenStick 也不提供恢复方法。

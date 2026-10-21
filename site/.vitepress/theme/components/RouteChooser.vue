@@ -49,7 +49,7 @@ const TEXT: Record<'root' | 'en', Text> = {
     needsLabel: '需要准备',
     relays: [
       { key: 'android', name: '安卓手机', tag: '推荐', tagKind: 'tip', desc: '安装一个应用，按向导设置。需要 Android 8.0 及以上。' },
-      { key: 'ufi003', name: 'UFI003 随身 Wi-Fi', desc: '低成本的小设备，通电自动启动；需要用电脑刷机。' },
+      { key: 'ufi003', name: 'UFI003 随身 Wi-Fi', desc: '低成本的小设备，通电自动启动；需要用电脑安装。' },
     ],
     displays: [
       { key: 'browser', name: '车机浏览器', tag: '推荐', tagKind: 'tip', desc: '直接显示 iPhone 的画面，支持触控。需要浏览器支持 WebCodecs。' },
@@ -66,7 +66,7 @@ const TEXT: Record<'root' | 'en', Text> = {
       },
       'android-carlink': {
         title: '安卓手机 + Carlink 应用',
-        summary: '中继经 Wi-Fi 连接车机上的 Carlink 应用。实验性功能，有可能连接失败。',
+        summary: '中继经 Wi-Fi 连接车机上的 Carlink 应用。实验性功能，有可能连接失败；请使用安卓应用 0.1.5-beta.1 或更新版本。',
         needs: ['支持 CarPlay 的 iPhone', 'Android 10 及以上的安卓手机', 'Apple 配件（MFi）身份', '装有 Carlink 应用的车机'],
         note: '单个 Wi-Fi 射频可能无法同时支持无线 CarPlay 和 Carlink，用 USB 连接 CarPlay 更可靠。',
         action: '查看 Carlink 教程',
@@ -75,9 +75,9 @@ const TEXT: Record<'root' | 'en', Text> = {
       },
       'ufi003-browser': {
         title: 'UFI003 随身 Wi-Fi + 车机浏览器',
-        summary: '先用电脑给 UFI003 刷入 OpenStick Debian 系统，再安装 Linux 中继。装好后，中继通电自动启动。',
+        summary: '用电脑把系统和 Linux 中继装进 UFI003，推荐用 OpenXPlay Flasher，也可以手动刷机和安装。装好后，中继通电自动启动。',
         needs: ['支持 CarPlay 的 iPhone', 'UFI003 USB 随身 Wi-Fi 和一台电脑', 'Apple 配件（MFi）身份', '浏览器支持 WebCodecs、能连接 2.4 GHz Wi-Fi 的车机'],
-        note: '这条路线需要刷机和命令行操作。UFI003 的 Wi-Fi 只有 2.4 GHz。',
+        note: 'Flasher 的安装功能即将推出，在那之前要手动刷机、用命令行安装。UFI003 的 Wi-Fi 只有 2.4 GHz。',
         action: '查看 UFI003 教程',
         link: 'ufi003-relay',
         secondary: { text: '先检测车机浏览器', link: 'check' },
@@ -100,7 +100,7 @@ const TEXT: Record<'root' | 'en', Text> = {
     needsLabel: 'You need',
     relays: [
       { key: 'android', name: 'Android phone', tag: 'Recommended', tagKind: 'tip', desc: 'Install an app and follow its setup guide. Needs Android 8.0 or later.' },
-      { key: 'ufi003', name: 'UFI003 USB dongle', desc: 'A low-cost little device that starts when powered; flashing needs a computer.' },
+      { key: 'ufi003', name: 'UFI003 USB dongle', desc: 'A low-cost little device that starts when powered; installing needs a computer.' },
     ],
     displays: [
       { key: 'browser', name: 'Head-unit browser', tag: 'Recommended', tagKind: 'tip', desc: 'Shows the iPhone’s picture directly, with touch. The browser must support WebCodecs.' },
@@ -117,7 +117,7 @@ const TEXT: Record<'root' | 'en', Text> = {
       },
       'android-carlink': {
         title: 'Android phone + Carlink app',
-        summary: 'The relay connects to the head unit’s Carlink app over Wi-Fi. This is experimental and may fail to connect.',
+        summary: 'The relay connects to the head unit’s Carlink app over Wi-Fi. This is experimental and may fail to connect; use Android app 0.1.5-beta.1 or later.',
         needs: ['An iPhone with CarPlay', 'An Android phone with Android 10 or later', 'An Apple accessory (MFi) identity', 'A head unit with a Carlink app'],
         note: 'A single Wi-Fi radio may not handle wireless CarPlay and Carlink together, so USB CarPlay is more reliable.',
         action: 'Read the Carlink guide',
@@ -126,9 +126,9 @@ const TEXT: Record<'root' | 'en', Text> = {
       },
       'ufi003-browser': {
         title: 'UFI003 USB dongle + head-unit browser',
-        summary: 'Flash the OpenStick Debian system onto the UFI003 from a computer, then install the Linux relay. Once installed, the relay starts whenever the dongle is powered.',
+        summary: 'Install the system and the Linux relay onto the UFI003 from a computer, preferably with OpenXPlay Flasher, or flash and install by hand. Once installed, the relay starts whenever the dongle is powered.',
         needs: ['An iPhone with CarPlay', 'A UFI003 USB dongle and a computer', 'An Apple accessory (MFi) identity', 'A head unit whose browser supports WebCodecs and that can join 2.4 GHz Wi-Fi'],
-        note: 'This route involves flashing and the command line. The UFI003’s Wi-Fi is 2.4 GHz only.',
+        note: 'Installing with Flasher is coming soon; until then, flash and install from the command line. The UFI003’s Wi-Fi is 2.4 GHz only.',
         action: 'Read the UFI003 guide',
         link: 'ufi003-relay',
         secondary: { text: 'Check the head unit’s browser first', link: 'check' },

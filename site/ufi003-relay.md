@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
 title: 用 UFI003 随身 Wi-Fi 作中继（Linux 中继）
-description: 一步步把 UFI003 USB 随身 Wi-Fi 设为 OpenXPlay Linux 中继：刷入 OpenStick Debian，制作并安装中继，添加 CarPlay 身份，配对 iPhone，然后在车机浏览器中打开 CarPlay。
+description: 把 UFI003 USB 随身 Wi-Fi 设为 OpenXPlay Linux 中继：推荐用 OpenXPlay Flasher 安装，也可以手动刷入 OpenStick Debian、制作并安装中继，再添加 CarPlay 身份、配对 iPhone，在车机浏览器中打开 CarPlay。
 breadcrumb: UFI003 作中继
 schema: howto
 howtoName: 用 UFI003 随身 Wi-Fi 作 Linux 中继，在车机浏览器中显示 iPhone CarPlay
@@ -22,9 +22,26 @@ next:
 
 UFI003 是一款 msm8916 4G USB 随身 Wi-Fi。刷入 OpenStick Debian 11 系统后，它可以运行 OpenXPlay 的 Linux 中继：通电后自动启动，车机用自带的浏览器显示 CarPlay。[OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) 提供了所需的支持文件。
 
-::: warning 需要一定的动手能力
-这条路线要用电脑刷机、在命令行中运行脚本，刷机会改写设备原有的系统。没有把握时，推荐[用安卓手机作中继](/android-relay)。UFI003 的 Wi-Fi 没有 5 GHz 频段，热点工作在 2.4 GHz。
+UFI003 的 Wi-Fi 没有 5 GHz 频段，热点工作在 2.4 GHz。
+
+## 用 OpenXPlay Flasher 安装（推荐） {#flasher}
+
+[OpenXPlay Flasher](https://github.com/OpenXPlay/OpenXPlay-Flasher) 是 Windows 和 macOS 上的桌面应用。用 USB 把 UFI003 接到电脑上，它会识别设备，并列出要安装的三层：基础系统（OpenStick Debian 11）、设备支持和 OpenXPlay 中继。它可以从头安装全部三层，也可以只更新其中一层；以后中继出新版本时，通常只需要更新中继这一层，不用重新刷机。
+
+::: warning 安装功能即将推出
+目前发布的 Flasher 预览版（0.1.0-beta.1）只能识别设备、显示各层，还不会向设备写入任何内容。安装功能推出之前，请按下面的[手动安装](#manual)步骤操作。
 :::
+
+::: details 下载并打开 Flasher {#flasher-download}
+从 [Releases](https://github.com/OpenXPlay/OpenXPlay-Flasher/releases) 下载对应系统的版本，并用其中的 `SHA256SUMS` 核对文件的 SHA-256。安装包没有使用 Apple 或 Microsoft 证书签名，所以第一次打开时系统会先询问。
+
+- **macOS 12 或更高版本**（Apple 芯片和 Intel，`OpenXPlay-Flasher-<版本>-macos-universal.dmg`）：把应用拖进“应用程序”文件夹，然后打开一次。macOS 15 或更高版本出现“未打开”提示时，选择“完成”，再到“系统设置 → 隐私与安全性”中，在关于 OpenXPlay Flasher 的提示旁选择“仍要打开”；macOS 12 至 14 按住 Control 键点按应用，选择“打开”，再选择“打开”。
+- **Windows 10 或 11**（`openxplay-flasher-windows-amd64.exe`，Arm 电脑用 `-arm64.exe`）：出现“Windows 已保护你的电脑”时，选择“更多信息”，再选择“仍要运行”。如果提示缺少 Microsoft Edge WebView2 运行时，请安装后重新打开。
+:::
+
+## 手动安装 {#manual}
+
+手动安装要在电脑上刷机、在命令行中运行脚本，刷机会改写设备原有的系统。没有把握时，可以等 Flasher 的安装功能，或者[用安卓手机作中继](/android-relay)。
 
 ## 刷入基础镜像 {#step-image .step}
 

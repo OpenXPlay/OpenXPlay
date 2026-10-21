@@ -35,7 +35,7 @@ The relay uses this identity to authenticate with the iPhone as an accessory, an
 | | Android phone (recommended) | UFI003 USB dongle |
 | --- | --- | --- |
 | What you need | A phone with Android 8.0 or later | A UFI003 USB dongle and a computer |
-| How you install it | Install the app and follow the setup guide; the first setup takes about 10 minutes | Flash OpenStick Debian, then install the relay from the command line |
+| How you install it | Install the app and follow the setup guide; the first setup takes about 10 minutes | Preferably with OpenXPlay Flasher on a computer (installing is coming soon); or flash OpenStick Debian by hand and install the relay from the command line |
 | Wi-Fi band | Can use a 5 GHz hotspot, so the picture stutters less | 2.4 GHz only |
 | Where you set it up | In the app | In a web admin page |
 | Power and start | Open the app on each drive | Runs as a system service and starts by itself when powered |

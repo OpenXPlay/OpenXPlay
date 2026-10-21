@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
 title: UFI003 USB dongle as the relay (Linux relay)
-description: Set up a UFI003 USB dongle as the OpenXPlay Linux relay step by step. Flash OpenStick Debian, make and install the relay, add your CarPlay identity, pair your iPhone, then open CarPlay in the head unit’s browser.
+description: Set up a UFI003 USB dongle as the OpenXPlay Linux relay, preferably with OpenXPlay Flasher, or by hand. Flash OpenStick Debian, make and install the relay, add your CarPlay identity, pair your iPhone, then open CarPlay in the head unit’s browser.
 breadcrumb: UFI003 as the relay
 schema: howto
 howtoName: Show iPhone CarPlay in the head unit’s browser with a UFI003 USB dongle as the Linux relay
@@ -22,9 +22,26 @@ next:
 
 The UFI003 is an msm8916 4G USB dongle. With the OpenStick Debian 11 system flashed onto it, it runs the OpenXPlay Linux relay: the relay starts by itself when the dongle is powered, and the head unit shows CarPlay in its own browser. [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) has the support files it needs.
 
-::: warning Some hands-on work needed
-This route means flashing the dongle from a computer and running scripts on the command line, and flashing replaces the dongle’s original system. If you’re unsure, [use an Android phone as the relay](/en/android-relay) instead. The UFI003’s Wi-Fi has no 5 GHz band, so its hotspot runs on 2.4 GHz.
+The UFI003’s Wi-Fi has no 5 GHz band, so its hotspot runs on 2.4 GHz.
+
+## Install with OpenXPlay Flasher (recommended) {#flasher}
+
+[OpenXPlay Flasher](https://github.com/OpenXPlay/OpenXPlay-Flasher) is a desktop app for Windows and macOS. Connect the UFI003 to the computer by USB and it recognises the dongle and lists the three layers to install: the base system (OpenStick Debian 11), device support and the OpenXPlay relay. It can install all three from scratch or update just one; when a new relay version comes out, usually only the relay layer needs updating, without flashing again.
+
+::: warning Installing is coming soon
+The Flasher preview released so far (0.1.0-beta.1) only recognises devices and shows their layers; it doesn’t write anything to the device yet. Until installing arrives, follow the [manual install](#manual) below.
 :::
+
+::: details Download and open Flasher {#flasher-download}
+Download the build for your system from [Releases](https://github.com/OpenXPlay/OpenXPlay-Flasher/releases) and check its SHA-256 against the `SHA256SUMS` file there. The builds aren’t signed with an Apple or Microsoft certificate, so the system asks before opening them the first time.
+
+- **macOS 12 or later** (Apple silicon and Intel, `OpenXPlay-Flasher-<version>-macos-universal.dmg`): drag the app to Applications and open it once. On macOS 15 or later, when it says the app wasn’t opened, choose *Done*, then go to System Settings → Privacy & Security and choose *Open Anyway* next to the note about OpenXPlay Flasher. On macOS 12 to 14, Control-click the app, choose *Open*, then *Open* again.
+- **Windows 10 or 11** (`openxplay-flasher-windows-amd64.exe`, or `-arm64.exe` on Arm PCs): when *Windows protected your PC* appears, choose *More info*, then *Run anyway*. If the app says the Microsoft Edge WebView2 runtime is missing, install it and open the app again.
+:::
+
+## Manual install {#manual}
+
+Installing by hand means flashing the dongle from a computer and running scripts on the command line, and flashing replaces the dongle’s original system. If you’re unsure, wait for installing in Flasher, or [use an Android phone as the relay](/en/android-relay).
 
 ## Flash the base image {#step-image .step}
 
