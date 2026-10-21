@@ -3,12 +3,12 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-20
 title: 可信 HTTPS：用免费域名去掉证书警告
-description: 用 DuckDNS、deSEC 或 dynv6 的免费域名和 Let's Encrypt 证书，让车机浏览器打开 OpenXPlay 中继的网页时不再出现证书警告。包括注册域名、设置安卓和 Linux 中继、状态信息、隐私和故障排查。
+description: 用 DuckDNS 或 dynv6 的免费域名和 Let's Encrypt 证书，让车机浏览器打开 OpenXPlay 中继的网页时不再出现证书警告。包括注册域名、设置安卓和 Linux 中继、状态信息、隐私和故障排查。
 breadcrumb: 可信 HTTPS
 schema: howto
 howtoName: 用免费域名为 OpenXPlay 中继开启可信 HTTPS
 howtoTools:
-  - DuckDNS、deSEC 或 dynv6 的免费域名
+  - DuckDNS 或 dynv6 的免费域名
   - 支持可信 HTTPS 的 OpenXPlay Relay（安卓应用或 Linux 中继）
   - 能上网的中继（安卓中继需要移动数据）
 ---
@@ -37,7 +37,7 @@ howtoTools:
 
 | 需要准备 | 说明 |
 | --- | --- |
-| 一个免费域名 | 在 DuckDNS、deSEC 或 dynv6 注册，见[选择域名服务商](#choose-provider)。注册后要记下完整域名和 Token。 |
+| 一个免费域名 | 在 DuckDNS 或 dynv6 注册，见[选择域名服务商](#choose-provider)。注册后要记下完整域名和 Token。 |
 | 支持可信 HTTPS 的中继 | 即将发布的 OpenXPlay Relay 版本，安卓应用和 Linux 中继都支持。 |
 | 中继能上网 | 登记地址、申请和续期证书都要联网。安卓中继需要打开移动数据，原因见下文。 |
 
@@ -47,15 +47,14 @@ howtoTools:
 
 ## 选择域名服务商 {#choose-provider}
 
-三家服务商都免费，中继都支持。它们的区别在于注册方式、Token 的权限范围，以及在中国大陆能否顺利使用。
+两家服务商都免费，中继都支持。它们的区别在于注册方式、Token 的权限范围，以及在中国大陆能否顺利使用。
 
 | 服务商 | 域名示例 | 注册方式 | Token 能管理什么 | 在中国大陆 |
 | --- | --- | --- | --- | --- |
 | DuckDNS | `myrelay.duckdns.org` | 用 GitHub、Google、Reddit 或 X（Twitter）账号登录，不用另设密码 | 整个账号下的所有域名 | 2026 年 10 月 20 日实测，在家庭宽带和中国联通移动数据下，接口和域名都能正常使用。登录方式中只有 GitHub 比较可行。 |
-| deSEC | `myrelay.dedyn.io` | 邮箱和验证码。**目前暂停新的 dedyn.io 注册** | 可以用 Token 策略限定到某个域名、子域名或记录类型 | 同一次实测中可以访问。已有 dedyn.io 域名的用户可以使用。 |
 | dynv6 | `myrelay.dynv6.net` | 邮箱和密码 | 整个账号，或只限一个 zone（域名） | 同一次实测中接口可以访问。注册时要选择 `dynv6.net` 后缀。 |
 
-建议：有 GitHub 账号就选 DuckDNS，步骤最少；没有的话选 dynv6，用邮箱就能注册，Token 也可以只限于这一个域名。deSEC 恢复注册之前，只适合已经有 dedyn.io 域名的用户。
+建议：有 GitHub 账号就选 DuckDNS，步骤最少；没有的话选 dynv6，用邮箱就能注册，Token 也可以只限于这一个域名。
 
 为什么 dynv6 要选 `dynv6.net`：dynv6 还提供其他后缀，但只有 `dynv6.net` 在公共后缀列表（Public Suffix List）中。Let's Encrypt 按这个列表计算每周可以签发的证书数量：用 `dynv6.net` 时，你的域名单独计算；用其他后缀时，要和这个后缀下的所有用户共用同一个配额，申请很容易失败。
 
@@ -70,22 +69,6 @@ howtoTools:
 3. 在页面顶部找到 token，形如 `a1b2c3d4-0000-0000-0000-000000000000`，这就是要填进中继的 Token。
 
 **要保存的信息**：完整域名，例如 `myrelay.duckdns.org`（不只是 `myrelay`），以及 Token。DuckDNS 的 Token 可以修改账号下的所有域名，请像密码一样保管，见[保管好 Token](#token-safety)。
-
-### deSEC {#desec}
-
-::: warning 暂停新注册
-deSEC 从 2026 年 9 月 21 日起暂停新的 dedyn.io 注册，恢复时间未定，并请用户不要发邮件申请例外（2026 年 10 月 20 日查看）。如果你还没有 dedyn.io 域名，请选择 DuckDNS 或 dynv6。
-:::
-
-已经有 dedyn.io 域名时，按下面的步骤取得 Token：
-
-1. 登录 deSEC。在 [desec.io](https://desec.io/) 点“Log In”。通过 dynDNS 注册的账号一开始没有密码，第一次登录前先用“Reset Account Password”设置密码。
-2. 打开“Token Management”，点“Generate New Token”新建一个 Token，名字可以填 `openxplay-relay`。不要设置“Maximum age”和“Maximum unused period”，否则 Token 过期后，中继就无法更新地址和续期证书。
-3. 复制新 Token。它只显示这一次，之后无法再查看。
-
-注册 dedyn.io 时 deSEC 显示的 Token 也可以使用；如果中继提示“服务商拒绝了这个 Token”，再按上面的步骤新建一个。给 Token 设置了策略（policy）时，它仍然必须能修改这个域名的 A 记录和 `_acme-challenge` 的 TXT 记录。
-
-**要保存的信息**：完整域名，例如 `myrelay.dedyn.io`，以及 Token。
 
 ### dynv6 {#dynv6}
 
@@ -110,7 +93,6 @@ Token 相当于域名的密码：拿到它的人可以把你的域名指向别�
 | 服务商 | 怎样换 Token |
 | --- | --- |
 | DuckDNS | 在账号页面，点登录邮箱旁边的三条横线，再点“recreate token”。新 Token 适用于账号下的所有域名。 |
-| deSEC | 在“Token Management”中新建一个 Token，再用“Delete Token”删除旧的。 |
 | dynv6 | 在 Keys 页面删除旧的 HTTP Token，再新建一个。 |
 
 ## 设置安卓中继 {#android}
@@ -121,7 +103,7 @@ Token 相当于域名的密码：拿到它的人可以把你的域名指向别�
 
 1. 打开 OpenXPlay Relay，进入“设置 → 可信 HTTPS”。
 2. 打开“使用免费域名”。
-3. 在“域名服务商”中选择 DuckDNS、deSEC 或 dynv6。
+3. 在“域名服务商”中选择 DuckDNS 或 dynv6。
 4. 在“域名”中填写完整域名。例如 `myrelay.duckdns.org`，不能只填 `myrelay`。
 5. 在“Token”中粘贴服务商的 Token。保存后，这里只显示“已保存 Token”；以后留空就会保留原来的 Token。
 6. 勾选“我同意 Let's Encrypt 订户协议”，见 [Let's Encrypt 订户协议](#letsencrypt-terms)。
@@ -174,8 +156,8 @@ Token 保存后不会再显示；以后留空就会保留原来的 Token。
 | --- | --- | --- |
 | `version` | 是 | 固定为 `1`。 |
 | `enabled` | 否 | `true` 为开启（默认），`false` 为关闭。 |
-| `provider` | 是 | `duckdns`、`desec` 或 `dynv6`。 |
-| `name` | 是 | 完整域名，末尾不加点，大小写均可。DuckDNS 必须是 `<名字>.duckdns.org`；deSEC 和 dynv6 填 Token 所管理的域名，通常是 `<名字>.dedyn.io` 或 `<名字>.dynv6.net`。 |
+| `provider` | 是 | `duckdns` 或 `dynv6`。 |
+| `name` | 是 | 完整域名，末尾不加点，大小写均可。DuckDNS 必须是 `<名字>.duckdns.org`；dynv6 填 Token 所管理的域名，通常是 `<名字>.dynv6.net`。 |
 | `token` | 是 | 服务商的 Token，不含空格。DuckDNS 的 Token 形如 `a1b2c3d4-0000-0000-0000-000000000000`。 |
 | `agreeLetsEncryptTerms` | 是 | 设为 `true`，表示你同意 Let's Encrypt 订户协议。没有同意时，中继不会申请证书。 |
 | `acme` | 否 | `production`（默认）。`staging` 只用于测试，这样申请的证书不受浏览器信任。 |
@@ -194,19 +176,6 @@ Token 保存后不会再显示；以后留空就会保留原来的 Token。
   "provider": "duckdns",
   "name": "myrelay.duckdns.org",
   "token": "a1b2c3d4-0000-0000-0000-000000000000",
-  "agreeLetsEncryptTerms": true
-}
-```
-
-**deSEC**
-
-```json
-{
-  "version": 1,
-  "enabled": true,
-  "provider": "desec",
-  "name": "myrelay.dedyn.io",
-  "token": "your-desec-token",
   "agreeLetsEncryptTerms": true
 }
 ```
@@ -279,7 +248,7 @@ Token 保存后不会再显示；以后留空就会保留原来的 Token。
 - **域名会公开。** Let's Encrypt 签发的每张证书都会记入公开的证书透明度（Certificate Transparency）日志，任何人都能查到你的域名。
 - **私有地址也会公开。** 任何人查询这个域名，都能看到中继登记的地址，例如 `192.168.43.20`。这是车机网络内部的地址，从互联网上访问不到，但谁都能看到它。
 - **起一个认不出你的名字。** 不要用姓名、车牌号、手机号等信息，最好用一串随机的字母和数字，例如 `k7m2q9x4.duckdns.org`。
-- **服务商知道你的账号。** DuckDNS 知道你登录用的 GitHub 等账号，deSEC 和 dynv6 知道你的邮箱。中继更新地址和申请证书时，服务商和 Let's Encrypt 会看到中继上网用的公网地址。
+- **服务商知道你的账号。** DuckDNS 知道你登录用的 GitHub 等账号，dynv6 知道你的邮箱。中继更新地址和申请证书时，服务商和 Let's Encrypt 会看到中继上网用的公网地址。
 - **Token 只保存在中继上**，见[保管好 Token](#token-safety)。
 
 ## 故障排查 {#troubleshooting}
@@ -298,7 +267,6 @@ Token 保存后不会再显示；以后留空就会保留原来的 Token。
 - 重新复制 Token，注意不要多出空格，也不要漏掉字符。
 - 确认 Token 和域名属于同一个账号，并且“域名服务商”选对了。
 - DuckDNS：重新生成过 Token 后，旧的就不能用了，请填入新 Token。
-- deSEC：注册时显示的 Token 被拒绝时，在“Token Management”中新建一个。设置了 Token 策略时，它必须能修改这个域名的 A 记录和 `_acme-challenge` 的 TXT 记录。
 - dynv6：Token 限定了 zone 时，确认限定的就是这个域名。
 
 ### 要求稍后再试 {#rate-limits}

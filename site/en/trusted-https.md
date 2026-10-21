@@ -3,12 +3,12 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-20
 title: Trusted HTTPS with a free domain name
-description: Use a free DuckDNS, deSEC or dynv6 name and a Let’s Encrypt certificate so the head unit’s browser opens the OpenXPlay relay page without a certificate warning. Covers registration, setting up the Android and Linux relays, status messages, privacy and troubleshooting.
+description: Use a free DuckDNS or dynv6 name and a Let’s Encrypt certificate so the head unit’s browser opens the OpenXPlay relay page without a certificate warning. Covers registration, setting up the Android and Linux relays, status messages, privacy and troubleshooting.
 breadcrumb: Trusted HTTPS
 schema: howto
 howtoName: Turn on trusted HTTPS for an OpenXPlay relay with a free domain name
 howtoTools:
-  - A free domain name from DuckDNS, deSEC or dynv6
+  - A free domain name from DuckDNS or dynv6
   - OpenXPlay Relay with Trusted HTTPS (Android app or Linux relay)
   - Internet access on the relay (mobile data on the Android relay)
 ---
@@ -37,7 +37,7 @@ The check runs between the relay, your provider and Let’s Encrypt only: nothin
 
 | You need | Details |
 | --- | --- |
-| A free domain name | From DuckDNS, deSEC or dynv6; see [Choosing a provider](#choose-provider). Keep the full name and the token. |
+| A free domain name | From DuckDNS or dynv6; see [Choosing a provider](#choose-provider). Keep the full name and the token. |
 | A relay with Trusted HTTPS | An upcoming OpenXPlay Relay release, on the Android app or the Linux relay. |
 | Internet access on the relay | To publish the address and to get and renew certificates. The Android relay needs mobile data; see below. |
 
@@ -47,15 +47,14 @@ The check runs between the relay, your provider and Let’s Encrypt only: nothin
 
 ## Choosing a provider {#choose-provider}
 
-All three providers are free and the relay supports all of them. They differ in how you sign up, what a token can change, and how well they work from mainland China.
+Both providers are free and the relay supports both. They differ in how you sign up, what a token can change, and how well they work from mainland China.
 
 | Provider | Example name | Sign-up | What the token can change | Mainland China |
 | --- | --- | --- | --- | --- |
 | DuckDNS | `myrelay.duckdns.org` | Sign in with GitHub, Google, Reddit or X (Twitter); no separate password | Every name in the account | Tested on 2026-10-20: the API and the names work on home broadband and on China Unicom mobile data. Of the sign-in options, only GitHub is practical. |
-| deSEC | `myrelay.dedyn.io` | Email and a captcha. **New dedyn.io registrations are suspended.** | Can be limited with token policies (domain, subname, record type) | Reachable in the same test. If you already have a dedyn.io name, you can use it. |
 | dynv6 | `myrelay.dynv6.net` | Email and password | The whole account, or one zone (name) | The API is reachable in the same test. Choose the `dynv6.net` suffix. |
 
-Our suggestion: with a GitHub account, choose DuckDNS, which takes the fewest steps; without one, choose dynv6, which needs only an email address and whose token can be limited to this one name. Until deSEC reopens registration, it suits only people who already have a dedyn.io name.
+Our suggestion: with a GitHub account, choose DuckDNS, which takes the fewest steps; without one, choose dynv6, which needs only an email address and whose token can be limited to this one name.
 
 Why `dynv6.net` on dynv6: dynv6 offers other suffixes too, but only `dynv6.net` is on the Public Suffix List. Let’s Encrypt counts its weekly certificate limit by that list: under `dynv6.net` your name is counted on its own; under another suffix it shares one limit with every user of that suffix, and requests fail easily.
 
@@ -70,22 +69,6 @@ Register a new name just for the relay. The relay overwrites the name’s addres
 3. Find the token near the top of the page. It looks like `a1b2c3d4-0000-0000-0000-000000000000`, and it is the token you enter on the relay.
 
 **What to save:** the full name, such as `myrelay.duckdns.org` (not just `myrelay`), and the token. A DuckDNS token can change every name in the account, so keep it like a password; see [Keeping the token safe](#token-safety).
-
-### deSEC {#desec}
-
-::: warning Registration suspended
-Since 2026-09-21, deSEC has suspended new dedyn.io registrations until further notice and asks people not to email for exceptions (checked on 2026-10-20). If you don’t have a dedyn.io name yet, choose DuckDNS or dynv6.
-:::
-
-If you already have a dedyn.io name, get a token like this:
-
-1. Log in to deSEC. On [desec.io](https://desec.io/), choose *Log In*. Accounts registered through dynDNS start without a password; before your first login, set one with *Reset Account Password*.
-2. Open *Token Management* and choose *Generate New Token*; a name such as `openxplay-relay` will do. Leave *Maximum age* and *Maximum unused period* empty: once the token expires, the relay can no longer update the address or renew the certificate.
-3. Copy the new token. It is shown only this once and can’t be viewed again.
-
-The token deSEC showed when you registered the dedyn.io name works too; if the relay reports *The provider rejected the token*, generate a new one as above. If you give the token policies, it must still be allowed to change the name’s A record and its `_acme-challenge` TXT record.
-
-**What to save:** the full name, such as `myrelay.dedyn.io`, and the token.
 
 ### dynv6 {#dynv6}
 
@@ -110,7 +93,6 @@ If the token leaks, get a new one from your provider and enter it on the relay (
 | Provider | How to replace the token |
 | --- | --- |
 | DuckDNS | On the account page, select the three small lines next to your login email, then *recreate token*. The new token covers every name in the account. |
-| deSEC | Create a new token in *Token Management*, then remove the old one with *Delete Token*. |
 | dynv6 | On the Keys page, delete the old HTTP token and create a new one. |
 
 ## Setting up the Android relay {#android}
@@ -121,7 +103,7 @@ Fill in the settings in the app, or import a configuration file; both do the sam
 
 1. Open OpenXPlay Relay and go to Settings → Trusted HTTPS.
 2. Turn on *Use a free domain name*.
-3. Under *DNS provider*, choose DuckDNS, deSEC or dynv6.
+3. Under *DNS provider*, choose DuckDNS or dynv6.
 4. Under *Domain name*, enter the full name. Use `myrelay.duckdns.org`, for example, not just `myrelay`.
 5. Paste the provider’s token under *Token*. Once saved, the field shows only *Token saved*; leaving it empty later keeps the saved token.
 6. Tick *I agree to the Let’s Encrypt Subscriber Agreement*; see [The Let’s Encrypt Subscriber Agreement](#letsencrypt-terms).
@@ -174,8 +156,8 @@ The file the Android relay imports and the Linux relay’s `/var/lib/openxplay/p
 | --- | --- | --- |
 | `version` | Yes | Always `1`. |
 | `enabled` | No | `true` turns it on (the default), `false` turns it off. |
-| `provider` | Yes | `duckdns`, `desec` or `dynv6`. |
-| `name` | Yes | The full name, without a trailing dot, in any letter case. For DuckDNS it must be `<name>.duckdns.org`; for deSEC and dynv6, the name the token manages, normally `<name>.dedyn.io` or `<name>.dynv6.net`. |
+| `provider` | Yes | `duckdns` or `dynv6`. |
+| `name` | Yes | The full name, without a trailing dot, in any letter case. For DuckDNS it must be `<name>.duckdns.org`; for dynv6, the name the token manages, normally `<name>.dynv6.net`. |
 | `token` | Yes | The provider’s token, without spaces. A DuckDNS token looks like `a1b2c3d4-0000-0000-0000-000000000000`. |
 | `agreeLetsEncryptTerms` | Yes | `true` means you agree to the Let’s Encrypt Subscriber Agreement. Without it, the relay requests no certificate. |
 | `acme` | No | `production` (the default). `staging` is for testing only: its certificates aren’t trusted by browsers. |
@@ -194,19 +176,6 @@ One example per provider; replace the name and the token with yours:
   "provider": "duckdns",
   "name": "myrelay.duckdns.org",
   "token": "a1b2c3d4-0000-0000-0000-000000000000",
-  "agreeLetsEncryptTerms": true
-}
-```
-
-**deSEC**
-
-```json
-{
-  "version": 1,
-  "enabled": true,
-  "provider": "desec",
-  "name": "myrelay.dedyn.io",
-  "token": "your-desec-token",
   "agreeLetsEncryptTerms": true
 }
 ```
@@ -279,7 +248,7 @@ After a network or provider problem, the relay tries again at growing intervals:
 - **The name becomes public.** Every certificate Let’s Encrypt issues is recorded in public Certificate Transparency logs, where anyone can find your name.
 - **So does the private address.** Anyone who looks the name up sees the address the relay published, such as `192.168.43.20`. It belongs to the head unit’s network and can’t be reached from the internet, but anyone can see it.
 - **Choose a name that doesn’t identify you.** Avoid your name, number plate or phone number; a random string of letters and digits such as `k7m2q9x4.duckdns.org` is best.
-- **Your provider knows your account.** DuckDNS knows the GitHub (or other) account you sign in with; deSEC and dynv6 know your email address. When the relay updates the address or requests a certificate, the provider and Let’s Encrypt see the public address of the relay’s internet connection.
+- **Your provider knows your account.** DuckDNS knows the GitHub (or other) account you sign in with; dynv6 knows your email address. When the relay updates the address or requests a certificate, the provider and Let’s Encrypt see the public address of the relay’s internet connection.
 - **The token stays on the relay;** see [Keeping the token safe](#token-safety).
 
 ## Troubleshooting {#troubleshooting}
@@ -298,7 +267,6 @@ First check that the status line shows *Ready*, and that the address starts with
 - Copy the token again, without extra spaces or missing characters.
 - Check that the token and the name belong to the same account and that the *DNS provider* is right.
 - DuckDNS: after you recreate the token, the old one stops working; enter the new one.
-- deSEC: if the token from the registration is rejected, create a new one in *Token Management*. A token with policies must be allowed to change the name’s A record and its `_acme-challenge` TXT record.
 - dynv6: if the token is limited to a zone, check that it is this name’s zone.
 
 ### Asked to wait {#rate-limits}
