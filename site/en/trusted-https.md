@@ -41,7 +41,7 @@ The check runs between the relay, your provider and Let’s Encrypt only: nothin
 | A relay with Trusted HTTPS | An upcoming OpenXPlay Relay release, on the Android app or the Linux relay. |
 | Internet access on the relay | To publish the address and to get and renew certificates. The Android relay needs mobile data; see below. |
 
-**Why mobile data on the Android relay?** The head unit has to look the name up before it can open the page. On the relay phone’s hotspot, it asks the relay phone, which can answer only with internet access. On the head unit’s own hotspot or a shared Wi-Fi, that network does the lookup and needs internet access itself. The relay also needs internet access to publish its address, which on Android can change every time the hotspot starts.
+**Why mobile data on the Android relay?** The head unit has to look the name up before it can open the page. On the relay phone’s hotspot, it asks the relay phone, which can answer only with internet access. On the head unit’s own hotspot or a shared Wi-Fi, that network does the lookup and needs internet access itself. The Linux relay on its own hotspot is the exception: it answers the name inside the hotspot, so the head unit finds it even without internet access. The relay also needs internet access to publish its address, which on Android can change every time the hotspot starts.
 
 **How often does it need internet access?** Certificates expire: Let’s Encrypt certificates last a few months at most, and their lifetime is getting shorter. The relay renews them in good time, but only while it is online, so let it reach the internet at least every few weeks. Once a certificate has expired, the browser warns again; the IP address keeps working as before.
 
@@ -144,7 +144,7 @@ The admin page stores these settings in `/var/lib/openxplay/public-name.json`. Y
    rm /root/public-name.json
    ```
 
-3. The relay reads the file again within about 10 seconds, with no restart. Then check the status in the admin page.
+3. The relay checks the file every few seconds and reads it again after a change, with no restart. Then check the status in the admin page.
 
 This file is separate from `settings.json`; don’t put these settings into `settings.json`.
 
@@ -218,7 +218,7 @@ The status line in the app and the admin page shows one of these:
 | --- | --- | --- |
 | *Off* | *Use a free domain name* is off. | Turn it on when you want it. |
 | *Fill in the provider, domain name and token, and agree to the terms.* | Something is missing, or the agreement isn’t ticked. | Complete the settings. |
-| *Waiting for internet access* | The relay has no internet access. | On the Android relay, turn on mobile data; on the Linux relay, connect a network with internet access. The relay tries again once it is online. |
+| *Waiting for internet access* | The relay has no internet access. The Linux relay also shows this while its clock isn’t synchronised yet. | On the Android relay, turn on mobile data; on the Linux relay, connect a network with internet access. Once online (and the clock is synchronised), the relay retries by itself. |
 | *Updating the domain’s address…* | The relay is publishing its address under the name. | Wait. |
 | *Requesting a certificate…* | The relay is asking Let’s Encrypt for a certificate. | Wait; it usually takes a minute or two. |
 | *Ready: … (certificate valid until …)* | The certificate is valid and the name points at the relay’s current address. | Open the head-unit page by the name. |
@@ -240,7 +240,7 @@ After a network or provider problem, the relay tries again at growing intervals:
 ## Turning it off or removing it {#turn-off}
 
 - **Turn off:** with *Use a free domain name* off, the relay stops all requests and serves only its own certificate, so the head unit’s browser warns again. On the Linux relay, `"enabled": false` in the configuration file does the same.
-- **Remove:** in the Android app, *Remove* (after you confirm) deletes the settings, the token, the certificate and its keys.
+- **Remove:** *Remove* in the Android app or in the Linux relay’s admin page (after you confirm) deletes the settings, the token, the certificate and its keys. On the Linux relay, deleting `/var/lib/openxplay/public-name.json` does the same.
 - Neither changes the name at your provider: it keeps pointing at the last published address. If you no longer need it, delete it on the provider’s website.
 
 ## Privacy {#privacy}
@@ -257,7 +257,7 @@ After a network or provider problem, the relay tries again at growing intervals:
 
 First check that the status line shows *Ready*, and that the address starts with `https://` and includes `:8443`. Then:
 
-- **The relay has no internet access.** On the Android relay’s hotspot, the head unit looks the name up through the relay phone. Turn on the relay phone’s mobile data; until then, open the page by its IP address.
+- **The relay has no internet access.** On the Android relay’s hotspot, the head unit looks the name up through the relay phone. Turn on the relay phone’s mobile data; until then, open the page by its IP address. The Linux relay on its own hotspot answers the name itself and needs no internet access for this.
 - **The address has just changed.** After the hotspot restarts, the address may change and the relay has to publish the new one first. Wait until the status line shows *Ready* again, give it a moment, then reload the head-unit page.
 - **The router blocks private addresses.** On a shared Wi-Fi, some routers have DNS rebinding protection turned on, which drops answers that point at private addresses. Add an exception for your name in the router, or turn the protection off; otherwise use the IP address.
 - **DNS filtering.** A filtering DNS service or an ad blocker on the relay phone or the head unit can drop these answers too. Try another DNS, or turn the filter off for a moment.
