@@ -30,7 +30,7 @@ OpenStick forbids commercial use, and OpenXPlay doesn’t redistribute these fil
 | File | Purpose |
 | --- | --- |
 | [`debian.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/debian.zip) (about 377 MB) | The Debian 11 root file system `rootfs.img`, plus a copy of `boot.img` |
-| [`boot-ufi001c.img`](https://github.com/OpenStick/OpenStick/releases/download/v1/boot-ufi001c.img) | The kernel boot partition for the UFI003; identical to the `boot.img` in `debian.zip` |
+| [`boot-ufi001c.img`](https://github.com/OpenStick/OpenStick/releases/download/v1/boot-ufi001c.img) | The kernel boot partition for the UFI003; not the same file as the generic `boot.img` in `debian.zip` |
 | [`base-generic.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/base-generic.zip) | The bootloader and other low-level partitions with a flash script, needed only for the first flash from the stock system |
 
 ::: details SHA-256 checksums {#checksums}
@@ -53,12 +53,12 @@ The first flash needs the bootloader and the flash script `flash.sh` from `base-
 
 ## Re-flash a dongle that runs OpenStick {#reflash}
 
-To re-flash a UFI003 that already runs OpenStick, only the root file system and the boot partition need writing. Unpack `debian.zip` and run these commands in its `debian` directory; the last three lines are the same as its `flash.sh`:
+To re-flash a UFI003 that already runs OpenStick, only the root file system and the boot partition need writing. Unpack `debian.zip`, put `boot-ufi001c.img` in its `debian` directory and run these commands there. Don’t run that directory’s `flash.sh` as it is: it writes the generic `boot.img`.
 
 ```sh
 adb reboot bootloader
 fastboot -S 200M flash rootfs rootfs.img
-fastboot flash boot boot.img
+fastboot flash boot boot-ufi001c.img
 fastboot reboot
 ```
 

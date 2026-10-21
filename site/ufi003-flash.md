@@ -30,7 +30,7 @@ OpenStick 禁止商用，OpenXPlay 不转发这些文件；请从 OpenStick 的�
 | 文件 | 用途 |
 | --- | --- |
 | [`debian.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/debian.zip)（约 377 MB） | Debian 11 根文件系统 `rootfs.img`，另带一份 `boot.img` |
-| [`boot-ufi001c.img`](https://github.com/OpenStick/OpenStick/releases/download/v1/boot-ufi001c.img) | 内核引导分区，UFI003 用这一个；与 `debian.zip` 中的 `boot.img` 完全相同 |
+| [`boot-ufi001c.img`](https://github.com/OpenStick/OpenStick/releases/download/v1/boot-ufi001c.img) | 内核引导分区，UFI003 用这一个；与 `debian.zip` 中通用的 `boot.img` 不是同一个文件 |
 | [`base-generic.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/base-generic.zip) | 引导程序等底层分区和刷机脚本，只在第一次从原厂系统刷机时需要 |
 
 ::: details SHA-256 校验值 {#checksums}
@@ -53,12 +53,12 @@ OpenStick 禁止商用，OpenXPlay 不转发这些文件；请从 OpenStick 的�
 
 ## 已运行 OpenStick 时重刷 {#reflash}
 
-已经运行 OpenStick 的 UFI003 重刷时，只需要写入根文件系统和引导分区。解压 `debian.zip`，在其中的 `debian` 目录里执行下面的命令，后三行与目录中的 `flash.sh` 相同：
+已经运行 OpenStick 的 UFI003 重刷时，只需要写入根文件系统和引导分区。解压 `debian.zip`，把 `boot-ufi001c.img` 放进其中的 `debian` 目录，在该目录里执行下面的命令。不要直接运行目录中的 `flash.sh`：它写入的是通用的 `boot.img`。
 
 ```sh
 adb reboot bootloader
 fastboot -S 200M flash rootfs rootfs.img
-fastboot flash boot boot.img
+fastboot flash boot boot-ufi001c.img
 fastboot reboot
 ```
 
