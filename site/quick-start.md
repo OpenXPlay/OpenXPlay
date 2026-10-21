@@ -117,7 +117,7 @@ howtoTools:
 
 UFI003 是一款 msm8916 4G USB 随身 Wi-Fi。[OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) 提供了在它上面运行 Linux 中继所需的支持文件，系统为 OpenStick Debian 11 镜像（内核 `5.15.0-handsomekernel+`，aarch64）。它的 Wi-Fi 没有 5 GHz 频段，因此热点工作在 2.4 GHz。
 
-1. **准备设备。** 在 UFI003 上运行 OpenStick Debian 11 镜像。
+1. **准备设备。** 在 UFI003 上刷入 OpenStick Debian 11 镜像，下载地址和注意事项见下方的[基础镜像](#ufi003-base-image)。
 2. **获取中继。** 从 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 下载 `openxplay-relay-<版本>-linux-aarch64.tar.gz` 并解压，其中有两个 aarch64 可执行文件（`bin/openxplay-relay`、`bin/oxp-relay`）、网页接收端（`web/`）、管理页面（`admin/`）和 `rust/packaging/`。也可以自行构建：构建网页接收端（[OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) 的 `rust/web-receiver/`）、管理页面（[OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) 的 `admin-web/`），并在两个仓库中用 `rust/scripts/build-aarch64.sh` 构建 aarch64 可执行文件。
 3. **制作安装包。** 在电脑上运行 `UFI003/install/make-bundle.sh`，传入构建产物、`UFI003/install/debs.txt` 中记录的 Debian 软件包，以及中继的 packaging 目录：
 
@@ -135,6 +135,35 @@ UFI003 是一款 msm8916 4G USB 随身 Wi-Fi。[OpenXPlay-Hardware](https://gith
 ::: info 待确认
 第 6 步中，刚安装好的设备如何首次连入其网络，仓库中暂时还没有说明。遇到问题可以到[交流群](/#community)提问。
 :::
+
+#### 基础镜像 {#ufi003-base-image}
+
+UFI003 使用 OpenStick 的 [v1 版本](https://github.com/OpenStick/OpenStick/releases/tag/v1)（2022-02-08 发布）。OpenStick 禁止商用，OpenXPlay 不转发这些文件；请从 OpenStick 的发布页下载，并核对 SHA-256（macOS 用 `shasum -a 256 文件名`，Linux 用 `sha256sum 文件名`）：
+
+| 文件 | 用途 | SHA-256 |
+| --- | --- | --- |
+| [`debian.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/debian.zip)（约 377 MB） | Debian 11 根文件系统 `rootfs.img`，另带一份 `boot.img` | `8be6f100e8fc3f612e0b03c199d01f51d38b953a19343ad0f4cf7a2f7a57f603` |
+| [`boot-ufi001c.img`](https://github.com/OpenStick/OpenStick/releases/download/v1/boot-ufi001c.img) | 内核引导分区，UFI003 用这一个；与 `debian.zip` 中的 `boot.img` 完全相同 | `a2b527e98a5cee0a4c3cad5099af7ce0648246f19d20d13ef2c168e400c81b33` |
+| [`base-generic.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/base-generic.zip) | 引导程序等底层分区和刷机脚本，只在第一次从原厂系统刷机时需要 | `b609b91c94b07d7cde4141a578df5c1440fbe75140f0c645c7124356774e2418` |
+
+发布页上的其他 `boot-*.img` 和 `firmware-*.zip` 属于其他型号，UFI003 用不到。
+
+::: warning 刷机前请注意
+- 刷机包会覆盖原机的分区表和引导程序，之后无法再运行原厂安卓系统，OpenStick 也不提供恢复方法。
+- 第一次刷机前先做整机备份，至少保留 `modemst1`、`modemst2`、`fsc`、`fsg` 四个分区：它们存有这台设备独有的基带校准数据，丢失后无法从别处找回。
+- `base-generic.zip` 中的 `flash.sh` 先擦除引导分区、换上新的引导程序，然后才把上述四个分区备份成同名的 `.bin` 文件，最后再写回设备。压缩包里本来就带着这四个 `.bin` 文件，其中三个有实际内容，但不是你这台设备的数据；脚本不会因为某一步失败而停下，备份失败时，写回设备的就是压缩包里的这几个文件。不要直接运行这个脚本；逐条执行，确认四个分区都已从你的设备取回、文件确实被替换后再继续。
+- 用 fastboot 写入 `rootfs.img` 时加上 `-S 200M`（`debian.zip` 自带的 `flash.sh` 已经这样做）。按默认的约 256 MB 分块传输，UFI003 会在中途失败。
+- 重刷会清空设备上的所有数据，包括你放入的 CarPlay 身份、iPhone 配对记录和 Wi-Fi 设置。
+:::
+
+已经运行 OpenStick 的 UFI003 重刷时，只需要写入根文件系统和引导分区。解压 `debian.zip`，在其中的 `debian` 目录里执行下面的命令，后三行与目录中的 `flash.sh` 相同：
+
+```sh
+adb reboot bootloader
+fastboot -S 200M flash rootfs rootfs.img
+fastboot flash boot boot.img
+fastboot reboot
+```
 
 ### Carlink 应用（实验性） {#carlink}
 

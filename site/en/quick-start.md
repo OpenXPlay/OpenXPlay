@@ -117,7 +117,7 @@ Opening the address connects, so give the hotspot a password and let only your o
 
 The UFI003 is an msm8916 4G USB dongle. [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) has the support files for running the Linux relay on it with the OpenStick Debian 11 image (kernel `5.15.0-handsomekernel+`, aarch64). The dongle’s Wi-Fi has no 5 GHz band, so its hotspot runs on 2.4 GHz.
 
-1. **Prepare the dongle.** Run the OpenStick Debian 11 image on the UFI003.
+1. **Prepare the dongle.** Flash the OpenStick Debian 11 image onto the UFI003; downloads and cautions are under [Base image](#ufi003-base-image) below.
 2. **Get the relay.** Download `openxplay-relay-<version>-linux-aarch64.tar.gz` from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) and unpack it: it holds the two aarch64 binaries (`bin/openxplay-relay`, `bin/oxp-relay`), the web receiver (`web/`), the admin page (`admin/`) and `rust/packaging/`. Or build them yourself: the web receiver (`rust/web-receiver/` in [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream)), the admin page (`admin-web/` in [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay)) and the aarch64 binaries with `rust/scripts/build-aarch64.sh` in both repositories.
 3. **Make an install bundle.** On your computer, run `UFI003/install/make-bundle.sh` with the build outputs, the Debian packages recorded in `UFI003/install/debs.txt` and the relay’s packaging directory:
 
@@ -135,6 +135,35 @@ The UFI003 is an msm8916 4G USB dongle. [OpenXPlay-Hardware](https://github.com/
 ::: info To be confirmed
 How a freshly installed dongle’s network is first reached for step 6 isn’t documented in the repositories yet. If you get stuck, ask in the [community](/en/#community).
 :::
+
+#### Base image {#ufi003-base-image}
+
+The UFI003 runs OpenStick [release v1](https://github.com/OpenStick/OpenStick/releases/tag/v1) (published 2022-02-08). OpenStick forbids commercial use, and OpenXPlay doesn’t redistribute these files: download them from OpenStick’s release page and check their SHA-256 (`shasum -a 256 FILE` on macOS, `sha256sum FILE` on Linux):
+
+| File | Purpose | SHA-256 |
+| --- | --- | --- |
+| [`debian.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/debian.zip) (about 377 MB) | The Debian 11 root file system `rootfs.img`, plus a copy of `boot.img` | `8be6f100e8fc3f612e0b03c199d01f51d38b953a19343ad0f4cf7a2f7a57f603` |
+| [`boot-ufi001c.img`](https://github.com/OpenStick/OpenStick/releases/download/v1/boot-ufi001c.img) | The kernel boot partition for the UFI003; identical to the `boot.img` in `debian.zip` | `a2b527e98a5cee0a4c3cad5099af7ce0648246f19d20d13ef2c168e400c81b33` |
+| [`base-generic.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/base-generic.zip) | The bootloader and other low-level partitions with a flash script, needed only for the first flash from the stock system | `b609b91c94b07d7cde4141a578df5c1440fbe75140f0c645c7124356774e2418` |
+
+The other `boot-*.img` and `firmware-*.zip` files on the release page are for other models; the UFI003 doesn’t need them.
+
+::: warning Before you flash
+- The flash package replaces the partition table and the bootloader. The stock Android system won’t run afterwards, and OpenStick offers no way back.
+- Back up the whole device before the first flash, and at the very least the partitions `modemst1`, `modemst2`, `fsc` and `fsg`: they hold modem calibration data unique to this device that can’t be recovered from anywhere else.
+- `flash.sh` in `base-generic.zip` erases the boot partition and installs the new bootloader first, only then backs up those four partitions to `.bin` files of the same names, and finally writes them back. The zip already contains four such `.bin` files, three of them with real content that isn’t your device’s data. The script doesn’t stop when a step fails, so if the backup fails, the zip’s files are what gets written to your device. Don’t run the script as is: run it line by line and continue only once all four partitions have been read from your device and the files really were replaced.
+- Write `rootfs.img` with fastboot’s `-S 200M` (the `flash.sh` in `debian.zip` does). With the default chunks of about 256 MB, the UFI003 fails halfway through.
+- Flashing erases everything on the device, including the CarPlay identity you added, the iPhone pairings and the Wi-Fi settings.
+:::
+
+To re-flash a UFI003 that already runs OpenStick, only the root file system and the boot partition need writing. Unpack `debian.zip` and run these commands in its `debian` directory; the last three lines are the same as its `flash.sh`:
+
+```sh
+adb reboot bootloader
+fastboot -S 200M flash rootfs rootfs.img
+fastboot flash boot boot.img
+fastboot reboot
+```
 
 ### Carlink app (experimental) {#carlink}
 
