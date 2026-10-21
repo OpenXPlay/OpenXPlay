@@ -180,7 +180,7 @@ export function seoHead(context: TransformContext): HeadConfig[] {
           position: index + 1,
           name: entry.name,
           text: entry.text,
-          ...(section.id ? { url: `${url}#${section.id}` } : {}),
+          ...(entry.id ?? section.id ? { url: `${url}#${entry.id ?? section.id}` } : {}),
         })),
       })),
     })

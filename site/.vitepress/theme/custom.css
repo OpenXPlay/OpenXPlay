@@ -4,7 +4,8 @@ SPDX-License-Identifier: MIT
 Created by riko chen on 2026-10-17
 */
 
-/* Brand colours follow the relay diagram: blue for the Android relay, purple for Linux. */
+/* Brand colours follow the relay diagram: blue for the Android relay, purple for Linux. The
+   "strong" variants carry white text; the "soft" ones tint a selected surface. */
 :root {
   --vp-c-brand-1: #0060c7;
   --vp-c-brand-2: #0a72de;
@@ -12,6 +13,17 @@ Created by riko chen on 2026-10-17
   --vp-c-brand-soft: rgba(10, 132, 255, 0.14);
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: linear-gradient(120deg, #0a84ff 20%, #8e5cf7);
+  --vp-font-family-base: 'Inter', ui-sans-serif, system-ui, -apple-system, 'PingFang SC', 'Hiragino Sans GB',
+    'Noto Sans CJK SC', 'Source Han Sans SC', 'Microsoft YaHei', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+
+  --oxp-android: #0a84ff;
+  --oxp-android-strong: #0060c7;
+  --oxp-android-soft: rgba(10, 132, 255, 0.08);
+  --oxp-linux: #8e5cf7;
+  --oxp-linux-strong: #6b3fd9;
+  --oxp-linux-soft: rgba(142, 92, 247, 0.09);
+
+  interpolate-size: allow-keywords;
 }
 
 .dark {
@@ -19,7 +31,379 @@ Created by riko chen on 2026-10-17
   --vp-c-brand-2: #3d96fa;
   --vp-c-brand-3: #0a84ff;
   --vp-c-brand-soft: rgba(10, 132, 255, 0.2);
+
+  --oxp-android-strong: #0a6fd6;
+  --oxp-android-soft: rgba(10, 132, 255, 0.14);
+  --oxp-linux: #a07cff;
+  --oxp-linux-strong: #7a4fe6;
+  --oxp-linux-soft: rgba(160, 124, 255, 0.14);
 }
+
+/* ---------------------------------------------------------------- Home */
+
+/* The hero has no image: the relay scene sits under it, full width. */
+.VPHero:not(.has-image) .tagline {
+  max-width: 640px;
+}
+
+@media (min-width: 960px) {
+  .VPHero:not(.has-image) .name,
+  .VPHero:not(.has-image) .text {
+    max-width: 880px;
+  }
+
+  .VPHero:not(.has-image) .tagline {
+    max-width: 680px;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+}
+
+.oxp-features-heading {
+  margin: 0 auto;
+  padding: 72px 24px 28px;
+  max-width: calc(1152px + 48px);
+}
+
+@media (min-width: 640px) {
+  .oxp-features-heading {
+    padding: 88px 48px 32px;
+    max-width: calc(1152px + 96px);
+  }
+}
+
+@media (min-width: 960px) {
+  .oxp-features-heading {
+    padding: 104px 64px 36px;
+    max-width: calc(1152px + 128px);
+  }
+}
+
+.oxp-features-heading h2 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: -0.02em;
+  color: var(--vp-c-text-1);
+}
+
+/* The three features are a sequence: numbered, joined by a line (across on wide screens, down on
+   narrow ones). */
+.VPHome .VPFeatures .items {
+  counter-reset: oxp-home-step;
+}
+
+.VPHome .VPFeatures .item {
+  position: relative;
+  counter-increment: oxp-home-step;
+}
+
+.VPHome .VPFeatures .item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 52px;
+  bottom: -12px;
+  left: 27px;
+  width: 2px;
+  background: var(--vp-c-divider);
+}
+
+.VPHome .VPFeatures .VPFeature {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.VPHome .VPFeatures .VPFeature .box {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  column-gap: 16px;
+  align-content: start;
+  padding: 4px 0 12px;
+}
+
+.VPHome .VPFeatures .VPFeature .box::before {
+  content: counter(oxp-home-step);
+  grid-row: 1 / span 3;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--vp-c-brand-3);
+  border-radius: 50%;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-brand-1);
+  font-size: 17px;
+  font-weight: 700;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.VPHome .VPFeatures .VPFeature .title {
+  grid-column: 2;
+  font-size: 18px;
+  line-height: 40px;
+}
+
+.VPHome .VPFeatures .VPFeature .details {
+  grid-column: 2;
+  padding-top: 0;
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.VPHome .VPFeatures .VPFeature .link-text {
+  grid-column: 2;
+}
+
+.VPHome .VPFeatures .VPFeature .link-text-icon {
+  display: none;
+}
+
+.VPHome .VPFeatures .VPFeature.link:hover .box::before {
+  background: var(--vp-c-brand-3);
+  color: var(--vp-c-white);
+}
+
+.VPHome .VPFeatures .VPFeature.link:hover .link-text-value {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.VPHome .VPFeatures .VPFeature:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+  .VPHome .VPFeatures .item:not(:last-child)::after {
+    top: 27px;
+    bottom: auto;
+    left: 64px;
+    right: 4px;
+    width: auto;
+    height: 2px;
+  }
+
+  .VPHome .VPFeatures .VPFeature .box {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 24px 0 0;
+  }
+
+  .VPHome .VPFeatures .VPFeature .box::before {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 16px;
+  }
+
+  .VPHome .VPFeatures .VPFeature .title {
+    line-height: 28px;
+  }
+
+  .VPHome .VPFeatures .VPFeature .details {
+    padding-top: 6px;
+  }
+}
+
+/* Home body: readable line lengths under a wide hero. */
+.VPHome .vp-doc h2 {
+  margin-top: 72px;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.02em;
+}
+
+.VPHome .vp-doc > div > p,
+.VPHome .vp-doc .custom-block.details {
+  max-width: 760px;
+}
+
+/* What you need: a checklist, two columns on wide screens. */
+.vp-doc .oxp-checklist ul {
+  display: grid;
+  gap: 14px 40px;
+  margin: 20px 0 0;
+  padding: 0;
+  max-width: 960px;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .vp-doc .oxp-checklist ul {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.vp-doc .oxp-checklist li {
+  position: relative;
+  margin: 0;
+  padding-left: 36px;
+  line-height: 26px;
+}
+
+.vp-doc .oxp-checklist li::before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--vp-c-brand-soft)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a84ff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 12.5l3.2 3.2L17 9'/%3E%3C/svg%3E")
+    center / 18px no-repeat;
+}
+
+/* ---------------------------------------------------------------- Guides */
+
+/* Setup steps: headings marked {.step} are numbered in order. */
+.vp-doc {
+  counter-reset: oxp-step;
+}
+
+.vp-doc h2.step {
+  position: relative;
+  counter-increment: oxp-step;
+  margin-top: 44px;
+  padding-top: 0;
+  padding-left: 46px;
+  border-top: 0;
+}
+
+.vp-doc h2.step::before {
+  content: counter(oxp-step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--vp-c-brand-3);
+  color: var(--vp-c-white);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.dark .vp-doc h2.step::before {
+  background: var(--oxp-android-strong);
+}
+
+/* Folded details: a quiet, full-width row that opens smoothly where the browser can animate it. */
+.vp-doc .custom-block.details {
+  margin: 12px 0;
+  padding: 0;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg);
+}
+
+.vp-doc .custom-block.details + .custom-block.details {
+  margin-top: 8px;
+}
+
+.vp-doc .custom-block.details > summary {
+  position: relative;
+  margin: 0;
+  padding: 13px 44px 13px 16px;
+  border-radius: 11px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+  list-style: none;
+  transition: background-color 0.2s;
+}
+
+.vp-doc .custom-block.details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.vp-doc .custom-block.details > summary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--vp-c-text-3);
+  border-bottom: 2px solid var(--vp-c-text-3);
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.vp-doc .custom-block.details[open] > summary::after {
+  transform: translateY(-25%) rotate(-135deg);
+}
+
+.vp-doc .custom-block.details > summary:hover {
+  background: var(--vp-c-default-soft);
+}
+
+.vp-doc .custom-block.details > summary:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}
+
+.vp-doc .custom-block.details[open] > summary {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.vp-doc .custom-block.details > :not(summary) {
+  margin-right: 16px;
+  margin-left: 16px;
+}
+
+.vp-doc .custom-block.details > :not(summary):first-of-type {
+  margin-top: 4px;
+}
+
+.vp-doc .custom-block.details > :last-child {
+  margin-bottom: 16px;
+}
+
+.vp-doc .custom-block.details > summary + p {
+  margin-top: 4px;
+}
+
+@supports selector(::details-content) {
+  .vp-doc .custom-block.details::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition: block-size 0.25s ease, content-visibility 0.25s allow-discrete;
+  }
+
+  .vp-doc .custom-block.details[open]::details-content {
+    block-size: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-doc .custom-block.details::details-content,
+  .vp-doc .custom-block.details > summary::after {
+    transition: none;
+  }
+}
+
+/* Links into a page land below the fixed nav (and the local nav on narrow screens). */
+.vp-doc [id] {
+  scroll-margin-top: calc(var(--vp-nav-height) + 56px);
+}
+
+/* Status tags in the sidebar. */
+.VPSidebarItem .oxp-sidebar-tag {
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 18px;
+  vertical-align: 1px;
+}
+
+/* ---------------------------------------------------------------- Shared */
 
 /* Figures keep their aspect ratio from the width/height attributes, so nothing shifts on load. */
 .vp-doc .oxp-figure {
@@ -49,18 +433,4 @@ Created by riko chen on 2026-10-17
 .oxp-reference .vp-doc th,
 .oxp-reference .vp-doc td:first-child {
   word-break: keep-all;
-}
-
-/* The home hero has no image, so let its text use the full width on large screens. */
-@media (min-width: 960px) {
-  .VPHero:not(.has-image) .name,
-  .VPHero:not(.has-image) .text,
-  .VPHero:not(.has-image) .tagline {
-    max-width: 880px;
-  }
-
-  .VPHero .tagline {
-    font-size: 20px;
-    line-height: 1.6;
-  }
 }

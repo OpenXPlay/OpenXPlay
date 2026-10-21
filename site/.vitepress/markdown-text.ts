@@ -4,7 +4,7 @@
 
 // Reads the site's own Markdown at build time, so structured data and llms-full.txt come from
 // the same text the pages render. It understands the subset of Markdown these pages use:
-// headings with {#id} anchors, paragraphs, lists, tables, fenced code and ::: containers.
+// headings with {#id .class} attributes, paragraphs, lists, tables, fenced code and ::: containers.
 
 export interface FaqItem {
   id?: string
@@ -15,11 +15,12 @@ export interface FaqItem {
 export interface HowToSection {
   id?: string
   name: string
-  steps: { name: string; text: string }[]
+  steps: { id?: string; name: string; text: string }[]
 }
 
 const HEADING = /^(#{1,6})\s+(.*?)\s*$/
-const ANCHOR = /\s*\{#([\w-]+)\}\s*$/
+// Trailing markdown-it-attrs block such as {#step-check .step} or {#faq-item}.
+const ATTRS = /\s*\{\s*([#.][^{}]*)\}\s*$/
 const ORDERED_ITEM = /^(\d+)\.\s+(.*)$/
 const UNORDERED_ITEM = /^[-*+]\s+(.*)$/
 const FENCE = /^\s*(```|~~~)/
@@ -40,7 +41,7 @@ function bodyLines(source: string): string[] {
 /** Plain text of one line of inline Markdown. */
 export function inlineText(text: string): string {
   return text
-    .replace(ANCHOR, '')
+    .replace(ATTRS, '')
     .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
     .replace(/<[^>]+>/g, '')
@@ -93,20 +94,28 @@ interface Section {
   level: number
   title: string
   id?: string
+  classes: string[]
   lines: string[]
 }
 
 /** Splits the body into heading sections; fenced code never starts a heading. */
 function sections(source: string): Section[] {
   const result: Section[] = []
-  let current: Section = { level: 0, title: '', lines: [] }
+  let current: Section = { level: 0, title: '', classes: [], lines: [] }
   let fenced = false
   for (const line of bodyLines(source)) {
     if (FENCE.test(line)) fenced = !fenced
     const heading = fenced ? null : HEADING.exec(line)
     if (heading) {
       result.push(current)
-      current = { level: heading[1].length, title: inlineText(heading[2]), id: ANCHOR.exec(heading[2])?.[1], lines: [] }
+      const attrs = ATTRS.exec(heading[2])?.[1] ?? ''
+      current = {
+        level: heading[1].length,
+        title: inlineText(heading[2]),
+        id: /#([\w-]+)/.exec(attrs)?.[1],
+        classes: [...attrs.matchAll(/\.([\w-]+)/g)].map(match => match[1]),
+        lines: [],
+      }
     } else {
       current.lines.push(line)
     }
@@ -133,10 +142,27 @@ function step(lines: string[]): { name: string; text: string } {
   return { name, text: text || name }
 }
 
-/** The first top-level ordered list of each level-2 or level-3 section becomes a HowTo section. */
+/**
+ * A page whose headings carry the `step` class (as in `## Install the app {#step-install .step}`) is one
+ * HowTo section with a step per such heading. Otherwise the first top-level ordered list of each
+ * level-2 or level-3 section becomes a HowTo section.
+ */
 export function extractHowTo(source: string): HowToSection[] {
+  const all = sections(source)
+  const stepSections = all.filter(section => section.classes.includes('step'))
+  if (stepSections.length) {
+    const title = all.find(section => section.level === 1)?.title ?? ''
+    return [{
+      name: title,
+      steps: stepSections.map(section => ({
+        id: section.id,
+        name: section.title,
+        text: blockText(section.lines) || section.title,
+      })),
+    }]
+  }
   const result: HowToSection[] = []
-  for (const section of sections(source)) {
+  for (const section of all) {
     if (section.level < 2 || section.level > 3) continue
     const items: string[][] = []
     let current: string[] | null = null
@@ -168,22 +194,25 @@ export function llmsMarkdown(
   absolute: (path: string) => string,
   components: Record<string, string>,
 ): string {
-  let text = stripFrontmatter(source)
-    .replace(/<(script|style)\b[\s\S]*?<\/\1>/g, '')
+  let text = stripFrontmatter(source).replace(/<(script|style)\b[\s\S]*?<\/\1>/g, '')
+  // Components first, so that links in their replacement text are made absolute below.
+  for (const [name, replacement] of Object.entries(components)) {
+    text = text.replace(new RegExp(`<${name}\\b[^>]*/>`, 'g'), replacement)
+  }
+  text = text
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/\{\{\s*\$frontmatter\.(\w+)\s*\}\}/g, (_, key: string) => String(frontmatter[key] ?? ''))
+    .replace(/<Badge\b[^>]*?\btext="([^"]*)"[^>]*\/>/g, '($1)')
+    .replace(/^[ \t]*<\/?div\b[^>]*>[ \t]*$/gm, '')
     .replace(/<code>([^<]*)<\/code>/g, '`$1`')
     .replace(/<img\b[^>]*?\balt="([^"]*)"[^>]*>/g, (_, alt: string) => `[Image: ${alt}]`)
     .replace(/<figure\b[^>]*>([\s\S]*?)<\/figure>/g, (_, inner: string) => inner
       .replace(/<figcaption>([\s\S]*?)<\/figcaption>/g, '$1')
       .split('\n').map(line => line.trim()).filter(Boolean).join('\n\n'))
-    .replace(/^[ \t]*\{#[\w-]+\}[ \t]*$/gm, '')
-    .replace(/[ \t]*\{#[\w-]+\}[ \t]*$/gm, '')
+    .replace(/^[ \t]*\{\s*[#.][^{}]*\}[ \t]*$/gm, '')
+    .replace(/[ \t]*\{\s*[#.][^{}]*\}[ \t]*$/gm, '')
     .replace(/^:::\s*\w+[ \t]*(.*)$/gm, (_, title: string) => (title ? `**${title.trim()}**` : ''))
     .replace(/^:::[ \t]*$/gm, '')
     .replace(/\]\((\/[^)\s]*)\)/g, (_, path: string) => `](${absolute(path)})`)
-  for (const [name, replacement] of Object.entries(components)) {
-    text = text.replace(new RegExp(`<${name}\\b[^>]*/>`, 'g'), replacement)
-  }
   return text.replace(/\n{3,}/g, '\n\n').trim()
 }

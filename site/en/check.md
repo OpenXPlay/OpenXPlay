@@ -27,12 +27,13 @@ On the head unit, type <code>{{ $frontmatter.checkAddress }}</code> into the bro
 | --- | --- |
 | Works with the web receiver | The browser has everything the web receiver needs and can decode H.265 (HEVC) in hardware, so the relay can use H.265. |
 | Works, H.264 only | The browser can show CarPlay with H.264. The relay uses H.264 for any screen that can’t decode H.265 in hardware. |
-| Not supported: needs a browser with WebCodecs | A required feature is missing, most often WebCodecs video decoding. Try another browser on the head unit, if it has one, or use the [Carlink route](/en/quick-start#carlink). |
+| Not supported: needs a browser with WebCodecs | A required feature is missing, most often WebCodecs video decoding. Try another browser on the head unit, if it has one, or use the [Carlink app](/en/carlink). |
 
 A passing result means the browser has the features the web receiver uses. It can’t promise smooth playback, which also depends on the head unit’s hardware and the Wi-Fi connection.
 
 ## What is checked {#what-is-checked}
 
+::: details What each check tests and why it matters {#checked-items}
 | Check | Why it matters |
 | --- | --- |
 | Secure page (HTTPS) | Browsers enable WebCodecs only on secure pages, which is why the relay serves the receiver over HTTPS. |
@@ -46,7 +47,8 @@ A passing result means the browser has the features the web receiver uses. It ca
 | Microphone (getUserMedia) | Lets Siri and calls use the head unit’s microphone, after you allow it in the browser. |
 | Touch points | Touches go back to the iPhone. Two or more points allow multi-finger gestures. |
 | Screen size and pixel ratio | The receiver reports them to the relay together with the video formats it can decode. |
+:::
 
 ## Share your result {#share}
 
-Copy the report and post it in the [community](/en/#community) together with the head unit model and its system version. Reports help other drivers with the same head unit.
+Copy the report and post it in the [community](/en/community) together with the head unit model and its system version. Reports help other drivers with the same head unit.

@@ -15,18 +15,68 @@ const repository = (name: string) => `<a href="${GITHUB_ORG}/${name}">${name.rep
 const repositoryLinks = ['OpenXPlay', 'OpenXPlay-Relay', 'OpenXPlay-Stream', 'OpenXPlay-Hardware', 'OpenXPlay-Web-Plugins', 'OpenXPlay-DiPlay']
   .map(repository).join(' · ')
 const mail = `<a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`
+const tag = (kind: 'warning' | 'info', text: string) => `<span class="VPBadge ${kind} oxp-sidebar-tag">${text}</span>`
+
+// Pages that belong to "Get started" in the nav: the start page and every setup guide.
+const GUIDE_PAGES = 'quick-start|check|android-relay|ufi003-relay|ufi003-flash|carlink|daily-use|trusted-https'
+// Pages that belong to "FAQ" in the nav.
+const HELP_PAGES = 'faq|troubleshooting|head-units'
 
 const english: DefaultTheme.Config = {
   nav: [
-    { text: 'Quick start', link: '/en/quick-start' },
-    { text: 'Check your head unit', link: '/en/check' },
-    { text: 'Head units', link: '/en/head-units' },
-    { text: 'FAQ', link: '/en/faq' },
-    { text: 'Changelog', link: '/en/changelog' },
-    { text: 'Developers', link: '/en/developers' },
+    { text: 'Get started', link: '/en/quick-start', activeMatch: `^/en/(${GUIDE_PAGES})$` },
+    { text: 'How it works', link: '/en/how-it-works' },
+    { text: 'FAQ', link: '/en/faq', activeMatch: `^/en/(${HELP_PAGES})$` },
+    { text: 'Community', link: '/en/community' },
+  ],
+  sidebar: [
+    {
+      text: 'Start here',
+      items: [
+        { text: 'How it works', link: '/en/how-it-works' },
+        { text: 'Get started', link: '/en/quick-start' },
+        { text: 'Check your head unit', link: '/en/check' },
+      ],
+    },
+    {
+      text: 'Set up a relay',
+      items: [
+        { text: 'Android phone', link: '/en/android-relay' },
+        {
+          text: 'UFI003 USB dongle',
+          link: '/en/ufi003-relay',
+          items: [{ text: 'Flash the base image', link: '/en/ufi003-flash' }],
+        },
+        { text: `Carlink app ${tag('warning', 'Experimental')}`, link: '/en/carlink' },
+      ],
+    },
+    {
+      text: 'Using it',
+      items: [
+        { text: 'Everyday use and settings', link: '/en/daily-use' },
+        { text: `Trusted HTTPS ${tag('info', 'Soon')}`, link: '/en/trusted-https' },
+      ],
+    },
+    {
+      text: 'Help',
+      items: [
+        { text: 'Troubleshooting', link: '/en/troubleshooting' },
+        { text: 'FAQ', link: '/en/faq' },
+        { text: 'Head units', link: '/en/head-units' },
+      ],
+    },
+    {
+      text: 'Project',
+      items: [
+        { text: 'Changelog', link: '/en/changelog' },
+        { text: 'Community', link: '/en/community' },
+        { text: 'Developers', link: '/en/developers' },
+        { text: 'Licensing', link: '/en/licensing' },
+      ],
+    },
   ],
   footer: {
-    message: `GitHub: ${repositoryLinks}<br>Contact: ${mail} · Site code: <a href="https://opensource.org/license/mit">MIT</a> · Content: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>`,
+    message: `GitHub: ${repositoryLinks}<br>Contact: ${mail} · <a href="${BASE}en/developers">Developers</a> · <a href="${BASE}en/licensing">Licensing</a> · Site code: <a href="https://opensource.org/license/mit">MIT</a> · Content: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>`,
     copyright: 'CarPlay and iPhone are trademarks of Apple Inc. OpenXPlay is an independent project and is not affiliated with, endorsed or certified by Apple.',
   },
   outline: { level: [2, 3], label: 'On this page' },
@@ -41,15 +91,59 @@ const english: DefaultTheme.Config = {
 
 const chinese: DefaultTheme.Config = {
   nav: [
-    { text: '快速开始', link: '/quick-start' },
-    { text: '检测车机', link: '/check' },
-    { text: '车机资料', link: '/head-units' },
-    { text: '常见问题', link: '/faq' },
-    { text: '更新日志', link: '/changelog' },
-    { text: '开发者', link: '/developers' },
+    { text: '开始使用', link: '/quick-start', activeMatch: `^/(${GUIDE_PAGES})$` },
+    { text: '工作原理', link: '/how-it-works' },
+    { text: '常见问题', link: '/faq', activeMatch: `^/(${HELP_PAGES})$` },
+    { text: '交流群', link: '/community' },
+  ],
+  sidebar: [
+    {
+      text: '入门',
+      items: [
+        { text: '工作原理', link: '/how-it-works' },
+        { text: '开始使用', link: '/quick-start' },
+        { text: '检测车机', link: '/check' },
+      ],
+    },
+    {
+      text: '安装中继',
+      items: [
+        { text: '安卓手机', link: '/android-relay' },
+        {
+          text: 'UFI003 随身 Wi-Fi',
+          link: '/ufi003-relay',
+          items: [{ text: '刷入基础镜像', link: '/ufi003-flash' }],
+        },
+        { text: `Carlink 应用 ${tag('warning', '实验性')}`, link: '/carlink' },
+      ],
+    },
+    {
+      text: '使用',
+      items: [
+        { text: '日常使用与设置', link: '/daily-use' },
+        { text: `可信 HTTPS ${tag('info', '即将推出')}`, link: '/trusted-https' },
+      ],
+    },
+    {
+      text: '帮助',
+      items: [
+        { text: '故障排查', link: '/troubleshooting' },
+        { text: '常见问题', link: '/faq' },
+        { text: '车机资料', link: '/head-units' },
+      ],
+    },
+    {
+      text: '项目',
+      items: [
+        { text: '更新日志', link: '/changelog' },
+        { text: '交流群', link: '/community' },
+        { text: '开发者', link: '/developers' },
+        { text: '许可证', link: '/licensing' },
+      ],
+    },
   ],
   footer: {
-    message: `GitHub：${repositoryLinks}<br>联系：${mail} · 网站代码：<a href="https://opensource.org/license/mit">MIT</a> · 内容：<a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hans">CC BY 4.0</a>`,
+    message: `GitHub：${repositoryLinks}<br>联系：${mail} · <a href="${BASE}developers">开发者</a> · <a href="${BASE}licensing">许可证</a> · 网站代码：<a href="https://opensource.org/license/mit">MIT</a> · 内容：<a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hans">CC BY 4.0</a>`,
     copyright: 'CarPlay 和 iPhone 是 Apple Inc. 的商标。OpenXPlay 为独立项目，与 Apple 不存在隶属、认可或认证关系。',
   },
   outline: { level: [2, 3], label: '本页内容' },
@@ -144,8 +238,8 @@ export default defineConfig({
   buildEnd: writeGeneratedFiles,
 
   vite: {
-    // The home pages show the diagrams and the group QR codes from the repository's assets/ and
-    // Group/, which the development server serves only when allowed.
+    // The How it works and Community pages show the diagrams and the group QR codes from the
+    // repository's assets/ and Group/, which the development server serves only when allowed.
     server: { fs: { allow: [fileURLToPath(new URL('../..', import.meta.url))] } },
   },
 })

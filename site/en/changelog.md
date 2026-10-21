@@ -9,7 +9,7 @@ breadcrumb: Changelog
 
 # Changelog
 
-What changed in each OpenXPlay Relay release, newest first. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup are in the [quick start](/en/quick-start).
+What changed in each OpenXPlay Relay release, newest first. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup start at [Get started](/en/quick-start).
 
 ## 0.1.3 {#v0-1-3}
 

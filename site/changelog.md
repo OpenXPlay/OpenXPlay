@@ -9,7 +9,7 @@ breadcrumb: 更新日志
 
 # 更新日志
 
-OpenXPlay Relay 每个版本的变化，最新的在最前面。安装包和校验值见 GitHub 上的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)；安装和设置见[快速开始](/quick-start)。
+OpenXPlay Relay 每个版本的变化，最新的在最前面。安装包和校验值见 GitHub 上的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)；安装和设置见[开始使用](/quick-start)。
 
 ## 0.1.3 {#v0-1-3}
 

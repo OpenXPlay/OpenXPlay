@@ -10,7 +10,7 @@ name: Pages
 on:
   push:
     branches: [main]
-    # The site plus the diagrams and QR codes its home pages show.
+    # The site plus the diagrams and QR codes its pages show.
     paths:
       - site/**
       - assets/**

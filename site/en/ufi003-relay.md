@@ -1,0 +1,88 @@
+---
+# SPDX-FileCopyrightText: 2026 OpenXPlay.org
+# SPDX-License-Identifier: CC-BY-4.0
+# Created by riko chen on 2026-10-21
+title: UFI003 USB dongle as the relay (Linux relay)
+description: Set up a UFI003 USB dongle as the OpenXPlay Linux relay step by step. Flash OpenStick Debian, make and install the relay, add your CarPlay identity, pair your iPhone, then open CarPlay in the head unit’s browser.
+breadcrumb: UFI003 as the relay
+schema: howto
+howtoName: Show iPhone CarPlay in the head unit’s browser with a UFI003 USB dongle as the Linux relay
+howtoTools:
+  - iPhone with CarPlay
+  - UFI003 USB dongle
+  - A computer
+  - Apple accessory (MFi) identity that you supply
+  - Android head unit with a browser that supports WebCodecs
+next:
+  text: Everyday use and settings
+  link: /en/daily-use
+---
+
+# UFI003 USB dongle as the relay
+
+The UFI003 is an msm8916 4G USB dongle. With the OpenStick Debian 11 system flashed onto it, it runs the OpenXPlay Linux relay: the relay starts by itself when the dongle is powered, and the head unit shows CarPlay in its own browser. [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) has the support files it needs.
+
+::: warning Some hands-on work needed
+This route means flashing the dongle from a computer and running scripts on the command line, and flashing replaces the dongle’s original system. If you’re unsure, [use an Android phone as the relay](/en/android-relay) instead. The UFI003’s Wi-Fi has no 5 GHz band, so its hotspot runs on 2.4 GHz.
+:::
+
+## Flash the base image {#step-image .step}
+
+Flash the OpenStick Debian 11 image (kernel `5.15.0-handsomekernel+`, aarch64) onto the UFI003. Downloads, checksums and the cautions to read before flashing are in [Flash the UFI003 base image](/en/ufi003-flash).
+
+## Get the relay {#step-get .step}
+
+Download `openxplay-relay-<version>-linux-aarch64.tar.gz` from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) and unpack it: it holds the two aarch64 binaries (`bin/openxplay-relay`, `bin/oxp-relay`), the web receiver (`web/`), the admin page (`admin/`) and `rust/packaging/`.
+
+::: details Want to build it yourself?
+Build the web receiver (`rust/web-receiver/` in [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream)), the admin page (`admin-web/` in [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay)) and the aarch64 binaries with `rust/scripts/build-aarch64.sh` in both repositories.
+:::
+
+## Make an install bundle {#step-bundle .step}
+
+On your computer, run `UFI003/install/make-bundle.sh` with the build outputs, the Debian packages recorded in `UFI003/install/debs.txt` and the relay’s packaging directory:
+
+```sh
+sh UFI003/install/make-bundle.sh /tmp/ufi003-bundle /path/to/openxplay-relay /path/to/oxp-relay /path/to/web/dist /path/to/admin/dist /path/to/debs /path/to/OpenXPlay-Relay/rust/packaging
+```
+
+## Install it on the dongle {#step-install .step}
+
+Copy the `.tar.gz` to the dongle, unpack it into an empty directory and run `UFI003/install/install-ufi003.sh` from it as root. Put `--dry-run` before the arguments to verify everything without changing anything.
+
+The installer adds the Bluetooth RFCOMM module that wireless CarPlay needs, a fixed Bluetooth driver and a Bluetooth guard, and sets up the relay.
+
+## Add your CarPlay identity {#step-identity .step}
+
+Bundles never contain an Apple accessory (MFi) identity. Supply your own separately, as the [UFI003 README](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003#one-step-installer) describes, then start the relay.
+
+## Open the admin page {#step-admin .step}
+
+From a phone or computer on the relay’s network, open `https://openxplay-linux.local:6975`. Accept the certificate warning, log in (the login page shows the first-time password) and set your own admin password.
+
+::: info To be confirmed
+How a freshly installed dongle’s network is first reached isn’t documented in the repositories yet. If you get stuck, ask in the [community](/en/community).
+:::
+
+## Choose the network {#step-network .step}
+
+In the admin page, choose how the iPhone and the head unit reach the relay:
+
+- **This device’s hotspot** (the default): opens the relay’s own hotspot; the iPhone joins it automatically and the head unit joins it too.
+- **Shared Wi-Fi**: the relay, the iPhone and the head unit join one existing 2.4 GHz network.
+
+## Pair the iPhone {#step-pair .step}
+
+Choose *Pair iPhone*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose the relay.
+
+## Open it in the head unit’s browser {#step-open .step}
+
+Join the relay’s network from the head unit and open `https://10.77.0.1:8443/` (with the relay’s own hotspot) or `https://openxplay-linux.local:8443/`. Accept the certificate warning the first time; [Troubleshooting](/en/troubleshooting#certificate-warning) explains why it appears.
+
+If pairing codes are turned on in the admin page, enter the 8-digit code the relay shows.
+
+## Next {#next-steps}
+
+- In cars such as the Xpeng G6, see the recommended setup under [Head units](/en/head-units), for example setting the frame rate to 30 on 2.4 GHz.
+- [Trusted HTTPS](/en/trusted-https): remove the certificate warning with a free domain name.
+- Something not working? See [Troubleshooting](/en/troubleshooting).

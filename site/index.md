@@ -9,88 +9,72 @@ description: OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone C
 hero:
   name: OpenXPlay
   text: 车机装不了软件，也能用 CarPlay
-  tagline: OpenXPlay 让无法安装第三方应用的安卓车机也能显示 iPhone CarPlay。由一台中继设备（安卓手机或小型 Linux 设备）连接 iPhone，再把 CarPlay 交给车机上已有的软件显示，例如车机浏览器或 Carlink 应用。
+  tagline: 用一部安卓手机或一个 UFI003 随身 Wi-Fi 作中继，iPhone 的 CarPlay 就能显示在车机自带的浏览器里。车机上什么都不用装。
   actions:
     - theme: brand
-      text: 快速开始
+      text: 开始使用
       link: /quick-start
     - theme: alt
-      text: 检测车机
+      text: 检测我的车机
       link: /check
+featuresTitle: 三步用上 CarPlay
 features:
-  - title: 快速开始
-    details: 把安卓手机或 UFI003 USB 随身 Wi-Fi 设为中继，配对 iPhone，然后在车机上打开 CarPlay。
-    link: /quick-start
-    linkText: 开始设置
   - title: 检测车机
-    details: 在车机浏览器中打开检测页，看看它能否运行网页接收端。
+    details: 在车机浏览器中打开 openxplay.org/check，看看它能否显示 CarPlay。
     link: /check
     linkText: 开始检测
-  - title: 常见问题与故障排查
-    details: 证书警告、2.4 GHz Wi-Fi、蓝牙配对、延迟、断电和隐私。
-    link: /faq
-    linkText: 查看解答
-  - title: 开发者与许可证
-    details: 架构、仓库、AGPL-3.0 与商业豁免、参与贡献和插件。
-    link: /developers
-    linkText: 参与开发
+  - title: 准备中继
+    details: 在安卓手机上安装 OpenXPlay Relay 应用，或者把 UFI003 随身 Wi-Fi 刷成中继。
+    link: /quick-start
+    linkText: 选择方案
+  - title: 上车连接
+    details: iPhone 连上中继后，在车机浏览器中打开中继显示的地址，轻触一下屏幕即可开始。
+    link: /android-relay
+    linkText: 查看教程
 ---
+
+## 开始前需要准备 {#requirements}
+
+<div class="oxp-checklist">
+
+- **支持 CarPlay 的 iPhone**：通过无线或 USB 线连接中继。
+- **一台中继**：Android 8.0 及以上的安卓手机，或 UFI003 随身 Wi-Fi。
+- **Apple 配件（MFi）身份**：两个文件，需要由你自行提供，项目不附带。[了解更多](/quick-start#mfi-identity)
+- **车机浏览器**：需要支持 WebCodecs 视频解码，可以[先检测](/check)。
+
+</div>
 
 ## 适合谁 {#who-it-is-for}
 
-OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使用 CarPlay 的车主**。车机上不需要安装任何东西，也不会修改车机系统：接收和连接由手机或外部设备完成，CarPlay 通过车机已有的入口显示。
+OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使用 CarPlay 的车主**。它不会修改车机系统：接收和连接由手机或外部设备完成，CarPlay 通过车机已有的入口显示。
 
 | 你的车机 | 适合的方案 |
 | --- | --- |
 | 无法安装应用 | **OpenXPlay**：由手机或外部设备承接相关能力，借助车机已有的浏览器、Carlink 应用等入口显示 CarPlay。 |
 | 可以安装应用 | **[DiPlay](https://github.com/shihabal3amri/DiPlay)**：在兼容的安卓车机上安装应用，由车机直接接收并显示 CarPlay。 |
 
-开发者也可以基于同一套组件进行开发：输入、输出和中继之间只通过一个共享的会话模型交互。详见[开发者与许可证](/developers)。
+想知道它具体怎样工作、支持哪些车机入口，请看[工作原理](/how-it-works)。
 
-## 中继连接路线 {#relay-route}
+## 常见疑问 {#questions}
 
-iPhone 连接到一台中继：运行 OpenXPlay Relay 应用的安卓手机，或 UFI003 USB 随身 Wi-Fi 这类小型 Linux 设备。中继充当 CarPlay 接收端，再把视频、音频和触控转给车机。
+::: details 车机上需要安装什么吗？
+不需要。接收和连接都由中继完成，车机只用它已有的浏览器或 Carlink 应用，也不会修改车机系统。
+:::
 
-<figure class="oxp-figure">
-  <img src="../assets/openxplay-relay-animated-zh.svg" width="1800" height="1120" loading="lazy" decoding="async" alt="OpenXPlay 中继连接路线：iPhone 通过 Wi-Fi 或 USB 连接安卓中继或 Linux 中继，再经车机的浏览器、Carlink、无线投屏或有线投屏入口显示在车机屏幕上。">
-  <figcaption>OpenXPlay 的一条中继路线，仅涵盖项目的部分方案组合。</figcaption>
-</figure>
+::: details 免费吗？
+免费。软件以 AGPL-3.0 开源。要正常使用，还需要一个由你自行提供的 Apple 配件（MFi）身份。详见[许可证](/licensing)。
+:::
 
-目前，中继可以把 CarPlay 送到这些车机入口：
+::: details 我的车机能用吗？
+关键在于车机浏览器：它需要支持 WebCodecs 视频解码。在车机浏览器中打开[检测车机](/check)就能知道；实测过的车机列在[车机资料](/head-units)中。
+:::
 
-| 车机入口 | 工作方式 | 触控 | 状态 |
-| --- | --- | --- | --- |
-| 浏览器（网页接收端） | H.264 视频经安全 WebSocket 传输，由 WebCodecs 解码 | 支持 | 开发中 |
-| Carlink 应用 | 经 Wi-Fi 连接 | 支持 | 实验性 |
-| 投屏接收端（DLNA） | 投屏 | 不支持 | 计划中 |
+::: details 会把我的数据发到别处吗？
+OpenXPlay 通过本地连接工作：视频、音频和触控经蓝牙、Wi-Fi 或 USB 在 iPhone、中继和车机之间传输，网页接收端和管理页面都由中继自己提供。详见[常见问题](/faq#data)。
+:::
 
-## 最多 28 种组合 {#combinations}
+更多问题见[常见问题](/faq)；遇到连接、画面或声音的问题，请看[故障排查](/troubleshooting)。
 
-你可以把 OpenXPlay 理解为一套可自由组合的 CarPlay 接入方案：Android、Linux 和 iOS 端实现，USB、蓝牙和 Wi-Fi 连接，以及浏览器、Carlink 等显示方式。它涵盖部分市售 CarPlay 盒子的能力，同时提供更多连接与显示路径。**本项目提供的技术通过不同组合，最多可形成 28 种解决方案**，你可以根据车机条件和手头设备选择适合自己的组合。
+## 加入交流群 {#join}
 
-## 极致精简，成本低廉 {#lean}
-
-| 指标 | 占用／成本 |
-| --- | --- |
-| 常驻内存 | 4.3 MB |
-| 磁盘占用 | 5 MB |
-| 硬件成本 | 低至 15 元人民币／3 美元，不含 MFi 部分 |
-
-以上数据对应特定方案与运行配置，实际资源占用和成本随所选方案、设备及环境而变化。
-
-## 加入交流群 {#community}
-
-欢迎分享车机适配情况、交流使用体验、反馈问题，参与项目测试与开发。
-
-| 渠道 | 加入方式 |
-| --- | --- |
-| QQ 群 | 1015739350，或扫描下方二维码 |
-| 微信群 | 扫描下方二维码 |
-| Discord | [discord.gg/j3cKd5Tax](https://discord.gg/j3cKd5Tax) |
-
-<figure class="oxp-figure is-narrow">
-  <img src="../Group/Wechat_QQ_Group.jpg" width="1086" height="814" loading="lazy" decoding="async" alt="OpenXPlay QQ 群和微信群的入群二维码">
-  <figcaption>微信群二维码会定期过期，二维码更新后这张图片也会随之更新。如果已经过期，可以先加入 QQ 群或 Discord，请大家帮忙邀请。</figcaption>
-</figure>
-
-反馈兼容性问题时，请尽量提供车机型号、系统版本、所选方案及问题现象。附上[检测车机](/check)生成的报告也很有帮助。
+分享车机适配情况、反馈问题，或参与测试与开发：QQ 群 **1015739350**，另有微信群和 [Discord](https://discord.gg/j3cKd5Tax)。入群二维码见[交流群](/community)。

@@ -6,7 +6,7 @@ Created by riko chen on 2026-10-17
 
 # OpenXPlay website
 
-The source of the OpenXPlay website, built with [VitePress](https://vitepress.dev/). Simplified Chinese, the default language, is at the root and English under `en/`, with the same file names. The home pages show the diagrams in `../assets/` and the QR codes in `../Group/`, the same files the repository README uses. The workflow `../.github/workflows/pages.yml` builds this directory and deploys it to GitHub Pages whenever any of them changes on `main`.
+The source of the OpenXPlay website, built with [VitePress](https://vitepress.dev/). Simplified Chinese, the default language, is at the root and English under `en/`, with the same file names. The How it works pages show the diagrams in `../assets/` and the Community pages the QR codes in `../Group/`, the same files the repository README uses. The workflow `../.github/workflows/pages.yml` builds this directory and deploys it to GitHub Pages whenever any of them changes on `main`.
 
 ## Run it locally
 
