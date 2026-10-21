@@ -28,8 +28,8 @@ The UFI003’s Wi-Fi has no 5 GHz band, so its hotspot runs on 2.4 GHz.
 
 [OpenXPlay Flasher](https://github.com/OpenXPlay/OpenXPlay-Flasher) is a desktop app for Windows and macOS. Connect the UFI003 to the computer by USB and it recognises the dongle and lists the three layers to install: the base system (OpenStick Debian 11), device support and the OpenXPlay relay. It can install all three from scratch or update just one; when a new relay version comes out, usually only the relay layer needs updating, without flashing again.
 
-::: warning Installing is coming soon
-The Flasher preview released so far (0.1.0-beta.1) only recognises devices and shows their layers; it doesn’t write anything to the device yet. Until installing arrives, follow the [manual install](#manual) below.
+::: info On Windows
+The Windows version can so far only install and update device support and the relay, not flash the base system, and adb must already be running on the computer (`adb start-server` from the Android SDK Platform-Tools). The first install flashes the base system, so use a Mac for it, or flash the base image with the [manual install](#manual) below.
 :::
 
 ::: details Download and open Flasher {#flasher-download}
@@ -39,9 +39,22 @@ Download the build for your system from [Releases](https://github.com/OpenXPlay/
 - **Windows 10 or 11** (`openxplay-flasher-windows-amd64.exe`, or `-arm64.exe` on Arm PCs): when *Windows protected your PC* appears, choose *More info*, then *Run anyway*. If the app says the Microsoft Edge WebView2 runtime is missing, install it and open the app again.
 :::
 
+Once it’s open, Flasher takes you through these steps:
+
+1. **Connect**: plug the UFI003 into the computer. Flasher shows the dongle’s serial number and the version of each layer. If the dongle still runs its original firmware, first confirm that it really is a UFI003.
+2. **Choose**: the suggested action comes first, for example *Install / update relay*. The actions that erase the dongle (reinstall the base system, full reinstall, repair) are under *Reflash (erases the device)*.
+3. **Prepare**: Flasher lists each file it needs with its SHA-256 and download links, but doesn’t download anything itself. Download the files from the links or another source you trust, then choose *Choose file…* or *Choose several files…*. Flasher recognises the files by their SHA-256, so their names don’t matter. Don’t move or delete them until the install has finished.
+4. **Back up** (only when the base system is flashed): Flasher first reads the `modemst1`, `modemst2`, `fsc` and `fsg` partitions from the dongle and saves them to `OpenXPlay Backups` in your Documents folder. They hold modem calibration data unique to this dongle, so keep that folder for good. Actions that erase the dongle also ask you to type its serial number.
+5. **Flash**: the dongle restarts a few times; don’t unplug it. If the connection is lost along the way, reconnect and choose *Repair*: Flasher writes the base system again and restores those four partitions from the earlier backup.
+6. **Done**: Flasher checks the version of each layer. Here you can add your own CarPlay identity (choose the identity files, or a ZIP archive containing them, which go to the dongle over USB) and open the relay’s admin page over USB; the password for the first sign-in is shown on the sign-in page. Then carry on from [Choose the network](#step-network).
+
+::: details Package list and signature {#flasher-catalog}
+Flasher reads a signed package list from this website with the version, download links and SHA-256 of each layer. The signature shows that the list comes from OpenXPlay, and every file you choose must match the SHA-256 in it. If you need your own package list, you can turn off *Verify the package list signature* in Settings; files are then still checked against the SHA-256 in the list, and the base system’s files must still match OpenStick v1 exactly.
+:::
+
 ## Manual install {#manual}
 
-Installing by hand means flashing the dongle from a computer and running scripts on the command line, and flashing replaces the dongle’s original system. If you’re unsure, wait for installing in Flasher, or [use an Android phone as the relay](/en/android-relay).
+Installing by hand means flashing the dongle from a computer and running scripts on the command line, and flashing replaces the dongle’s original system. If you’re unsure, use Flasher above, or [use an Android phone as the relay](/en/android-relay).
 
 ## Flash the base image {#step-image .step}
 

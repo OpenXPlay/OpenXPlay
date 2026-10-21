@@ -26,10 +26,10 @@ UFI003 的 Wi-Fi 没有 5 GHz 频段，热点工作在 2.4 GHz。
 
 ## 用 OpenXPlay Flasher 安装（推荐） {#flasher}
 
-[OpenXPlay Flasher](https://github.com/OpenXPlay/OpenXPlay-Flasher) 是 Windows 和 macOS 上的桌面应用。用 USB 把 UFI003 接到电脑上，它会识别设备，并列出要安装的三层：基础系统（OpenStick Debian 11）、设备支持和 OpenXPlay 中继。它可以从头安装全部三层，也可以只更新其中一层；以后中继出新版本时，通常只需要更新中继这一层，不用重新刷机。
+[OpenXPlay Flasher](https://github.com/OpenXPlay/OpenXPlay-Flasher) 是 Windows 和 macOS 上的桌面应用，应用中显示为“OpenXPlay 刷机工具”。用 USB 把 UFI003 接到电脑上，它会识别设备，并列出要安装的三层：基础系统（OpenStick Debian 11）、设备支持和 OpenXPlay 中继。它可以从头安装全部三层，也可以只更新其中一层；以后中继出新版本时，通常只需要更新中继这一层，不用重新刷机。
 
-::: warning 安装功能即将推出
-目前发布的 Flasher 预览版（0.1.0-beta.1）只能识别设备、显示各层，还不会向设备写入任何内容。安装功能推出之前，请按下面的[手动安装](#manual)步骤操作。
+::: info 在 Windows 上
+Windows 版目前只能安装和更新设备支持与中继，不能刷入基础系统，而且电脑上要先运行 adb（Android SDK Platform-Tools 中的 `adb start-server`）。第一次安装要刷入基础系统，请用 Mac，或者按下面的[手动安装](#manual)刷入基础镜像。
 :::
 
 ::: details 下载并打开 Flasher {#flasher-download}
@@ -39,9 +39,22 @@ UFI003 的 Wi-Fi 没有 5 GHz 频段，热点工作在 2.4 GHz。
 - **Windows 10 或 11**（`openxplay-flasher-windows-amd64.exe`，Arm 电脑用 `-arm64.exe`）：出现“Windows 已保护你的电脑”时，选择“更多信息”，再选择“仍要运行”。如果提示缺少 Microsoft Edge WebView2 运行时，请安装后重新打开。
 :::
 
+打开 Flasher 后，它会按下面的顺序引导你：
+
+1. **连接**：用 USB 把 UFI003 接到电脑上。Flasher 会显示设备的序列号和各层的当前版本。如果设备还在运行原厂系统，需要你先确认这台设备就是 UFI003。
+2. **选择**：最上面是建议的操作，例如“安装 / 更新中继”。会清空设备的操作（重刷基础系统、完整重装、修复）收在“重新刷机（擦除设备）”中。
+3. **准备**：Flasher 列出所需的每个文件、它的 SHA-256 和下载链接，但不会自己下载。请通过链接或你信任的其他来源下载，再点“选择文件…”或“选择多个文件…”。Flasher 按 SHA-256 识别文件，文件名不影响匹配。安装完成前不要移动或删除这些文件。
+4. **备份**（仅在刷入基础系统时）：Flasher 先从设备读取 `modemst1`、`modemst2`、`fsc`、`fsg` 四个分区，保存到电脑“文稿”文件夹中的 `OpenXPlay Backups`。这是这台设备独有的基带校准数据，请长期保留这个文件夹。会清空设备的操作还要你输入设备的序列号确认。
+5. **刷写**：期间设备会重启几次，不要拔出设备。如果中途断开，重新连接后选择“修复”：Flasher 会重新写入基础系统，并用之前的备份恢复这四个分区。
+6. **完成**：Flasher 核对各层的版本。在这里可以添加你自己的 CarPlay 身份（选择身份文件，或包含它们的 ZIP 压缩包，通过 USB 传到设备上），也可以通过 USB 打开中继管理页面，首次登录的密码显示在登录页上。之后从[选择网络](#step-network)继续。
+
+::: details 软件包列表与签名 {#flasher-catalog}
+Flasher 从本网站读取一份签名的软件包列表，其中记录了各层的版本、下载链接和 SHA-256。签名证明这份列表来自 OpenXPlay，你选择的每个文件都要与列表中的 SHA-256 一致。需要用自己的软件包列表时，可以在“设置”中关闭“校验软件包列表签名”；关闭后，文件仍按列表中的 SHA-256 核对，基础系统的文件也仍须与 OpenStick v1 完全一致。
+:::
+
 ## 手动安装 {#manual}
 
-手动安装要在电脑上刷机、在命令行中运行脚本，刷机会改写设备原有的系统。没有把握时，可以等 Flasher 的安装功能，或者[用安卓手机作中继](/android-relay)。
+手动安装要在电脑上刷机、在命令行中运行脚本，刷机会改写设备原有的系统。没有把握时，请用上面的 Flasher，或者[用安卓手机作中继](/android-relay)。
 
 ## 刷入基础镜像 {#step-image .step}
 
