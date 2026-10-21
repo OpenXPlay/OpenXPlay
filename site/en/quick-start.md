@@ -184,7 +184,7 @@ The relay serves the receiver page over HTTPS because browsers allow WebCodecs v
 
 - **Is it safe?** The connection is still encrypted. The warning means the browser can’t verify who issued the certificate. Check that the address is your relay’s, then continue (the option is often under *Advanced*).
 - **Why did it come back?** The relay made a new certificate. The Android relay does this when its network addresses change; the Linux relay does it when it replaces certificate files that were created while the device clock was wrong.
-- **Can I avoid it?** On the Android relay you can import your own certificate (a PKCS #12 `.p12` file) in the app.
+- **Can I avoid it?** Yes, with a free domain name: the relay gets a trusted certificate for it, and the page opens by that name without a warning. See [Trusted HTTPS](/en/trusted-https) (available from an upcoming relay release). On the Android relay you can also import your own certificate (a PKCS #12 `.p12` file) in the app.
 
 ## Next steps {#next-steps}
 

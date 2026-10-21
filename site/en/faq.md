@@ -38,7 +38,7 @@ Yes. The software is open source under AGPL-3.0 and free to use. A working setup
 
 ### Why does the browser show a certificate warning? {#certificate-warning}
 
-The relay serves the receiver page over HTTPS, because browsers allow WebCodecs video decoding only on secure pages, and it signs the certificate itself. The browser can’t verify a self-made certificate, so it warns the first time. The connection is still encrypted: check that the address is your relay’s and continue. The warning can come back when the relay makes a new certificate. On the Android relay you can import your own certificate instead. See [About the certificate warning](/en/quick-start#certificate-warning).
+The relay serves the receiver page over HTTPS, because browsers allow WebCodecs video decoding only on secure pages, and it signs the certificate itself. The browser can’t verify a self-made certificate, so it warns the first time. The connection is still encrypted: check that the address is your relay’s and continue. The warning can come back when the relay makes a new certificate. To avoid it, give the relay a free domain name and a trusted certificate for it, as [Trusted HTTPS](/en/trusted-https) describes (available from an upcoming relay release); on the Android relay you can also import your own certificate. See [About the certificate warning](/en/quick-start#certificate-warning).
 
 ### My head unit only sees 2.4 GHz Wi-Fi networks {#only-2-4-ghz}
 
