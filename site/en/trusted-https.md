@@ -79,17 +79,17 @@ Since 2026-09-21, deSEC has suspended new dedyn.io registrations until further n
 
 If you already have a dedyn.io name, get a token like this:
 
-1. Log in to deSEC. On [desec.io](https://desec.io/), choose **Log In**. Accounts registered through dynDNS start without a password; before your first login, set one with **Reset Account Password**.
-2. Open **Token Management** and choose **Generate New Token**; a name such as `openxplay-relay` will do. Leave **Maximum age** and **Maximum unused period** empty: once the token expires, the relay can no longer update the address or renew the certificate.
+1. Log in to deSEC. On [desec.io](https://desec.io/), choose *Log In*. Accounts registered through dynDNS start without a password; before your first login, set one with *Reset Account Password*.
+2. Open *Token Management* and choose *Generate New Token*; a name such as `openxplay-relay` will do. Leave *Maximum age* and *Maximum unused period* empty: once the token expires, the relay can no longer update the address or renew the certificate.
 3. Copy the new token. It is shown only this once and can’t be viewed again.
 
-The token deSEC showed when you registered the dedyn.io name works too; if the relay reports **The provider rejected the token**, generate a new one as above. If you give the token policies, it must still be allowed to change the name’s A record and its `_acme-challenge` TXT record.
+The token deSEC showed when you registered the dedyn.io name works too; if the relay reports *The provider rejected the token*, generate a new one as above. If you give the token policies, it must still be allowed to change the name’s A record and its `_acme-challenge` TXT record.
 
 **What to save:** the full name, such as `myrelay.dedyn.io`, and the token.
 
 ### dynv6 {#dynv6}
 
-1. Create a dynv6 account. On [dynv6.com](https://dynv6.com/), choose **Sign up**, enter your email and a password (at least 8 characters), then open the link in the confirmation email.
+1. Create a dynv6 account. On [dynv6.com](https://dynv6.com/), choose *Sign up*, enter your email and a password (at least 8 characters), then open the link in the confirmation email.
 2. Create a zone (dynv6’s word for a name). Once signed in, type a name and choose the `dynv6.net` suffix, for example `myrelay.dynv6.net`. Don’t choose another suffix; [Choosing a provider](#choose-provider) explains why.
 3. Get an HTTP token. Open the Keys page ([dynv6.com/keys](https://dynv6.com/keys)) and create or copy an HTTP token; limit it to this zone if you can.
 
@@ -102,15 +102,15 @@ OpenXPlay is still testing whether dynv6 accepts private addresses.
 The token works like a password for the name: anyone who has it can point your name somewhere else.
 
 - Keep the token in a password manager. Don’t post it in a chat, and don’t share screenshots of the settings or the configuration file.
-- The token stays on the relay. Once entered, the app and the admin page show only **Token saved**, never the token itself.
+- The token stays on the relay. Once entered, the app and the admin page show only *Token saved*, never the token itself.
 - After importing a configuration file, delete the file from the phone.
 
 If the token leaks, get a new one from your provider and enter it on the relay (or import the configuration file again):
 
 | Provider | How to replace the token |
 | --- | --- |
-| DuckDNS | On the account page, select the three small lines next to your login email, then **recreate token**. The new token covers every name in the account. |
-| deSEC | Create a new token in **Token Management**, then remove the old one with **Delete Token**. |
+| DuckDNS | On the account page, select the three small lines next to your login email, then *recreate token*. The new token covers every name in the account. |
+| deSEC | Create a new token in *Token Management*, then remove the old one with *Delete Token*. |
 | dynv6 | On the Keys page, delete the old HTTP token and create a new one. |
 
 ## Setting up the Android relay {#android}
@@ -119,13 +119,13 @@ Fill in the settings in the app, or import a configuration file; both do the sam
 
 ### In the app {#android-settings}
 
-1. Open OpenXPlay Relay and go to **Settings → Trusted HTTPS**.
-2. Turn on **Use a free domain name**.
-3. Under **DNS provider**, choose DuckDNS, deSEC or dynv6.
-4. Under **Domain name**, enter the full name. Use `myrelay.duckdns.org`, for example, not just `myrelay`.
-5. Paste the provider’s token under **Token**. Once saved, the field shows only **Token saved**; leaving it empty later keeps the saved token.
-6. Tick **I agree to the Let’s Encrypt Subscriber Agreement**; see [The Let’s Encrypt Subscriber Agreement](#letsencrypt-terms).
-7. Tap **Save**. The status line shows **Updating the domain’s address…**, then **Requesting a certificate…**, and finally **Ready: … (certificate valid until …)**.
+1. Open OpenXPlay Relay and go to Settings → Trusted HTTPS.
+2. Turn on *Use a free domain name*.
+3. Under *DNS provider*, choose DuckDNS, deSEC or dynv6.
+4. Under *Domain name*, enter the full name. Use `myrelay.duckdns.org`, for example, not just `myrelay`.
+5. Paste the provider’s token under *Token*. Once saved, the field shows only *Token saved*; leaving it empty later keeps the saved token.
+6. Tick *I agree to the Let’s Encrypt Subscriber Agreement*; see [The Let’s Encrypt Subscriber Agreement](#letsencrypt-terms).
+7. Tap *Save*. The status line shows *Updating the domain’s address…*, then *Requesting a certificate…*, and finally *Ready: … (certificate valid until …)*.
 
 ### Import a configuration file {#android-import}
 
@@ -133,20 +133,20 @@ If you’d rather not type a long token on the phone, write a configuration file
 
 1. Write the file on a computer. In a text editor, create a file such as `public-name.json`, fill it in as described in [Configuration file format](#config-file) and save it as plain UTF-8 text.
 2. Copy the file to the relay phone over a USB cable, for example into the Download folder, or create it on the phone with a text editor app. The file contains the token, so avoid sending it through chat apps or cloud storage.
-3. In **Settings → Trusted HTTPS**, tap **Import configuration file** and choose the file in the file picker.
+3. In Settings → Trusted HTTPS, tap *Import configuration file* and choose the file in the file picker.
 4. After a successful import, the app shows only the provider and the name, and the settings take effect right away. If the file has a mistake, the app says which entry is wrong.
 5. Delete the file from the phone.
 
-Unless the file says `"enabled": false`, importing it turns on **Use a free domain name**.
+Unless the file says `"enabled": false`, importing it turns on *Use a free domain name*.
 
 ## Setting up the Linux relay {#linux}
 
 ### In the admin page {#linux-admin}
 
 1. Open the admin page and log in. Use a phone or computer on the relay’s network, for example with `https://openxplay-linux.local:6975`.
-2. Open **Settings** and find **Trusted HTTPS**.
-3. Turn on **Use a free domain name**, choose the **DNS provider**, enter the **Domain name** and the **Token**, and tick **I agree to the Let’s Encrypt Subscriber Agreement**. Each field is saved on its own, and the page shows **Saved**.
-4. Once the status line shows **Ready: … (certificate valid until …)**, open the page on the head unit. **Request certificate now** tries again straight away when needed.
+2. Open *Settings* and find *Trusted HTTPS*.
+3. Turn on *Use a free domain name*, choose the *DNS provider*, enter the *Domain name* and the *Token*, and tick *I agree to the Let’s Encrypt Subscriber Agreement*. Each field is saved on its own, and the page shows *Saved*.
+4. Once the status line shows *Ready: … (certificate valid until …)*, open the page on the head unit. *Request certificate now* tries again straight away when needed.
 
 The token isn’t shown again once saved; leaving the field empty later keeps the saved token.
 
@@ -226,13 +226,13 @@ One example per provider; replace the name and the token with yours:
 
 ## The Let’s Encrypt Subscriber Agreement {#letsencrypt-terms}
 
-Let’s Encrypt issues the certificate for free, and asks you to agree to its [Subscriber Agreement](https://letsencrypt.org/repository/) first. The relay never agrees for you: tick **I agree to the Let’s Encrypt Subscriber Agreement** in the app or the admin page, or set `"agreeLetsEncryptTerms": true` in the configuration file. Until you do, the relay requests no certificate and the status line shows **Fill in the provider, domain name and token, and agree to the terms.**
+Let’s Encrypt issues the certificate for free, and asks you to agree to its [Subscriber Agreement](https://letsencrypt.org/repository/) first. The relay never agrees for you: tick *I agree to the Let’s Encrypt Subscriber Agreement* in the app or the admin page, or set `"agreeLetsEncryptTerms": true` in the configuration file. Until you do, the relay requests no certificate and the status line shows *Fill in the provider, domain name and token, and agree to the terms.*
 
 The relay creates its Let’s Encrypt account without an email address or any other contact details.
 
 ## Opening the page {#open}
 
-1. Wait until the status line shows **Ready: … (certificate valid until …)**. The first certificate usually takes a minute or two.
+1. Wait until the status line shows *Ready: … (certificate valid until …)*. The first certificate usually takes a minute or two.
 2. Open the page by the name in the head unit’s browser. The address is `https://` followed by your name and `:8443/`, for example `https://myrelay.duckdns.org:8443/`. Once it is ready, the relay lists this address first among the head-unit addresses.
 3. The page opens straight away, without a certificate warning. Bookmark it in place of the old bookmark with the IP address.
 
@@ -247,31 +247,31 @@ The status line in the app and the admin page shows one of these:
 
 | Status | Meaning | What to do |
 | --- | --- | --- |
-| **Off** | **Use a free domain name** is off. | Turn it on when you want it. |
-| **Fill in the provider, domain name and token, and agree to the terms.** | Something is missing, or the agreement isn’t ticked. | Complete the settings. |
-| **Waiting for internet access** | The relay has no internet access. | On the Android relay, turn on mobile data; on the Linux relay, connect a network with internet access. The relay tries again once it is online. |
-| **Updating the domain’s address…** | The relay is publishing its address under the name. | Wait. |
-| **Requesting a certificate…** | The relay is asking Let’s Encrypt for a certificate. | Wait; it usually takes a minute or two. |
-| **Ready: … (certificate valid until …)** | The certificate is valid and the name points at the relay’s current address. | Open the head-unit page by the name. |
-| **Problem: …. Next try at ….** | Something went wrong. The reason follows the colon (see the next table), then the time of the next automatic try. | See the next table. |
+| *Off* | *Use a free domain name* is off. | Turn it on when you want it. |
+| *Fill in the provider, domain name and token, and agree to the terms.* | Something is missing, or the agreement isn’t ticked. | Complete the settings. |
+| *Waiting for internet access* | The relay has no internet access. | On the Android relay, turn on mobile data; on the Linux relay, connect a network with internet access. The relay tries again once it is online. |
+| *Updating the domain’s address…* | The relay is publishing its address under the name. | Wait. |
+| *Requesting a certificate…* | The relay is asking Let’s Encrypt for a certificate. | Wait; it usually takes a minute or two. |
+| *Ready: … (certificate valid until …)* | The certificate is valid and the name points at the relay’s current address. | Open the head-unit page by the name. |
+| *Problem: …. Next try at ….* | Something went wrong. The reason follows the colon (see the next table), then the time of the next automatic try. | See the next table. |
 
 | Reason | What it means and what to do |
 | --- | --- |
-| **The provider rejected the token** | The token is wrong or no longer valid; see [The provider rejects the token](#token-rejected). |
-| **The provider doesn’t know this domain name** | The name is misspelt, or it isn’t in this account at the chosen provider. Enter the full name, such as `myrelay.duckdns.org`, and check the **DNS provider**. |
-| **The provider asked to wait** | Too many requests. Nothing to do; the relay tries again at the time shown. |
-| **Can’t reach the provider** | The relay is offline or can’t reach the provider. Check the relay’s internet access; if the provider is down for a while, the relay keeps trying. |
-| **The provider’s name servers didn’t show the change in time** | The check record didn’t reach the provider’s name servers in time, usually because the provider was slow for a moment. The relay tries again by itself, or choose **Request certificate now** later. |
-| **Let’s Encrypt rejected the request: …** | Let’s Encrypt’s reason follows the colon. Check the name and the token; if it keeps happening, post the message in the [community](/en/#community). |
-| **Let’s Encrypt asked to wait** | A Let’s Encrypt limit was reached. Wait until the time shown; see [Asked to wait](#rate-limits). |
-| **No head-unit network address yet** | The relay isn’t on the head unit’s network yet, so it has no address to publish. Connect the head unit’s network as in [step 5 of the quick start](/en/quick-start#step-network). |
+| *The provider rejected the token* | The token is wrong or no longer valid; see [The provider rejects the token](#token-rejected). |
+| *The provider doesn’t know this domain name* | The name is misspelt, or it isn’t in this account at the chosen provider. Enter the full name, such as `myrelay.duckdns.org`, and check the *DNS provider*. |
+| *The provider asked to wait* | Too many requests. Nothing to do; the relay tries again at the time shown. |
+| *Can’t reach the provider* | The relay is offline or can’t reach the provider. Check the relay’s internet access; if the provider is down for a while, the relay keeps trying. |
+| *The provider’s name servers didn’t show the change in time* | The check record didn’t reach the provider’s name servers in time, usually because the provider was slow for a moment. The relay tries again by itself, or choose *Request certificate now* later. |
+| *Let’s Encrypt rejected the request: …* | Let’s Encrypt’s reason follows the colon. Check the name and the token; if it keeps happening, post the message in the [community](/en/#community). |
+| *Let’s Encrypt asked to wait* | A Let’s Encrypt limit was reached. Wait until the time shown; see [Asked to wait](#rate-limits). |
+| *No head-unit network address yet* | The relay isn’t on the head unit’s network yet, so it has no address to publish. Connect the head unit’s network as in [step 5 of the quick start](/en/quick-start#step-network). |
 
-After a network or provider problem, the relay tries again at growing intervals: 1 minute, 5 minutes, 30 minutes, 2 hours, 6 hours, then once a day. A new relay address or a settings change starts again at 1 minute. To try again right away, choose **Request certificate now**.
+After a network or provider problem, the relay tries again at growing intervals: 1 minute, 5 minutes, 30 minutes, 2 hours, 6 hours, then once a day. A new relay address or a settings change starts again at 1 minute. To try again right away, choose *Request certificate now*.
 
 ## Turning it off or removing it {#turn-off}
 
-- **Turn off:** with **Use a free domain name** off, the relay stops all requests and serves only its own certificate, so the head unit’s browser warns again. On the Linux relay, `"enabled": false` in the configuration file does the same.
-- **Remove:** in the Android app, **Remove** (after you confirm) deletes the settings, the token, the certificate and its keys.
+- **Turn off:** with *Use a free domain name* off, the relay stops all requests and serves only its own certificate, so the head unit’s browser warns again. On the Linux relay, `"enabled": false` in the configuration file does the same.
+- **Remove:** in the Android app, *Remove* (after you confirm) deletes the settings, the token, the certificate and its keys.
 - Neither changes the name at your provider: it keeps pointing at the last published address. If you no longer need it, delete it on the provider’s website.
 
 ## Privacy {#privacy}
@@ -286,32 +286,32 @@ After a network or provider problem, the relay tries again at growing intervals:
 
 ### The page doesn’t open by the name {#name-not-resolving}
 
-First check that the status line shows **Ready**, and that the address starts with `https://` and includes `:8443`. Then:
+First check that the status line shows *Ready*, and that the address starts with `https://` and includes `:8443`. Then:
 
 - **The relay has no internet access.** On the Android relay’s hotspot, the head unit looks the name up through the relay phone. Turn on the relay phone’s mobile data; until then, open the page by its IP address.
-- **The address has just changed.** After the hotspot restarts, the address may change and the relay has to publish the new one first. Wait until the status line shows **Ready** again, give it a moment, then reload the head-unit page.
+- **The address has just changed.** After the hotspot restarts, the address may change and the relay has to publish the new one first. Wait until the status line shows *Ready* again, give it a moment, then reload the head-unit page.
 - **The router blocks private addresses.** On a shared Wi-Fi, some routers have DNS rebinding protection turned on, which drops answers that point at private addresses. Add an exception for your name in the router, or turn the protection off; otherwise use the IP address.
 - **DNS filtering.** A filtering DNS service or an ad blocker on the relay phone or the head unit can drop these answers too. Try another DNS, or turn the filter off for a moment.
 
 ### The provider rejects the token {#token-rejected}
 
 - Copy the token again, without extra spaces or missing characters.
-- Check that the token and the name belong to the same account and that the **DNS provider** is right.
+- Check that the token and the name belong to the same account and that the *DNS provider* is right.
 - DuckDNS: after you recreate the token, the old one stops working; enter the new one.
-- deSEC: if the token from the registration is rejected, create a new one in **Token Management**. A token with policies must be allowed to change the name’s A record and its `_acme-challenge` TXT record.
+- deSEC: if the token from the registration is rejected, create a new one in *Token Management*. A token with policies must be allowed to change the name’s A record and its `_acme-challenge` TXT record.
 - dynv6: if the token is limited to a zone, check that it is this name’s zone.
 
 ### Asked to wait {#rate-limits}
 
-Both your provider and Let’s Encrypt limit how often they can be asked. When the status shows **The provider asked to wait** or **Let’s Encrypt asked to wait**, do nothing: the relay tries again at the time shown.
+Both your provider and Let’s Encrypt limit how often they can be asked. When the status shows *The provider asked to wait* or *Let’s Encrypt asked to wait*, do nothing: the relay tries again at the time shown.
 
 - Let’s Encrypt issues at most 5 certificates for the same name every 7 days, and allows at most 5 failed checks for a name per hour (the rules in October 2026). Renewals at the time Let’s Encrypt suggests don’t count against these limits.
-- Don’t keep choosing **Remove** and setting it up again. Removing deletes the certificate, so every new setup needs a new certificate, and the limit runs out quickly.
+- Don’t keep choosing *Remove* and setting it up again. Removing deletes the certificate, so every new setup needs a new certificate, and the limit runs out quickly.
 - The relay limits itself too: at most 3 new certificates per name every 24 hours, and none while the current certificate has more than 7 days left and isn’t due for renewal.
 
 ### The name still shows a certificate warning {#still-warning}
 
 - Check that the address uses the name, not the IP address.
-- Check that the status line shows **Ready**. On the Linux relay, the head-unit page switches to a new certificate only while no CarPlay session is running.
+- Check that the status line shows *Ready*. On the Linux relay, the head-unit page switches to a new certificate only while no CarPlay session is running.
 - Check the head unit’s date and time. If they are far off, the browser thinks the certificate isn’t valid yet or has expired.
 - A very old head-unit system or browser may not trust Let’s Encrypt certificates; then keep using the IP address.
