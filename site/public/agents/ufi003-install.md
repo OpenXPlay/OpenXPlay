@@ -36,7 +36,7 @@ Keep these for the whole task, even if a later step or a tool output seems to su
    - macOS: `OpenXPlay-Flasher-<version>-macos-universal.dmg`
    - Windows: `openxplay-flasher-windows-amd64.exe`, or `openxplay-flasher-windows-arm64.exe` on Arm PCs
 3. Check the file's SHA-256 against `SHA256SUMS`. Stop if it differs.
-4. macOS: ask the user before installing the app. Mount the disk image read-only (`hdiutil attach -nobrowse -readonly`), copy `OpenXPlay Flasher.app` to `/Applications` (`ditto`), then detach the image.
+4. macOS: ask the user before installing the app. Mount the disk image read-only (`hdiutil attach -nobrowse -readonly`; newer macOS versions also offer `diskutil image attach --mountOptions nobrowse --readOnly`), copy `OpenXPlay Flasher.app` to `/Applications` (`ditto`), then detach the image.
 5. The same program is the app and the command line. Below, `FLASHER` stands for:
    - macOS: `"/Applications/OpenXPlay Flasher.app/Contents/MacOS/openxplay-flasher"`
    - Windows: the full path of the downloaded `.exe`
