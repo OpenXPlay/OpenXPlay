@@ -54,7 +54,7 @@ const english: DefaultTheme.Config = {
       text: 'Using it',
       items: [
         { text: 'Everyday use and settings', link: '/en/daily-use' },
-        { text: `Trusted HTTPS ${tag('info', 'Soon')}`, link: '/en/trusted-https' },
+        { text: 'Trusted HTTPS', link: '/en/trusted-https' },
       ],
     },
     {
@@ -121,7 +121,7 @@ const chinese: DefaultTheme.Config = {
       text: '使用',
       items: [
         { text: '日常使用与设置', link: '/daily-use' },
-        { text: `可信 HTTPS ${tag('info', '即将推出')}`, link: '/trusted-https' },
+        { text: '可信 HTTPS', link: '/trusted-https' },
       ],
     },
     {

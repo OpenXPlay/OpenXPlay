@@ -11,6 +11,41 @@ breadcrumb: Changelog
 
 What changed in each OpenXPlay Relay release, newest first. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup start at [Get started](/en/quick-start).
 
+## 0.1.5 {#v0-1-5}
+
+2026-10-22 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5)
+
+Android app: H.265, Carlink in the car’s window shape with correct touch, trusted HTTPS with a free domain name, reorganised settings and clearer connection hints.
+
+**New**
+
+- Android app: H.265 video. Settings → CarPlay picture → *Video codec*: Automatic, Force H.265 or Force H.264, shared with the head-unit page.
+- Android app: when the head unit reports H.265 support, Carlink gets the iPhone’s H.265 picture unchanged: no transcoding on the phone, smoother motion and lower latency.
+- Android app: the Carlink picture takes the shape of the car’s Carlink window instead of a squeezed 1280×720 (1532×1013 on the Xpeng G6, for example), and CarPlay view areas work with Carlink too.
+- Android app: Settings → Output → *Reconnect when the window size changes* (off by default). After the car switches its Carlink area, the first touch reconnects so the picture can follow the new size.
+- Android app: [Trusted HTTPS](/en/trusted-https). Settings → Head-unit access → Trusted HTTPS uses a free name from DuckDNS or dynv6, so the head-unit browser opens the page without a certificate warning.
+- Android app: Settings → Sound → *CarPlay audio over the car’s Bluetooth (experimental)*, on by default.
+- Android app: video statistics on the home screen, under Settings → CarPlay picture → *Video statistics*.
+- Android app: a manual start checks the relay phone’s Wi-Fi and hotspot, says what is off and opens the right settings; when Carlink fails because Wi-Fi is off, the home screen says so at once.
+- Android app: when a wired session finds the relay phone attached as a USB device, the home screen explains why and suggests an OTG adapter.
+- Android app: the home screen lists every connection problem, with details you can expand.
+- Android app: settings are grouped into menus, and developer options get a master switch and a switch per option.
+
+**Changes**
+
+- Android app: Carlink touches land where you tap when the picture is not 1280×720.
+- Android app: fixes a black Carlink picture with sound on some head units, such as the Xpeng G6; the picture comes back after the reverse camera; a changed head-unit pairing key asks for the pairing code again instead of needing a reinstall. Thanks to @PicoHug.
+- Android app: *USB cable* is marked “Not recommended” and switching to it asks first; with Carlink, the setup guide recommends *This phone’s hotspot*.
+- Android app: a change of the phone’s network no longer restarts the web receiver or drops the head-unit page.
+- Head-unit page (Android relay): the relay-wide *Video codec* setting replaces the per-browser “H.264 only” option.
+- Android app: a new animated splash screen and one page transition for every page.
+
+**Notes**
+
+- This release contains only the Android app; the Linux relay is released separately. The 0.1.4 release candidates were withdrawn, and everything in them is in this release.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5).
+- Known issues: the Xpeng G6 does not tell the phone its new size when you switch its Carlink area during a session; wired CarPlay with a USB-C iPhone on a USB-C to USB-C cable usually does not work.
+
 ## 0.1.3 {#v0-1-3}
 
 2026-10-19 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/v0.1.3)

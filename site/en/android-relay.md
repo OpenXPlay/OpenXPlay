@@ -44,7 +44,7 @@ Earlier versions are on [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/
 The first time you open the app, a setup guide asks three questions:
 
 1. **How does the car show CarPlay?** Choose *Car browser*.
-2. **How does the iPhone connect to this phone?** Choose *Wireless*: in the car, the iPhone connects by itself over Bluetooth and Wi-Fi. *USB* connects the iPhone to the relay phone by cable and is the most stable.
+2. **How does the iPhone connect to this phone?** Choose *Wireless*: in the car, the iPhone connects by itself over Bluetooth and Wi-Fi. *USB cable* is not recommended: the relay phone has to power the iPhone through the cable, and only some cables work; a USB-C iPhone on a USB-C to USB-C cable usually isn’t found (see [Troubleshooting](/en/troubleshooting#usb-iphone-not-found)). The app asks you to confirm when you choose it.
 3. **Which network does wireless CarPlay use?** The iPhone, the relay phone and the head unit must reach each other. Choose one for your car; open it for details:
 
 ::: details Wi-Fi Direct (recommended): the head unit has its own Wi-Fi hotspot {#network-wifi-direct}
@@ -85,7 +85,7 @@ The Android relay uses no pairing code: opening the address connects. Be sure to
 
 ## Start CarPlay {#step-start .step}
 
-On the guide’s last step, tap *Start CarPlay*. For the first connection, keep the iPhone unlocked and near the relay phone. Once CarPlay runs, the app’s home screen shows *Open this address in the car’s browser* with an address that starts with `https://`, such as `https://192.168.43.20:8443/`.
+On the guide’s last step, tap *Start CarPlay*. For the first connection, keep the iPhone unlocked and near the relay phone. If you chose *This phone’s hotspot* and the hotspot is off, the app says so and opens the hotspot settings; when you come back with it on, CarPlay starts by itself. Once CarPlay runs, the app’s home screen shows *Open this address in the car’s browser* with an address that starts with `https://`, such as `https://192.168.43.20:8443/`.
 
 ## Open the address in the head unit’s browser {#step-open .step}
 

@@ -55,6 +55,14 @@ Check these in order:
 5. After you change the network mode, the iPhone moves to the new network by itself and CarPlay reconnects in about 30 seconds.
 6. If it still fails, restart the relay services from the admin page.
 
+### The relay doesn’t find the iPhone over a cable {#usb-iphone-not-found}
+
+A USB-C iPhone on a USB-C to USB-C cable often takes control of the cable, so the relay phone becomes the USB device and can’t see the iPhone. From Android app 0.1.5, the home screen explains this. Try a USB-C OTG adapter (USB-C to USB-A) on the relay phone with a USB-A to USB-C cable to the iPhone; if the phone has an OTG switch, turn it on, then unplug and plug in again. A Lightning iPhone works with a USB-C to Lightning cable. Wireless is the better choice.
+
+### With Carlink, the head unit stops at about 30 % {#carlink-stuck}
+
+The relay phone’s Wi-Fi is off. Carlink has the relay phone join the car’s network as a Wi-Fi client; turn Wi-Fi on (it needn’t be connected to anything) and connect again. Some phones turn Wi-Fi off when their hotspot is on; they can’t also connect the iPhone through the hotspot. See [Carlink app](/en/carlink#stuck-30).
+
 ### The page says “Relay unreachable” {#relay-unreachable}
 
 The head unit isn’t on the relay’s network, or the relay is off. Keep the relay on, join the relay’s hotspot (or the shared Wi-Fi) on the head unit, and open the address the relay shows.
@@ -70,7 +78,7 @@ The browser lacks WebCodecs video decoding, or the page wasn’t opened over HTT
 - Run [Check your head unit](/en/check). If the browser decodes only in software, video may stutter.
 - In the web receiver’s settings, try a lower frame rate or the *Speed* playback mode.
 - On a relay with only 2.4 GHz Wi-Fi, such as the UFI003, set the frame rate to 30.
-- On the Android relay with Carlink, wired USB CarPlay is more reliable than wireless.
+- On the Android relay with Carlink, use *This phone’s hotspot* for wireless CarPlay and keep the relay phone’s Wi-Fi on.
 
 ### There is no sound {#no-sound}
 
@@ -78,7 +86,7 @@ Browsers block sound until you touch the page. If the receiver says sound is pau
 
 ### Siri or calls can’t hear me {#microphone}
 
-The browser asks for the microphone the first time CarPlay needs your voice; choose Allow. The microphone works only over HTTPS. On the Android relay, also allow the microphone permission; the app’s microphone source setting chooses between the head unit and the relay phone.
+The browser asks for the microphone the first time CarPlay needs your voice; choose Allow. The microphone works only over HTTPS. On the Android relay, also allow the microphone permission; it uses the head unit’s microphone by default; to use the relay phone’s, turn on *Microphone source* under Settings → Developer options.
 
 ## Still stuck? {#still-stuck}
 

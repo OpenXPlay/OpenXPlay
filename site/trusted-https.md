@@ -13,12 +13,12 @@ howtoTools:
   - 能上网的中继（安卓中继需要移动数据）
 ---
 
-# 可信 HTTPS <Badge type="info" text="即将推出" />
+# 可信 HTTPS
 
 用免费域名，让车机打开网页时不再出现证书警告。中继把自己的地址登记到你的免费域名下，再为这个域名申请 Let's Encrypt 证书；车机浏览器用这个域名打开网页，证书就能通过验证。车机上不用安装任何软件，也不用改任何设置。
 
-::: info 即将推出
-可信 HTTPS 将在即将发布的 OpenXPlay Relay 版本中提供，目前已发布的版本中都还没有这项功能。本页提前介绍它的用法。
+::: info 支持的版本
+安卓应用从 [0.1.5](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5) 起提供可信 HTTPS；Linux 中继目前在 [0.1.5-beta.2](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.5-beta.2) 测试版中提供。
 :::
 
 ## 工作原理 {#how-it-works}
@@ -106,9 +106,9 @@ Token 相当于域名的密码：拿到它的人可以把你的域名指向别�
 按你的中继选择一种方式，效果相同。证书由 Let's Encrypt 免费签发，申请前需要同意它的[订户协议](https://letsencrypt.org/repository/)：中继不会替你同意，没有同意时也不会申请证书。中继在 Let's Encrypt 注册账号时，不会提供邮箱等联系方式。{#letsencrypt-terms}
 
 ::: details 安卓中继：在应用中填写 {#android-settings}
-1. 打开 OpenXPlay Relay，进入“设置 → 可信 HTTPS”。
+1. 打开 OpenXPlay Relay，进入“设置 → 车机访问 → 可信 HTTPS”。
 2. 打开“使用免费域名”。
-3. 在“域名服务商”中选择 DuckDNS 或 dynv6。
+3. 在“域名服务商”中选择 DuckDNS 或 dynv6。下面会显示这个服务商的注册方法，以及服务商官网和本教程的链接。每个服务商的域名和 Token 分开保存，切换服务商时会显示对应服务商已保存的内容。
 4. 在“域名”中填写完整域名。例如 `myrelay.duckdns.org`，不能只填 `myrelay`。
 5. 在“Token”中粘贴服务商的 Token。保存后，这里只显示“已保存 Token”；以后留空就会保留原来的 Token。
 6. 勾选“我同意 Let's Encrypt 订户协议”。
@@ -120,8 +120,8 @@ Token 相当于域名的密码：拿到它的人可以把你的域名指向别�
 
 1. 在电脑上写好配置文件。用文本编辑器新建一个文件，例如 `public-name.json`，按[配置文件格式](#config-file)填写，保存为 UTF-8 纯文本。
 2. 用 USB 数据线把文件复制到中继手机上，例如“下载”（Download）文件夹；也可以直接在手机上用文本编辑应用新建这个文件。文件里有 Token，最好不要通过聊天软件或网盘传送。
-3. 在“设置 → 可信 HTTPS”中点“导入配置文件”，在文件选择器中选中这个文件。
-4. 导入成功后，应用只显示服务商和域名，设置立即生效。文件有错误时，应用会指出是哪一项出了问题。
+3. 在“设置 → 车机访问 → 可信 HTTPS”中，点服务商卡片最下方的“导入配置文件”，在文件选择器中选中这个文件。
+4. 导入成功后，应用只显示服务商和域名，并切换到文件中的服务商，设置立即生效。文件有错误时，应用会指出是哪一项出了问题。
 5. 删除手机上的这个文件。
 
 导入的文件没有写 `"enabled": false` 时，相当于打开了“使用免费域名”。

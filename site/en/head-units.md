@@ -14,7 +14,7 @@ This page records the head units OpenXPlay has tested: whether the head unit’s
 
 | Head unit | Browser | Carlink app | Tested |
 | --- | --- | --- | --- |
-| [Xpeng G6](#xpeng-g6) (2023 model) | Yes; decodes H.264 and H.265 in hardware | Yes (experimental), with Android app 0.1.5-beta.1 or later | October 2026 |
+| [Xpeng G6](#xpeng-g6) (2023 model) | Yes; decodes H.264 and H.265 in hardware | Yes (experimental), with Android app 0.1.5 or later | October 2026 |
 
 Your head unit isn’t listed? Open [Check your head unit](/en/check) in its browser to test it, and share the result in the [community](/en/community).
 
@@ -25,13 +25,13 @@ Tested in October 2026 on the 2023 model.
 | Route | Works? | Notes |
 | --- | --- | --- |
 | Browser | Yes | Tested with the Android relay and with the Linux relay on a UFI003 USB dongle. Built-in Chromium 120 browser that decodes H.264 and H.265 in hardware. With the Android relay the page runs full screen; reversing makes the browser leave full screen, and one tap brings it back. |
-| Carlink | Yes (experimental) | Tested with the Android relay. The picture shows from Android app 0.1.5-beta.1; earlier versions give a black screen. The car reports H.265 support, so the relay sends the iPhone’s H.265 picture unchanged, without transcoding. The relay needs 5 GHz Wi-Fi. |
+| Carlink | Yes (experimental) | Tested with the Android relay. The picture shows from Android app 0.1.5; earlier versions give a black screen. The car reports H.265 support, so the relay sends the iPhone’s H.265 picture unchanged, without transcoding. The relay needs 5 GHz Wi-Fi. |
 
 ### Recommended setup {#xpeng-g6-setup}
 
 - **Which to choose:** Both routes work. The browser route is more mature and runs full screen with the Android relay; the Carlink route uses the car’s own Carlink app and is still experimental.
 - **Browser route:** Use the Android relay and choose XPeng G6 2023 in Settings → Car and screen. On a relay with only 2.4 GHz Wi-Fi, such as the UFI003, set the frame rate to 30 in the web receiver’s settings. H.264 is the most reliable video format for now.
-- **Carlink route:** Use Android app 0.1.5-beta.1 or later on a relay phone with 5 GHz Wi-Fi (Carlink needs Android 10 or later); on the first connection, enter the pairing code shown on the car’s screen into the relay. Leave *Video codec* on *Automatic* and the relay sends the H.265 picture as it is.
+- **Carlink route:** Use Android app 0.1.5 or later on a relay phone with 5 GHz Wi-Fi (Carlink needs Android 10 or later); on the first connection, enter the pairing code shown on the car’s screen into the relay. Leave *Video codec* on *Automatic* and the relay sends the H.265 picture as it is.
 
 ### Browser (web receiver) {#xpeng-g6-browser}
 
@@ -76,7 +76,7 @@ Every format below is supported at both 30 and 60 fps.
 
 ### Carlink app {#xpeng-g6-carlink}
 
-Tested with the Android relay, and it works (experimental). Versions 0.1.3 and earlier play sound on this car but keep the picture black; Android app 0.1.5-beta.1 fixes this. The car creates its own 5 GHz Wi-Fi network for Carlink and the relay joins it, so the relay needs 5 GHz Wi-Fi; the UFI003, which has only 2.4 GHz, can’t join.
+Tested with the Android relay, and it works (experimental). Versions 0.1.3 and earlier play sound on this car but keep the picture black; Android app 0.1.5 fixes this. The car creates its own 5 GHz Wi-Fi network for Carlink and the relay joins it, so the relay needs 5 GHz Wi-Fi; the UFI003, which has only 2.4 GHz, can’t join.
 
 ::: details Carlink video support {#xpeng-g6-carlink-video}
 | Item | The car’s Carlink app |
@@ -84,16 +84,16 @@ Tested with the Android relay, and it works (experimental). Versions 0.1.3 and e
 | H.264 | Constrained Baseline only, no Constrained High; level 3.1 |
 | Native video mode | 1280×720, progressive, 30 fps |
 | H.265 | Reported as supported (`iccoa_support_hevc`); shows the iPhone’s H.265 picture directly, at up to about 60 fps |
-| Display size | The Carlink app reports 1156×764, which differs from the 1280×720 video mode; the relay streams at exactly 1280×720 |
+| Display size | The Carlink window (two thirds of the screen) is 1532×1013 at 240 dpi, unlike the 1280×720 video mode. From Android app 0.1.5, CarPlay takes this window’s shape and H.265 is sent at about 1532×1014; the car maps touches by the size of the picture it receives. When you switch to full screen during a session, the car doesn’t tell the relay the new size |
 | Media audio | AAC |
 
-From Android app 0.1.5-beta.1, with *Video codec* on *Automatic*, the relay passes the iPhone’s H.265 picture to the car unchanged, with no transcoding on the phone. With H.264, the iPhone sends H.264 High, which the car’s Carlink app can’t show, so the relay converts it to H.264 Constrained Baseline 3.1 at 1280×720; the Android relay does this with its hardware encoder.
+From Android app 0.1.5, with *Video codec* on *Automatic*, the relay passes the iPhone’s H.265 picture to the car unchanged, with no transcoding on the phone. With H.264, the iPhone sends H.264 High, which the car’s Carlink app can’t show, so the relay converts it to H.264 Constrained Baseline 3.1, scaled in the Carlink window’s shape to fit that level; the Android relay does this with its hardware encoder.
 :::
 
 ::: details Connection and pairing {#xpeng-g6-carlink-connection}
 | Item | What happens |
 | --- | --- |
-| Wi-Fi | The car creates its own 5 GHz Wi-Fi network for Carlink and the relay joins it, so the relay needs 5 GHz Wi-Fi. The UFI003, which has only 2.4 GHz, can’t join. |
+| Wi-Fi | The car creates its own 5 GHz Wi-Fi network for Carlink and the relay joins it, so the relay needs 5 GHz Wi-Fi, switched on. The UFI003, which has only 2.4 GHz, can’t join. With wireless CarPlay on *This phone’s hotspot*, the Android relay ran a 5 GHz hotspot and joined the car over Wi-Fi at the same time, steadily for about an hour in testing. |
 | Pairing | On the first connection, enter the pairing code shown on the car’s screen into the relay; later connections reconnect automatically. |
 | Vehicle information | Not tested yet over Carlink. |
 :::

@@ -13,12 +13,12 @@ howtoTools:
   - Internet access on the relay (mobile data on the Android relay)
 ---
 
-# Trusted HTTPS <Badge type="info" text="Coming soon" />
+# Trusted HTTPS
 
 Open the head-unit page without a certificate warning, using a free domain name. The relay publishes its address under your free name and gets a Let’s Encrypt certificate for that name; when the head unit’s browser opens the page by the name, the certificate checks out. Nothing is installed or changed on the head unit.
 
-::: info Coming soon
-Trusted HTTPS ships in an upcoming OpenXPlay Relay release; no release has it yet. This page explains how it will be used.
+::: info Supported versions
+The Android app has trusted HTTPS from [0.1.5](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5); the Linux relay has it in the [0.1.5-beta.2](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.5-beta.2) test release.
 :::
 
 ## How it works {#how-it-works}
@@ -106,9 +106,9 @@ If the token leaks, get a new one from your provider and enter it on the relay (
 Pick one way for your relay; they all do the same. Let’s Encrypt issues the certificate for free, and asks you to agree to its [Subscriber Agreement](https://letsencrypt.org/repository/) first: the relay never agrees for you, and requests no certificate until you do. The relay creates its Let’s Encrypt account without an email address or any other contact details. {#letsencrypt-terms}
 
 ::: details Android relay: in the app {#android-settings}
-1. Open OpenXPlay Relay and go to Settings → Trusted HTTPS.
+1. Open OpenXPlay Relay and go to Settings → Head-unit access → Trusted HTTPS.
 2. Turn on *Use a free domain name*.
-3. Under *DNS provider*, choose DuckDNS or dynv6.
+3. Under *DNS provider*, choose DuckDNS or dynv6. The page shows how to register with that provider, with links to its site and to this guide. Each provider keeps its own name and token; switching shows what is saved for it.
 4. Under *Domain name*, enter the full name. Use `myrelay.duckdns.org`, for example, not just `myrelay`.
 5. Paste the provider’s token under *Token*. Once saved, the field shows only *Token saved*; leaving it empty later keeps the saved token.
 6. Tick *I agree to the Let’s Encrypt Subscriber Agreement*.
@@ -120,8 +120,8 @@ If you’d rather not type a long token on the phone, write a configuration file
 
 1. Write the file on a computer. In a text editor, create a file such as `public-name.json`, fill it in as described in [Configuration file format](#config-file) and save it as plain UTF-8 text.
 2. Copy the file to the relay phone over a USB cable, for example into the Download folder, or create it on the phone with a text editor app. The file contains the token, so avoid sending it through chat apps or cloud storage.
-3. In Settings → Trusted HTTPS, tap *Import configuration file* and choose the file in the file picker.
-4. After a successful import, the app shows only the provider and the name, and the settings take effect right away. If the file has a mistake, the app says which entry is wrong.
+3. In Settings → Head-unit access → Trusted HTTPS, tap *Import configuration file* at the bottom of the provider card and choose the file in the file picker.
+4. After a successful import, the app shows only the provider and the name, switches to the file’s provider, and the settings take effect right away. If the file has a mistake, the app says which entry is wrong.
 5. Delete the file from the phone.
 
 Unless the file says `"enabled": false`, importing it turns on *Use a free domain name*.
