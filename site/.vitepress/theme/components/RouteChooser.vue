@@ -66,9 +66,9 @@ const TEXT: Record<'root' | 'en', Text> = {
       },
       'android-carlink': {
         title: '安卓手机 + Carlink 应用',
-        summary: '中继经 Wi-Fi 连接车机上的 Carlink 应用。实验性功能，有可能连接失败；请使用安卓应用 0.1.5-beta.1 或更新版本。',
+        summary: '中继经 Wi-Fi 连接车机上的 Carlink 应用。实验性功能，有可能连接失败；请使用安卓应用 0.1.5 或更新版本。',
         needs: ['支持 CarPlay 的 iPhone', 'Android 10 及以上的安卓手机', 'Apple 配件（MFi）身份', '装有 Carlink 应用的车机'],
-        note: '单个 Wi-Fi 射频可能无法同时支持无线 CarPlay 和 Carlink，用 USB 连接 CarPlay 更可靠。',
+        note: '中继手机的 Wi-Fi 要保持打开；无线 CarPlay 请选“此手机的热点”。',
         action: '查看 Carlink 教程',
         link: 'carlink',
         secondary: { text: '查看实测车机', link: 'head-units' },
@@ -117,9 +117,9 @@ const TEXT: Record<'root' | 'en', Text> = {
       },
       'android-carlink': {
         title: 'Android phone + Carlink app',
-        summary: 'The relay connects to the head unit’s Carlink app over Wi-Fi. This is experimental and may fail to connect; use Android app 0.1.5-beta.1 or later.',
+        summary: 'The relay connects to the head unit’s Carlink app over Wi-Fi. This is experimental and may fail to connect; use Android app 0.1.5 or later.',
         needs: ['An iPhone with CarPlay', 'An Android phone with Android 10 or later', 'An Apple accessory (MFi) identity', 'A head unit with a Carlink app'],
-        note: 'A single Wi-Fi radio may not handle wireless CarPlay and Carlink together, so USB CarPlay is more reliable.',
+        note: 'Keep the relay phone’s Wi-Fi on, and use This phone’s hotspot for wireless CarPlay.',
         action: 'Read the Carlink guide',
         link: 'carlink',
         secondary: { text: 'See tested head units', link: 'head-units' },
