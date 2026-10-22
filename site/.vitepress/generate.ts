@@ -112,6 +112,10 @@ function llmsTxt(list: PageSummary[]): string {
   for (const [name, role] of REPOSITORIES) lines.push(`- [${name}](${GITHUB_ORG}/${name}): ${role}`)
   lines.push(
     '',
+    '## Instructions for AI agents',
+    '',
+    `- [Install OpenXPlay on a UFI003 USB dongle](${SITE_ROOT}agents/ufi003-install.md): step-by-step instructions for an AI agent with a terminal on the user's computer, using OpenXPlay Flasher's command line`,
+    '',
     '## Optional',
     '',
     `- [Full text](${SITE_ROOT}llms-full.txt): every page of this site in both languages as Markdown`,
