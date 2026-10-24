@@ -34,7 +34,7 @@ The UFI003’s Wi-Fi has no 5 GHz band, so its hotspot runs on 2.4 GHz.
 | Downloading and checking files | The AI downloads them from the signed package list and checks them | You download them from the links Flasher shows; Flasher checks them |
 | Suits you if | You already use an AI assistant that can run commands, such as Claude Code or Codex | You want to see every step yourself, or you don’t use such an assistant |
 
-Both ways use the same Flasher and the same signed package list, with the same backup before flashing and the same safety checks. Windows has native adb and fastboot support from 0.2.0-beta.2; see below for the drivers it needs and the preview's validation status.
+Both ways use the same Flasher and the same signed package list, with the same backup before flashing and the same safety checks. Windows has native adb and fastboot support from 0.2.0-beta.2; see below for its driver requirements and hardware validation results.
 
 ## Let an AI assistant install it (recommended) {#ai}
 
@@ -71,10 +71,14 @@ Flasher is a desktop app for Windows and macOS. Connect the UFI003 to the comput
 Version 0.2.0-beta.2 and later support adb and fastboot natively through WinUSB. An external adb server is not required; an already-running adb server can still be used.
 
 Listing devices needs no adb driver, but communication requires the matching interface to use the **WinUSB** driver. If a device is listed but cannot communicate, check its **ADB interface** in Device Manager, or its **fastboot interface** after entering the bootloader; each mode may need its driver installed separately. Change only that interface. Keep the **RNDIS network adapter** and its network driver intact, and do not replace the driver for the whole USB composite device.
+
+For a UFI003 fastboot device with hardware ID `USB\VID_18D1&PID_D00D`, the [signed Android Bootloader Interface driver in Microsoft Update Catalog](https://www.catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=76f2c233-6100-4a64-8bee-113c2da0991d) has been verified on Windows 11. Install it only for the fastboot device with that exact ID; leave the RNDIS adapter and the whole composite device's drivers intact.
 :::
 
-::: warning Preview validation status
-A relay upgrade, fastboot device identification and data transfer to RAM have been verified on real Windows hardware. A complete erase and base-system flash still need hardware validation. A full install from stock firmware also needs the signed package list to include the corrected [device support bundle 0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1). Files must match the signed list; do not substitute a new bundle for an older one listed there.
+::: info Verified on Windows hardware
+The official 0.2.0-beta.2 Windows amd64 build completed an install on a UFI003 from stock Android 4.4 to OpenStick Debian 11 (kernel `5.15.0-handsomekernel+`), device support 0.2.1 and relay 0.1.5~beta.2. All 49 install steps and layer checks passed, including automatic backup and restoration of the four modem calibration partitions. A separate relay upgrade, fastboot device identification and data transfer to RAM also passed. Drivers must still match the device's actual USB interfaces and hardware IDs.
+
+The signed package list now recommends the corrected [device support bundle 0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1). Keep signature verification enabled and use files that match the list.
 :::
 
 ::: details Download and open Flasher {#flasher-download}

@@ -34,7 +34,7 @@ UFI003 的 Wi-Fi 没有 5 GHz 频段，热点工作在 2.4 GHz。
 | 下载和核对文件 | AI 按签名的软件包列表下载并核对 | 你按 Flasher 给出的链接下载，Flasher 核对 |
 | 适合 | 已经在用 Claude Code、Codex 等能运行命令的 AI 助手 | 想自己掌握每一步，或者没有这类 AI 助手 |
 
-两种方式用的是同一个 Flasher 和同一份签名的软件包列表，刷机前的备份和各项安全检查也完全相同。Windows 从 0.2.0-beta.2 起原生支持 adb 和 fastboot；所需驱动及预览版验证范围见下文。
+两种方式用的是同一个 Flasher 和同一份签名的软件包列表，刷机前的备份和各项安全检查也完全相同。Windows 从 0.2.0-beta.2 起原生支持 adb 和 fastboot；所需驱动及真机验证结果见下文。
 
 ## 让 AI 帮你安装（推荐） {#ai}
 
@@ -71,10 +71,14 @@ Flasher 是 Windows 和 macOS 上的桌面应用。用 USB 把 UFI003 接到电�
 0.2.0-beta.2 及更新版本通过 WinUSB 原生支持 adb 和 fastboot，无需先运行外部 adb 服务；电脑上已在运行的 adb 服务也可以继续使用。
 
 扫描设备无需 adb 驱动，实际通信需要对应接口使用 **WinUSB** 驱动。设备能列出但无法通信时，请在“设备管理器”中检查 **ADB 接口**或进入引导加载程序后的 **fastboot 接口**；这两种模式可能需要分别安装驱动。只调整对应接口，保留 **RNDIS 网卡**及其网络驱动，不要替换整个 USB 复合设备的驱动。
+
+如果 UFI003 的 fastboot 硬件 ID 为 `USB\VID_18D1&PID_D00D`，可使用 [Microsoft Update Catalog 中已签名的 Android Bootloader Interface 驱动](https://www.catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=76f2c233-6100-4a64-8bee-113c2da0991d)，已在 Windows 11 上验证。安装时只选硬件 ID 匹配的 fastboot 设备，保留 RNDIS 网卡和整个复合设备的驱动。
 :::
 
-::: warning 预览版验证范围
-已在 Windows 真机上完成中继升级、fastboot 设备身份读取和向 RAM 传输数据的验证；完整擦除并刷入基础系统仍待真机验证。从原厂系统完整安装还需等待签名软件包列表收录已修复的[设备支持包 0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1)。文件必须与签名列表匹配，不能用新包替换列表中的旧包。
+::: info Windows 真机验证
+已使用官方 0.2.0-beta.2 Windows amd64 版，在 UFI003 上完成从原厂 Android 4.4 安装 OpenStick Debian 11（内核 `5.15.0-handsomekernel+`）、设备支持 0.2.1 和中继 0.1.5~beta.2。49 步安装及各层校验全部通过，包括四个基带校准分区的自动备份与恢复；也已验证中继单独升级、fastboot 设备身份读取和向 RAM 传输数据。驱动仍需按设备实际枚举的接口和硬件 ID 匹配。
+
+签名软件包列表现已推荐修复后的[设备支持包 0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1)。请保持签名校验开启，并使用与列表匹配的文件。
 :::
 
 ::: details 下载并打开 Flasher {#flasher-download}

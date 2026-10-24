@@ -1,13 +1,13 @@
 {
   "schema": "org.openxplay.flasher-catalog/1",
   "channel": "beta",
-  "sequence": 3,
-  "generated": "2026-10-22T04:37:28Z",
+  "sequence": 4,
+  "generated": "2026-10-24T14:48:47Z",
   "devices": {
     "ufi003": {
       "recommended": {
         "base": "openstick-v1",
-        "device": "0.2.0",
+        "device": "0.2.1",
         "relay": "0.1.5~beta.2"
       },
       "layers": [
@@ -51,16 +51,16 @@
         },
         {
           "layer": "device",
-          "version": "0.2.0",
-          "source": "https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.0",
+          "version": "0.2.1",
+          "source": "https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1",
           "artifacts": [
             {
               "role": "bundle",
-              "name": "openxplay-ufi003-device-0.2.0.tar.gz",
-              "size": 2137914,
-              "sha256": "07953f62f8e170585baa9bef63541349be4bf33361b25434bd4f0535c48fea68",
+              "name": "openxplay-ufi003-device-0.2.1.tar.gz",
+              "size": 2138509,
+              "sha256": "73832aa4406cf38aa888039006e70eb9e97b62aab78463bc8a1c7c3992171c76",
               "urls": [
-                "https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/download/ufi003-device-v0.2.0/openxplay-ufi003-device-0.2.0.tar.gz"
+                "https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/download/ufi003-device-v0.2.1/openxplay-ufi003-device-0.2.1.tar.gz"
               ]
             }
           ]
