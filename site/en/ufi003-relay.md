@@ -75,6 +75,17 @@ Listing devices needs no adb driver, but communication requires the matching int
 For a UFI003 fastboot device with hardware ID `USB\VID_18D1&PID_D00D`, the [signed Android Bootloader Interface driver in Microsoft Update Catalog](https://www.catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=76f2c233-6100-4a64-8bee-113c2da0991d) has been verified on Windows 11. Install it only for the fastboot device with that exact ID; leave the RNDIS adapter and the whole composite device's drivers intact.
 :::
 
+### Windows driver prompts and installation {#flasher-windows-drivers}
+
+**Does the app prompt for drivers?** In 0.2.0-beta.2, failures while reading a device or opening fastboot appear in the app's error area. A missing registered WinUSB interface may show `needs a WinUSB driver`, `install the ADB/fastboot WinUSB driver` or `has no WinUSB … interface`. These low-level details may remain in English. The app does not download or install drivers and has no one-click driver installer.
+
+1. Find this UFI003's ADB or fastboot interface in Device Manager. Open Properties → Details → Hardware Ids and check the ID for its current mode. Do not select the RNDIS adapter or the whole USB composite device.
+2. Download and extract a signed driver matching that hardware ID, Windows version and architecture. The Microsoft Update Catalog driver above covers the verified `USB\VID_18D1&PID_D00D` fastboot interface; other IDs need their own matching driver.
+3. Right-click that interface, choose Update driver → Browse my computer for drivers, and select the extracted folder. See [Microsoft's manual installation instructions](https://support.microsoft.com/en-us/windows/update-drivers-through-device-manager-in-windows-ec62f46c-ff14-c91d-eead-d7126dc1f7b6). Keep driver signature enforcement enabled.
+4. Return to Flasher and choose Read again. ADB and fastboot are separate interfaces, so the newly appearing fastboot interface may need another driver installation. If an install job has failed, follow the app's instructions to read the device again and choose Repair; do not flash partitions manually.
+
+If plugging the dongle in adds no USB device in Device Manager, check power, the USB connection and a direct USB port first. This differs from a listed device whose communication driver is missing. Do not unplug the dongle to troubleshoot while flashing is in progress.
+
 ::: info Verified on Windows hardware
 The official 0.2.0-beta.2 Windows amd64 build completed an install on a UFI003 from stock Android 4.4 to OpenStick Debian 11 (kernel `5.15.0-handsomekernel+`), device support 0.2.1 and relay 0.1.5~beta.2. All 49 install steps and layer checks passed, including automatic backup and restoration of the four modem calibration partitions. A separate relay upgrade, fastboot device identification and data transfer to RAM also passed. Drivers must still match the device's actual USB interfaces and hardware IDs.
 

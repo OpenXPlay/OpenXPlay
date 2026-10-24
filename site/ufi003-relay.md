@@ -75,6 +75,17 @@ Flasher 是 Windows 和 macOS 上的桌面应用。用 USB 把 UFI003 接到电�
 如果 UFI003 的 fastboot 硬件 ID 为 `USB\VID_18D1&PID_D00D`，可使用 [Microsoft Update Catalog 中已签名的 Android Bootloader Interface 驱动](https://www.catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=76f2c233-6100-4a64-8bee-113c2da0991d)，已在 Windows 11 上验证。安装时只选硬件 ID 匹配的 fastboot 设备，保留 RNDIS 网卡和整个复合设备的驱动。
 :::
 
+### Windows 驱动提示与安装 {#flasher-windows-drivers}
+
+**软件会提示安装驱动吗？** 0.2.0-beta.2 在读取设备或打开 fastboot 接口失败时，会在界面的错误区显示底层错误。缺少已注册的 WinUSB 接口时，可能看到 `needs a WinUSB driver`、`install the ADB/fastboot WinUSB driver` 或 `has no WinUSB … interface`。这些底层信息目前可能是英文；应用不会自动下载或安装驱动，也没有一键安装驱动的按钮。
+
+1. 在“设备管理器”中找到这台 UFI003 的 ADB 或 fastboot 接口，打开“属性 → 详细信息 → 硬件 ID”，核对当前模式的 ID。不要选择 RNDIS 网卡或整个 USB 复合设备。
+2. 下载匹配硬件 ID、Windows 版本和处理器架构的已签名驱动，并解压到一个目录。上面的 Microsoft Update Catalog 驱动适用于已验证的 `USB\VID_18D1&PID_D00D` fastboot 接口；其他 ID 应使用其对应的驱动。
+3. 右键该接口，选择“更新驱动程序 → 浏览我的电脑以查找驱动程序”，选择解压目录并完成安装。Windows 的手动安装步骤见 [Microsoft 说明](https://support.microsoft.com/en-us/windows/update-drivers-through-device-manager-in-windows-ec62f46c-ff14-c91d-eead-d7126dc1f7b6)。保持驱动签名校验开启。
+4. 回到 Flasher 点击“重新读取”。ADB 和 fastboot 是不同接口，进入 fastboot 后可能还需要为新出现的接口安装驱动。若安装任务已失败，按应用提示重新读取并选择“修复”；不要手工刷写分区。
+
+如果设备管理器中插拔前后完全没有新增 USB 设备，先检查供电、USB 连接和直连端口；这与已列出设备但缺少通信驱动的情况不同。刷写进行中不要为了排查而拔出设备。
+
 ::: info Windows 真机验证
 已使用官方 0.2.0-beta.2 Windows amd64 版，在 UFI003 上完成从原厂 Android 4.4 安装 OpenStick Debian 11（内核 `5.15.0-handsomekernel+`）、设备支持 0.2.1 和中继 0.1.5~beta.2。49 步安装及各层校验全部通过，包括四个基带校准分区的自动备份与恢复；也已验证中继单独升级、fastboot 设备身份读取和向 RAM 传输数据。驱动仍需按设备实际枚举的接口和硬件 ID 匹配。
 
