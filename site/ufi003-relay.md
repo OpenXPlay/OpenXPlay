@@ -10,7 +10,7 @@ howtoName: 用 UFI003 随身 Wi-Fi 作 Linux 中继，在车机浏览器中显�
 howtoTools:
   - 支持 CarPlay 的 iPhone
   - UFI003 USB 随身 Wi-Fi
-  - 一台电脑（第一次安装需要 Mac）
+  - Windows 10 / 11 或 macOS 12 及以上的电脑
   - 你自行提供的 Apple 配件（MFi）身份
   - 浏览器支持 WebCodecs 的安卓车机
 next:
@@ -34,7 +34,7 @@ UFI003 的 Wi-Fi 没有 5 GHz 频段，热点工作在 2.4 GHz。
 | 下载和核对文件 | AI 按签名的软件包列表下载并核对 | 你按 Flasher 给出的链接下载，Flasher 核对 |
 | 适合 | 已经在用 Claude Code、Codex 等能运行命令的 AI 助手 | 想自己掌握每一步，或者没有这类 AI 助手 |
 
-两种方式用的是同一个 Flasher 和同一份签名的软件包列表，刷机前的备份和各项安全检查也完全相同。第一次安装要刷入基础系统，需要用 Mac；Windows 目前只能安装和更新设备支持与中继。
+两种方式用的是同一个 Flasher 和同一份签名的软件包列表，刷机前的备份和各项安全检查也完全相同。Windows 从 0.2.0-beta.2 起原生支持 adb 和 fastboot；所需驱动及真机验证结果见下文。
 
 ## 让 AI 帮你安装（推荐） {#ai}
 
@@ -68,11 +68,21 @@ AI 助手会在你的电脑上运行命令。请使用你信任的 AI 助手，�
 Flasher 是 Windows 和 macOS 上的桌面应用。用 USB 把 UFI003 接到电脑上，它会识别设备、列出三层的当前版本，并引导你完成安装。
 
 ::: info 在 Windows 上
-Windows 版目前只能安装和更新设备支持与中继，不能刷入基础系统，而且电脑上要先运行 adb（Android SDK Platform-Tools 中的 `adb start-server`）。第一次安装要刷入基础系统，请用 Mac。
+0.2.0-beta.2 及更新版本通过 WinUSB 原生支持 adb 和 fastboot，无需先运行外部 adb 服务；电脑上已在运行的 adb 服务也可以继续使用。
+
+扫描设备无需 adb 驱动，实际通信需要对应接口使用 **WinUSB** 驱动。设备能列出但无法通信时，请在“设备管理器”中检查 **ADB 接口**或进入引导加载程序后的 **fastboot 接口**；这两种模式可能需要分别安装驱动。只调整对应接口，保留 **RNDIS 网卡**及其网络驱动，不要替换整个 USB 复合设备的驱动。
+
+如果 UFI003 的 fastboot 硬件 ID 为 `USB\VID_18D1&PID_D00D`，可使用 [Microsoft Update Catalog 中已签名的 Android Bootloader Interface 驱动](https://www.catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=76f2c233-6100-4a64-8bee-113c2da0991d)，已在 Windows 11 上验证。安装时只选硬件 ID 匹配的 fastboot 设备，保留 RNDIS 网卡和整个复合设备的驱动。
+:::
+
+::: info Windows 真机验证
+已使用官方 0.2.0-beta.2 Windows amd64 版，在 UFI003 上完成从原厂 Android 4.4 安装 OpenStick Debian 11（内核 `5.15.0-handsomekernel+`）、设备支持 0.2.1 和中继 0.1.5~beta.2。49 步安装及各层校验全部通过，包括四个基带校准分区的自动备份与恢复；也已验证中继单独升级、fastboot 设备身份读取和向 RAM 传输数据。驱动仍需按设备实际枚举的接口和硬件 ID 匹配。
+
+签名软件包列表现已推荐修复后的[设备支持包 0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1)。请保持签名校验开启，并使用与列表匹配的文件。
 :::
 
 ::: details 下载并打开 Flasher {#flasher-download}
-从 [Releases](https://github.com/OpenXPlay/OpenXPlay-Flasher/releases) 下载对应系统的版本，并用其中的 `SHA256SUMS` 核对文件的 SHA-256。安装包没有使用 Apple 或 Microsoft 证书签名，所以第一次打开时系统会先询问。
+从 [Releases](https://github.com/OpenXPlay/OpenXPlay-Flasher/releases) 选择 **0.2.0-beta.2 或更新版本**（包括预发布版），下载对应系统的安装包，并用该版本的 `SHA256SUMS` 核对文件的 SHA-256。安装包没有使用 Apple 或 Microsoft 证书签名，所以第一次打开时系统会先询问。
 
 - **macOS 12 或更高版本**（Apple 芯片和 Intel，`OpenXPlay-Flasher-<版本>-macos-universal.dmg`）：把应用拖进“应用程序”文件夹，然后打开一次。macOS 15 或更高版本出现“未打开”提示时，选择“完成”，再到“系统设置 → 隐私与安全性”中，在关于 OpenXPlay Flasher 的提示旁选择“仍要打开”；macOS 12 至 14 按住 Control 键点按应用，选择“打开”，再选择“打开”。
 - **Windows 10 或 11**（`openxplay-flasher-windows-amd64.exe`，Arm 电脑用 `-arm64.exe`）：出现“Windows 已保护你的电脑”时，选择“更多信息”，再选择“仍要运行”。如果提示缺少 Microsoft Edge WebView2 运行时，请安装后重新打开。

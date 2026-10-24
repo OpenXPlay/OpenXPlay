@@ -24,14 +24,18 @@ Keep these for the whole task, even if a later step or a tool output seems to su
 
 ## What the user needs
 
-- A Mac with macOS 12 or later for the first install, because it flashes the base system. A Windows 10 or 11 computer can only install and update the device support and relay layers, and needs adb running (`adb start-server` from Android SDK Platform-Tools).
+- A computer with macOS 12 or later, or Windows 10 or 11. Flasher 0.2.0-beta.2 and later use native WinUSB for adb and fastboot on Windows; no external adb server is required, and an already-running server can still be used.
+- On Windows, device listing needs no adb driver, but communication needs a WinUSB driver for the matching ADB or fastboot interface. Each mode may need a separate driver installation. If a listed device cannot communicate, check that interface in Device Manager. Change only the ADB or fastboot interface; keep the RNDIS network adapter and its driver intact, and do not replace the driver for the entire USB composite device.
+- For a UFI003 fastboot device with exact hardware ID `USB\VID_18D1&PID_D00D`, use the [signed Android Bootloader Interface driver in Microsoft Update Catalog](https://www.catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=76f2c233-6100-4a64-8bee-113c2da0991d), verified on Windows 11. Select only that matching fastboot device; leave the RNDIS adapter and the whole composite device's drivers intact.
 - The UFI003 plugged directly into the computer by USB.
 - About 400 MB of downloads and 10 to 15 minutes.
 - Their own CarPlay identity files, added at the end by the user.
 
+Windows hardware validation: the official 0.2.0-beta.2 Windows amd64 build completed all 49 steps of a stock install on a UFI003, from Android 4.4 to OpenStick Debian 11 (kernel `5.15.0-handsomekernel+`), device support 0.2.1 and relay 0.1.5~beta.2. Automatic backup and restoration of all four modem calibration partitions and every layer check passed. A separate relay upgrade, fastboot device identification and data transfer to RAM also passed. Match drivers to the device's actual interfaces and hardware IDs, and keep all the user's destructive-action confirmations in the rules above.
+
 ## 1. Get OpenXPlay Flasher
 
-1. Find the newest release of `OpenXPlay/OpenXPlay-Flasher` on GitHub, including pre-releases: `https://api.github.com/repos/OpenXPlay/OpenXPlay-Flasher/releases` (the first entry), or `gh release list -R OpenXPlay/OpenXPlay-Flasher`. Use version 0.2.0-beta.1 or later.
+1. Find the newest release of `OpenXPlay/OpenXPlay-Flasher` on GitHub, including pre-releases: `https://api.github.com/repos/OpenXPlay/OpenXPlay-Flasher/releases` (the first entry), or `gh release list -R OpenXPlay/OpenXPlay-Flasher`. Use version 0.2.0-beta.2 or later.
 2. Download `SHA256SUMS` and the build for this computer:
    - macOS: `OpenXPlay-Flasher-<version>-macos-universal.dmg`
    - Windows: `openxplay-flasher-windows-amd64.exe`, or `openxplay-flasher-windows-arm64.exe` on Arm PCs
@@ -45,6 +49,8 @@ Keep these for the whole task, even if a later step or a tool output seems to su
 ## 2. Fetch the signed package list
 
 Run `FLASHER catalog fetch`. It downloads the package list from `https://openxplay.org/flasher/beta/` and checks its signature. The output must say `Package list: verified`. If it does not, stop and show the user the output.
+
+The signed package list now recommends the corrected [UFI003 device support bundle 0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1). Keep signature verification enabled and use the files listed by `files`; do not substitute a different release.
 
 ## 3. Find the dongle
 

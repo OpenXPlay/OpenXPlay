@@ -10,7 +10,7 @@ howtoName: Show iPhone CarPlay in the head unit’s browser with a UFI003 USB do
 howtoTools:
   - iPhone with CarPlay
   - UFI003 USB dongle
-  - A computer (a Mac for the first install)
+  - A computer with Windows 10 / 11 or macOS 12 or later
   - Apple accessory (MFi) identity that you supply
   - Android head unit with a browser that supports WebCodecs
 next:
@@ -34,7 +34,7 @@ The UFI003’s Wi-Fi has no 5 GHz band, so its hotspot runs on 2.4 GHz.
 | Downloading and checking files | The AI downloads them from the signed package list and checks them | You download them from the links Flasher shows; Flasher checks them |
 | Suits you if | You already use an AI assistant that can run commands, such as Claude Code or Codex | You want to see every step yourself, or you don’t use such an assistant |
 
-Both ways use the same Flasher and the same signed package list, with the same backup before flashing and the same safety checks. The first install flashes the base system and needs a Mac; on Windows, Flasher can so far only install and update device support and the relay.
+Both ways use the same Flasher and the same signed package list, with the same backup before flashing and the same safety checks. Windows has native adb and fastboot support from 0.2.0-beta.2; see below for its driver requirements and hardware validation results.
 
 ## Let an AI assistant install it (recommended) {#ai}
 
@@ -68,11 +68,21 @@ The AI assistant runs commands on your computer. Use an assistant you trust and 
 Flasher is a desktop app for Windows and macOS. Connect the UFI003 to the computer by USB and it recognises the dongle, shows the version of each layer and takes you through the install.
 
 ::: info On Windows
-The Windows version can so far only install and update device support and the relay, not flash the base system, and adb must already be running on the computer (`adb start-server` from the Android SDK Platform-Tools). The first install flashes the base system, so use a Mac for it.
+Version 0.2.0-beta.2 and later support adb and fastboot natively through WinUSB. An external adb server is not required; an already-running adb server can still be used.
+
+Listing devices needs no adb driver, but communication requires the matching interface to use the **WinUSB** driver. If a device is listed but cannot communicate, check its **ADB interface** in Device Manager, or its **fastboot interface** after entering the bootloader; each mode may need its driver installed separately. Change only that interface. Keep the **RNDIS network adapter** and its network driver intact, and do not replace the driver for the whole USB composite device.
+
+For a UFI003 fastboot device with hardware ID `USB\VID_18D1&PID_D00D`, the [signed Android Bootloader Interface driver in Microsoft Update Catalog](https://www.catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=76f2c233-6100-4a64-8bee-113c2da0991d) has been verified on Windows 11. Install it only for the fastboot device with that exact ID; leave the RNDIS adapter and the whole composite device's drivers intact.
+:::
+
+::: info Verified on Windows hardware
+The official 0.2.0-beta.2 Windows amd64 build completed an install on a UFI003 from stock Android 4.4 to OpenStick Debian 11 (kernel `5.15.0-handsomekernel+`), device support 0.2.1 and relay 0.1.5~beta.2. All 49 install steps and layer checks passed, including automatic backup and restoration of the four modem calibration partitions. A separate relay upgrade, fastboot device identification and data transfer to RAM also passed. Drivers must still match the device's actual USB interfaces and hardware IDs.
+
+The signed package list now recommends the corrected [device support bundle 0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1). Keep signature verification enabled and use files that match the list.
 :::
 
 ::: details Download and open Flasher {#flasher-download}
-Download the build for your system from [Releases](https://github.com/OpenXPlay/OpenXPlay-Flasher/releases) and check its SHA-256 against the `SHA256SUMS` file there. The builds aren’t signed with an Apple or Microsoft certificate, so the system asks before opening them the first time.
+Choose **0.2.0-beta.2 or later**, including pre-releases, from [Releases](https://github.com/OpenXPlay/OpenXPlay-Flasher/releases). Download the build for your system and check its SHA-256 against that release's `SHA256SUMS` file. The builds aren’t signed with an Apple or Microsoft certificate, so the system asks before opening them the first time.
 
 - **macOS 12 or later** (Apple silicon and Intel, `OpenXPlay-Flasher-<version>-macos-universal.dmg`): drag the app to Applications and open it once. On macOS 15 or later, when it says the app wasn’t opened, choose *Done*, then go to System Settings → Privacy & Security and choose *Open Anyway* next to the note about OpenXPlay Flasher. On macOS 12 to 14, Control-click the app, choose *Open*, then *Open* again.
 - **Windows 10 or 11** (`openxplay-flasher-windows-amd64.exe`, or `-arm64.exe` on Arm PCs): when *Windows protected your PC* appears, choose *More info*, then *Run anyway*. If the app says the Microsoft Edge WebView2 runtime is missing, install it and open the app again.
