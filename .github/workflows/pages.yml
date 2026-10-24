@@ -4,6 +4,7 @@
 #
 # Builds the website in site/ and deploys it to GitHub Pages. In the repository settings, set
 # Pages → Source to "GitHub Actions". SITE_URL and BASE can be set as repository variables.
+# Pull requests only build: main requires the build check, so it runs on every pull request.
 
 name: Pages
 
@@ -16,16 +17,15 @@ on:
       - assets/**
       - Group/**
       - .github/workflows/pages.yml
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'pull_request' && format('pages-{0}', github.ref) || 'pages' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
@@ -49,12 +49,17 @@ jobs:
       - run: npm ci
       - run: npm run build
       - uses: actions/upload-pages-artifact@v5
+        if: github.event_name != 'pull_request'
         with:
           path: site/.vitepress/dist
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
