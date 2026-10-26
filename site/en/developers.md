@@ -60,9 +60,8 @@ The Android build includes DiPlay and Stream as Gradle composite builds and expe
 
 | Repository | How contributions are accepted |
 | --- | --- |
-| OpenXPlay-Stream, OpenXPlay-Relay, OpenXPlay-Hardware | Under each repository’s individual Contributor License Agreement (`CLA.md`). The CLA Assistant check on every pull request records your acceptance. To contribute on behalf of an organisation, contact [support@openxplay.org](mailto:support@openxplay.org) for a corporate agreement first. |
-| OpenXPlay-DiPlay | Sign off every commit under the Developer Certificate of Origin (`git commit -s`). The fork stays close to upstream DiPlay, so keep changes minimal and generic. |
-| OpenXPlay-Web-Plugins | Under Apache-2.0 OR MIT, the repository’s own licence. |
+| Every repository | Under the [OpenXPlay Contributor License Agreement](https://github.com/OpenXPlay/OpenXPlay/blob/main/CLA.md). Accept it once by replying on a pull request to any OpenXPlay repository, as the CLA check asks; it then passes in all of them. To contribute on behalf of an organisation, contact [support@openxplay.org](mailto:support@openxplay.org) for a corporate agreement first. |
+| OpenXPlay-DiPlay | The fork stays close to upstream DiPlay, so keep changes minimal and generic. |
 
 This project did not reverse-engineer commercial CarPlay boxes. Parts of the Android receiver reuse code from DiPlay and xcertplay; thanks to the upstream projects and their contributors.
 
