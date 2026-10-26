@@ -60,9 +60,8 @@ Web 输出把 H.264 视频经安全 WebSocket 发给车机，车机浏览器用 
 
 | 仓库 | 贡献方式 |
 | --- | --- |
-| OpenXPlay-Stream、OpenXPlay-Relay、OpenXPlay-Hardware | 遵循各仓库的个人贡献者许可协议（`CLA.md`，协议文本为英文）。每个 pull request 上的 CLA Assistant 检查会记录你对协议的接受。如需代表组织贡献，请先联系 [support@openxplay.org](mailto:support@openxplay.org) 签订企业协议。 |
-| OpenXPlay-DiPlay | 每个提交都按开发者原创声明（DCO）签名（`git commit -s`）。这个派生仓库与上游 DiPlay 保持同步，请让改动尽量小而通用。 |
-| OpenXPlay-Web-Plugins | 按仓库本身的许可证 Apache-2.0 OR MIT 贡献。 |
+| 所有仓库 | 遵循 [OpenXPlay 贡献者许可协议](https://github.com/OpenXPlay/OpenXPlay/blob/main/CLA.md)（协议文本为英文）。在任意一个 OpenXPlay 仓库的 pull request 里按 CLA 检查的提示回复一次即可，之后所有仓库都会通过。如需代表组织贡献，请先联系 [support@openxplay.org](mailto:support@openxplay.org) 签订企业协议。 |
+| OpenXPlay-DiPlay | 这个派生仓库与上游 DiPlay 保持同步，请让改动尽量小而通用。 |
 
 本项目未对市售 CarPlay 盒子进行逆向工程。项目部分安卓接收能力复用了 DiPlay 和 xcertplay 的实现，感谢上游项目及贡献者的工作。
 

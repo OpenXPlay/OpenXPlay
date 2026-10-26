@@ -72,4 +72,6 @@ The diagram uses [MiSans](https://hyperos.mi.com/font/).
 
 Third-party code, dependencies and assets keep their own licenses. See the license and third-party notice files in each repository.
 
+Contributions to every OpenXPlay repository are accepted under the [OpenXPlay Contributor License Agreement](./CLA.md). Accept it once by replying on a pull request to any of them; the CLA check then passes in all of them.
+
 CarPlay is a trademark of Apple Inc. OpenXPlay is an independent project and is not affiliated with, endorsed or certified by Apple or by any head-unit or box maker.
