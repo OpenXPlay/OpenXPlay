@@ -124,6 +124,8 @@ Install packages never contain an Apple accessory (MFi) identity; you supply you
 
 With the dongle connected to the computer by USB, choose *Open the relay admin page over USB* under *Next steps* in Flasher. Once you are on the relay’s network, you can also open `https://openxplay-linux.local:6975` from a phone or computer. The browser shows a certificate warning; carry on to the page. The password for the first sign-in is shown on the sign-in page; after signing in, set your own admin password.
 
+If a separate **Admin hotspot** is enabled, connect your phone or computer to it and open `https://10.79.0.1:6975/`. Its IP address is fixed at `10.79.0.1` and stays the same after restarting the relay or the device. When accessing the relay through your home or car Wi-Fi, use the LAN IP assigned to the relay by that router: `https://<relay LAN IP>:6975/`. That IP may change unless you reserve it on the router.
+
 ## Choose the network {#step-network .step}
 
 In the admin page, choose how the iPhone and the head unit reach the relay:
