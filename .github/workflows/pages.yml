@@ -11,9 +11,10 @@ name: Pages
 on:
   push:
     branches: [main]
-    # The site plus the diagrams and QR codes its pages show.
+    # The site plus the diagrams and QR codes its pages show, and the agent skills it mirrors.
     paths:
       - site/**
+      - skills/**
       - assets/**
       - Group/**
       - .github/workflows/pages.yml
