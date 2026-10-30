@@ -2,12 +2,14 @@
 // SPDX-License-Identifier: MIT
 // Created by riko chen on 2026-10-17
 
-// Files written into the build output after the pages: robots.txt, llms.txt, llms-full.txt and
-// CNAME. They are generated from the page sources and the site URL, so they stay in sync.
+// Files written into the build output after the pages: robots.txt, llms.txt, llms-full.txt, the
+// agent skills mirror (agents/skills/) and CNAME. They are generated from the page sources, the
+// repository's skills/ and the site URL, so they stay in sync.
 
 import fs from 'node:fs'
 import path from 'node:path'
 import type { PageData, SiteConfig } from 'vitepress'
+import { readSkills, writeSkills, SKILLS_PATH, type SkillEntry } from './agent-skills'
 import { llmsMarkdown } from './markdown-text'
 import {
   GITHUB_ORG, LOCALES, PAGE_SLUGS, SITE_HOST, SITE_NAME, SITE_ROOT, SUPPORT_EMAIL,
@@ -99,7 +101,7 @@ function robotsTxt(): string {
   ].join('\n')
 }
 
-function llmsTxt(list: PageSummary[]): string {
+function llmsTxt(list: PageSummary[], skills: SkillEntry[]): string {
   const lines = [`# ${SITE_NAME}`, '', `> ${SUMMARY}`, '', ...NOTES.flatMap(note => [note, ''])]
   for (const locale of Object.keys(LOCALES) as LocaleKey[]) {
     lines.push(`## ${LOCALES[locale].docsHeading}`, '')
@@ -114,7 +116,9 @@ function llmsTxt(list: PageSummary[]): string {
     '',
     '## Instructions for AI agents',
     '',
+    ...skills.map(skill => `- [Agent skill ${skill.name} ${skill.version}](${skill.url}): ${skill.description}`),
     `- [Install OpenXPlay on a UFI003 USB dongle](${SITE_ROOT}agents/ufi003-install.md): step-by-step instructions for an AI agent with a terminal on the user's computer, using OpenXPlay Flasher's command line`,
+    `- [Agent skill index](${SITE_ROOT}${SKILLS_PATH}/index.json): each skill's version, minimum version, files and SHA-256, mirrored from GitHub for update checks`,
     '',
     '## Optional',
     '',
@@ -168,8 +172,10 @@ function llmsFullTxt(list: PageSummary[], srcDir: string): string {
 export function writeGeneratedFiles(siteConfig: SiteConfig): void {
   const out = siteConfig.outDir
   const list = orderedPages()
+  const skills = readSkills(siteConfig.srcDir)
+  writeSkills(siteConfig.srcDir, out, skills)
   fs.writeFileSync(path.join(out, 'robots.txt'), robotsTxt())
-  fs.writeFileSync(path.join(out, 'llms.txt'), llmsTxt(list))
+  fs.writeFileSync(path.join(out, 'llms.txt'), llmsTxt(list, skills))
   fs.writeFileSync(path.join(out, 'llms-full.txt'), llmsFullTxt(list, siteConfig.srcDir))
 
   // GitHub Pages: a custom domain needs CNAME; a *.github.io address must not have one.

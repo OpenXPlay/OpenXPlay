@@ -40,6 +40,28 @@ The relay uses this identity to authenticate with the iPhone as an accessory, an
 | Where you set it up | In the app | In a web admin page |
 | Power and start | Open the app on each drive | Runs as a system service and starts by itself when powered |
 
+## Let an AI assistant guide you {#ai-assistant}
+
+Not sure which setup fits your car? An AI assistant can ask about your car, iPhone and spare devices, recommend a setup (including whether another Linux device can be the relay) and guide you through it one step at a time. Any assistant that can read web pages works; one that can run commands on your computer, such as [Claude Code](https://claude.com/claude-code) or [OpenAI Codex](https://github.com/openai/codex), can also download and check the files itself. It asks before anything that changes your computer or a device, and never asks for your CarPlay identity files or passwords.
+
+Send it this message:
+
+```text
+Read https://openxplay.org/agents/skills/openxplay-setup/SKILL.md
+and follow it to help me set up OpenXPlay.
+```
+
+::: details Install it as a skill {#ai-skill}
+As an installed skill, your assistant uses the guide whenever you ask about setting up OpenXPlay, and at the start of each conversation it checks for a newer version; it updates only after you agree. Copy the folder [skills/openxplay-setup](https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-setup) into your assistant’s skills folder:
+
+| Assistant | Skills folder |
+| --- | --- |
+| Claude Code | `~/.claude/skills/openxplay-setup/` |
+| Codex | `~/.agents/skills/openxplay-setup/` |
+
+Or ask the assistant to do it: “Install the openxplay-setup skill from https://openxplay.org/agents/skills/index.json and check every file’s SHA-256.” What changed in each version is in its [changelog](https://github.com/OpenXPlay/OpenXPlay/blob/main/skills/openxplay-setup/CHANGELOG.md).
+:::
+
 ## After setup {#after-setup}
 
 - [Everyday use and settings](/en/daily-use): connecting on each drive, and the head-unit page’s resolution, full-screen and other settings.
