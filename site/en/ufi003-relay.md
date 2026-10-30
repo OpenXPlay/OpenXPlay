@@ -145,7 +145,7 @@ If pairing codes are turned on in the admin page, enter the 8-digit code the rel
 
 ## Install from the command line without Flasher {#manual}
 
-If you want to use only the command line and not Flasher, you can flash the dongle by hand and install the relay with scripts. This skips Flasher’s backup and checks, and flashing replaces the dongle’s original system, so make sure you understand each step.
+If you want to use only the command line and not Flasher, you can flash the dongle by hand, then install the device package and the relay package. This skips Flasher’s backup and checks, and flashing replaces the dongle’s original system, so make sure you understand each step.
 
 ::: details Show the command-line steps
 
@@ -153,25 +153,48 @@ If you want to use only the command line and not Flasher, you can flash the dong
 
 Flash the OpenStick Debian 11 image (kernel `5.15.0-handsomekernel+`, aarch64) onto the UFI003. Downloads, checksums and the cautions to read before flashing are in [Flash the UFI003 base image](/en/ufi003-flash).
 
-### Get the relay {#step-get}
+### Install the device package {#step-device}
 
-Download `openxplay-relay-<version>-linux-aarch64.tar.gz` from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) and unpack it: it holds the two aarch64 binaries (`bin/openxplay-relay`, `bin/oxp-relay`), the web receiver (`web/`), the admin page (`admin/`) and `rust/packaging/`.
-
-To build it yourself, build the web receiver (`rust/web-receiver/` in [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream)), the admin page (`admin-web/` in [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay)) and the aarch64 binaries with `rust/scripts/build-aarch64.sh` in both repositories.
-
-### Make an install bundle {#step-bundle}
-
-On your computer, run `UFI003/install/make-bundle.sh` with the build outputs, the Debian packages recorded in `UFI003/install/debs.txt` and the relay’s packaging directory:
+From the OpenXPlay-Hardware release [ufi003-device-v0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1), download `openxplay-ufi003-device-0.2.1.tar.gz` and `SHA256SUMS` and check them. Copy the bundle to the dongle and open its shell (root):
 
 ```sh
-sh UFI003/install/make-bundle.sh /tmp/ufi003-bundle /path/to/openxplay-relay /path/to/oxp-relay /path/to/web/dist /path/to/admin/dist /path/to/debs /path/to/OpenXPlay-Relay/rust/packaging
+adb push openxplay-ufi003-device-0.2.1.tar.gz /root/
+adb shell
 ```
 
-### Install it on the dongle {#step-install}
+On the dongle, unpack it and run the installer. `--dry-run` checks everything without changing anything; after the install, reboot:
 
-Copy the `.tar.gz` to the dongle, unpack it into an empty directory and run `UFI003/install/install-ufi003.sh` from it as root. Put `--dry-run` before the arguments to verify everything without changing anything. The installer adds the Bluetooth RFCOMM module that wireless CarPlay needs, a fixed Bluetooth driver and a Bluetooth guard, and sets up the relay.
+```sh
+cd /root
+tar -xzf openxplay-ufi003-device-0.2.1.tar.gz
+sh openxplay-ufi003-device-0.2.1/install-device.sh --dry-run
+sh openxplay-ufi003-device-0.2.1/install-device.sh
+reboot
+```
 
-Then carry on from [Add your CarPlay identity](#step-identity), or put the identity in place by hand as the [UFI003 README](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003#one-step-installer) describes.
+After the reboot, open `adb shell` again and check the device with `--verify`:
+
+```sh
+sh /root/openxplay-ufi003-device-0.2.1/install-device.sh --verify
+```
+
+The device package carries the Debian packages it needs, so it installs without internet access. It adds the Bluetooth RFCOMM module that wireless CarPlay needs, a fixed Bluetooth driver, a Bluetooth guard and the host profile, and turns on time synchronisation.
+
+### Install the relay {#step-install}
+
+Under [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), pick the latest `linux-v` release (pre-releases included), download the `.deb` and `SHA256SUMS` and check them, then run on your computer:
+
+```sh
+V=0.1.6-beta.3
+adb push openxplay-relay_${V}_arm64.deb /root/
+adb shell dpkg -i /root/openxplay-relay_${V}_arm64.deb
+```
+
+Set `V` to the latest version. The device package has already installed the dependencies, so no internet access is needed. [Install the relay](/en/linux-devices#install) describes what the package sets up.
+
+To build them yourself: the device package with `UFI003/package/build-bundle.sh` in [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware), the relay package with `rust/packaging/build-deb.sh` in [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay).
+
+Then carry on from [Open the admin page](#step-admin). Without Flasher, add your CarPlay identity in the admin page under **Developer options → Identity and certificates**, or [put the identity files in place by hand](/en/linux-devices#identity).
 
 :::
 

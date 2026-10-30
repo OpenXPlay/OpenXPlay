@@ -145,7 +145,7 @@ Flasher 从本网站读取一份签名的软件包列表，其中记录了各层
 
 ## 不用 Flasher 的命令行安装 {#manual}
 
-只想用命令行、不用 Flasher 时，可以手动刷机并用脚本安装中继。这样做没有 Flasher 的备份和检查，刷机会改写设备原有的系统，请确认自己清楚每一步在做什么。
+只想用命令行、不用 Flasher 时，可以手动刷机，再依次安装设备支持包和中继软件包。这样做没有 Flasher 的备份和检查，刷机会改写设备原有的系统，请确认自己清楚每一步在做什么。
 
 ::: details 展开命令行安装步骤
 
@@ -153,25 +153,48 @@ Flasher 从本网站读取一份签名的软件包列表，其中记录了各层
 
 在 UFI003 上刷入 OpenStick Debian 11 镜像（内核 `5.15.0-handsomekernel+`，aarch64）。下载地址、校验值和刷机前的注意事项见[刷入 UFI003 基础镜像](/ufi003-flash)。
 
-### 获取中继 {#step-get}
+### 安装设备支持包 {#step-device}
 
-从 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 下载 `openxplay-relay-<版本>-linux-aarch64.tar.gz` 并解压。其中有两个 aarch64 可执行文件（`bin/openxplay-relay`、`bin/oxp-relay`）、网页接收端（`web/`）、管理页面（`admin/`）和 `rust/packaging/`。
-
-想自行构建时：构建网页接收端（[OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) 的 `rust/web-receiver/`）、管理页面（[OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) 的 `admin-web/`），并在两个仓库中用 `rust/scripts/build-aarch64.sh` 构建 aarch64 可执行文件。
-
-### 制作安装包 {#step-bundle}
-
-在电脑上运行 `UFI003/install/make-bundle.sh`，传入构建产物、`UFI003/install/debs.txt` 中记录的 Debian 软件包，以及中继的 packaging 目录：
+从 OpenXPlay-Hardware 的 [ufi003-device-v0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1) 下载 `openxplay-ufi003-device-0.2.1.tar.gz` 和 `SHA256SUMS` 并核对，然后复制到随身 Wi-Fi 上，进入它的 shell（root）：
 
 ```sh
-sh UFI003/install/make-bundle.sh /tmp/ufi003-bundle /path/to/openxplay-relay /path/to/oxp-relay /path/to/web/dist /path/to/admin/dist /path/to/debs /path/to/OpenXPlay-Relay/rust/packaging
+adb push openxplay-ufi003-device-0.2.1.tar.gz /root/
+adb shell
 ```
 
-### 在设备上安装 {#step-install}
+在随身 Wi-Fi 上解压并运行安装程序。`--dry-run` 只做检查、不做任何改动；安装后要重启：
 
-把 `.tar.gz` 复制到随身 Wi-Fi 上，解压到一个空目录，然后以 root 身份运行其中的 `UFI003/install/install-ufi003.sh`。在参数前加上 `--dry-run` 可以只做校验、不做任何改动。安装程序会安装无线 CarPlay 所需的蓝牙 RFCOMM 模块、修复后的蓝牙驱动和蓝牙守护程序，并部署中继。
+```sh
+cd /root
+tar -xzf openxplay-ufi003-device-0.2.1.tar.gz
+sh openxplay-ufi003-device-0.2.1/install-device.sh --dry-run
+sh openxplay-ufi003-device-0.2.1/install-device.sh
+reboot
+```
 
-装好后从[添加 CarPlay 身份](#step-identity)继续。也可以按 [UFI003 README](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003#one-step-installer) 的说明手动放入身份。
+重启后再进入 `adb shell`，用 `--verify` 检查：
+
+```sh
+sh /root/openxplay-ufi003-device-0.2.1/install-device.sh --verify
+```
+
+设备支持包自带需要的 Debian 软件包，安装时不需要联网。它会安装无线 CarPlay 所需的蓝牙 RFCOMM 模块、修复后的蓝牙驱动、蓝牙守护程序和主机配置，并开启时间同步。
+
+### 安装中继 {#step-install}
+
+在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本（包括预发布版），下载 `.deb` 和 `SHA256SUMS` 并核对，然后在电脑上运行：
+
+```sh
+V=0.1.6-beta.3
+adb push openxplay-relay_${V}_arm64.deb /root/
+adb shell dpkg -i /root/openxplay-relay_${V}_arm64.deb
+```
+
+把 `V` 改成最新的版本号。依赖已由设备支持包装好，不需要联网。软件包的内容见[安装中继](/linux-devices#install)。
+
+想自行构建时：设备支持包用 [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) 的 `UFI003/package/build-bundle.sh`，中继软件包用 [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) 的 `rust/packaging/build-deb.sh`。
+
+装好后从[打开管理页面](#step-admin)继续。没有 Flasher 时，在管理页面的“**开发者选项 → 认证身份与证书**”中添加 CarPlay 身份，也可以[手动放入身份文件](/linux-devices#identity)。
 
 :::
 

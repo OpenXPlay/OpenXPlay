@@ -9,13 +9,13 @@ prev:
   text: UFI003 as the relay
   link: /en/ufi003-relay
 next:
-  text: 'Continue: get the relay'
-  link: /en/ufi003-relay#step-get
+  text: 'Continue: install the device package'
+  link: /en/ufi003-relay#step-device
 ---
 
 # Flash the UFI003 base image
 
-The UFI003 runs OpenStick [release v1](https://github.com/OpenStick/OpenStick/releases/tag/v1) (published 2022-02-08), a Debian 11 system. This page is the first step of the [command-line install without Flasher](/en/ufi003-relay#manual); once the dongle is flashed, go back to [UFI003 as the relay](/en/ufi003-relay#step-get) to install the relay. The recommended ways are to [let an AI assistant install it](/en/ufi003-relay#ai) or to [install it yourself with Flasher](/en/ufi003-relay#flasher): OpenXPlay Flasher does the steps on this page and backs up the four modem partitions before flashing.
+The UFI003 runs OpenStick [release v1](https://github.com/OpenStick/OpenStick/releases/tag/v1) (published 2022-02-08), a Debian 11 system. This page is the first step of the [command-line install without Flasher](/en/ufi003-relay#manual); once the dongle is flashed, go back to [UFI003 as the relay](/en/ufi003-relay#step-device) to install the device package and the relay. The recommended ways are to [let an AI assistant install it](/en/ufi003-relay#ai) or to [install it yourself with Flasher](/en/ufi003-relay#flasher): OpenXPlay Flasher does the steps on this page and backs up the four modem partitions before flashing.
 
 ::: danger Before you flash
 - The flash package replaces the partition table and the bootloader. The stock Android system won’t run afterwards, and OpenStick offers no way back.
