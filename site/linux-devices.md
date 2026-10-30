@@ -202,14 +202,15 @@ sudo systemctl restart openxplay-relay
 斐讯 N1（Phicomm N1）是一款电视盒子，采用 Amlogic S905D，带支持 5 GHz 的 BCM43455 Wi-Fi、经 UART 连接的 BCM4345C0 蓝牙和以太网口。它在 ophub Armbian（Debian 13）上运行中继，另需 [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) 中的设备支持包。
 
 1. **自行安装 Armbian。** 从 ophub 的 [amlogic-s9xxx-armbian](https://github.com/ophub/amlogic-s9xxx-armbian) 版本 [`Armbian_trixie_arm64_server_2026.10`](https://github.com/ophub/amlogic-s9xxx-armbian/releases/tag/Armbian_trixie_arm64_server_2026.10) 下载 `Armbian_26.11.0_amlogic_s905d_trixie_6.12.112_server_2026.10.15.img.gz`（Debian 13，内核 6.12）。把它写入 U 盘，让 N1 从 U 盘启动，然后运行 `armbian-install`，依次选择 `101`（Phicomm-N1）和 `1`（ext4），把系统安装到 eMMC。
-2. **安装设备支持包。** 从 OpenXPlay-Hardware 的预发布版 [phicomm-n1-device-v0.1.1-beta.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/phicomm-n1-device-v0.1.1-beta.1) 下载 `openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz` 和 `SHA256SUMS` 并核对。在 N1 上解压，以 root 身份运行其中的安装程序。`--dry-run` 只做检查、不做任何改动；`--verify` 检查已安装的设备。
+2. **安装设备支持包。** 从 OpenXPlay-Hardware 的预发布版 [phicomm-n1-device-v0.1.1-beta.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/phicomm-n1-device-v0.1.1-beta.1) 下载 `openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz` 和 `SHA256SUMS` 并核对。在 N1 上解压，以 root 身份运行其中的安装程序。`--dry-run` 只做检查、不做任何改动；安装后要重启，重启后用 `--verify` 检查。
 
    ```sh
    tar -xzf openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz
-   cd openxplay-phicomm-n1-device-0.1.1-beta.1
-   sudo sh install-device.sh --dry-run .
-   sudo sh install-device.sh .
-   sudo sh install-device.sh --verify .
+   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --dry-run
+   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh
+   sudo reboot
+   # 重启后
+   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --verify
    ```
 
 3. **安装中继**：按[安装中继](#install)操作，然后从[打开管理页面](#admin)继续。

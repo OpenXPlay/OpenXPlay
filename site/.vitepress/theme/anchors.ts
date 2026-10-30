@@ -57,6 +57,10 @@ const MOVED: Record<string, Record<string, string>> = {
     trademarks: 'licensing#trademarks',
     website: 'licensing#website',
   },
+  'ufi003-relay': {
+    'step-get': 'ufi003-relay#step-device',
+    'step-bundle': 'ufi003-relay#step-device',
+  },
   'trusted-https': {
     android: 'trusted-https#android-settings',
     linux: 'trusted-https#linux-admin',

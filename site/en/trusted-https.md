@@ -18,7 +18,7 @@ howtoTools:
 Open the head-unit page without a certificate warning, using a free domain name. The relay publishes its address under your free name and gets a Let’s Encrypt certificate for that name; when the head unit’s browser opens the page by the name, the certificate checks out. Nothing is installed or changed on the head unit.
 
 ::: info Supported versions
-The Android app has trusted HTTPS from [0.1.5](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5); the Linux relay has it in the [0.1.5-beta.2](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.5-beta.2) test release.
+The Android app has trusted HTTPS from [0.1.5](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5); the Linux relay has it from the [0.1.5-beta.2](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.5-beta.2) test release on.
 :::
 
 ## How it works {#how-it-works}
@@ -36,7 +36,7 @@ The check runs between the relay, your provider and Let’s Encrypt only: nothin
 | You need | Details |
 | --- | --- |
 | A free domain name | From DuckDNS or dynv6; see step 1. Keep the full name and the token. |
-| A relay with Trusted HTTPS | An upcoming OpenXPlay Relay release, on the Android app or the Linux relay. |
+| A relay with Trusted HTTPS | The Android app 0.1.5 or later, or the Linux relay 0.1.5-beta.2 or later. |
 | Internet access on the relay | To publish the address and to get and renew certificates. The Android relay needs mobile data. |
 
 ::: details Why mobile data on the Android relay? {#why-mobile-data}

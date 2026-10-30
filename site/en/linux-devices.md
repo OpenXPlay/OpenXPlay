@@ -202,14 +202,15 @@ For the Carlink app, see [Carlink app](/en/carlink).
 The Phicomm N1 is a TV box with an Amlogic S905D, BCM43455 Wi-Fi with 5 GHz, BCM4345C0 Bluetooth over UART, and Ethernet. It runs the relay on ophub Armbian (Debian 13) with a device package from [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1).
 
 1. **Install Armbian yourself.** From the release [`Armbian_trixie_arm64_server_2026.10`](https://github.com/ophub/amlogic-s9xxx-armbian/releases/tag/Armbian_trixie_arm64_server_2026.10) of ophub’s [amlogic-s9xxx-armbian](https://github.com/ophub/amlogic-s9xxx-armbian), download `Armbian_26.11.0_amlogic_s905d_trixie_6.12.112_server_2026.10.15.img.gz` (Debian 13, kernel 6.12). Boot the N1 from it on a USB drive, then run `armbian-install` and choose `101` (Phicomm-N1) and `1` (ext4) to install it to the eMMC.
-2. **Install the device package.** From the OpenXPlay-Hardware pre-release [phicomm-n1-device-v0.1.1-beta.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/phicomm-n1-device-v0.1.1-beta.1), download `openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz` and `SHA256SUMS`, and check them. Unpack it on the N1 and run its installer as root. `--dry-run` checks everything without changing anything; `--verify` checks an installed device.
+2. **Install the device package.** From the OpenXPlay-Hardware pre-release [phicomm-n1-device-v0.1.1-beta.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/phicomm-n1-device-v0.1.1-beta.1), download `openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz` and `SHA256SUMS`, and check them. Unpack it on the N1 and run its installer as root. `--dry-run` checks everything without changing anything; after the install, reboot, then check the device with `--verify`.
 
    ```sh
    tar -xzf openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz
-   cd openxplay-phicomm-n1-device-0.1.1-beta.1
-   sudo sh install-device.sh --dry-run .
-   sudo sh install-device.sh .
-   sudo sh install-device.sh --verify .
+   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --dry-run
+   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh
+   sudo reboot
+   # after the reboot
+   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --verify
    ```
 
 3. **Install the relay** as in [Install the relay](#install), then carry on from [Open the admin page](#admin).
