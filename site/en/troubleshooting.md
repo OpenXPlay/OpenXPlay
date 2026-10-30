@@ -30,7 +30,7 @@ Use a 2.4 GHz network for the head unit:
 
 - The UFI003 dongle’s Wi-Fi has no 5 GHz band, so its hotspot is always 2.4 GHz.
 - On the Android relay, set the car-hotspot band to 2.4 GHz in the app’s settings.
-- With shared Wi-Fi, the network must offer 2.4 GHz. The UFI003 only sees 2.4 GHz networks anyway.
+- With *Use the car’s hotspot* (Android) or *Shared Wi-Fi* (Linux), the network must offer 2.4 GHz. The UFI003 only sees 2.4 GHz networks anyway.
 
 For Carlink, the UFI003 can’t join a head unit whose Carlink Wi-Fi runs on 5 GHz.
 
@@ -50,7 +50,7 @@ Check these in order:
 
 1. Keep the iPhone near the relay with Bluetooth and Wi-Fi turned on.
 2. Make sure the relay has a valid CarPlay identity. The Android app doesn’t start CarPlay without one.
-3. With shared Wi-Fi, the iPhone, the relay and the head unit must be on the same network, and the router must let devices reach each other.
+3. With *Use the car’s hotspot* (Android) or *Shared Wi-Fi* (Linux), the iPhone, the relay and the head unit must be on the same network, and the router must let devices reach each other.
 4. Look at the relay’s status in the app or admin page: waiting for iPhone, connecting or connected.
 5. After you change the network mode, the iPhone moves to the new network by itself and CarPlay reconnects in about 30 seconds.
 6. If it still fails, restart the relay services from the admin page.
@@ -65,7 +65,7 @@ The relay phone’s Wi-Fi is off. Carlink has the relay phone join the car’s n
 
 ### The page says “Relay unreachable” {#relay-unreachable}
 
-The head unit isn’t on the relay’s network, or the relay is off. Keep the relay on, join the relay’s hotspot (or the shared Wi-Fi) on the head unit, and open the address the relay shows.
+The head unit isn’t on the relay’s network, or the relay is off. Keep the relay on, join the relay’s hotspot (or the shared network) on the head unit, and open the address the relay shows.
 
 ## Picture and sound {#picture-and-sound}
 

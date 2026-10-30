@@ -11,6 +11,97 @@ breadcrumb: Changelog
 
 What changed in each OpenXPlay Relay release, newest first. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup start at [Get started](/en/quick-start).
 
+## 0.2.2 {#v0-2-2}
+
+2026-10-28 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.2)
+
+Android app: a steadier CarPlay picture when the iPhone reconnects, ZEEKR in the car list, a Settings page of its own for the Tesla browser adaptation and a single Home.
+
+**New**
+
+- Android app: three options under Settings → Experimental, on by default, for handing the CarPlay picture over from an old iPhone connection to a new one: *Isolate screen sessions*, *Reset screen state on reconnect* and *Synchronize screen handoff*.
+- Android app: ZEEKR in the car list. With a ZEEKR chosen, Settings → Car and screen and the setup guide suggest [Trusted HTTPS](/en/trusted-https) and offer a button to set it up.
+- Android app: the [Tesla browser adaptation](/en/tesla) moves to its own page, Settings → Tesla browser, always listed after Car and screen; the TeslaMirror-style address comes first and is marked as recommended. Saved choices stay as they were.
+- Android app: exported logs record what DLNA and Miracast did (state, failures and statistics every 10 seconds, without web addresses), for testing wireless display through developer options.
+
+**Changes**
+
+- Android app: when the iPhone opens a new connection while the old one is still closing, the new CarPlay picture stays on screen; late frames from the old connection and its closing no longer stop it.
+- Android app: DLNA casting, still reachable only through developer options, receives the iPhone’s H.264 or H.265 directly. The transcoding from H.265 to H.264 is gone (when it failed, the receiver stayed blank), and Xiaomi hyperDLNA receivers keep playing H.265.
+- Android app: a single Home. Notifications, starting at boot, pairing and the CarPlay overlay no longer open a second Home; Back passes each page at most once, and only one dialog or sheet shows at a time.
+- Android app: the admin page in the browser looks like the app: Home shows the same connection view, Settings uses the app’s menus, and it comes in light and dark.
+
+**Notes**
+
+- The three new options are experimental, and each can be turned off in Settings → Experimental; changes apply to the next connection.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.2).
+
+## 0.2.1 {#v0-2-1}
+
+2026-10-27 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.1)
+
+Android app: improvements to how a connection starts, and a head-unit page that says what it is waiting for.
+
+**New**
+
+- Android app: five options under Settings → Experimental for starting a connection, on by default. CarPlay counts as playing only once the head-unit browser shows its picture; a queued retry is cancelled when the connection has already recovered; the head-unit page shows connection progress; each stage up to the first picture is recorded in the log; and network checks the phone does not support are not repeated within one attempt.
+
+**Changes**
+
+- Android app: six Experimental options from [0.2.0](#v0-2-0) are now standard behaviour, always on and without switches. *Send this phone’s Bluetooth address* still stays off until you turn it on.
+- Android app: upgrading turns the new options on and keeps your other settings; a Bluetooth address you entered but left off stays off.
+- Head-unit page (Android relay): while CarPlay starts, the page shows whether it is waiting for the iPhone or for its CarPlay picture.
+
+**Notes**
+
+- The five new options are experimental, and each can be turned off in Settings → Experimental.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.1).
+
+## 0.2.0 {#v0-2-0}
+
+2026-10-26 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.0)
+
+Android app: a redesigned app that checks the connection step by step, car selection by model and year, frame-rate and Carlink picture-size settings, head-unit page settings from CarPlay’s OpenXPlay icon, log export and update checks.
+
+**New**
+
+- Android app: a redesigned app that shows the connection as one path, iPhone → relay phone → car, and checks each step live. Home has three tiles, one headline and at most one action: *Connect*, the fix for the current step, *Retry* or *Start now*. Tap a tile or pull up the drawer below to see every step, why it matters and what to do, such as turning on Bluetooth, pairing the iPhone or entering the Carlink code. A failure says what went wrong and what to do, with its code and time. The running page looks the same.
+- Android app: light and dark appearance, following the system.
+- Android app: Settings → Car and screen chooses the car by brand, model and year: every XPeng model sold in China with its model years, and the Tesla models. Built-in screen data is still only for the XPeng G6 2023. The setup guide now starts with *Your car* and needs a brand and a model; the year can stay *Not sure*. Earlier choices carry over, and setups without a car keep working, with *Choose your car* on Home until you pick one.
+- Android app: the [Tesla browser adaptation](/en/tesla). The Tesla browser does not open local-network addresses, so with a Tesla chosen, Settings → Car and screen → *Tesla browser* adds an address on the relay phone through a local VPN (169.254.88.1 by default; nothing leaves the phone). There are four ways to reach the page: a trusted name or a direct address on that link-local address, or a TeslaMirror-style or TeslaAndroid-style address; the trusted-name ways need [Trusted HTTPS](/en/trusted-https) and open without a certificate warning. It needs wireless CarPlay, the *Car browser* output and the relay phone’s hotspot or Wi-Fi Direct; switching between the ways keeps CarPlay running.
+- Android app: Settings → CarPlay picture → *Frame rate*: *Auto* (30 or 60 fps, from the head unit’s refresh rate) or 30–60 fps in steps of 5. The head-unit page shows and changes the same setting. A change restarts a running session once. It replaces the frame-rate override in developer options; an override that was on carries over.
+- Android app: Settings → CarPlay picture → *Carlink picture size*: *Automatic* (the car’s Carlink window, as before), six presets (1280×720, 1920×1080, 1280×800, 1920×720, 1024×600 and 1024×768) and up to five sizes of your own. The starred size is used for every connection; choosing another tries it for this connection only, restarting CarPlay if Carlink is running.
+- Head-unit page (Android relay): tapping the OpenXPlay icon in CarPlay opens the page’s settings instead of the relay phone’s home screen. They slide in from the right, with quick tiles for sound, full screen and fill, menus for picture, sound and microphone, plugins and about, and choice pages instead of drop-down lists. The floating gear is gone; before CarPlay plays, the status card has a settings button.
+- Android app: Settings → Logs. The app keeps about the last 24 hours of its own logs on the relay phone; passwords, keys, phone numbers, names, messages and precise location are replaced before anything is stored. *Export logs* for the past 10 minutes, 30 minutes or 24 hours as a ZIP, then choose *Save to a file on this phone* (no network use) or *Upload online and show QR code*. An upload goes to logs.openxplay.org only after you agree to the privacy notice and gives a log ID and QR code for your bug report; the receipt can be viewed for 48 hours, and the logs are deleted within 72 hours.
+- Android app: Settings → Configuration files exports and imports a *User configuration* (connection, outputs, picture and the other settings, including developer and experimental options) and a *Privacy configuration* (the trusted HTTPS name, its certificate and keys, and saved DNS provider setups; keep this file private), to move to another phone or reinstall. Importing a user configuration also completes the setup guide. iPhone pairing, Carlink car trust and the Apple accessory identity do not carry over.
+- Android app: Settings → About → *Check for updates*, with a *Stable* or *Beta* channel, shows the newest version and its release notes in the app’s language and downloads the APK in the browser. The app contacts GitHub only when you tap *Check for updates*.
+- Android app: Settings → Experimental, for connection problems: *Check and recover the iPhone Wi-Fi connection* (when Wi-Fi connects but CarPlay does not start), *Isolate the Carlink network*, *Wait for Carlink before connecting the iPhone*, *Remember the Bluetooth subscription method* (skips a 2-second wait on cars such as the XPeng G6), *Keep scanning for the car*, *Record all Bluetooth advertisements* (only with Carlink debug on) and *Send this phone’s Bluetooth address*. *Use experimental options* and every option except the last are on by default; changes apply to the next connection.
+
+**Changes**
+
+- Android app: Carlink on Xiaomi phones with MIUI on Android 10 and 11 no longer fails to join the head unit’s Wi-Fi after 12 seconds on a system confirmation that cannot be answered. Thanks to @hellowalker.
+- Android app: while an output is on, the relay runs with a low-priority “OpenXPlay Relay” notification, so Carlink and the head-unit page keep working in the background and with the screen off. Before, HyperOS froze the app seconds after it left the screen, and Carlink could not find the car.
+- Android app: starting checks Bluetooth for wireless CarPlay and Carlink, and Wi-Fi for Wi-Fi Direct, Carlink and the car’s hotspot. If something is still off, *Connect* and an automatic start wait and begin once it is on, instead of showing a dialog or failing. A session stopped because Bluetooth, Wi-Fi or the hotspot went off restarts once when it comes back.
+- Android app: when the car’s screen is not known yet, CarPlay waits up to 20 seconds for the car to report it, so it no longer restarts once the size arrives; *Start now* skips the wait.
+- Android app: Home no longer says “Waiting for iPhone” while the iPhone is connecting. Home and the running page show the same stage: connecting over Bluetooth, starting CarPlay over Bluetooth or USB, waiting for the picture or reconnecting.
+- Android app: the launch page is gone, and the app opens on Home. With *Connect automatically* on, the *Connect* button counts down five seconds; *Not now* pauses it.
+- Android app: a calmer setup guide, with a progress bar, compact choices that expand only when selected, one network diagram for the chosen network and a preparation page that lists only the steps still open.
+- Android app: far less CPU and battery use while idle, and smoother when opening Settings and going back.
+- Android app: long labels wrap instead of being cut off, also with larger text.
+- Android app: the *Shared Wi-Fi* network mode is now *Use the car’s hotspot* (Settings → iPhone connection → Network): the iPhone and the relay phone both join the car’s hotspot. The diagram shows the car as the hotspot, the waiting step names the car hotspot the relay phone is on, and the band field is now *Hotspot band*. The admin page still says *Shared Wi-Fi*.
+- Android app: Developer options → *Combine outputs* replaces *Both outputs at once*: any outputs can run together, and at least one stays on. Existing choices carry over.
+
+**Notes**
+
+- This release contains only the Android app; the Linux relay is released separately.
+- Wireless display (DLNA, Miracast) shows as *Coming soon* in the setup guide and in Settings → Output, and cannot be chosen yet.
+- The Experimental options start on, also after upgrading. If Carlink or wireless CarPlay connects worse than before, turn off Settings → Experimental → *Use experimental options*; your choices are kept.
+- A configuration file exported by 0.2.0 with a car chosen does not import into older versions; older files import into 0.2.0.
+- If CarPlay sound plays from the iPhone instead of the car, turn off Settings → Sound → *CarPlay audio over the car’s Bluetooth*, or keep the iPhone paired with the car and choose Bluetooth as the car’s audio source.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.0).
+- Known issues: the XPeng G6 does not tell the phone its new size when you switch its Carlink area during a session, and whether reconnecting makes it report the full-screen size is not verified yet; wired CarPlay with a USB-C iPhone on a USB-C to USB-C cable usually does not work (use an OTG adapter or wireless); some phones turn Wi-Fi off when their hotspot is on, and Carlink needs both; navigation prompts and ringtones over Carlink may be silent (not yet verified); on Carlink head units that need H.264, transcoding on the phone can stop after a timestamp jump, and the original stream is sent instead; on the head-unit page, a tap meant to return to full screen may neither restore it nor reach CarPlay; on Android 13 and later, connections to a Tesla address outside 169.254 may be dropped (the app warns).
+- Not yet tested in a car: the Tesla browser adaptation, Carlink picture sizes other than *Automatic*, the head-unit page settings from the OpenXPlay icon, and the Experimental options with wireless CarPlay and Carlink together.
+
 ## 0.1.5 {#v0-1-5}
 
 2026-10-22 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5)

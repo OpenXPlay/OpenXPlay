@@ -17,7 +17,7 @@ Carlink 输出仍是实验性功能，有可能连接失败。请使用安卓应
 
 ## 开启 Carlink 输出 {#step-enable .step}
 
-在设置向导中把车机显示方式选为“Carlink 应用”，或在中继中把输出方式设为“浏览器和 Carlink”。中继的其他设置与浏览器路线相同，见[安卓手机作中继](/android-relay)或 [UFI003 作中继](/ufi003-relay)。
+在设置向导的“车机显示”页选择“Carlink 应用”，向导会推荐无线 CarPlay 使用“此手机的热点”。想同时使用浏览器和 Carlink，在“设置 → 开发者选项 → 同时使用多种输出”中打开。中继的其他设置与浏览器路线相同，见[安卓手机作中继](/android-relay)或 [UFI003 作中继](/ufi003-relay)。
 
 ## 在车机上打开 Carlink {#step-open .step}
 

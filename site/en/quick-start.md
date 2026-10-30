@@ -22,9 +22,9 @@ OpenXPlay uses a relay to bring your iPhone’s CarPlay to the head unit. Choose
 | You need | Details |
 | --- | --- |
 | An iPhone with CarPlay | It connects to the relay wirelessly (Bluetooth and Wi-Fi) or by USB cable. |
-| A relay | An Android phone with Android 8.0 or later and the OpenXPlay Relay app; or a UFI003 USB dongle, plus a computer to flash and install it. |
+| A relay | An Android phone with Android 8.0 or later and the OpenXPlay Relay app; or a UFI003 USB dongle, plus a computer to flash and install it. Other arm64 Linux devices, such as the Phicomm N1, can be installed by hand: see [Other Linux devices](/en/linux-devices). |
 | An Apple accessory (MFi) identity | The two files `identity.pk8` and `certificate.p7b`, which you supply yourself; see below. |
-| The head unit’s browser | It must decode video with WebCodecs. Open [Check your head unit](/en/check) in the head unit’s browser to find out. |
+| The head unit’s browser | It must decode video with WebCodecs. Open [Check your head unit](/en/check) in the head unit’s browser to find out. In a Tesla, see [Tesla](/en/tesla). |
 
 ::: details What is an Apple accessory (MFi) identity? {#mfi-identity}
 The relay uses this identity to authenticate with the iPhone as an accessory, and only then does CarPlay start; without an identity, the Android app doesn’t start CarPlay. It consists of the two files `identity.pk8` and `certificate.p7b`. The repositories and their builds contain none; you supply your own.
@@ -35,7 +35,7 @@ The relay uses this identity to authenticate with the iPhone as an accessory, an
 | | Android phone (recommended) | UFI003 USB dongle |
 | --- | --- | --- |
 | What you need | A phone with Android 8.0 or later | A UFI003 USB dongle and a computer |
-| How you install it | Install the app and follow the setup guide; the first setup takes about 10 minutes | Preferably let an AI assistant on your computer read the install instructions and install it with OpenXPlay Flasher; or install it yourself in the Flasher app. The first install needs a Mac |
+| How you install it | Install the app and follow the setup guide; the first setup takes about 10 minutes | Preferably let an AI assistant on your computer read the install instructions and install it with OpenXPlay Flasher; or install it yourself in the Flasher app. The first install needs a Mac or a Windows PC |
 | Wi-Fi band | Can use a 5 GHz hotspot, so the picture stutters less | 2.4 GHz only |
 | Where you set it up | In the app | In a web admin page |
 | Power and start | Open the app on each drive | Runs as a system service and starts by itself when powered |

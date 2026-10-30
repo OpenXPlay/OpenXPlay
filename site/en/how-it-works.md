@@ -24,7 +24,8 @@ Today the relay delivers CarPlay to these head-unit entry points:
 | --- | --- | --- | --- |
 | Browser (web receiver) | H.264 video over a secure WebSocket, decoded with WebCodecs | Yes | In development |
 | Carlink app | Over Wi-Fi | Yes | Experimental |
-| Screen-casting receivers (DLNA) | Casting | No | Planned |
+| Screen-casting receivers (DLNA, Miracast) | Casting | No | Testing (Android developer options) |
+| Tesla browser | The [web receiver](/en/tesla) at an address the Tesla browser can open | Yes | Experimental |
 
 ## Up to 28 combinations {#combinations}
 
