@@ -2,8 +2,8 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
-title: 'Get started: choose the setup that fits you'
-description: First time with OpenXPlay? Choose a relay (an Android phone or a UFI003 USB dongle) and how the head unit shows CarPlay (its browser or a Carlink app), see what you need, then follow the matching step-by-step guide.
+title: 'Get started: let an AI assistant guide you'
+description: First time with OpenXPlay? Install the openxplay-guide skill and an AI assistant on your computer asks about your car and devices, recommends a setup and guides you through it step by step. Or choose a relay (an Android phone or a UFI003 USB dongle) and how the head unit shows CarPlay yourself, and follow the matching guide.
 breadcrumb: Get started
 ---
 
@@ -13,11 +13,55 @@ import RouteChooser from '../.vitepress/theme/components/RouteChooser.vue'
 
 # Get started
 
-OpenXPlay uses a relay to bring your iPhone’s CarPlay to the head unit. Choose the relay and how the head unit shows CarPlay, then follow the matching guide step by step.
+OpenXPlay uses a relay to bring your iPhone’s CarPlay to the head unit.
+
+<div class="oxp-recommended">
+
+## Let an AI assistant guide you <Badge type="tip" text="Recommended" /> {#ai-assistant}
+
+The assistant asks about your car, iPhone and spare devices, recommends a setup (including whether another Linux device can be the relay) and guides you through it one step at a time, downloading and checking the files itself. It asks before anything that changes your computer or a device, and never asks for your CarPlay identity files or passwords.
+
+1. Send this message in [Claude Code](https://claude.com/claude-code) or [Codex](https://github.com/openai/codex) to install the openxplay-guide skill:
+
+   ::: code-group
+   ```text [Claude Code]
+   Install the openxplay-guide skill from https://openxplay.org/agents/skills/index.json into ~/.claude/skills/openxplay-guide/ and check every file’s SHA-256.
+   ```
+
+   ```text [Codex]
+   Install the openxplay-guide skill from https://openxplay.org/agents/skills/index.json into ~/.agents/skills/openxplay-guide/ and check every file’s SHA-256.
+   ```
+   :::
+
+2. Start a new conversation and say “Help me set up OpenXPlay”.
+
+At the start of each conversation the skill checks for a newer version, and it updates only after you agree; what changed in each version is in its [changelog](https://github.com/OpenXPlay/OpenXPlay/blob/main/skills/openxplay-guide/CHANGELOG.md).
+
+::: details Other assistants: use it once, without installing {#ai-prompt}
+Any assistant that can read web pages works. Send it this message:
+
+```text
+Read https://openxplay.org/agents/skills/openxplay-guide/SKILL.md
+and follow it to help me set up OpenXPlay.
+```
+:::
+
+::: details Copy the skill folder by hand {#ai-skill}
+Copy the folder [skills/openxplay-guide](https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-guide) into your assistant’s skills folder, then start a new conversation:
+
+| Assistant | Skills folder |
+| --- | --- |
+| Claude Code | `~/.claude/skills/openxplay-guide/` |
+| Codex | `~/.agents/skills/openxplay-guide/` |
+:::
+
+</div>
+
+## Set it up yourself {#manual}
 
 <RouteChooser />
 
-## What you need {#requirements}
+### What you need {#requirements}
 
 | You need | Details |
 | --- | --- |
@@ -30,7 +74,7 @@ OpenXPlay uses a relay to bring your iPhone’s CarPlay to the head unit. Choose
 The relay uses this identity to authenticate with the iPhone as an accessory, and only then does CarPlay start; without an identity, the Android app doesn’t start CarPlay. It consists of the two files `identity.pk8` and `certificate.p7b`. The repositories and their builds contain none; you supply your own.
 :::
 
-## Which relay to choose {#choose-relay}
+### Which relay to choose {#choose-relay}
 
 | | Android phone (recommended) | UFI003 USB dongle |
 | --- | --- | --- |
@@ -39,28 +83,6 @@ The relay uses this identity to authenticate with the iPhone as an accessory, an
 | Wi-Fi band | Can use a 5 GHz hotspot, so the picture stutters less | 2.4 GHz only |
 | Where you set it up | In the app | In a web admin page |
 | Power and start | Open the app on each drive | Runs as a system service and starts by itself when powered |
-
-## Let an AI assistant guide you {#ai-assistant}
-
-Not sure which setup fits your car? An AI assistant can ask about your car, iPhone and spare devices, recommend a setup (including whether another Linux device can be the relay) and guide you through it one step at a time. Any assistant that can read web pages works; one that can run commands on your computer, such as [Claude Code](https://claude.com/claude-code) or [OpenAI Codex](https://github.com/openai/codex), can also download and check the files itself. It asks before anything that changes your computer or a device, and never asks for your CarPlay identity files or passwords.
-
-Send it this message:
-
-```text
-Read https://openxplay.org/agents/skills/openxplay-setup/SKILL.md
-and follow it to help me set up OpenXPlay.
-```
-
-::: details Install it as a skill {#ai-skill}
-As an installed skill, your assistant uses the guide whenever you ask about setting up OpenXPlay, and at the start of each conversation it checks for a newer version; it updates only after you agree. Copy the folder [skills/openxplay-setup](https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-setup) into your assistant’s skills folder:
-
-| Assistant | Skills folder |
-| --- | --- |
-| Claude Code | `~/.claude/skills/openxplay-setup/` |
-| Codex | `~/.agents/skills/openxplay-setup/` |
-
-Or ask the assistant to do it: “Install the openxplay-setup skill from https://openxplay.org/agents/skills/index.json and check every file’s SHA-256.” What changed in each version is in its [changelog](https://github.com/OpenXPlay/OpenXPlay/blob/main/skills/openxplay-setup/CHANGELOG.md).
-:::
 
 ## After setup {#after-setup}
 

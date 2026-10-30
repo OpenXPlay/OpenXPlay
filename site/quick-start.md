@@ -2,8 +2,8 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
-title: 开始使用：选择适合你的方案
-description: 第一次使用 OpenXPlay：选择中继（安卓手机或 UFI003 随身 Wi-Fi）和车机显示方式（浏览器或 Carlink 应用），了解要准备什么，再按对应的教程一步步设置。
+title: 开始使用：让 AI 助手带你安装
+description: 第一次使用 OpenXPlay：推荐装上 openxplay-guide 技能，让电脑上的 AI 助手问清你的车和设备、推荐方案，再一步步带你安装；也可以自己选择中继（安卓手机或 UFI003 随身 Wi-Fi）和车机显示方式，按对应的教程设置。
 breadcrumb: 开始使用
 ---
 
@@ -13,11 +13,55 @@ import RouteChooser from './.vitepress/theme/components/RouteChooser.vue'
 
 # 开始使用
 
-OpenXPlay 用一台中继把 iPhone 的 CarPlay 送到车机上。先选好中继和车机的显示方式，再按对应的教程一步步设置。
+OpenXPlay 用一台中继把 iPhone 的 CarPlay 送到车机上。
+
+<div class="oxp-recommended">
+
+## 让 AI 助手带你安装 <Badge type="tip" text="推荐" /> {#ai-assistant}
+
+AI 助手会先问清你的车、iPhone 和手头的设备，推荐一种方案（包括判断其他 Linux 设备能不能作中继），再一步步带你装好，要下载的文件也由它下载并核对。凡是会改动电脑或设备的操作，它都会先征得你同意；它不会向你索要 CarPlay 身份文件或任何密码。
+
+1. 在 [Claude Code](https://claude.com/claude-code) 或 [Codex](https://github.com/openai/codex) 里发送这句话，装上 openxplay-guide 技能：
+
+   ::: code-group
+   ```text [Claude Code]
+   从 https://openxplay.org/agents/skills/index.json 安装 openxplay-guide 技能到 ~/.claude/skills/openxplay-guide/，并核对每个文件的 SHA-256。
+   ```
+
+   ```text [Codex]
+   从 https://openxplay.org/agents/skills/index.json 安装 openxplay-guide 技能到 ~/.agents/skills/openxplay-guide/，并核对每个文件的 SHA-256。
+   ```
+   :::
+
+2. 新开一个对话，说“帮我安装 OpenXPlay”。
+
+技能每次对话开始时会检查有没有新版本，只有你同意后才会更新；每个版本改了什么，见它的[更新记录](https://github.com/OpenXPlay/OpenXPlay/blob/main/skills/openxplay-guide/CHANGELOG.md)。
+
+::: details 其他 AI 助手：只用一次，不安装技能 {#ai-prompt}
+能读网页的 AI 助手都可以。把下面这段话发给它：
+
+```text
+请阅读 https://openxplay.org/agents/skills/openxplay-guide/SKILL.md
+并按照它的说明，帮我安装 OpenXPlay。
+```
+:::
+
+::: details 手动复制技能文件夹 {#ai-skill}
+把 [skills/openxplay-guide](https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-guide) 文件夹复制到 AI 助手的技能文件夹，再新开一个对话：
+
+| AI 助手 | 技能文件夹 |
+| --- | --- |
+| Claude Code | `~/.claude/skills/openxplay-guide/` |
+| Codex | `~/.agents/skills/openxplay-guide/` |
+:::
+
+</div>
+
+## 自己动手安装 {#manual}
 
 <RouteChooser />
 
-## 开始前需要准备 {#requirements}
+### 开始前需要准备 {#requirements}
 
 | 需要准备 | 说明 |
 | --- | --- |
@@ -30,7 +74,7 @@ OpenXPlay 用一台中继把 iPhone 的 CarPlay 送到车机上。先选好中�
 中继要用这个身份向 iPhone 完成配件认证，CarPlay 才会启动；没有身份时，安卓应用不会启动 CarPlay。它由 `identity.pk8` 和 `certificate.p7b` 两个文件组成。各仓库及其构建产物都不包含该身份，需要由你自行提供。
 :::
 
-## 两种中继怎么选 {#choose-relay}
+### 两种中继怎么选 {#choose-relay}
 
 | | 安卓手机（推荐） | UFI003 随身 Wi-Fi |
 | --- | --- | --- |
@@ -39,28 +83,6 @@ OpenXPlay 用一台中继把 iPhone 的 CarPlay 送到车机上。先选好中�
 | Wi-Fi 频段 | 可以用 5 GHz 热点，画面不容易卡顿 | 只有 2.4 GHz |
 | 怎样设置 | 在应用中设置 | 在网页管理页面中设置 |
 | 供电与启动 | 每次上车打开应用 | 作为系统服务运行，通电后自动启动 |
-
-## 让 AI 助手一步步带你安装 {#ai-assistant}
-
-不确定哪种方案适合你的车？AI 助手可以先问清你的车、iPhone 和手头的设备，推荐一种方案（包括判断其他 Linux 设备能不能作中继），再一步步带你完成。能读网页的 AI 助手都可以；能在电脑上运行命令的，例如 [Claude Code](https://claude.com/claude-code) 或 [OpenAI Codex](https://github.com/openai/codex)，还能自己下载并核对文件。凡是会改动电脑或设备的操作，它都会先征得你同意；它不会向你索要 CarPlay 身份文件或任何密码。
-
-把下面这段话发给它：
-
-```text
-请阅读 https://openxplay.org/agents/skills/openxplay-setup/SKILL.md
-并按照它的说明，帮我安装 OpenXPlay。
-```
-
-::: details 安装为技能（skill） {#ai-skill}
-安装为技能后，你问到 OpenXPlay 的安装时，AI 助手会自动用上它；每次对话开始时，它会检查有没有新版本，只有你同意后才会更新。把 [skills/openxplay-setup](https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-setup) 文件夹复制到 AI 助手的技能文件夹：
-
-| AI 助手 | 技能文件夹 |
-| --- | --- |
-| Claude Code | `~/.claude/skills/openxplay-setup/` |
-| Codex | `~/.agents/skills/openxplay-setup/` |
-
-也可以让 AI 助手代劳：“从 https://openxplay.org/agents/skills/index.json 安装 openxplay-setup 技能，并核对每个文件的 SHA-256。”每个版本改了什么，见它的[更新记录](https://github.com/OpenXPlay/OpenXPlay/blob/main/skills/openxplay-setup/CHANGELOG.md)。
-:::
 
 ## 设置完成以后 {#after-setup}
 
