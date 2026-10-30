@@ -54,11 +54,11 @@ const REPOSITORIES: [string, string][] = [
 const COMPONENT_TEXT: Record<LocaleKey, Record<string, string>> = {
   root: {
     HeadUnitCheck: '［交互式检测：在车机浏览器中打开本页即可运行，全部在浏览器本地完成。］',
-    RouteChooser: '［方案选择：安卓手机 + 车机浏览器（推荐），见[安卓手机作中继](/android-relay)；UFI003 随身 Wi-Fi + 车机浏览器，见[UFI003 作中继](/ufi003-relay)；安卓手机或 UFI003 + Carlink 应用（实验性），见[Carlink 应用](/carlink)。］',
+    RouteChooser: '［方案选择：安卓手机 + 车机浏览器（推荐），见[安卓手机作中继](/android-relay)；UFI003 随身 Wi-Fi + 车机浏览器，见[UFI003 作中继](/ufi003-relay)；斐讯 N1 电视盒子（进阶），见[斐讯 N1 作中继](/phicomm-n1)；安卓手机、UFI003 或斐讯 N1 + Carlink 应用（实验性），见[Carlink 应用](/carlink)。］',
   },
   en: {
     HeadUnitCheck: '[Interactive check: open this page in the head unit’s browser to run it. It runs entirely in the browser.]',
-    RouteChooser: '[Setup chooser: Android phone + head-unit browser (recommended), see [Android phone as the relay](/en/android-relay); UFI003 USB dongle + head-unit browser, see [UFI003 as the relay](/en/ufi003-relay); Android phone or UFI003 + Carlink app (experimental), see [Carlink app](/en/carlink).]',
+    RouteChooser: '[Setup chooser: Android phone + head-unit browser (recommended), see [Android phone as the relay](/en/android-relay); UFI003 USB dongle + head-unit browser, see [UFI003 as the relay](/en/ufi003-relay); Phicomm N1 TV box (advanced), see [Phicomm N1 as the relay](/en/phicomm-n1); Android phone, UFI003 or Phicomm N1 + Carlink app (experimental), see [Carlink app](/en/carlink).]',
   },
 }
 

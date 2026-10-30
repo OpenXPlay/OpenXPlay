@@ -59,7 +59,7 @@ export const FALLBACK_LOCALE: LocaleKey = 'en'
 
 /** The pages every locale has, in reading order. '' is the home page. */
 export const PAGE_SLUGS = [
-  '', 'how-it-works', 'quick-start', 'check', 'android-relay', 'ufi003-relay', 'ufi003-flash', 'linux-devices',
+  '', 'how-it-works', 'quick-start', 'check', 'android-relay', 'ufi003-relay', 'ufi003-flash', 'phicomm-n1', 'linux-devices',
   'carlink', 'tesla', 'daily-use', 'trusted-https', 'troubleshooting', 'faq', 'head-units', 'changelog', 'community', 'developers',
   'licensing',
 ] as const

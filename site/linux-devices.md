@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-29
 title: 在其他设备上运行 Linux 中继：设备要求与手动安装
-description: 检查一台 arm64 Linux 开发板、电视盒子或随身 Wi-Fi 能否运行 OpenXPlay Linux 中继，用 Debian 软件包手动安装中继，添加 CarPlay 身份并配对 iPhone；另附斐讯 N1 的已知情况。
+description: 检查一台 arm64 Linux 开发板、电视盒子或随身 Wi-Fi 能否运行 OpenXPlay Linux 中继，用 Debian 软件包手动安装中继，添加 CarPlay 身份并配对 iPhone，以及怎样更新和卸载中继。
 breadcrumb: 其他设备上的 Linux 中继
 schema: howto
 howtoName: 在 arm64 Linux 设备上手动安装 OpenXPlay Linux 中继
@@ -19,9 +19,9 @@ next:
 
 # 其他设备上的 Linux 中继 <Badge type="info" text="进阶" />
 
-除了 UFI003，OpenXPlay 的 Linux 中继也能在其他 arm64 Linux 设备上运行，例如开发板、电视盒子和随身 Wi-Fi。本页面向熟悉 SSH 和命令行的用户：怎样判断一台设备能否运行中继、怎样手动安装，以及斐讯 N1 的已知情况。和其他方案一样，车机上不需要安装任何东西。
+除了 UFI003，OpenXPlay 的 Linux 中继也能在其他 arm64 Linux 设备上运行，例如开发板、电视盒子和随身 Wi-Fi。本页面向熟悉 SSH 和命令行的用户：怎样判断一台设备能否运行中继、怎样手动安装，以及怎样更新和卸载。和其他方案一样，车机上不需要安装任何东西。
 
-UFI003 有自己的引导式安装，见[用 UFI003 随身 Wi-Fi 作中继](/ufi003-relay)。OpenXPlay Flasher 暂时还不能安装其他设备。使用斐讯 N1 时，请从[斐讯 N1 一节](#phicomm-n1)开始。
+UFI003 有自己的引导式安装，见[用 UFI003 随身 Wi-Fi 作中继](/ufi003-relay)。斐讯 N1 也有自己的教程，见[用斐讯 N1 作中继](/phicomm-n1)。OpenXPlay Flasher 暂时还不能安装其他设备。
 
 ::: warning 风险自负
 在其他设备上手动安装中继，风险由你自己承担。到目前为止，每个 Linux 版本都是预发布版；0.1.6-beta.3 还没有在真机上验证过这些情况：用 iPhone 运行 CarPlay、在车上使用 Carlink、特斯拉、UFI003、WPA3、申请可信 HTTPS 证书、硬件编码、Wi-Fi 直连、I2C、CH341 和远程 MFi，以及在中继上播放音频。请到[交流群](/community)反馈哪些可用、哪些不可用，并附上设备、系统和中继版本。
@@ -197,34 +197,41 @@ sudo systemctl restart openxplay-relay
 
 使用 Carlink 应用时，见 [Carlink 应用](/carlink)。
 
-## 斐讯 N1 {#phicomm-n1}
+## 更新中继 {#update}
 
-斐讯 N1（Phicomm N1）是一款电视盒子，采用 Amlogic S905D，带支持 5 GHz 的 BCM43455 Wi-Fi、经 UART 连接的 BCM4345C0 蓝牙和以太网口。它在 ophub Armbian（Debian 13）上运行中继，另需 [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) 中的设备支持包。
+管理页面的“**关于 → 检查更新**”会显示有没有新版本；Linux 目前只有预发布版，请选择“测试版”渠道。像[安装中继](#install)时一样下载新版本的 `.deb` 和 `SHA256SUMS` 并核对，然后运行：
 
-1. **自行安装 Armbian。** 从 ophub 的 [amlogic-s9xxx-armbian](https://github.com/ophub/amlogic-s9xxx-armbian) 版本 [`Armbian_trixie_arm64_server_2026.10`](https://github.com/ophub/amlogic-s9xxx-armbian/releases/tag/Armbian_trixie_arm64_server_2026.10) 下载 `Armbian_26.11.0_amlogic_s905d_trixie_6.12.112_server_2026.10.15.img.gz`（Debian 13，内核 6.12）。把它写入 U 盘，让 N1 从 U 盘启动，然后运行 `armbian-install`，依次选择 `101`（Phicomm-N1）和 `1`（ext4），把系统安装到 eMMC。
-2. **安装设备支持包。** 从 OpenXPlay-Hardware 的预发布版 [phicomm-n1-device-v0.1.1-beta.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/phicomm-n1-device-v0.1.1-beta.1) 下载 `openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz` 和 `SHA256SUMS` 并核对。在 N1 上解压，以 root 身份运行其中的安装程序。`--dry-run` 只做检查、不做任何改动；安装后要重启，重启后用 `--verify` 检查。
+```sh
+sudo openxplay-relay-update openxplay-relay_${V}_arm64.deb
+```
 
-   ```sh
-   tar -xzf openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz
-   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --dry-run
-   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh
-   sudo reboot
-   # 重启后
-   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --verify
-   ```
+更新命令会安装新版本，等中继启动后再观察 15 秒，确认它没有退出或重启；新版本起不来时，它会自动装回上一个版本。设置、配对和身份文件保存在 `/var/lib/openxplay`，更新时保持不变。
 
-3. **安装中继**：按[安装中继](#install)操作，然后从[打开管理页面](#admin)继续。
+| 命令 | 作用 |
+| --- | --- |
+| `sudo openxplay-relay-update --list` | 列出缓存的版本 |
+| `sudo openxplay-relay-update --rollback` | 装回缓存中比当前版本旧的最新版本 |
 
-设备支持包要求 Debian 13、arm64，并且设备树型号为 `Phicomm N1`（`tr -d '\0' < /proc/device-tree/model` 可以查看），安装时不需要联网。它会：
+用更新命令装过的版本缓存在 `/var/cache/openxplay/relay`，最多保留 3 个。只有当前版本也在缓存中时才能回退，用 `apt-get` 装的第一个版本不在其中。
 
-- 安装主机配置；
-- 根据以太网 MAC 地址为 Wi-Fi 和蓝牙生成各自的地址；不这样做的话，每台 N1 的这两个地址都相同；
-- 在开机时修正以太网 PHY，内核更新后也会再次修正；
-- 安装较新的 Cypress Wi-Fi 固件，让 5 GHz 的 36 至 48 信道在 CN 国家代码下可用。原厂固件只允许 149 至 165 信道；52 至 144 信道仍不可用。
+## 日志与卸载 {#uninstall}
 
-N1 的热点和 Wi-Fi 客户端连接只能共用同一个信道同时运行；它的 USB 接口只有 USB 2。
+查看中继本次开机以来的日志，或者实时跟踪：
 
-OpenXPlay Flasher 已有 N1 的设备配置（通过 SSH 安装），签名的软件包列表也已列出 N1 的设备支持包和中继，但用 Flasher 安装 N1 还没有在真机上测试过。在此之前，请按上面的步骤手动安装。设备支持包采用 OpenXPlay-Hardware 许可证：开源，禁止商用，详见[许可证](/licensing#licenses)。
+```sh
+journalctl -u openxplay-relay -b
+journalctl -u openxplay-relay -f
+```
+
+向别人反馈问题时，可以在管理页面的“**日志**”中导出日志文件。
+
+卸载中继：
+
+```sh
+sudo apt-get purge openxplay-relay
+```
+
+`/var/lib/openxplay` 中的设置、配对、密钥和身份文件会保留；不再需要时，用 `sudo rm -rf /var/lib/openxplay` 删除。
 
 ## 不支持的设备和系统 {#not-supported}
 
