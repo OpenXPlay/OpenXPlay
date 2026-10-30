@@ -224,7 +224,7 @@ The device package needs Debian 13, arm64 and the device-tree model `Phicomm N1`
 
 On the N1, a hotspot and a Wi-Fi station connection can run together only on one shared channel, and the USB ports are USB 2 only.
 
-OpenXPlay Flasher has an N1 profile that installs over SSH, but it can’t install the N1 yet: its signed package list doesn’t list N1 packages. Flasher support is coming. The device package uses the OpenXPlay-Hardware licence: open source, no commercial use; see [Licensing](/en/licensing#licenses).
+OpenXPlay Flasher has an N1 profile that installs over SSH, and its signed package list now lists the N1 device package and relay, but installing the N1 with Flasher hasn’t been tested on a real device yet. Until it has, install by hand as above. The device package uses the OpenXPlay-Hardware licence: open source, no commercial use; see [Licensing](/en/licensing#licenses).
 
 ## Not supported {#not-supported}
 

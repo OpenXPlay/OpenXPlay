@@ -224,7 +224,7 @@ sudo systemctl restart openxplay-relay
 
 N1 的热点和 Wi-Fi 客户端连接只能共用同一个信道同时运行；它的 USB 接口只有 USB 2。
 
-OpenXPlay Flasher 已有 N1 的设备配置（通过 SSH 安装），但暂时还不能安装 N1：签名的软件包列表中还没有 N1 的软件包。Flasher 支持即将推出。设备支持包采用 OpenXPlay-Hardware 许可证：开源，禁止商用，详见[许可证](/licensing#licenses)。
+OpenXPlay Flasher 已有 N1 的设备配置（通过 SSH 安装），签名的软件包列表也已列出 N1 的设备支持包和中继，但用 Flasher 安装 N1 还没有在真机上测试过。在此之前，请按上面的步骤手动安装。设备支持包采用 OpenXPlay-Hardware 许可证：开源，禁止商用，详见[许可证](/licensing#licenses)。
 
 ## 不支持的设备和系统 {#not-supported}
 
