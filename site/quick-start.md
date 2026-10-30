@@ -40,6 +40,28 @@ OpenXPlay 用一台中继把 iPhone 的 CarPlay 送到车机上。先选好中�
 | 怎样设置 | 在应用中设置 | 在网页管理页面中设置 |
 | 供电与启动 | 每次上车打开应用 | 作为系统服务运行，通电后自动启动 |
 
+## 让 AI 助手一步步带你安装 {#ai-assistant}
+
+不确定哪种方案适合你的车？AI 助手可以先问清你的车、iPhone 和手头的设备，推荐一种方案（包括判断其他 Linux 设备能不能作中继），再一步步带你完成。能读网页的 AI 助手都可以；能在电脑上运行命令的，例如 [Claude Code](https://claude.com/claude-code) 或 [OpenAI Codex](https://github.com/openai/codex)，还能自己下载并核对文件。凡是会改动电脑或设备的操作，它都会先征得你同意；它不会向你索要 CarPlay 身份文件或任何密码。
+
+把下面这段话发给它：
+
+```text
+请阅读 https://openxplay.org/agents/skills/openxplay-setup/SKILL.md
+并按照它的说明，帮我安装 OpenXPlay。
+```
+
+::: details 安装为技能（skill） {#ai-skill}
+安装为技能后，你问到 OpenXPlay 的安装时，AI 助手会自动用上它；每次对话开始时，它会检查有没有新版本，只有你同意后才会更新。把 [skills/openxplay-setup](https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-setup) 文件夹复制到 AI 助手的技能文件夹：
+
+| AI 助手 | 技能文件夹 |
+| --- | --- |
+| Claude Code | `~/.claude/skills/openxplay-setup/` |
+| Codex | `~/.agents/skills/openxplay-setup/` |
+
+也可以让 AI 助手代劳：“从 https://openxplay.org/agents/skills/index.json 安装 openxplay-setup 技能，并核对每个文件的 SHA-256。”每个版本改了什么，见它的[更新记录](https://github.com/OpenXPlay/OpenXPlay/blob/main/skills/openxplay-setup/CHANGELOG.md)。
+:::
+
 ## 设置完成以后 {#after-setup}
 
 - [日常使用与设置](/daily-use)：每次上车怎么连接，车机网页的分辨率、全屏等设置。
