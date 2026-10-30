@@ -17,7 +17,7 @@ The Carlink output is still experimental and may fail to connect. Use Android ap
 
 ## Turn on the Carlink output {#step-enable .step}
 
-In the setup guide, choose *Carlink app* for how the car shows CarPlay, or set the relay’s output to browser and Carlink. The rest of the relay setup is the same as for the browser route; see [Android phone as the relay](/en/android-relay) or [UFI003 as the relay](/en/ufi003-relay).
+In the setup guide, choose *Carlink app* on the *Car display* page; the guide then recommends *This phone’s hotspot* for wireless CarPlay. To run the browser and Carlink together, use Settings → Developer options → *Combine outputs*. The rest of the relay setup is the same as for the browser route; see [Android phone as the relay](/en/android-relay) or [UFI003 as the relay](/en/ufi003-relay).
 
 ## Open Carlink on the head unit {#step-open .step}
 
