@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
 title: CarPlay in the head unit’s Carlink app (experimental)
-description: When the head unit has no usable browser, the OpenXPlay relay can bring CarPlay to its Carlink app over Wi-Fi. An experimental feature — how to turn it on, the pairing code, and what to know about Android phone and UFI003 relays.
+description: When the head unit has no usable browser, the OpenXPlay relay can bring CarPlay to its Carlink app over Wi-Fi. An experimental feature — how to turn it on, the pairing code, and what to know about Android phone, UFI003 and Phicomm N1 relays.
 breadcrumb: Carlink app
 ---
 
@@ -33,6 +33,7 @@ Enter the pairing code shown on the car screen into the relay and connect straig
 | --- | --- |
 | Android phone | Carlink needs Android 10 or later. The relay phone joins the car’s Carlink network as a Wi-Fi client, so its Wi-Fi must be on (it needn’t be connected to anything). For wireless CarPlay choose *This phone’s hotspot*: the relay runs its hotspot for the iPhone and joins the car over Wi-Fi at the same time. Some phones turn Wi-Fi off when their hotspot is on; they can’t do both. |
 | UFI003 | Its Wi-Fi is 2.4 GHz only, so it can’t join a head unit whose Carlink Wi-Fi runs on 5 GHz. |
+| Phicomm N1 | It can join a 5 GHz Carlink network. With one Wi-Fi radio, the iPhone follows the relay onto the car’s network; a USB Wi-Fi adapter can take Carlink on its own, see [Network and Wi-Fi](/en/phicomm-n1#wifi). Not yet tested in a car. |
 
 ::: details Sound but a black picture on the head unit? {#black-screen}
 Some head units recognise a key frame only at the very start of a frame, and Android app 0.1.3 and earlier show a black screen on them. Update to Android app [0.1.5](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5) or later. The newer version also brings the picture back after the head unit shows the reverse camera.

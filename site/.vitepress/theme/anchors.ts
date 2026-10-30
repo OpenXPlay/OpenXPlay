@@ -61,6 +61,10 @@ const MOVED: Record<string, Record<string, string>> = {
     'step-get': 'ufi003-relay#step-device',
     'step-bundle': 'ufi003-relay#step-device',
   },
+  // OpenXPlay Flasher links its Phicomm N1 guide here.
+  'linux-devices': {
+    'phicomm-n1': 'phicomm-n1',
+  },
   'trusted-https': {
     android: 'trusted-https#android-settings',
     linux: 'trusted-https#linux-admin',

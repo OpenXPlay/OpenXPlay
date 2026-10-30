@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-29
 title: 'Linux relay on other devices: requirements and manual install'
-description: Check whether an arm64 Linux board, TV box or dongle can run the OpenXPlay Linux relay, install the relay by hand from its Debian package, add your CarPlay identity and pair your iPhone. Includes what is known about the Phicomm N1.
+description: Check whether an arm64 Linux board, TV box or dongle can run the OpenXPlay Linux relay, install the relay by hand from its Debian package, add your CarPlay identity, pair your iPhone, and update or remove the relay.
 breadcrumb: Linux relay on other devices
 schema: howto
 howtoName: Install the OpenXPlay Linux relay by hand on an arm64 Linux device
@@ -19,9 +19,9 @@ next:
 
 # Linux relay on other devices <Badge type="info" text="Advanced" />
 
-Besides the UFI003, the OpenXPlay Linux relay can run on other arm64 Linux devices: boards, TV boxes and dongles. This page is for people who are comfortable with SSH and the command line. It shows how to tell whether a device can run the relay, how to install it by hand, and what is known about the Phicomm N1. As always, nothing is installed on the head unit.
+Besides the UFI003, the OpenXPlay Linux relay can run on other arm64 Linux devices: boards, TV boxes and dongles. This page is for people who are comfortable with SSH and the command line. It shows how to tell whether a device can run the relay, how to install it by hand, and how to update and remove it. As always, nothing is installed on the head unit.
 
-The UFI003 has its own guided installer: see [UFI003 USB dongle as the relay](/en/ufi003-relay). OpenXPlay Flasher can’t install other devices yet. On a Phicomm N1, start with [its section](#phicomm-n1).
+The UFI003 has its own guided installer: see [UFI003 USB dongle as the relay](/en/ufi003-relay). The Phicomm N1 has its own guide too: see [Phicomm N1 as the relay](/en/phicomm-n1). OpenXPlay Flasher can’t install other devices yet.
 
 ::: warning At your own risk
 Installing the relay by hand on another device is at your own risk. Every Linux release so far is a pre-release, and 0.1.6-beta.3 has not yet been tested on a device with: CarPlay with an iPhone, Carlink with a car, a Tesla, the UFI003, WPA3, issuing a Trusted HTTPS certificate, hardware encoding, Wi-Fi Direct, I2C, CH341 and remote MFi, and audio on the relay. Tell the [community](/en/community) what worked and what didn’t, with the device, its system and the relay version.
@@ -197,34 +197,41 @@ Join the relay’s hotspot from the head unit and open `https://10.77.0.1:8443/`
 
 For the Carlink app, see [Carlink app](/en/carlink).
 
-## Phicomm N1 {#phicomm-n1}
+## Update the relay {#update}
 
-The Phicomm N1 is a TV box with an Amlogic S905D, BCM43455 Wi-Fi with 5 GHz, BCM4345C0 Bluetooth over UART, and Ethernet. It runs the relay on ophub Armbian (Debian 13) with a device package from [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1).
+In the admin page, **About → Check for updates** shows whether a newer version exists; Linux has only pre-releases so far, so choose the *Beta* channel. Download the new `.deb` and `SHA256SUMS` and check them as in [Install the relay](#install), then run:
 
-1. **Install Armbian yourself.** From the release [`Armbian_trixie_arm64_server_2026.10`](https://github.com/ophub/amlogic-s9xxx-armbian/releases/tag/Armbian_trixie_arm64_server_2026.10) of ophub’s [amlogic-s9xxx-armbian](https://github.com/ophub/amlogic-s9xxx-armbian), download `Armbian_26.11.0_amlogic_s905d_trixie_6.12.112_server_2026.10.15.img.gz` (Debian 13, kernel 6.12). Boot the N1 from it on a USB drive, then run `armbian-install` and choose `101` (Phicomm-N1) and `1` (ext4) to install it to the eMMC.
-2. **Install the device package.** From the OpenXPlay-Hardware pre-release [phicomm-n1-device-v0.1.1-beta.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/phicomm-n1-device-v0.1.1-beta.1), download `openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz` and `SHA256SUMS`, and check them. Unpack it on the N1 and run its installer as root. `--dry-run` checks everything without changing anything; after the install, reboot, then check the device with `--verify`.
+```sh
+sudo openxplay-relay-update openxplay-relay_${V}_arm64.deb
+```
 
-   ```sh
-   tar -xzf openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz
-   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --dry-run
-   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh
-   sudo reboot
-   # after the reboot
-   sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --verify
-   ```
+The update command installs the new version, waits for the relay to start and watches it for 15 seconds to make sure it doesn’t exit or restart; if the new version doesn’t come up, it puts the previous one back. Settings, pairings and the identity live in `/var/lib/openxplay` and stay as they are.
 
-3. **Install the relay** as in [Install the relay](#install), then carry on from [Open the admin page](#admin).
+| Command | What it does |
+| --- | --- |
+| `sudo openxplay-relay-update --list` | Lists the cached versions |
+| `sudo openxplay-relay-update --rollback` | Puts back the newest cached version older than the current one |
 
-The device package needs Debian 13, arm64 and the device-tree model `Phicomm N1` (`tr -d '\0' < /proc/device-tree/model` prints it), and installs offline. It:
+Versions installed with the update command are cached in `/var/cache/openxplay/relay`, at most 3 of them. Rolling back needs the current version in the cache too; the first version, installed with `apt-get`, isn’t there.
 
-- installs the host profile;
-- gives Wi-Fi and Bluetooth their own addresses, derived from the Ethernet MAC address; otherwise every N1 shares the same ones;
-- fixes the Ethernet PHY at boot, and again after kernel updates;
-- installs newer Cypress Wi-Fi firmware, so 5 GHz channels 36 to 48 work under the CN country code. The stock firmware allows only 149 to 165; 52 to 144 stay disabled.
+## Logs and removal {#uninstall}
 
-On the N1, a hotspot and a Wi-Fi station connection can run together only on one shared channel, and the USB ports are USB 2 only.
+Read the relay’s log since this boot, or follow it live:
 
-OpenXPlay Flasher has an N1 profile that installs over SSH, and its signed package list now lists the N1 device package and relay, but installing the N1 with Flasher hasn’t been tested on a real device yet. Until it has, install by hand as above. The device package uses the OpenXPlay-Hardware licence: open source, no commercial use; see [Licensing](/en/licensing#licenses).
+```sh
+journalctl -u openxplay-relay -b
+journalctl -u openxplay-relay -f
+```
+
+To report a problem, export the logs from **Logs** in the admin page.
+
+Remove the relay:
+
+```sh
+sudo apt-get purge openxplay-relay
+```
+
+The settings, pairings, keys and identity in `/var/lib/openxplay` are kept; delete them with `sudo rm -rf /var/lib/openxplay` once you no longer need them.
 
 ## Not supported {#not-supported}
 

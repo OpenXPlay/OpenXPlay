@@ -66,3 +66,5 @@ breadcrumb: 日常使用与设置
 ## 更新 {#updates}
 
 在应用的“设置 → 关于 → 检查更新”中可以查看最新版本及其更新说明，并在浏览器中下载 APK；这里也可以选择“稳定版”或“测试版”渠道。只有点检查更新时，应用才会访问 GitHub。所有版本也发布在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)，每个版本的变化见[更新日志](/changelog)。安卓应用更新后，车机网页会自动刷新一次，换成新版本。
+
+Linux 中继：UFI003 用 OpenXPlay Flasher 的“安装 / 更新中继”更新；斐讯 N1 和其他 Linux 设备用 `openxplay-relay-update` 命令更新，新版本起不来时会自动装回上一个版本，见[更新中继](/linux-devices#update)。
