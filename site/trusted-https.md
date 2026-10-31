@@ -18,7 +18,7 @@ howtoTools:
 用免费域名，让车机打开网页时不再出现证书警告。中继把自己的地址登记到你的免费域名下，再为这个域名申请 Let's Encrypt 证书；车机浏览器用这个域名打开网页，证书就能通过验证。车机上不用安装任何软件，也不用改任何设置。
 
 ::: info 支持的版本
-安卓应用从 [0.1.5](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5) 起提供可信 HTTPS；Linux 中继从 [0.1.5-beta.2](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.5-beta.2) 测试版起提供。
+需要安卓应用 0.1.5 及以上版本（[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)），或 Linux 中继 0.1.5-beta.2 及以上版本（在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本）。
 :::
 
 ## 工作原理 {#how-it-works}

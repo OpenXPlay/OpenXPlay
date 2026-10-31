@@ -17,7 +17,7 @@ breadcrumb: 特斯拉
 
 ## 所需条件 {#requirements}
 
-- 安卓应用 [0.2.0](/changelog#v0-2-0) 及以上；从 0.2.2 起有单独的设置页面。
+- 安卓应用 0.2.0 及以上（[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)）；从 0.2.2 起有单独的设置页面。
 - MCU2 或更新车机的特斯拉。
 - 无线 CarPlay：USB 连接已经占用了 Android 唯一的 VPN。
 - 输出选择“车载浏览器”。

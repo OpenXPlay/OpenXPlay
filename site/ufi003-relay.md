@@ -89,7 +89,7 @@ Flasher 是 Windows 和 macOS 上的桌面应用。用 USB 把 UFI003 接到电�
 ::: info Windows 真机验证
 已使用官方 0.2.0-beta.2 Windows amd64 版，在 UFI003 上完成从原厂 Android 4.4 安装 OpenStick Debian 11（内核 `5.15.0-handsomekernel+`）、设备支持 0.2.1 和中继 0.1.5~beta.2。49 步安装及各层校验全部通过，包括四个基带校准分区的自动备份与恢复；也已验证中继单独升级、fastboot 设备身份读取和向 RAM 传输数据。驱动仍需按设备实际枚举的接口和硬件 ID 匹配。
 
-签名软件包列表现已推荐修复后的[设备支持包 0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1)。请保持签名校验开启，并使用与列表匹配的文件。
+签名软件包列表推荐修复后的[设备支持包](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases) 0.2.1 及以上版本。请保持签名校验开启，并使用与列表匹配的文件。
 :::
 
 ::: details 下载并打开 Flasher {#flasher-download}
@@ -155,27 +155,30 @@ Flasher 从本网站读取一份签名的软件包列表，其中记录了各层
 
 ### 安装设备支持包 {#step-device}
 
-从 OpenXPlay-Hardware 的 [ufi003-device-v0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1) 下载 `openxplay-ufi003-device-0.2.1.tar.gz` 和 `SHA256SUMS` 并核对，然后复制到随身 Wi-Fi 上，进入它的 shell（root）：
+在 OpenXPlay-Hardware 的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases) 中选择最新的 `ufi003-device-v` 版本（需要 0.2.1 及以上），下载 `openxplay-ufi003-device-<版本>.tar.gz` 和 `SHA256SUMS` 并核对，然后复制到随身 Wi-Fi 上，进入它的 shell（root）：
 
 ```sh
-adb push openxplay-ufi003-device-0.2.1.tar.gz /root/
+V=0.2.1
+adb push openxplay-ufi003-device-$V.tar.gz /root/
 adb shell
 ```
 
-在随身 Wi-Fi 上解压并运行安装程序。`--dry-run` 只做检查、不做任何改动；安装后要重启：
+把 `V` 改成你下载的版本号。在随身 Wi-Fi 上同样设好 `V`，再解压并运行安装程序。`--dry-run` 只做检查、不做任何改动；安装后要重启：
 
 ```sh
+V=0.2.1
 cd /root
-tar -xzf openxplay-ufi003-device-0.2.1.tar.gz
-sh openxplay-ufi003-device-0.2.1/install-device.sh --dry-run
-sh openxplay-ufi003-device-0.2.1/install-device.sh
+tar -xzf openxplay-ufi003-device-$V.tar.gz
+sh openxplay-ufi003-device-$V/install-device.sh --dry-run
+sh openxplay-ufi003-device-$V/install-device.sh
 reboot
 ```
 
 重启后再进入 `adb shell`，用 `--verify` 检查：
 
 ```sh
-sh /root/openxplay-ufi003-device-0.2.1/install-device.sh --verify
+V=0.2.1
+sh /root/openxplay-ufi003-device-$V/install-device.sh --verify
 ```
 
 设备支持包自带需要的 Debian 软件包，安装时不需要联网。它会安装无线 CarPlay 所需的蓝牙 RFCOMM 模块、修复后的蓝牙驱动、蓝牙守护程序和主机配置，并开启时间同步。

@@ -17,7 +17,7 @@ This adaptation is new in Android app 0.2.0 and hasn’t been tested in a Tesla 
 
 ## What you need {#requirements}
 
-- Android app [0.2.0](/en/changelog#v0-2-0) or later; from 0.2.2 it has its own settings page.
+- Android app 0.2.0 or later ([download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)); from 0.2.2 it has its own settings page.
 - A Tesla with MCU2 or later.
 - Wireless CarPlay: the USB connection already uses Android’s only VPN.
 - *Car browser* as the output.

@@ -18,7 +18,7 @@ howtoTools:
 Open the head-unit page without a certificate warning, using a free domain name. The relay publishes its address under your free name and gets a Let’s Encrypt certificate for that name; when the head unit’s browser opens the page by the name, the certificate checks out. Nothing is installed or changed on the head unit.
 
 ::: info Supported versions
-The Android app has trusted HTTPS from [0.1.5](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5); the Linux relay has it from the [0.1.5-beta.2](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.5-beta.2) test release on.
+It needs Android app 0.1.5 or later ([download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)), or Linux relay 0.1.5-beta.2 or later (choose the newest `linux-v` release in [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)).
 :::
 
 ## How it works {#how-it-works}
