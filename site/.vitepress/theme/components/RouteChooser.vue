@@ -10,11 +10,11 @@ Created by riko chen on 2026-10-21
 import { computed, ref } from 'vue'
 import { useData, withBase } from 'vitepress'
 
-type Relay = 'android' | 'ufi003'
+type Relay = 'android' | 'ufi003' | 'n1'
 type Display = 'browser' | 'carlink'
 type RouteKey = `${Relay}-${Display}`
 
-interface Option<K extends string> { key: K; name: string; tag?: string; tagKind?: 'tip' | 'warning'; desc: string }
+interface Option<K extends string> { key: K; name: string; tag?: string; tagKind?: 'tip' | 'warning' | 'info'; desc: string }
 interface Result {
   title: string
   summary: string
@@ -37,6 +37,7 @@ interface Text {
 const ICONS: Record<Relay | Display, string> = {
   android: '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
   ufi003: '<rect x="8" y="9" width="8" height="12.5" rx="2"/><path d="M9.5 9V4h5v5"/><path d="M11 6.5h.01M13 6.5h.01"/><circle cx="12" cy="17.5" r=".6"/>',
+  n1: '<rect x="2.5" y="8" width="19" height="8" rx="2.5"/><path d="M6.5 12h.01"/><path d="M14 12h3.5"/><path d="M6 19h12"/>',
   browser: '<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M3 9h18"/><path d="M6 6.75h.01M8.5 6.75h.01"/>',
   carlink: '<path d="M4.5 13 6.6 7.6A2 2 0 0 1 8.46 6.3h7.08a2 2 0 0 1 1.86 1.3L19.5 13"/><rect x="3.5" y="13" width="17" height="5" rx="1.5"/><path d="M6 20.5V18M18 20.5V18"/><path d="M7.5 15.5h.01M16.5 15.5h.01"/>',
 }
@@ -50,6 +51,7 @@ const TEXT: Record<'root' | 'en', Text> = {
     relays: [
       { key: 'android', name: '安卓手机', tag: '推荐', tagKind: 'tip', desc: '安装一个应用，按向导设置。需要 Android 8.0 及以上。' },
       { key: 'ufi003', name: 'UFI003 随身 Wi-Fi', desc: '低成本的小设备，通电自动启动；需要用电脑安装。' },
+      { key: 'n1', name: '斐讯 N1 电视盒子', tag: '进阶', tagKind: 'info', desc: '热点可以用 5 GHz，通电自动启动；需要用命令行安装。' },
     ],
     displays: [
       { key: 'browser', name: '车机浏览器', tag: '推荐', tagKind: 'tip', desc: '直接显示 iPhone 的画面，支持触控。需要浏览器支持 WebCodecs。' },
@@ -91,6 +93,24 @@ const TEXT: Record<'root' | 'en', Text> = {
         link: 'carlink',
         secondary: { text: '查看实测车机', link: 'head-units' },
       },
+      'n1-browser': {
+        title: '斐讯 N1 电视盒子 + 车机浏览器',
+        summary: '在 N1 上装好 Armbian，再通过 SSH 安装设备支持包和 Linux 中继，适合熟悉命令行的用户。装好后，中继通电自动启动，热点可以用 5 GHz。',
+        needs: ['支持 CarPlay 的 iPhone', '斐讯 N1、U 盘、网线和一台电脑', 'Apple 配件（MFi）身份', '浏览器支持 WebCodecs 的车机'],
+        note: '我们还没有在 N1 上用 iPhone 完整测试过 CarPlay。',
+        action: '查看斐讯 N1 教程',
+        link: 'phicomm-n1',
+        secondary: { text: '先检测车机浏览器', link: 'check' },
+      },
+      'n1-carlink': {
+        title: '斐讯 N1 电视盒子 + Carlink 应用',
+        summary: '中继经 Wi-Fi 连接车机上的 Carlink 应用。实验性功能，有可能连接失败。',
+        needs: ['支持 CarPlay 的 iPhone', '斐讯 N1、U 盘、网线和一台电脑', 'Apple 配件（MFi）身份', '装有 Carlink 应用的车机'],
+        note: 'N1 只有一块 Wi-Fi 网卡：中继连接车机的 Carlink 网络时，iPhone 会跟着转到车机的网络上。',
+        action: '查看斐讯 N1 教程',
+        link: 'phicomm-n1',
+        secondary: { text: '查看 Carlink 教程', link: 'carlink' },
+      },
     },
   },
   en: {
@@ -101,6 +121,7 @@ const TEXT: Record<'root' | 'en', Text> = {
     relays: [
       { key: 'android', name: 'Android phone', tag: 'Recommended', tagKind: 'tip', desc: 'Install an app and follow its setup guide. Needs Android 8.0 or later.' },
       { key: 'ufi003', name: 'UFI003 USB dongle', desc: 'A low-cost little device that starts when powered; installing needs a computer.' },
+      { key: 'n1', name: 'Phicomm N1 TV box', tag: 'Advanced', tagKind: 'info', desc: 'Its hotspot can use 5 GHz and it starts when powered; installed from the command line.' },
     ],
     displays: [
       { key: 'browser', name: 'Head-unit browser', tag: 'Recommended', tagKind: 'tip', desc: 'Shows the iPhone’s picture directly, with touch. The browser must support WebCodecs.' },
@@ -141,6 +162,24 @@ const TEXT: Record<'root' | 'en', Text> = {
         action: 'Read the Carlink guide',
         link: 'carlink',
         secondary: { text: 'See tested head units', link: 'head-units' },
+      },
+      'n1-browser': {
+        title: 'Phicomm N1 TV box + head-unit browser',
+        summary: 'Install Armbian on the N1, then the device package and the Linux relay over SSH; this suits people who are comfortable with the command line. Once installed, the relay starts whenever the box is powered, and its hotspot can use 5 GHz.',
+        needs: ['An iPhone with CarPlay', 'A Phicomm N1, a USB drive, a network cable and a computer', 'An Apple accessory (MFi) identity', 'A head unit whose browser supports WebCodecs'],
+        note: 'We haven’t yet tested CarPlay end to end with an iPhone on the N1.',
+        action: 'Read the Phicomm N1 guide',
+        link: 'phicomm-n1',
+        secondary: { text: 'Check the head unit’s browser first', link: 'check' },
+      },
+      'n1-carlink': {
+        title: 'Phicomm N1 TV box + Carlink app',
+        summary: 'The relay connects to the head unit’s Carlink app over Wi-Fi. This is experimental and may fail to connect.',
+        needs: ['An iPhone with CarPlay', 'A Phicomm N1, a USB drive, a network cable and a computer', 'An Apple accessory (MFi) identity', 'A head unit with a Carlink app'],
+        note: 'The N1 has one Wi-Fi radio: when the relay joins the car’s Carlink network, the iPhone follows it there.',
+        action: 'Read the Phicomm N1 guide',
+        link: 'phicomm-n1',
+        secondary: { text: 'Read the Carlink guide', link: 'carlink' },
       },
     },
   },
@@ -233,7 +272,8 @@ const href = (slug: string) => withBase(prefix.value + slug)
 }
 
 /* The relay's colour follows the site's convention: blue for Android, purple for Linux. */
-.oxp-chooser.is-ufi003 {
+.oxp-chooser.is-ufi003,
+.oxp-chooser.is-n1 {
   --chooser-accent: var(--oxp-linux);
   --chooser-accent-soft: var(--oxp-linux-soft);
   --chooser-action: var(--oxp-linux-strong);

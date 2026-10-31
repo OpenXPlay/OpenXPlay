@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
 title: 'Get started: let an AI assistant guide you'
-description: First time with OpenXPlay? Install the openxplay-guide skill and an AI assistant on your computer asks about your car and devices, recommends a setup and guides you through it step by step. Or choose a relay (an Android phone or a UFI003 USB dongle) and how the head unit shows CarPlay yourself, and follow the matching guide.
+description: First time with OpenXPlay? Install the openxplay-guide skill and an AI assistant on your computer asks about your car and devices, recommends a setup and guides you through it step by step. Or choose a relay (an Android phone, a UFI003 USB dongle or a Phicomm N1) and how the head unit shows CarPlay yourself, and follow the matching guide.
 breadcrumb: Get started
 ---
 
@@ -66,7 +66,7 @@ Copy the folder [skills/openxplay-guide](https://github.com/OpenXPlay/OpenXPlay/
 | You need | Details |
 | --- | --- |
 | An iPhone with CarPlay | It connects to the relay wirelessly (Bluetooth and Wi-Fi) or by USB cable. |
-| A relay | An Android phone with Android 8.0 or later and the OpenXPlay Relay app; or a UFI003 USB dongle, plus a computer to flash and install it. Other arm64 Linux devices, such as the Phicomm N1, can be installed by hand: see [Other Linux devices](/en/linux-devices). |
+| A relay | An Android phone with Android 8.0 or later and the OpenXPlay Relay app; or a UFI003 USB dongle, plus a computer to flash and install it; or a Phicomm N1 TV box: see [Phicomm N1 as the relay](/en/phicomm-n1). Other arm64 Linux devices can be installed by hand: see [Other Linux devices](/en/linux-devices). |
 | An Apple accessory (MFi) identity | The two files `identity.pk8` and `certificate.p7b`, which you supply yourself; see below. |
 | The head unit’s browser | It must decode video with WebCodecs. Open [Check your head unit](/en/check) in the head unit’s browser to find out. In a Tesla, see [Tesla](/en/tesla). |
 
@@ -76,13 +76,13 @@ The relay uses this identity to authenticate with the iPhone as an accessory, an
 
 ### Which relay to choose {#choose-relay}
 
-| | Android phone (recommended) | UFI003 USB dongle |
-| --- | --- | --- |
-| What you need | A phone with Android 8.0 or later | A UFI003 USB dongle and a computer |
-| How you install it | Install the app and follow the setup guide; the first setup takes about 10 minutes | Preferably let an AI assistant on your computer read the install instructions and install it with OpenXPlay Flasher; or install it yourself in the Flasher app. The first install needs a Mac or a Windows PC |
-| Wi-Fi band | Can use a 5 GHz hotspot, so the picture stutters less | 2.4 GHz only |
-| Where you set it up | In the app | In a web admin page |
-| Power and start | Open the app on each drive | Runs as a system service and starts by itself when powered |
+| | Android phone (recommended) | UFI003 USB dongle | Phicomm N1 TV box (advanced) |
+| --- | --- | --- | --- |
+| What you need | A phone with Android 8.0 or later | A UFI003 USB dongle and a computer | A Phicomm N1, a USB drive, a network cable and a computer |
+| How you install it | Install the app and follow the setup guide; the first setup takes about 10 minutes | Preferably let an AI assistant on your computer read the install instructions and install it with OpenXPlay Flasher; or install it yourself in the Flasher app. The first install needs a Mac or a Windows PC | Write Armbian to a USB drive and install it to the eMMC, then install the device package and the relay over SSH; needs the command line |
+| Wi-Fi band | Can use a 5 GHz hotspot, so the picture stutters less | 2.4 GHz only | Can use a 5 GHz hotspot |
+| Where you set it up | In the app | In a web admin page | In a web admin page |
+| Power and start | Open the app on each drive | Runs as a system service and starts by itself when powered | Runs as a system service and starts by itself on 12 V power |
 
 ## After setup {#after-setup}
 
