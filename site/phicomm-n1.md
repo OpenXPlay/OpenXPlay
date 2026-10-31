@@ -198,7 +198,14 @@ sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 
 车机连接中继的热点，在浏览器中打开 `https://10.77.0.1:8443/`；管理页面会列出车机要打开的地址。第一次打开时接受证书警告，原因见[故障排查](/troubleshooting#certificate-warning)。使用 Carlink 应用时，见 [Carlink 应用](/carlink)。
 
-装好后，N1 就可以放到车上了：接通 12 V 电源，中继就会自动启动。在车上，手机连接中继的热点后，打开 `https://10.77.0.1:6975` 就能进入管理页面。
+装好后，N1 就可以放到车上了：接通 12 V 电源，中继就会自动启动。在车上用手机打开管理页面时，地址取决于手机连接的热点：
+
+| 手机连接的热点 | 管理页面 |
+| --- | --- |
+| 中继的热点 `OpenXPlay-Linux-XXXX` | `https://10.77.0.1:6975` |
+| 管理热点，默认名为 `OpenXPlay-Admin`，需要另接一块 USB Wi-Fi 网卡，见[网络与 Wi-Fi](#wifi) | `https://10.79.0.1:6975` |
+
+中继出错停止时，它的热点也会关闭，这时请用管理热点。iPhone 连接管理热点，或与 N1 在同一个局域网时，也可以打开 `https://openxplay-linux.local:6975`。第一次打开后把页面加入书签或添加到主屏幕，以后就不用再输入地址。
 
 ## 网络与 Wi-Fi {#wifi}
 
