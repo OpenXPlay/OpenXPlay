@@ -8,6 +8,11 @@ Created by riko chen on 2026-10-29
 
 Every change to this skill raises `metadata.version` in `SKILL.md` and adds an entry here; the website build refuses a changed skill without both. MAJOR: older copies would give wrong or unsafe guidance (also raise `minimum-version`). MINOR: a new route, device or step. PATCH: wording and links.
 
+## 0.3.0 (2026-10-30)
+
+- New *About OpenXPlay* section: introduces the project, who it is for, what it needs, where it stands, and the website (openxplay.org, English at openxplay.org/en/) when someone asks what OpenXPlay is.
+- New *Community* section: whenever the user runs into a problem, the skill keeps helping and tells them they can join the community groups (QQ 1015739350, WeChat, Discord), and what to include when they ask.
+
 ## 0.2.0 (2026-10-30)
 
 - Renamed from openxplay-setup to openxplay-guide: the skill now lives in `skills/openxplay-guide/` and is mirrored at `openxplay.org/agents/skills/openxplay-guide/`. The old name stays as a stub that points installed copies and old links here.

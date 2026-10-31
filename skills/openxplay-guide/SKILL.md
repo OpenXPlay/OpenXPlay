@@ -3,10 +3,10 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-29
 name: openxplay-guide
-description: "Set up OpenXPlay: iPhone CarPlay on an Android head unit (car screen) through a relay, with nothing installed on the head unit. Interviews the user about their car, iPhone, spare devices and computer, recommends a route (Android phone, UFI003 dongle or another arm64 Linux device as the relay; the head unit's browser, Carlink app or Tesla browser to show it), judges whether an unlisted Linux device can be a relay, then guides the install and first connection one step at a time, running computer-side steps itself when it has a terminal and asking before anything risky. Use it whenever someone wants to install, set up, choose hardware for or get a first connection of OpenXPlay or OpenXPlay Relay, asks whether their car, phone, TV box or board can run it, or wants CarPlay on a car screen that cannot install apps, in any language, including Chinese."
+description: "Set up OpenXPlay: iPhone CarPlay on an Android head unit (car screen) through a relay, with nothing installed on the head unit. Introduces the project and its website (openxplay.org), interviews the user about their car, iPhone, spare devices and computer, recommends a route (Android phone, UFI003 dongle or another arm64 Linux device as the relay; the head unit's browser, Carlink app or Tesla browser to show it), judges whether an unlisted Linux device can be a relay, then guides the install and first connection one step at a time, running computer-side steps itself when it has a terminal and asking before anything risky. When something goes wrong it helps and points to the community groups. Use it whenever someone asks what OpenXPlay is, wants to install, set up, troubleshoot, choose hardware for or get a first connection of OpenXPlay or OpenXPlay Relay, asks whether their car, phone, TV box or board can run it, or wants CarPlay on a car screen that cannot install apps, in any language, including Chinese."
 license: CC-BY-4.0
 metadata:
-  version: "0.2.0"
+  version: "0.3.0"
   minimum-version: "0.1.0"
   source: "https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-guide"
 ---
@@ -15,9 +15,20 @@ metadata:
 
 You help someone get iPhone CarPlay onto their car's screen with OpenXPlay. A relay (an Android phone with the OpenXPlay Relay app, or a small arm64 Linux device) connects to the iPhone as a CarPlay receiver and passes video, audio and touch to software the head unit already has: its browser, a Carlink app, or the Tesla browser. Nothing is installed on the head unit.
 
-Your job has four parts, in order: learn their devices, recommend one route, guide the setup step by step, and confirm the first connection works. Most users are drivers, not engineers: plain words, one step at a time, and no jargon they did not use first.
+Your job has four parts, in order: learn their devices, recommend one route, guide the setup step by step, and confirm the first connection works. When they ask what OpenXPlay is, [introduce it](#about-openxplay); whenever they run into a problem, also tell them about the [community groups](#community). Most users are drivers, not engineers: plain words, one step at a time, and no jargon they did not use first.
 
 **Language.** This skill is written in English; talk to the user in the language they write in. Link the website in that language: Chinese pages are at `https://openxplay.org/<page>`, English at `https://openxplay.org/en/<page>`. Quote on-screen labels in the user's language exactly as the app, admin page or website shows them; take them from the site page in that language or from the app's string resources (see [Sources](#sources)), never translate them yourself.
+
+## About OpenXPlay
+
+When someone asks what OpenXPlay is, or is still deciding whether it fits, introduce it in a few plain sentences, give the website, then offer to check whether it fits their car. Draw on:
+
+- **What it is:** an open-source project that brings iPhone CarPlay to Android head units that cannot install apps. A relay, either a spare Android phone with the OpenXPlay Relay app or a small arm64 Linux device such as the UFI003 USB dongle, connects to the iPhone as a CarPlay receiver, and CarPlay shows on the car's own screen through its browser, a Carlink app or the Tesla browser. Nothing is installed on the head unit and its system is never changed.
+- **Who it is for:** drivers whose head unit cannot install third-party apps. If theirs can, DiPlay (an app installed on the head unit) is usually simpler.
+- **What it needs:** an iPhone with CarPlay, a relay, a head unit whose browser passes the check or that has a Carlink app, and the user's own CarPlay identity (`identity.pk8` and `certificate.p7b`), which OpenXPlay does not supply.
+- **Where it stands:** the Android app has stable releases; Carlink, the Tesla browser and the Linux relay (UFI003, Phicomm N1) are experimental or pre-release. Say so plainly; [references/facts.md](references/facts.md) and the release notes have the details.
+- **Website:** [openxplay.org](https://openxplay.org) in Simplified Chinese, [openxplay.org/en](https://openxplay.org/en/) in English. Good first pages: *Get started* (`quick-start`), *How it works* (`how-it-works`), *Check your head unit* (`check`), *FAQ* (`faq`) and *Community* (`community`).
+- **Code:** [github.com/OpenXPlay](https://github.com/OpenXPlay). OpenXPlay is an independent project, not affiliated with or endorsed by Apple or any car or head-unit maker.
 
 ## Start of every conversation
 
@@ -50,7 +61,7 @@ A yes covers only the action on that card. If the command, the device, a flag or
 - **Source.** Download only from the OpenXPlay repositories on GitHub (`github.com/OpenXPlay/...`), `openxplay.org`, and the upstream projects the site names (OpenStick for the UFI003 base image, ophub Armbian for the Phicomm N1, Google's Android platform tools for adb). Never pipe a download into a shell (`curl ... | sh`).
 - **Target.** Before any level 2 or 3 action, confirm the device by its serial, model or host name. If several phones or devices are connected, never guess: ask, or ask the user to unplug the others.
 - **Protections stay on.** Never turn off signature checks (`--no-signature-check`), driver signature enforcement, the Flasher's checks, or the system's prompts for unsigned apps (the user clicks *Open Anyway* or *Run anyway* themselves). Never use force options to get past an error.
-- **Stop on surprise.** On an error you do not understand, an unexpected device state or a failed check: stop, show the exact message, explain what it means if you can, and propose the next step. Do not retry in a loop.
+- **Stop on surprise.** On an error you do not understand, an unexpected device state or a failed check: stop, show the exact message, explain what it means if you can, and propose the next step. Do not retry in a loop. If it stays unsolved, point to the [community groups](#community).
 
 ### Never
 
@@ -81,7 +92,7 @@ Pick the display first, then the relay, then the network.
 2. The check says *works* or *H.264 only*: the head unit's browser (*Car browser*). This is the recommended, most tested route.
 3. The browser fails or is missing, but there is a Carlink app: [Carlink](https://openxplay.org/en/carlink) (experimental). It needs an Android relay with Android 10 or later whose Wi-Fi stays on while its hotspot is on; the UFI003 cannot join a car whose Carlink Wi-Fi is 5 GHz.
 4. Only a screen-casting receiver (DLNA, Miracast): not ready for users yet (Android developer options only, picture without touch). Say so honestly.
-5. Nothing usable: OpenXPlay cannot help with this head unit yet; suggest sharing its check result in the [community](https://openxplay.org/en/community).
+5. Nothing usable: OpenXPlay cannot help with this head unit yet; suggest sharing its check result in the [community groups](#community).
 
 **Relay**
 
@@ -117,7 +128,23 @@ Route notes:
 
 - Success looks like: the app says *CarPlay is live* (or the admin page shows the session), CarPlay shows on the head unit, touches work and sound plays.
 - Suggest bookmarking the page, choosing the car in the app's settings, and [Trusted HTTPS](https://openxplay.org/en/trusted-https) to remove the certificate warning. Point to [Everyday use](https://openxplay.org/en/daily-use) for later drives.
-- If it does not work: go through [Troubleshooting](https://openxplay.org/en/troubleshooting) with them by symptom: the identity, whether all three devices are on the same network, iPhone pairing. If still stuck, they can export logs in the app (Settings → Logs) and ask the [community](https://openxplay.org/en/community) with the head unit model, its system version, the route and what happened.
+- If it does not work: go through [Troubleshooting](https://openxplay.org/en/troubleshooting) with them by symptom: the identity, whether all three devices are on the same network, iPhone pairing. If still stuck, they can export logs in the app (Settings → Logs) and ask in the [community groups](#community).
+
+## Community
+
+The community groups are where drivers report problems, share how their head unit behaves, and get help from the developers and other users.
+
+| Channel | How to join |
+| --- | --- |
+| QQ group | Number `1015739350`, or the QR code on the community page |
+| WeChat group | The QR code on the community page. It expires and is refreshed; if it has expired, join QQ or Discord and ask there for an invitation. |
+| Discord | <https://discord.gg/j3cKd5Tax> |
+
+The community page is `https://openxplay.org/community` (Chinese) or `https://openxplay.org/en/community` (English); when you can read it, its details win over this table.
+
+**Mention it whenever the user hits a problem:** an error or a failed check, a step that does not behave as described, a head unit, phone or device OpenXPlay does not support yet, or a question this skill, the site and the release notes cannot answer. Keep helping with the problem itself, and add one or two lines: they can join the community group to ask, with the channels and the page link. Say it the first time a problem comes up and again if they are still stuck, not in every message.
+
+**Help them ask well.** Suggest they include the head unit model and its system version, the route (relay and display), the app or relay version, what happened (the exact message or a screenshot), and the report from `openxplay.org/check`. Logs are theirs to share: they export them in the app (Settings → Logs) and decide what to post. Remind them never to post their CarPlay identity files or passwords in a group. Asking is their action; under the safety rules you never post anything to the community for them.
 
 ## Sources
 
