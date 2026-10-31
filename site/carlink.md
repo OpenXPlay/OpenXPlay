@@ -12,7 +12,7 @@ breadcrumb: Carlink 应用
 车机没有可用的浏览器、但装有 Carlink 应用时，可以试试这条路线：中继通过 Wi-Fi 连接车机上的 Carlink 应用。车机声明支持 H.265 时，安卓中继直接发送 iPhone 的 H.265 画面；否则把画面转换为 H.264。
 
 ::: warning 实验性功能
-Carlink 输出仍是实验性功能，有可能连接失败。请使用安卓应用 [0.1.5](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5) 或更新版本：它修复了部分车机（例如小鹏 G6）有声音但画面全黑的问题，画面按车机 Carlink 窗口的比例显示，触控位置也准确。实测情况见[车机资料](/head-units#xpeng-g6)。
+Carlink 输出仍是实验性功能，有可能连接失败。需要安卓应用 0.1.5 及以上版本，请[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)：从 0.1.5 起，部分车机（例如小鹏 G6）有声音但画面全黑的问题已修复，画面按车机 Carlink 窗口的比例显示，触控位置也准确。实测情况见[车机资料](/head-units#xpeng-g6)。
 :::
 
 ## 开启 Carlink 输出 {#step-enable .step}
@@ -36,7 +36,7 @@ Carlink 输出仍是实验性功能，有可能连接失败。请使用安卓应
 | 斐讯 N1 | 能连接 5 GHz 的 Carlink 网络。它只有一块 Wi-Fi 网卡，所以 iPhone 会跟着中继转到车机的网络上；另接一块 USB Wi-Fi 网卡时，可以让它专门负责 Carlink，见[网络与 Wi-Fi](/phicomm-n1#wifi)。还没有在车上测试过。 |
 
 ::: details 车机上有声音，但画面是黑的？ {#black-screen}
-部分车机只在一帧的最开头识别关键帧，0.1.3 及更早的安卓应用在这些车机上会黑屏。请更新到安卓应用 [0.1.5](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5) 或更新版本。车机显示倒车影像后，新版本的画面也能恢复。
+部分车机只在一帧的最开头识别关键帧，0.1.3 及更早的安卓应用在这些车机上会黑屏。需要安卓应用 0.1.5 及以上版本，请[更新到最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)。车机显示倒车影像后，新版本的画面也能恢复。
 :::
 
 ::: details 车机停在 30% 左右，连不上？ {#stuck-30}

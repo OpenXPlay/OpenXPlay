@@ -112,7 +112,7 @@ Before writing to the eMMC, run `armbian-ddbr` in Armbian on the USB drive and e
 
 ## Install the device package {#device .step}
 
-On the N1, download the OpenXPlay-Hardware pre-release [phicomm-n1-device-v0.1.1-beta.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/phicomm-n1-device-v0.1.1-beta.1), check its SHA-256, unpack it and run its installer. `--dry-run` checks everything without changing anything:
+From the OpenXPlay-Hardware [Releases](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases), choose the newest `phicomm-n1-device-v` release (all are pre-releases so far; 0.1.1-beta.1 or later is required). On the N1, download it, check its SHA-256, unpack it and run its installer. Set `V` to the newest version; `--dry-run` checks everything without changing anything:
 
 ```sh
 V=0.1.1-beta.1
@@ -120,22 +120,26 @@ base=https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/download/phicomm-n
 curl -fL -O "$base/openxplay-phicomm-n1-device-$V.tar.gz" -O "$base/SHA256SUMS"
 sha256sum --ignore-missing -c SHA256SUMS
 tar -xzf openxplay-phicomm-n1-device-$V.tar.gz
-sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --dry-run
-sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh
+D=openxplay-phicomm-n1-device-$(echo "$V" | sed 's/-/~/')
+sudo sh "$D/install-device.sh" --dry-run
+sudo sh "$D/install-device.sh"
 sudo reboot
 ```
 
-The unpacked folder writes the version as `0.1.1~beta.1`. After the reboot, sign in again and check the install:
+The unpacked folder writes a pre-release version with `~` in place of `-` (such as `0.1.1~beta.1`); `D` is that folder. After the reboot, sign in again and check the install:
 
 ```sh
-sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --verify
+V=0.1.1-beta.1
+sudo sh "openxplay-phicomm-n1-device-$(echo "$V" | sed 's/-/~/')/install-device.sh" --verify
 ```
 
 | Command | Its last line should be |
 | --- | --- |
-| `--dry-run` | `OXP-STAGE device preflight-ok version=0.1.1~beta.1` |
-| Install | `OXP-STAGE device ok version=0.1.1~beta.1 reboot=required` |
-| `--verify` | `OXP-STAGE device verified version=0.1.1~beta.1` |
+| `--dry-run` | `OXP-STAGE device preflight-ok version=<version>` |
+| Install | `OXP-STAGE device ok version=<version> reboot=required` |
+| `--verify` | `OXP-STAGE device verified version=<version>` |
+
+`<version>` is written as in the folder name.
 
 The device package brings the Debian packages the relay needs that Armbian lacks, such as BlueZ, so it installs offline. It:
 
@@ -145,10 +149,10 @@ The device package brings the Debian packages the relay needs that Armbian lacks
 - installs newer Cypress Wi-Fi firmware, so 5 GHz channels 36 to 48 work under the CN country code. The stock firmware allows only 149 to 165; 52 to 144 stay disabled.
 
 ::: details The N1 can’t reach GitHub? {#offline}
-Download both files on the computer, check the SHA-256 there, copy them to the N1, and carry on from the `tar` line:
+Download both files on the computer, check the SHA-256 there, copy them to the N1, set `V` there, and carry on from the `tar` line:
 
 ```sh
-scp openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz SHA256SUMS <user>@<N1 IP>:
+scp openxplay-phicomm-n1-device-<version>.tar.gz SHA256SUMS <user>@<N1 IP>:
 ```
 
 Copy the relay package in the next step the same way.

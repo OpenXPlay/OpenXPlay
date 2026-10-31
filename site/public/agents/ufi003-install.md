@@ -51,7 +51,7 @@ Windows hardware validation: the official 0.2.0-beta.2 Windows amd64 build compl
 
 Run `FLASHER catalog fetch`. It downloads the package list from `https://openxplay.org/flasher/beta/` and checks its signature. The output must say `Package list: verified`. If it does not, stop and show the user the output.
 
-The signed package list now recommends the corrected [UFI003 device support bundle 0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1). Keep signature verification enabled and use the files listed by `files`; do not substitute a different release.
+The signed package list recommends the corrected [UFI003 device support bundle](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases), version 0.2.1 or later. Keep signature verification enabled and use the files listed by `files`; do not substitute a different release.
 
 ## 3. Find the dongle
 

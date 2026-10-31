@@ -12,7 +12,7 @@ breadcrumb: Carlink app
 If the head unit has no usable browser but does have a Carlink app, try this route: the relay connects to the head unit’s Carlink app over Wi-Fi. When the head unit reports H.265 support, the Android relay sends the iPhone’s H.265 picture as it is; otherwise it converts the picture to H.264.
 
 ::: warning Experimental feature
-The Carlink output is still experimental and may fail to connect. Use Android app [0.1.5](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5) or later: it fixes a black screen with sound on some head units, such as the Xpeng G6, shows the picture in the shape of the car’s Carlink window and lands touches where you tap. Test results are under [Head units](/en/head-units#xpeng-g6).
+The Carlink output is still experimental and may fail to connect. It needs Android app 0.1.5 or later; [download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk). From 0.1.5, the black screen with sound on some head units, such as the Xpeng G6, is fixed, the picture takes the shape of the car’s Carlink window and touches land where you tap. Test results are under [Head units](/en/head-units#xpeng-g6).
 :::
 
 ## Turn on the Carlink output {#step-enable .step}
@@ -36,7 +36,7 @@ Enter the pairing code shown on the car screen into the relay and connect straig
 | Phicomm N1 | It can join a 5 GHz Carlink network. With one Wi-Fi radio, the iPhone follows the relay onto the car’s network; a USB Wi-Fi adapter can take Carlink on its own, see [Network and Wi-Fi](/en/phicomm-n1#wifi). Not yet tested in a car. |
 
 ::: details Sound but a black picture on the head unit? {#black-screen}
-Some head units recognise a key frame only at the very start of a frame, and Android app 0.1.3 and earlier show a black screen on them. Update to Android app [0.1.5](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5) or later. The newer version also brings the picture back after the head unit shows the reverse camera.
+Some head units recognise a key frame only at the very start of a frame, and Android app 0.1.3 and earlier show a black screen on them. It needs Android app 0.1.5 or later; [update to the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk). The newer version also brings the picture back after the head unit shows the reverse camera.
 :::
 
 ::: details The head unit stops at about 30 %? {#stuck-30}

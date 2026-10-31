@@ -89,7 +89,7 @@ If plugging the dongle in adds no USB device in Device Manager, check power, the
 ::: info Verified on Windows hardware
 The official 0.2.0-beta.2 Windows amd64 build completed an install on a UFI003 from stock Android 4.4 to OpenStick Debian 11 (kernel `5.15.0-handsomekernel+`), device support 0.2.1 and relay 0.1.5~beta.2. All 49 install steps and layer checks passed, including automatic backup and restoration of the four modem calibration partitions. A separate relay upgrade, fastboot device identification and data transfer to RAM also passed. Drivers must still match the device's actual USB interfaces and hardware IDs.
 
-The signed package list now recommends the corrected [device support bundle 0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1). Keep signature verification enabled and use files that match the list.
+The signed package list recommends the corrected [device support bundle](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases), version 0.2.1 or later. Keep signature verification enabled and use files that match the list.
 :::
 
 ::: details Download and open Flasher {#flasher-download}
@@ -155,27 +155,30 @@ Flash the OpenStick Debian 11 image (kernel `5.15.0-handsomekernel+`, aarch64) o
 
 ### Install the device package {#step-device}
 
-From the OpenXPlay-Hardware release [ufi003-device-v0.2.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/ufi003-device-v0.2.1), download `openxplay-ufi003-device-0.2.1.tar.gz` and `SHA256SUMS` and check them. Copy the bundle to the dongle and open its shell (root):
+From the OpenXPlay-Hardware [Releases](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases), choose the newest `ufi003-device-v` release (0.2.1 or later is required), download `openxplay-ufi003-device-<version>.tar.gz` and `SHA256SUMS` and check them. Copy the bundle to the dongle and open its shell (root):
 
 ```sh
-adb push openxplay-ufi003-device-0.2.1.tar.gz /root/
+V=0.2.1
+adb push openxplay-ufi003-device-$V.tar.gz /root/
 adb shell
 ```
 
-On the dongle, unpack it and run the installer. `--dry-run` checks everything without changing anything; after the install, reboot:
+Set `V` to the version you downloaded. On the dongle, set `V` the same way, then unpack the bundle and run the installer. `--dry-run` checks everything without changing anything; after the install, reboot:
 
 ```sh
+V=0.2.1
 cd /root
-tar -xzf openxplay-ufi003-device-0.2.1.tar.gz
-sh openxplay-ufi003-device-0.2.1/install-device.sh --dry-run
-sh openxplay-ufi003-device-0.2.1/install-device.sh
+tar -xzf openxplay-ufi003-device-$V.tar.gz
+sh openxplay-ufi003-device-$V/install-device.sh --dry-run
+sh openxplay-ufi003-device-$V/install-device.sh
 reboot
 ```
 
 After the reboot, open `adb shell` again and check the device with `--verify`:
 
 ```sh
-sh /root/openxplay-ufi003-device-0.2.1/install-device.sh --verify
+V=0.2.1
+sh /root/openxplay-ufi003-device-$V/install-device.sh --verify
 ```
 
 The device package carries the Debian packages it needs, so it installs without internet access. It adds the Bluetooth RFCOMM module that wireless CarPlay needs, a fixed Bluetooth driver, a Bluetooth guard and the host profile, and turns on time synchronisation.

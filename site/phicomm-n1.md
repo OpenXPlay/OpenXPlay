@@ -112,7 +112,7 @@ ssh <用户名>@<N1 的 IP>
 
 ## 安装设备支持包 {#device .step}
 
-在 N1 上下载 OpenXPlay-Hardware 的预发布版 [phicomm-n1-device-v0.1.1-beta.1](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/tag/phicomm-n1-device-v0.1.1-beta.1)，核对 SHA-256，解压后运行安装程序。`--dry-run` 只做检查、不做任何改动：
+在 OpenXPlay-Hardware 的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases) 中选择最新的 `phicomm-n1-device-v` 版本（目前都是预发布版，需要 0.1.1-beta.1 及以上），在 N1 上下载、核对 SHA-256，解压后运行安装程序。把 `V` 改成最新的版本号；`--dry-run` 只做检查、不做任何改动：
 
 ```sh
 V=0.1.1-beta.1
@@ -120,22 +120,26 @@ base=https://github.com/OpenXPlay/OpenXPlay-Hardware/releases/download/phicomm-n
 curl -fL -O "$base/openxplay-phicomm-n1-device-$V.tar.gz" -O "$base/SHA256SUMS"
 sha256sum --ignore-missing -c SHA256SUMS
 tar -xzf openxplay-phicomm-n1-device-$V.tar.gz
-sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --dry-run
-sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh
+D=openxplay-phicomm-n1-device-$(echo "$V" | sed 's/-/~/')
+sudo sh "$D/install-device.sh" --dry-run
+sudo sh "$D/install-device.sh"
 sudo reboot
 ```
 
-解压出的文件夹名中，版本号写作 `0.1.1~beta.1`。重启后重新登录，检查安装结果：
+解压出的文件夹名中，预发布版本号的 `-` 写作 `~`（例如 `0.1.1~beta.1`），`D` 就是这个文件夹。重启后重新登录，检查安装结果：
 
 ```sh
-sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --verify
+V=0.1.1-beta.1
+sudo sh "openxplay-phicomm-n1-device-$(echo "$V" | sed 's/-/~/')/install-device.sh" --verify
 ```
 
 | 命令 | 最后一行应为 |
 | --- | --- |
-| `--dry-run` | `OXP-STAGE device preflight-ok version=0.1.1~beta.1` |
-| 安装 | `OXP-STAGE device ok version=0.1.1~beta.1 reboot=required` |
-| `--verify` | `OXP-STAGE device verified version=0.1.1~beta.1` |
+| `--dry-run` | `OXP-STAGE device preflight-ok version=<版本>` |
+| 安装 | `OXP-STAGE device ok version=<版本> reboot=required` |
+| `--verify` | `OXP-STAGE device verified version=<版本>` |
+
+`<版本>` 与文件夹名中的写法相同。
 
 设备支持包自带中继需要、而 Armbian 缺少的 Debian 软件包（例如 BlueZ），安装时不需要联网。它会：
 
@@ -145,10 +149,10 @@ sudo sh openxplay-phicomm-n1-device-0.1.1~beta.1/install-device.sh --verify
 - 安装较新的 Cypress Wi-Fi 固件，让 5 GHz 的 36 至 48 信道在 CN 国家代码下可用。原厂固件只允许 149 至 165 信道；52 至 144 信道仍不可用。
 
 ::: details N1 连不上 GitHub？ {#offline}
-在电脑上下载这两个文件并核对 SHA-256，再复制到 N1 上，然后从 `tar` 那一行继续：
+在电脑上下载这两个文件并核对 SHA-256，再复制到 N1 上，然后在 N1 上设好 `V`，从 `tar` 那一行继续：
 
 ```sh
-scp openxplay-phicomm-n1-device-0.1.1-beta.1.tar.gz SHA256SUMS <用户名>@<N1 的 IP>:
+scp openxplay-phicomm-n1-device-<版本>.tar.gz SHA256SUMS <用户名>@<N1 的 IP>:
 ```
 
 下一步的中继软件包也可以这样复制。
