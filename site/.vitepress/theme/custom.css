@@ -292,6 +292,98 @@ Created by riko chen on 2026-10-17
   background: var(--oxp-android-strong);
 }
 
+/* Get started: the recommended way, an AI assistant with the skill, in a card above the manual route. */
+.vp-doc .oxp-recommended {
+  --vp-code-block-bg: var(--vp-c-bg);
+  --vp-code-tab-bg: var(--vp-c-bg);
+  position: relative;
+  margin: 28px 0 8px;
+  padding: 4px 24px 12px;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
+  background: var(--vp-c-bg-soft);
+}
+
+/* It fits either relay, so its bar blends the Android blue into the Linux purple. */
+.vp-doc .oxp-recommended::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(120deg, var(--oxp-android) 20%, var(--oxp-linux));
+}
+
+.vp-doc .oxp-recommended h2 {
+  margin-top: 24px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.vp-doc .oxp-recommended > ol {
+  padding-left: 0;
+  list-style: none;
+  counter-reset: oxp-ai-step;
+}
+
+.vp-doc .oxp-recommended > ol > li {
+  position: relative;
+  padding-left: 40px;
+  counter-increment: oxp-ai-step;
+}
+
+.vp-doc .oxp-recommended > ol > li + li {
+  margin-top: 16px;
+}
+
+.vp-doc .oxp-recommended > ol > li::before {
+  content: counter(oxp-ai-step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--vp-c-brand-3);
+  color: var(--vp-c-white);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.dark .vp-doc .oxp-recommended > ol > li::before {
+  background: var(--oxp-android-strong);
+}
+
+/* Messages to copy wrap instead of scrolling sideways. */
+.vp-doc .oxp-recommended div[class*='language-'] pre,
+.vp-doc .oxp-recommended div[class*='language-'] code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 639px) {
+  .vp-doc .oxp-recommended {
+    padding: 4px 16px 8px;
+  }
+
+  .vp-doc .oxp-recommended div[class*='language-'] {
+    margin: 16px 0;
+    border-radius: 8px;
+  }
+
+  .vp-doc .oxp-recommended .vp-code-group .tabs {
+    margin: 0;
+    border-radius: 8px 8px 0 0;
+  }
+
+  /* The message to copy takes the card's full width, under its step number. */
+  .vp-doc .oxp-recommended > ol > li > .vp-code-group {
+    margin-left: -40px;
+  }
+}
+
 /* Folded details: a quiet, full-width row that opens smoothly where the browser can animate it. */
 .vp-doc .custom-block.details {
   margin: 12px 0;

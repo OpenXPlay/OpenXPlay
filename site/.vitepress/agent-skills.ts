@@ -5,7 +5,8 @@
 // Agent skills live in the repository's skills/<name>/ directories, where GitHub serves them. At
 // build time every skill is checked (frontmatter, version, changelog, and that a changed skill
 // carries a new version), then mirrored to agents/skills/<name>/ with agents/skills/index.json for
-// readers who cannot reach GitHub. Installed copies compare their version with either.
+// readers who cannot reach GitHub. Installed copies compare their version with either. A renamed
+// skill keeps a stub under its old name (metadata.replaced-by) that sends those copies to the new one.
 
 import { spawnSync } from 'node:child_process'
 import crypto from 'node:crypto'
@@ -31,6 +32,8 @@ export interface SkillEntry {
   version: string
   /** Copies older than this must not be used; they read the published copy instead. */
   minimumVersion: string
+  /** A renamed skill: this entry is a stub that sends installed copies and old links to that skill. */
+  replacedBy?: string
   released: string
   /** SKILL.md on GitHub, the published copy. */
   url: string
@@ -151,6 +154,7 @@ function readSkill(root: string, name: string): SkillEntry {
     if (!SEMVER.test(value)) fail(skillFile, `${field} must be MAJOR.MINOR.PATCH (got "${value}")`)
   }
   if (compareVersions(minimumVersion, version) > 0) fail(skillFile, 'metadata.minimum-version is above metadata.version')
+  const replacedBy = front['metadata.replaced-by']
   const changelog = newestChanges(fs.readFileSync(path.join(dir, 'CHANGELOG.md'), 'utf8'), `${relative}/CHANGELOG.md`)
   if (changelog.version !== version) {
     fail(`${relative}/CHANGELOG.md`, `the newest entry is ${changelog.version}, but SKILL.md says ${version}`)
@@ -161,6 +165,7 @@ function readSkill(root: string, name: string): SkillEntry {
     description,
     version,
     minimumVersion,
+    ...(replacedBy ? { replacedBy } : {}),
     released: changelog.date,
     url: `${SOURCE_RAW}/${name}/SKILL.md`,
     mirror: `${SITE_ROOT}${SKILLS_PATH}/${name}/`,
@@ -178,11 +183,17 @@ export function readSkills(srcDir: string): SkillEntry[] {
   const root = path.resolve(srcDir, '..')
   const skills = path.join(root, 'skills')
   if (!fs.existsSync(skills)) return []
-  return fs.readdirSync(skills, { withFileTypes: true })
+  const entries = fs.readdirSync(skills, { withFileTypes: true })
     .filter(entry => entry.isDirectory() && fs.existsSync(path.join(skills, entry.name, 'SKILL.md')))
     .map(entry => entry.name)
     .sort()
     .map(name => readSkill(root, name))
+  for (const entry of entries) {
+    if (entry.replacedBy && !entries.some(other => other.name === entry.replacedBy && !other.replacedBy)) {
+      fail(`skills/${entry.name}/SKILL.md`, `metadata.replaced-by names "${entry.replacedBy}", which is not a current skill`)
+    }
+  }
+  return entries
 }
 
 /** The mirror: each skill's files and the index, under agents/skills/ in the build output. */

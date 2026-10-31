@@ -116,7 +116,8 @@ function llmsTxt(list: PageSummary[], skills: SkillEntry[]): string {
     '',
     '## Instructions for AI agents',
     '',
-    ...skills.map(skill => `- [Agent skill ${skill.name} ${skill.version}](${skill.url}): ${skill.description}`),
+    ...skills.filter(skill => !skill.replacedBy)
+      .map(skill => `- [Agent skill ${skill.name} ${skill.version}](${skill.url}): ${skill.description}`),
     `- [Install OpenXPlay on a UFI003 USB dongle](${SITE_ROOT}agents/ufi003-install.md): step-by-step instructions for an AI agent with a terminal on the user's computer, using OpenXPlay Flasher's command line`,
     `- [Agent skill index](${SITE_ROOT}${SKILLS_PATH}/index.json): each skill's version, minimum version, files and SHA-256, mirrored from GitHub for update checks`,
     '',
