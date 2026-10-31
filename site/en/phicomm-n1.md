@@ -198,7 +198,14 @@ Choose *Pair iPhone*; pairing stays open for 10 minutes. On the iPhone, open Set
 
 Join the relay’s hotspot from the head unit and open `https://10.77.0.1:8443/` in its browser; the admin page lists the head-unit address. Accept the certificate warning the first time; [Troubleshooting](/en/troubleshooting#certificate-warning) explains why it appears. For the Carlink app, see [Carlink app](/en/carlink).
 
-The N1 is now ready for the car: give it 12 V and the relay starts by itself. In the car, a phone that joins the relay’s hotspot reaches the admin page at `https://10.77.0.1:6975`.
+The N1 is now ready for the car: give it 12 V and the relay starts by itself. In the car, the admin page address depends on the hotspot your phone joins:
+
+| Hotspot the phone joins | Admin page |
+| --- | --- |
+| The relay’s hotspot `OpenXPlay-Linux-XXXX` | `https://10.77.0.1:6975` |
+| The admin hotspot, named `OpenXPlay-Admin` by default; needs an extra USB Wi-Fi adapter, see [Network and Wi-Fi](#wifi) | `https://10.79.0.1:6975` |
+
+When the relay stops on an error, its hotspot goes down too; use the admin hotspot then. An iPhone on the admin hotspot, or on the same network as the N1, can also open `https://openxplay-linux.local:6975`. Bookmark the page or add it to the Home Screen the first time, and you won’t need to type the address again.
 
 ## Network and Wi-Fi {#wifi}
 
