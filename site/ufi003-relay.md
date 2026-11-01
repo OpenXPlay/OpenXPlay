@@ -122,26 +122,30 @@ Flasher 从本网站读取一份签名的软件包列表，其中记录了各层
 
 ## 打开管理页面 {#step-admin .step}
 
-随身 Wi-Fi 用 USB 接在电脑上时，在 Flasher 的“接下来”中点“通过 USB 打开中继管理页面”。连入中继的网络后，也可以在手机或电脑上打开 `https://openxplay-car.local:6975`。浏览器会提示证书警告，继续访问即可；首次登录的密码显示在登录页上，登录后请设置你自己的管理密码。
+随身 Wi-Fi 用 USB 接在电脑上时，在 Flasher 的“接下来”中点“通过 USB 打开中继管理页面”。在车上，手机连接中继的热点 `OpenXPlay-Linux-XXXX`（密码是 `openxplay`，除非你另行设置），再打开 `https://openxplay-car.local:6975` 或 `https://10.77.0.1:6975`。浏览器会提示证书警告，继续访问即可。首次登录的密码是 `openxplay`，登录页上也写着；登录后页面会提示你设置自己的管理密码。
 
-如果启用了独立的 **Admin 管理热点**，手机或电脑连接该热点后，可直接打开 `https://10.79.0.1:6975/`。管理热点的 IP 固定为 `10.79.0.1`，重启中继或设备后也不变。通过家里或车机的 Wi-Fi 访问时，则使用路由器分配给中继的局域网 IP，地址格式为 `https://<中继的局域网 IP>:6975/`；该 IP 可能变化，除非在路由器上设置了固定分配。
+首页显示连接的进度：iPhone → 这台中继 → 车机，下方只有当前需要做的一件事。点任一步可以查看详情和处理方法。首页顶部的齿轮打开设置。
+
+改用车机热点时（见下一步），手机连接车机的热点，打开 `https://openxplay-car.local:6975`，或者车机热点分配给中继的 IP：`https://<中继的 IP>:6975/`。iPhone、Mac 和 Windows 电脑能打开 `.local` 地址，很多安卓手机不能，这时请用 IP 地址。不输入 `https://` 也能打开。UFI003 只有一块 Wi-Fi 网卡，不能开管理热点。
 
 ## 选择网络 {#step-network .step}
 
-在管理页面中选择 iPhone 和车机怎样连接中继：
+在管理页面的“**设置 → iPhone 连接 → 无线网络**”中选择 iPhone 和车机怎样连接中继：
 
-- **此设备的热点**（默认）：打开中继自己的热点，iPhone 自动加入，车机也连接这个热点。
-- **共用 Wi-Fi**：中继、iPhone 和车机都连接同一个现有的 2.4 GHz 网络。
+- **这台中继的热点**（默认）：打开中继自己的热点，iPhone 自动加入，车机也连接这个热点。
+- **使用车机热点**：中继、iPhone 和车机都连接车机的热点，或者另一个现有的 2.4 GHz 网络。
+
+UFI003 只用车机浏览器显示 CarPlay；Carlink 需要第二块 Wi-Fi 网卡，见 [Carlink 应用](/carlink)。
 
 ## 配对 iPhone {#step-pair .step}
 
-点“配对 iPhone”，配对窗口会开放 10 分钟。在 iPhone 上打开“设置 → 蓝牙”，选择这台中继。
+首页提示配对 iPhone 时，点“配对”，配对窗口会开放 10 分钟。在 iPhone 上打开“设置 → 蓝牙”，选择 `OpenXPlay Linux`。换了 iPhone 时，可以在首页或“设置 → iPhone 连接”中移除旧的已配对设备。
 
 ## 在车机浏览器中打开 {#step-open .step}
 
 车机连接中继的网络，在浏览器中打开 `https://10.77.0.1:8443/`（使用中继自己的热点时），也可以用 `https://openxplay-car.local:8443/`。第一次打开时接受证书警告，原因见[故障排查](/troubleshooting#certificate-warning)。
 
-如果在管理页面开启了配对码，输入中继上显示的 8 位数字。
+如果在管理页面的“设置 → 车机访问”中开启了“需要配对码”，输入中继上显示的 8 位数字。
 
 ## 不用 Flasher 的命令行安装 {#manual}
 
@@ -197,12 +201,13 @@ adb shell dpkg -i /root/openxplay-relay_${V}_arm64.deb
 
 想自行构建时：设备支持包用 [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) 的 `UFI003/package/build-bundle.sh`，中继软件包用 [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) 的 `rust/packaging/build-deb.sh`。
 
-装好后从[打开管理页面](#step-admin)继续。没有 Flasher 时，在管理页面的“**开发者选项 → 认证身份与证书**”中添加 CarPlay 身份，也可以[手动放入身份文件](/linux-devices#identity)。
+装好后从[打开管理页面](#step-admin)继续。没有 Flasher 时，在管理页面的“**设置 → 身份与证书**”中添加 CarPlay 身份，也可以[手动放入身份文件](/linux-devices#identity)。
 
 :::
 
 ## 接下来 {#next-steps}
 
-- 在小鹏 G6 等车上使用时，可以参考[车机资料](/head-units)中的推荐设置，例如 2.4 GHz 下把帧率设为 30。
+- 在小鹏 G6 等车上使用时，可以参考[车机资料](/head-units)中的推荐设置，例如 2.4 GHz 下把帧率设为 30：在管理页面的“**设置 → CarPlay 画面 → 帧率**”中修改，车机网页会跟着使用。
+- 需要反馈问题时，在“**设置 → 日志**”中把日志保存为文件，或者上传后把日志 ID 发给我们。
 - [可信 HTTPS](/trusted-https)：用免费域名去掉证书警告。
 - 遇到问题？请看[故障排查](/troubleshooting)。

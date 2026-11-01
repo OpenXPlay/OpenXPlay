@@ -169,7 +169,7 @@ The second command resets the password to `openxplay` and exits.
 
 ## Add your CarPlay identity {#identity .step}
 
-Install packages never contain an Apple accessory (MFi) identity; you supply your own. In the admin page, open **Developer options → Identity and certificates** and choose `identity.pk8` and `certificate.p7b`, or a ZIP that contains both.
+Install packages never contain an Apple accessory (MFi) identity; you supply your own. In the admin page, open **Settings → Identity and certificates** and choose `identity.pk8` and `certificate.p7b`, or a ZIP that contains both.
 
 Or put the files in place by hand, owned by root with mode 0600, and restart the relay:
 
@@ -184,12 +184,15 @@ The admin page’s setup guide asks about:
 
 1. **Your car**.
 2. **Output**: the head unit’s browser, its Carlink app, or both. Carlink needs a second Wi-Fi adapter; with one, only the browser is offered. A Tesla’s browser needs its own adaptation; see [Tesla](/en/tesla). The screen-casting receiver (DLNA) output is not available on Linux.
-3. **Network**: *This device’s hotspot* or *Use the car’s hotspot*. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay` (WPA2), unless you set your own.
-4. **Get ready**: work through what it lists.
+3. **iPhone connection**: *Wireless* (the default), or *USB cable* with the iPhone plugged into a USB-A port on the relay through a USB-A to Lightning or USB-A to USB-C cable; the head unit still reaches the relay over Wi-Fi.
+4. **Network**: *This relay’s hotspot* or *Use the car’s hotspot*. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay` (WPA2), unless you set your own.
+5. **Get ready**: work through what it lists.
 
 ## Pair the iPhone {#pair .step}
 
-Choose *Pair iPhone*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`. The iPhone connects wirelessly: wired (USB) CarPlay is not in any Linux release yet.
+When Home asks you to pair the iPhone, tap *Pair*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`.
+
+To switch to another iPhone or pair again: remove the old paired device on Home or in Settings → iPhone connection, forget `OpenXPlay Linux` in the iPhone’s Bluetooth settings, then open pairing again.
 
 ## Open CarPlay on the head unit {#head-unit .step}
 

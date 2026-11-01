@@ -122,26 +122,30 @@ Install packages never contain an Apple accessory (MFi) identity; you supply you
 
 ## Open the admin page {#step-admin .step}
 
-With the dongle connected to the computer by USB, choose *Open the relay admin page over USB* under *Next steps* in Flasher. Once you are on the relay’s network, you can also open `https://openxplay-car.local:6975` from a phone or computer. The browser shows a certificate warning; carry on to the page. The password for the first sign-in is shown on the sign-in page; after signing in, set your own admin password.
+With the dongle connected to the computer by USB, choose *Open the relay admin page over USB* under *Next steps* in Flasher. In the car, join the relay’s hotspot `OpenXPlay-Linux-XXXX` from a phone (the password is `openxplay` unless you set your own), then open `https://openxplay-car.local:6975` or `https://10.77.0.1:6975`. The browser shows a certificate warning; carry on to the page. The first password is `openxplay`, also shown on the sign-in page; after you sign in, the page asks you to set your own.
 
-If a separate **Admin hotspot** is enabled, connect your phone or computer to it and open `https://10.79.0.1:6975/`. Its IP address is fixed at `10.79.0.1` and stays the same after restarting the relay or the device. When accessing the relay through your home or car Wi-Fi, use the LAN IP assigned to the relay by that router: `https://<relay LAN IP>:6975/`. That IP may change unless you reserve it on the router.
+Home shows how far the connection has got, iPhone → this relay → car, with only the one thing to do now below it. Tap any step for its details and fix. The gear at the top of Home opens Settings.
+
+With the car’s hotspot (see the next step), join the car’s hotspot from the phone and open `https://openxplay-car.local:6975`, or the IP the car’s hotspot gave the relay: `https://<relay IP>:6975/`. iPhones, Macs and Windows computers open `.local` addresses; many Android phones don’t, so use the IP address there. An address typed without `https://` opens too. The UFI003 has one Wi-Fi radio, so it can’t run the admin hotspot.
 
 ## Choose the network {#step-network .step}
 
-In the admin page, choose how the iPhone and the head unit reach the relay:
+In the admin page, under **Settings → iPhone connection → Wireless network**, choose how the iPhone and the head unit reach the relay:
 
-- **This device’s hotspot** (the default): opens the relay’s own hotspot; the iPhone joins it automatically and the head unit joins it too.
-- **Shared Wi-Fi**: the relay, the iPhone and the head unit join one existing 2.4 GHz network.
+- **This relay’s hotspot** (the default): opens the relay’s own hotspot; the iPhone joins it automatically and the head unit joins it too.
+- **Use the car’s hotspot**: the relay, the iPhone and the head unit join the car’s hotspot, or another existing 2.4 GHz network.
+
+The UFI003 shows CarPlay in the head unit’s browser only; Carlink needs a second Wi-Fi adapter, see [Carlink app](/en/carlink).
 
 ## Pair the iPhone {#step-pair .step}
 
-Choose *Pair iPhone*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose the relay.
+When Home asks you to pair the iPhone, tap *Pair*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`. For a new iPhone, remove the old paired device on Home or in Settings → iPhone connection.
 
 ## Open it in the head unit’s browser {#step-open .step}
 
 Join the relay’s network from the head unit and open `https://10.77.0.1:8443/` (with the relay’s own hotspot) or `https://openxplay-car.local:8443/`. Accept the certificate warning the first time; [Troubleshooting](/en/troubleshooting#certificate-warning) explains why it appears.
 
-If pairing codes are turned on in the admin page, enter the 8-digit code the relay shows.
+If *Require pairing code* is on in the admin page under Settings → Head-unit access, enter the 8-digit code the relay shows.
 
 ## Install from the command line without Flasher {#manual}
 
@@ -197,12 +201,13 @@ Set `V` to the latest version. The device package has already installed the depe
 
 To build them yourself: the device package with `UFI003/package/build-bundle.sh` in [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware), the relay package with `rust/packaging/build-deb.sh` in [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay).
 
-Then carry on from [Open the admin page](#step-admin). Without Flasher, add your CarPlay identity in the admin page under **Developer options → Identity and certificates**, or [put the identity files in place by hand](/en/linux-devices#identity).
+Then carry on from [Open the admin page](#step-admin). Without Flasher, add your CarPlay identity in the admin page under **Settings → Identity and certificates**, or [put the identity files in place by hand](/en/linux-devices#identity).
 
 :::
 
 ## Next {#next-steps}
 
-- In cars such as the Xpeng G6, see the recommended setup under [Head units](/en/head-units), for example setting the frame rate to 30 on 2.4 GHz.
+- In cars such as the Xpeng G6, see the recommended setup under [Head units](/en/head-units), for example setting the frame rate to 30 on 2.4 GHz: change it in the admin page under **Settings → CarPlay picture → Frame rate**, and the head-unit page follows it.
+- To report a problem, save the logs as a file under **Settings → Logs**, or upload them and send us the log ID.
 - [Trusted HTTPS](/en/trusted-https): remove the certificate warning with a free domain name.
 - Something not working? See [Troubleshooting](/en/troubleshooting).

@@ -200,7 +200,7 @@ sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 
 ## 添加 CarPlay 身份 {#identity .step}
 
-在管理页面中打开“**开发者选项 → 认证身份与证书**”，选择 `identity.pk8` 和 `certificate.p7b`，或者包含这两个文件的 ZIP。也可以[手动放入身份文件](/linux-devices#identity)。
+在管理页面中打开“**设置 → 身份与证书**”，选择 `identity.pk8` 和 `certificate.p7b`，或者包含这两个文件的 ZIP。也可以[手动放入身份文件](/linux-devices#identity)。
 
 ## 完成设置向导 {#setup .step}
 
@@ -208,7 +208,7 @@ sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 
 ## 配对 iPhone {#pair .step}
 
-点“配对 iPhone”，配对窗口会开放 10 分钟。在 iPhone 上打开“设置 → 蓝牙”，选择 `OpenXPlay Linux`。
+首页提示配对 iPhone 时，点“配对”，配对窗口会开放 10 分钟。在 iPhone 上打开“设置 → 蓝牙”，选择 `OpenXPlay Linux`。
 
 ## 在车机上打开 CarPlay {#head-unit .step}
 

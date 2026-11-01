@@ -169,7 +169,7 @@ sudo systemctl start openxplay-relay
 
 ## 添加 CarPlay 身份 {#identity .step}
 
-安装包中绝不包含 Apple 配件（MFi）身份，需要你自己提供。在管理页面中打开“**开发者选项 → 认证身份与证书**”，选择 `identity.pk8` 和 `certificate.p7b`，或者包含这两个文件的 ZIP。
+安装包中绝不包含 Apple 配件（MFi）身份，需要你自己提供。在管理页面中打开“**设置 → 身份与证书**”，选择 `identity.pk8` 和 `certificate.p7b`，或者包含这两个文件的 ZIP。
 
 也可以手动放入这两个文件：属主为 root、权限为 0600，然后重启中继：
 
@@ -184,12 +184,15 @@ sudo systemctl restart openxplay-relay
 
 1. **你的车**。
 2. **输出**：车机浏览器、车机的 Carlink 应用，或两者都用。Carlink 需要第二块 Wi-Fi 网卡，只有一块时只能选车机浏览器。特斯拉的浏览器需要专门适配，见[特斯拉](/tesla)。Linux 上没有投屏接收端（DLNA）输出。
-3. **网络**：“这台中继的热点”或“使用车机热点”。中继自己的热点名为 `OpenXPlay-Linux-XXXX`，密码为 `openxplay`（WPA2），除非你另行设置。
-4. **完成准备**：按列出的事项逐项完成。
+3. **iPhone 连接**：“无线”（默认），或者“USB 数据线”：iPhone 用 USB-A 转 Lightning 或 USB-A 转 USB-C 数据线插在中继的 USB-A 接口上，车机仍通过 Wi-Fi 连接中继。
+4. **网络**：“这台中继的热点”或“使用车机热点”。中继自己的热点名为 `OpenXPlay-Linux-XXXX`，密码为 `openxplay`（WPA2），除非你另行设置。
+5. **完成准备**：按列出的事项逐项完成。
 
 ## 配对 iPhone {#pair .step}
 
-点“配对 iPhone”，配对窗口会开放 10 分钟。在 iPhone 上打开“设置 → 蓝牙”，选择 `OpenXPlay Linux`。iPhone 通过无线连接中继：目前还没有哪个 Linux 版本支持有线（USB）CarPlay。
+首页提示配对 iPhone 时，点“配对”，配对窗口会开放 10 分钟。在 iPhone 上打开“设置 → 蓝牙”，选择 `OpenXPlay Linux`。
+
+要换一部 iPhone，或者重新配对：在首页或“设置 → iPhone 连接”中移除旧的已配对设备，在 iPhone 的蓝牙设置里忽略 `OpenXPlay Linux`，再重新开放配对。
 
 ## 在车机上打开 CarPlay {#head-unit .step}
 

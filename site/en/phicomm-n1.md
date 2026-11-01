@@ -200,7 +200,7 @@ Left at *System setting*, the N1 usually follows the worldwide rules (`00`): no 
 
 ## Add your CarPlay identity {#identity .step}
 
-In the admin page, open **Developer options → Identity and certificates** and choose `identity.pk8` and `certificate.p7b`, or a ZIP that contains both. You can also [put the files in place by hand](/en/linux-devices#identity).
+In the admin page, open **Settings → Identity and certificates** and choose `identity.pk8` and `certificate.p7b`, or a ZIP that contains both. You can also [put the files in place by hand](/en/linux-devices#identity).
 
 ## Answer the setup guide {#setup .step}
 
@@ -208,7 +208,7 @@ Work through the admin page’s setup guide: your car, the output (the head unit
 
 ## Pair the iPhone {#pair .step}
 
-Choose *Pair iPhone*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`.
+When Home asks you to pair the iPhone, tap *Pair*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`.
 
 ## Open CarPlay on the head unit {#head-unit .step}
 
