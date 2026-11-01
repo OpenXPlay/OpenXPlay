@@ -18,7 +18,7 @@ howtoTools:
 用免费域名，让车机打开网页时不再出现证书警告。中继把自己的地址登记到你的免费域名下，再为这个域名申请 Let's Encrypt 证书；车机浏览器用这个域名打开网页，证书就能通过验证。车机上不用安装任何软件，也不用改任何设置。
 
 ::: info 支持的版本
-需要安卓应用 0.1.5 及以上版本（[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)），或 Linux 中继 0.1.5-beta.2 及以上版本（在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本）。
+需要安卓应用 0.1.5 及以上版本（[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)），或 Linux 中继 0.1.6 及以上版本（在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本）。
 :::
 
 ## 工作原理 {#how-it-works}
@@ -36,7 +36,7 @@ howtoTools:
 | 需要准备 | 说明 |
 | --- | --- |
 | 一个免费域名 | 在 DuckDNS 或 dynv6 注册，见第 1 步。注册后要记下完整域名和 Token。 |
-| 支持可信 HTTPS 的中继 | 安卓应用 0.1.5 及以上版本，或 Linux 中继 0.1.5-beta.2 及以上版本。 |
+| 支持可信 HTTPS 的中继 | 安卓应用 0.1.5 及以上版本，或 Linux 中继 0.1.6 及以上版本。 |
 | 中继能上网 | 登记地址、申请和续期证书都要联网。安卓中继需要打开移动数据。 |
 
 ::: details 为什么安卓中继需要移动数据？ {#why-mobile-data}
@@ -128,7 +128,7 @@ Token 相当于域名的密码：拿到它的人可以把你的域名指向别�
 :::
 
 ::: details Linux 中继：在管理页面中填写 {#linux-admin}
-1. 打开管理页面并登录。在连入中继网络的手机或电脑上打开管理页面，例如 `https://openxplay-linux.local:6975`。
+1. 打开管理页面并登录。在连入中继网络的手机或电脑上打开管理页面，例如 `https://openxplay-admin.local:6975`；连接中继的热点时是 `https://openxplay-car.local:6975`。
 2. 打开“设置”，找到“可信 HTTPS”。
 3. 打开“使用免费域名”，选择“域名服务商”，填写“域名”和“Token”，再勾选“我同意 Let's Encrypt 订户协议”。每一项都会单独保存，页面会显示“已保存”。
 4. 等状态行显示“已就绪：…（证书有效期至 …）”，就可以在车机上打开。需要时可以点“立即申请证书”。
@@ -202,7 +202,7 @@ Token 保存后不会再显示；以后留空就会保留原来的 Token。
 原来的 IP 地址（例如 `https://192.168.43.20:8443/`）仍然可以使用，作为备用。用它打开时还会出现证书警告，警告中也可能提示证书属于另一个域名，这是正常的。
 
 - 使用 Linux 中继时，车机网页要等到没有 CarPlay 会话时才换用新证书。如果证书申请成功时 CarPlay 正在运行，结束 CarPlay 后再打开即可。
-- 管理页面也使用同一张证书：把管理页面地址中的 IP 地址或 `openxplay-linux.local` 换成你的域名，打开时同样不会再有警告。
+- 管理页面也使用同一张证书：把管理页面地址中的 IP 地址或 `.local` 名称换成你的域名，打开时同样不会再有警告。
 
 ## 状态信息 {#status}
 

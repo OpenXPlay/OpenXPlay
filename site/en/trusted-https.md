@@ -18,7 +18,7 @@ howtoTools:
 Open the head-unit page without a certificate warning, using a free domain name. The relay publishes its address under your free name and gets a Let’s Encrypt certificate for that name; when the head unit’s browser opens the page by the name, the certificate checks out. Nothing is installed or changed on the head unit.
 
 ::: info Supported versions
-It needs Android app 0.1.5 or later ([download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)), or Linux relay 0.1.5-beta.2 or later (choose the newest `linux-v` release in [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)).
+It needs Android app 0.1.5 or later ([download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)), or Linux relay 0.1.6 or later (choose the newest `linux-v` release in [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)).
 :::
 
 ## How it works {#how-it-works}
@@ -36,7 +36,7 @@ The check runs between the relay, your provider and Let’s Encrypt only: nothin
 | You need | Details |
 | --- | --- |
 | A free domain name | From DuckDNS or dynv6; see step 1. Keep the full name and the token. |
-| A relay with Trusted HTTPS | The Android app 0.1.5 or later, or the Linux relay 0.1.5-beta.2 or later. |
+| A relay with Trusted HTTPS | The Android app 0.1.5 or later, or the Linux relay 0.1.6 or later. |
 | Internet access on the relay | To publish the address and to get and renew certificates. The Android relay needs mobile data. |
 
 ::: details Why mobile data on the Android relay? {#why-mobile-data}
@@ -128,7 +128,7 @@ Unless the file says `"enabled": false`, importing it turns on *Use a free domai
 :::
 
 ::: details Linux relay: in the admin page {#linux-admin}
-1. Open the admin page and log in. Use a phone or computer on the relay’s network, for example with `https://openxplay-linux.local:6975`.
+1. Open the admin page and log in. Use a phone or computer on the relay’s network, for example with `https://openxplay-admin.local:6975`, or `https://openxplay-car.local:6975` on the relay’s hotspot.
 2. Open *Settings* and find *Trusted HTTPS*.
 3. Turn on *Use a free domain name*, choose the *DNS provider*, enter the *Domain name* and the *Token*, and tick *I agree to the Let’s Encrypt Subscriber Agreement*. Each field is saved on its own, and the page shows *Saved*.
 4. Once the status line shows *Ready: … (certificate valid until …)*, open the page on the head unit. *Request certificate now* tries again straight away when needed.
@@ -202,7 +202,7 @@ One example per provider; replace the name and the token with yours:
 The IP address (such as `https://192.168.43.20:8443/`) keeps working as a fallback. It still shows a certificate warning, which may now say that the certificate belongs to another name; that’s expected.
 
 - On the Linux relay, the head-unit page switches to a new certificate only while no CarPlay session is running. If the certificate arrives while CarPlay runs, open the page again after CarPlay ends.
-- The admin page uses the same certificate: replace the IP address or `openxplay-linux.local` in its address with your name, and it opens without a warning too.
+- The admin page uses the same certificate: replace the IP address or `.local` name in its address with your name, and it opens without a warning too.
 
 ## Status messages {#status}
 

@@ -24,7 +24,7 @@ Besides the UFI003, the OpenXPlay Linux relay can run on other arm64 Linux devic
 The UFI003 has its own guided installer: see [UFI003 USB dongle as the relay](/en/ufi003-relay). The Phicomm N1 has its own guide too: see [Phicomm N1 as the relay](/en/phicomm-n1). OpenXPlay Flasher can’t install other devices yet.
 
 ::: warning At your own risk
-Installing the relay by hand on another device is at your own risk. Every Linux release so far is a pre-release, and 0.1.6-beta.3 has not yet been tested on a device with: CarPlay with an iPhone, Carlink with a car, a Tesla, the UFI003, WPA3, issuing a Trusted HTTPS certificate, hardware encoding, Wi-Fi Direct, I2C, CH341 and remote MFi, and audio on the relay. Tell the [community](/en/community) what worked and what didn’t, with the device, its system and the relay version.
+Installing the relay by hand on another device is at your own risk. 0.1.6 has not yet been tested on a device with: CarPlay with an iPhone, wired CarPlay, Carlink with a car, a Tesla, the UFI003, WPA3, issuing a Trusted HTTPS certificate, hardware encoding, Wi-Fi Direct, I2C, CH341 and remote MFi, and audio on the relay. Tell the [community](/en/community) what worked and what didn’t, with the device, its system and the relay version.
 :::
 
 ## Requirements {#requirements}
@@ -42,7 +42,7 @@ Installing the relay by hand on another device is at your own risk. Every Linux 
 | Free ports | 6975 TCP (admin page), 8443 TCP (head-unit page), 7000 upward (AirPlay), 5353 UDP (mDNS, which the relay answers itself; running avahi alongside is untested). | `ss -ltnup` | Required |
 | Apple accessory (MFi) identity | Without it, the relay only serves the admin page. | You supply it; see [Add your CarPlay identity](#identity) | Required |
 | 5 GHz Wi-Fi | The automatic band uses 5 GHz when a 5 GHz channel can host the hotspot, otherwise 2.4 GHz channel 6. 2.4 GHz only works (the UFI003 runs CarPlay on it); set the frame rate to 30 on the head-unit page. | `iw list`; `iw reg get` | Not required |
-| For Carlink: a 5 GHz station, ideally on a second Wi-Fi adapter | In a real car, Carlink needs the relay to join the car’s 5 GHz Wi-Fi as a station. With one Wi-Fi adapter, the iPhone follows the relay onto the car’s network. Carlink also uses Bluetooth LE; Wi-Fi Direct is optional. | `nmcli device`; `btmgmt info` lists `le` | Not required |
+| For Carlink: a second Wi-Fi adapter that can be a 5 GHz station | In a real car, Carlink needs the relay to join the car’s 5 GHz Wi-Fi as a station on an adapter that isn’t running the iPhone’s hotspot. With one Wi-Fi adapter, the relay offers the browser output only. Carlink also uses Bluetooth LE; Wi-Fi Direct is optional. | `nmcli device`; `btmgmt info` lists `le` | Not required |
 
 The relay itself is small: on the UFI003 (382 MB of RAM) it uses about 2.9 MB of resident memory plus 1.5 MB for its output process, and about 5 MB of disk.
 
@@ -93,17 +93,17 @@ After installing, the admin page’s **Diagnostics → This host** shows what th
 
 ## Install the relay {#install .step}
 
-Take the newest `linux-v` release from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), including pre-releases: every Linux release so far is a pre-release, and the newest is `linux-v0.1.6-beta.3`. Download the `.deb` and `SHA256SUMS`, check the SHA-256, then install the package with its dependencies:
+Take the newest `linux-v` release from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); it is `linux-v0.1.6` now. Download the `.deb` and `SHA256SUMS`, check the SHA-256, then install the package with its dependencies:
 
 ```sh
-V=0.1.6-beta.3
+V=0.1.6
 base=https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v$V
 curl -fL -O "$base/openxplay-relay_${V}_arm64.deb" -O "$base/SHA256SUMS"
 sha256sum --ignore-missing -c SHA256SUMS
 sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 ```
 
-Set `V` to the newest version. File names write a pre-release as `0.1.6-beta.3`; inside the package, its version is `0.1.6~beta.3`.
+Set `V` to the newest version. File names write a pre-release such as `0.1.7-beta.1`; inside the package, its version is `0.1.7~beta.1`.
 
 `apt-get` also installs `bluez`, `network-manager`, `iw`, `dnsmasq-base` and `init-system-helpers` 1.54 or later. The package:
 
@@ -133,7 +133,7 @@ The relay reads an optional host profile, `/etc/openxplay/host.json`. A device p
 | `model` | None |
 | `devicePreset` | `auto`: detects MSM8916 dongles and the Phicomm N1 from the device tree, otherwise `generic` |
 | `wifiInterface` | `wlan0` |
-| `carlinkInterface` | Empty: the same as `wifiInterface` |
+| `carlinkInterface` | Empty: another Wi-Fi adapter, chosen automatically |
 | `hotspotChannel` | `0`: automatic |
 | `bluetoothAdapter` | The lowest `hciN` |
 | `hotspotDownGapSeconds` | `15` (0 to 60): how long the hotspot stays down before the next one starts |
@@ -153,9 +153,9 @@ One invalid field makes the relay ignore the whole file and show the error in th
 
 ## Open the admin page {#admin .step}
 
-On a phone or computer on the same network as the device, open `https://<device IP>:6975` (`hostname -I` on the device prints its addresses). Where `.local` names resolve, `https://openxplay-linux.local:6975` works too; many Android phones and car browsers don’t resolve them. The browser warns about the relay’s self-signed certificate; continue to the page. The first password is `openxplay`: sign in, then change it.
+On a phone or computer on the same network as the device, open `https://<device IP>:6975` (`hostname -I` on the device prints its addresses). Where `.local` names resolve, `https://openxplay-admin.local:6975` works too, and `https://openxplay-car.local:6975` from a phone on the relay’s hotspot; many Android phones and car browsers don’t resolve them. The browser warns about the relay’s self-signed certificate; continue to the page. The first password is `openxplay`: sign in, then change it.
 
-The optional admin hotspot `OpenXPlay-Admin` is off by default. Once you turn it on in the admin page, join it and open `https://10.79.0.1:6975`.
+The optional admin hotspot `OpenXPlay-Admin` is off by default and needs a second Wi-Fi adapter. Once you turn it on in the admin page, join it and open `https://openxplay-admin.local:6975` or `https://10.79.0.1:6975`.
 
 ::: details Forgot the admin password? {#reset-password}
 ```sh
@@ -169,7 +169,7 @@ The second command resets the password to `openxplay` and exits.
 
 ## Add your CarPlay identity {#identity .step}
 
-Install packages never contain an Apple accessory (MFi) identity; you supply your own. In the admin page, open **Developer options → Identity and certificates** and choose `identity.pk8` and `certificate.p7b`, or a ZIP that contains both.
+Install packages never contain an Apple accessory (MFi) identity; you supply your own. In the admin page, open **Settings → Identity and certificates** and choose `identity.pk8` and `certificate.p7b`, or a ZIP that contains both.
 
 Or put the files in place by hand, owned by root with mode 0600, and restart the relay:
 
@@ -183,13 +183,16 @@ sudo systemctl restart openxplay-relay
 The admin page’s setup guide asks about:
 
 1. **Your car**.
-2. **Output**: the head unit’s browser, its Carlink app, or both. A Tesla’s browser needs its own adaptation; see [Tesla](/en/tesla). The screen-casting receiver (DLNA) output is not available on Linux.
-3. **Network**: *This device’s hotspot* or *Use the car’s hotspot*. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay` (WPA2), unless you set your own.
-4. **Get ready**: work through what it lists.
+2. **Output**: the head unit’s browser, its Carlink app, or both. Carlink needs a second Wi-Fi adapter; with one, only the browser is offered. A Tesla’s browser needs its own adaptation; see [Tesla](/en/tesla). The screen-casting receiver (DLNA) output is not available on Linux.
+3. **iPhone connection**: *Wireless* (the default), or *USB cable* with the iPhone plugged into a USB-A port on the relay through a USB-A to Lightning or USB-A to USB-C cable; the head unit still reaches the relay over Wi-Fi.
+4. **Network**: *This relay’s hotspot* or *Use the car’s hotspot*. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay` (WPA2), unless you set your own.
+5. **Get ready**: work through what it lists.
 
 ## Pair the iPhone {#pair .step}
 
-Choose *Pair iPhone*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`. The iPhone connects wirelessly: wired (USB) CarPlay is not in any Linux release yet.
+When Home asks you to pair the iPhone, tap *Pair*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`.
+
+To switch to another iPhone or pair again: remove the old paired device on Home or in Settings → iPhone connection, forget `OpenXPlay Linux` in the iPhone’s Bluetooth settings, then open pairing again.
 
 ## Open CarPlay on the head unit {#head-unit .step}
 
@@ -199,7 +202,7 @@ For the Carlink app, see [Carlink app](/en/carlink).
 
 ## Update the relay {#update}
 
-In the admin page, **About → Check for updates** shows whether a newer version exists; Linux has only pre-releases so far, so choose the *Beta* channel. Download the new `.deb` and `SHA256SUMS` and check them as in [Install the relay](#install), then run:
+In the admin page, **About → Check for updates** shows whether a newer version exists; choose the *Beta* channel to see pre-releases as well. Download the new `.deb` and `SHA256SUMS` and check them as in [Install the relay](#install), then run:
 
 ```sh
 sudo openxplay-relay-update openxplay-relay_${V}_arm64.deb

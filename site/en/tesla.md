@@ -46,4 +46,4 @@ Android 13 and later may drop connections from the hotspot to an address outside
 
 ## Linux relay {#linux}
 
-The Linux relay has the same ways from 0.1.6-beta.2, a pre-release: in its admin page, turn on the Tesla browser, with *Car browser* as the output and the relay’s own hotspot. The relay adds the address to its hotspot and removes it when you stop the relay; the trusted-name ways need Trusted HTTPS here too.
+The Linux relay has the same ways from 0.1.6: in its admin page, turn on the Tesla browser, with *Car browser* as the output and the relay’s own hotspot. The relay adds the address to its hotspot and removes it when you stop the relay; the trusted-name ways need Trusted HTTPS here too.

@@ -30,7 +30,7 @@ Use a 2.4 GHz network for the head unit:
 
 - The UFI003 dongle’s Wi-Fi has no 5 GHz band, so its hotspot is always 2.4 GHz.
 - On the Android relay, set the car-hotspot band to 2.4 GHz in the app’s settings.
-- With *Use the car’s hotspot* (Android) or *Shared Wi-Fi* (Linux), the network must offer 2.4 GHz. The UFI003 only sees 2.4 GHz networks anyway.
+- With *Use the car’s hotspot*, the network must offer 2.4 GHz. The UFI003 only sees 2.4 GHz networks anyway.
 
 For Carlink, the UFI003 can’t join a head unit whose Carlink Wi-Fi runs on 5 GHz.
 
@@ -38,9 +38,9 @@ For Carlink, the UFI003 can’t join a head unit whose Carlink Wi-Fi runs on 5 G
 
 Pair only while the relay is ready for it:
 
-- On the Linux relay, choose Pair iPhone in the admin page. Pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose the relay.
+- On the Linux relay, tap *Pair* when the admin page’s Home asks you to pair the iPhone. Pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`.
 - On the Android relay, allow the “Nearby devices” permission for OpenXPlay Relay, and tap Allow on the relay phone when it asks to become visible to your iPhone.
-- If the iPhone forgot the relay, or this is a new iPhone, open pairing again on the relay.
+- If the iPhone forgot the relay, or this is a new iPhone, open pairing again on the relay. On the Linux relay, first remove the old paired device on Home or in Settings → iPhone connection.
 - If several phones are paired with the relay, choose your iPhone under Preferred iPhone in the settings.
 - On the UFI003, a Bluetooth guard restarts the Bluetooth controller when it fails. If the admin page says Bluetooth didn’t start, unplug the dongle and plug it back in.
 
@@ -50,10 +50,10 @@ Check these in order:
 
 1. Keep the iPhone near the relay with Bluetooth and Wi-Fi turned on.
 2. Make sure the relay has a valid CarPlay identity. The Android app doesn’t start CarPlay without one.
-3. With *Use the car’s hotspot* (Android) or *Shared Wi-Fi* (Linux), the iPhone, the relay and the head unit must be on the same network, and the router must let devices reach each other.
+3. With *Use the car’s hotspot*, the iPhone, the relay and the head unit must be on the same network, and the router must let devices reach each other.
 4. Look at the relay’s status in the app or admin page: waiting for iPhone, connecting or connected.
 5. After you change the network mode, the iPhone moves to the new network by itself and CarPlay reconnects in about 30 seconds.
-6. If it still fails, restart the relay services from the admin page.
+6. If it still fails, tap *Reconnect* in the admin page.
 
 ### The relay doesn’t find the iPhone over a cable {#usb-iphone-not-found}
 
