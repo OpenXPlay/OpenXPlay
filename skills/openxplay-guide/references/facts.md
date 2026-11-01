@@ -6,15 +6,15 @@ Created by riko chen on 2026-10-29
 
 # Facts this skill was written against
 
-A snapshot from 2026-10-29, taken from the release tags and code. Versions move: before you rely on one, check the live source named in each section. English labels are quoted here; for another language, read the same label from the site page in that language or from the string resources named below.
+A snapshot from 2026-10-29 (versions and the Linux relay updated 2026-11-01), taken from the release tags and code. Versions move: before you rely on one, check the live source named in each section. English labels are quoted here; for another language, read the same label from the site page in that language or from the string resources named below.
 
 ## Versions
 
 | Part | Version | Check the latest |
 | --- | --- | --- |
-| Android app (stable) | 0.2.2 (2026-10-28) | `gh release list -R OpenXPlay/OpenXPlay-Relay`, or `https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest` |
-| Android app (beta) | 0.2.3-beta.1 (2026-10-29), with five experimental options on by default | the same list, pre-releases |
-| Linux relay | 0.1.6-beta.3 (2026-10-28), every Linux release so far is a pre-release | tags `linux-v…` in the same repository |
+| Android app (stable) | 0.2.4 (2026-11-01) | `gh release list -R OpenXPlay/OpenXPlay-Relay`, or `https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest` |
+| Android app (beta) | none newer than the stable release | the same list, pre-releases |
+| Linux relay | 0.1.6 (2026-11-01), the first Linux release since 0.1.3; GitHub marks the Android app as Latest, never a Linux release | tags `linux-v…` in the same repository |
 | UFI003 in the Flasher's signed list | base OpenStick v1, device support 0.2.1, relay 0.1.5~beta.2 | `FLASHER catalog fetch` then `FLASHER files` |
 | OpenXPlay Flasher | 0.2.0-beta.2 (macOS 12 or later, Windows 10 or 11) | `gh release list -R OpenXPlay/OpenXPlay-Flasher` |
 | Phicomm N1 device package | 0.1.1-beta.1 (pre-release) | tags `phicomm-n1-device-v…` in `OpenXPlay/OpenXPlay-Hardware` |
@@ -31,19 +31,21 @@ Every release has a `SHA256SUMS` asset, and GitHub reports a SHA-256 digest for 
 - Head-unit page settings open from the OpenXPlay icon in CarPlay: *Picture fit*, *Full screen*, *Resolution*, *CarPlay screen width*, *Video codec* (*Automatic (recommended)*), *Frame rate*, *Playback* (*Smart*, *Quality*, *Speed*), *Tap to return to full screen*.
 - Settings worth knowing: *Car and screen*; *Tesla browser*; *CarPlay picture*; *Sound* (*CarPlay audio over the car's Bluetooth (experimental)*, on); *Configuration files* (user and privacy configuration); *Logs* (save to the phone, or upload to logs.openxplay.org after a privacy notice; receipt 48 hours, deleted within 72 hours); *Experimental* (on by default; *Use experimental options* turns them all off); About → *Check for updates* (*Stable* or *Beta*).
 - DLNA and Miracast: only under Developer options → *Combine outputs*; picture only, no touch.
-- Labels in other languages: `android/app/src/main/res/values-zh-rCN/` at tag `android-v0.2.2` of `OpenXPlay/OpenXPlay-Relay`; English in `values/`.
+- Since 0.2.2: Home draws the iPhone, this phone and the car joined by cables, with *Swipe up for all steps* on the step drawer (0.2.3); Settings → Display → high performance mode, on (0.2.3); Settings → Background asks for unrestricted background running and opens the maker's autostart and battery pages (0.2.3); three Experimental options for iPhones, such as on iOS 16, that connect but never show a picture (0.2.3); Settings → Network offers *Copy to settings (recommended)* and *Use my existing hotspot* for this phone's hotspot (0.2.4). Details: `https://openxplay.org/en/changelog`.
+- Labels in other languages: `android/app/src/main/res/values-zh-rCN/` at tag `android-v0.2.4` of `OpenXPlay/OpenXPlay-Relay`; English in `values/`.
 
 ## Tesla browser (Android 0.2.0 and later)
 
 Not yet tested in a Tesla. Needs MCU2 or later, wireless CarPlay, *Car browser*, the relay phone's hotspot (5 GHz if possible) or Wi-Fi Direct, and *Remain Connected in Drive* on in the Tesla. Ways, in the app's order: trusted name + shared range address `100.88.0.1` (TeslaMirror, recommended, needs Trusted HTTPS); trusted name + link-local `169.254.88.1` (needs Trusted HTTPS); direct link-local `169.254.88.1` (continue past the certificate warning); public-range `3.3.3.1` (like TeslaAndroid); off. Android 13 and later may drop connections to addresses outside `169.254`.
 
-## Linux relay 0.1.6-beta.4
+## Linux relay 0.1.6
 
-- Admin page `https://<device address>:6975` (self-signed certificate; first password `openxplay`); the relay's hotspot `OpenXPlay-Linux-XXXX` with password `openxplay` unless the user set one; optional admin hotspot (needs a second Wi-Fi adapter) at `https://10.79.0.1:6975`. Names: `openxplay-car.local` on the relay's hotspot (or the car's hotspot in *Use the car's hotspot*), `openxplay-admin.local` on the home network and the admin hotspot; they resolve on iPhones, Macs and Windows, often not on Android. Bluetooth name *OpenXPlay Linux*. Head-unit page on port 8443, for example `https://10.77.0.1:8443/` on the relay's hotspot.
-- Network modes: *This device's hotspot*, *Use the car's hotspot*. Pairing opens for 10 minutes.
-- Outputs: browser, Carlink, or both; Carlink and both need a second Wi-Fi adapter (one radio = browser only); Tesla browser adaptation; no DLNA. Wired CarPlay is not released.
-- Not yet tested on a device in this release: CarPlay with an iPhone, Carlink with a car, a Tesla, the UFI003, WPA3, Trusted HTTPS issuance, hardware encoding, Wi-Fi Direct, I2C, CH341 or remote MFi, and audio on the relay.
-- Admin page text: `admin-web/src/` in `OpenXPlay/OpenXPlay-Relay`.
+- Admin page `https://<device address>:6975` (self-signed certificate; first password `openxplay`); the relay's hotspot `OpenXPlay-Linux-XXXX` with password `openxplay` unless the user set one; optional admin hotspot (needs a second Wi-Fi adapter) at `https://10.79.0.1:6975`. Names: `openxplay-car.local` on the relay's hotspot (or the car's hotspot in *Use the car's hotspot*), `openxplay-admin.local` on the home network and the admin hotspot; they resolve on iPhones, Macs and Windows, often not on Android. Bluetooth name *OpenXPlay Linux*. Head-unit page on port 8443, for example `https://10.77.0.1:8443/` on the relay's hotspot. Plain `http://` on the admin port redirects to `https://`.
+- Home shows the path iPhone → this relay → car and one action; the gear opens Settings: *Output*, *Car and screen*, *Tesla browser*, *CarPlay picture* (*Resolution*, *CarPlay screen width*, *Video codec*, *Frame rate*), *Audio*, *iPhone connection* (→ *Wireless network* → *Interfaces and network roles*), *Startup*, *Head-unit access* (*Trusted HTTPS*, *Admin page*, *Require pairing code*), *Identity and certificates*, *Configuration files*, *Logs*, *About* (*Check for updates*, *Stable* or *Beta*), *Developer options*, *Experimental*.
+- Network modes (Settings → *iPhone connection* → *Wireless network*): *This relay’s hotspot* (default), *Use the car’s hotspot*. *Pair iPhone* on Home opens pairing for 10 minutes; paired devices can be removed on Home and in Settings → *iPhone connection*.
+- Outputs: browser, Carlink, or both; Carlink and both need a second Wi-Fi adapter (one radio = browser only); Tesla browser adaptation; no DLNA. Wired CarPlay: Settings → *iPhone connection* → *USB cable*, with the iPhone on a USB-A port of the relay (USB-A to Lightning or USB-A to USB-C cable); wireless stays the default.
+- Tested on a Phicomm N1 without an iPhone or a car. Not yet tested on a device in this release: CarPlay with an iPhone, wired CarPlay, pairing an iPhone again after removing it, `openxplay-car.local` from an iPhone, Carlink with a car, the iOS 16 options, CarPlay audio over the car's Bluetooth, a Tesla, the UFI003, WPA3, Trusted HTTPS issuance, hardware encoding, Wi-Fi Direct, I2C, CH341 or remote MFi, and audio on the relay.
+- Admin page text: `admin-web/src/i18n.ts` at tag `linux-v0.1.6` of `OpenXPlay/OpenXPlay-Relay`.
 
 ## Known limits that shape recommendations
 

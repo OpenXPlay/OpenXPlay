@@ -27,7 +27,7 @@ You install everything from a computer over SSH, so this guide is for people who
 
 ::: warning At your own risk
 - Writing Armbian to the eMMC erases the N1’s current system.
-- We haven’t yet tested CarPlay end to end with an iPhone on the N1. Every Linux relay release so far is a pre-release; [Other Linux devices](/en/linux-devices) lists what hasn’t been tested on a device yet.
+- We haven’t yet tested CarPlay end to end with an iPhone on the N1. [Other Linux devices](/en/linux-devices) lists what the Linux relay hasn’t been tested with on a device yet.
 - Tell the [community](/en/community) how it went, with the relay and device package versions.
 :::
 
@@ -50,7 +50,7 @@ The N1’s built-in Wi-Fi adapter is enough for the head unit’s browser. For t
 | USB adapter | | Joins the head unit’s Carlink Wi-Fi; runs the admin hotspot while Carlink isn’t connected |
 | Admin page in the car | Phone joins the relay’s hotspot | Phone joins the relay’s hotspot or the admin hotspot |
 
-With one adapter, the setup guide doesn’t offer *Carlink app* or *Both*. Unplug the USB adapter and Carlink pauses; plug it back in and Carlink resumes. Two adapters haven’t been fully tested in a car yet. These rules need Linux relay 0.1.6-beta.4 or later.
+With one adapter, the setup guide doesn’t offer *Carlink app* or *Both*. Unplug the USB adapter and Carlink pauses; plug it back in and Carlink resumes. Two adapters haven’t been fully tested in a car yet. These rules need Linux relay 0.1.6 or later.
 
 [Using it in the car](#in-car) shows how to connect in each case.
 
@@ -176,10 +176,10 @@ Copy the relay package in the next step the same way.
 
 ## Install the relay {#relay .step}
 
-Take the newest `linux-v` release from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) (all are pre-releases so far); it is `linux-v0.1.6-beta.3` now:
+Take the newest `linux-v` release from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); it is `linux-v0.1.6` now:
 
 ```sh
-V=0.1.6-beta.3
+V=0.1.6
 base=https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v$V
 curl -fL -O "$base/openxplay-relay_${V}_arm64.deb" -O "$base/SHA256SUMS"
 sha256sum --ignore-missing -c SHA256SUMS

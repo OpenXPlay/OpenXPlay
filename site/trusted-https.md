@@ -18,7 +18,7 @@ howtoTools:
 用免费域名，让车机打开网页时不再出现证书警告。中继把自己的地址登记到你的免费域名下，再为这个域名申请 Let's Encrypt 证书；车机浏览器用这个域名打开网页，证书就能通过验证。车机上不用安装任何软件，也不用改任何设置。
 
 ::: info 支持的版本
-需要安卓应用 0.1.5 及以上版本（[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)），或 Linux 中继 0.1.5-beta.2 及以上版本（在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本）。
+需要安卓应用 0.1.5 及以上版本（[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)），或 Linux 中继 0.1.6 及以上版本（在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本）。
 :::
 
 ## 工作原理 {#how-it-works}
@@ -36,7 +36,7 @@ howtoTools:
 | 需要准备 | 说明 |
 | --- | --- |
 | 一个免费域名 | 在 DuckDNS 或 dynv6 注册，见第 1 步。注册后要记下完整域名和 Token。 |
-| 支持可信 HTTPS 的中继 | 安卓应用 0.1.5 及以上版本，或 Linux 中继 0.1.5-beta.2 及以上版本。 |
+| 支持可信 HTTPS 的中继 | 安卓应用 0.1.5 及以上版本，或 Linux 中继 0.1.6 及以上版本。 |
 | 中继能上网 | 登记地址、申请和续期证书都要联网。安卓中继需要打开移动数据。 |
 
 ::: details 为什么安卓中继需要移动数据？ {#why-mobile-data}

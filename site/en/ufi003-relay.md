@@ -185,10 +185,10 @@ The device package carries the Debian packages it needs, so it installs without 
 
 ### Install the relay {#step-install}
 
-Under [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), pick the latest `linux-v` release (pre-releases included), download the `.deb` and `SHA256SUMS` and check them, then run on your computer:
+Under [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), pick the latest `linux-v` release, download the `.deb` and `SHA256SUMS` and check them, then run on your computer:
 
 ```sh
-V=0.1.6-beta.3
+V=0.1.6
 adb push openxplay-relay_${V}_arm64.deb /root/
 adb shell dpkg -i /root/openxplay-relay_${V}_arm64.deb
 ```

@@ -8,10 +8,11 @@ Created by riko chen on 2026-10-29
 
 Every change to this skill raises `metadata.version` in `SKILL.md` and adds an entry here; the website build refuses a changed skill without both. MAJOR: older copies would give wrong or unsafe guidance (also raise `minimum-version`). MINOR: a new route, device or step. PATCH: wording and links.
 
-## 0.4.0 (2026-10-31)
+## 0.4.0 (2026-11-01)
 
-- Linux relay 0.1.6-beta.4: one Wi-Fi radio means the browser route only; Carlink (and both outputs) needs a second Wi-Fi adapter. The UFI003 is browser-only.
+- Linux relay 0.1.6: one Wi-Fi radio means the browser route only; Carlink (and both outputs) needs a second Wi-Fi adapter. The UFI003 is browser-only.
 - Admin page names: `openxplay-car.local` on the relay's hotspot, `openxplay-admin.local` on the home network and the admin hotspot; the admin hotspot needs a second adapter.
+- Facts: Android app 0.2.4 and Linux relay 0.1.6 (a release, no longer a pre-release). The Linux facts add the admin page's Home and Settings menus, wired CarPlay, removing paired devices and the HTTPS redirect, and fix the hotspot mode's name (*This relay’s hotspot*).
 
 ## 0.3.0 (2026-10-30)
 

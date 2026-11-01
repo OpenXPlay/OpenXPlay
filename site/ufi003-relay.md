@@ -185,10 +185,10 @@ sh /root/openxplay-ufi003-device-$V/install-device.sh --verify
 
 ### 安装中继 {#step-install}
 
-在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本（包括预发布版），下载 `.deb` 和 `SHA256SUMS` 并核对，然后在电脑上运行：
+在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本，下载 `.deb` 和 `SHA256SUMS` 并核对，然后在电脑上运行：
 
 ```sh
-V=0.1.6-beta.3
+V=0.1.6
 adb push openxplay-relay_${V}_arm64.deb /root/
 adb shell dpkg -i /root/openxplay-relay_${V}_arm64.deb
 ```

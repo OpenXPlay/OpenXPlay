@@ -6,7 +6,7 @@ Created by riko chen on 2026-10-29
 
 # Can this Linux device be a relay?
 
-Use this when the user offers a Linux device that has no guided installer: a Phicomm N1, a Raspberry Pi, another TV box, board or dongle. Most arm64 Linux devices can run the OpenXPlay Linux relay if they meet the requirements below. The facts come from the Linux relay's code and packaging (`OpenXPlay/OpenXPlay-Relay`: `rust/packaging/`, `rust/direlay-linux/src/host_capabilities.rs`, `wifi_capabilities.rs`, `host_profile.rs`) as of linux-v0.1.6-beta.3; the user-facing install steps are on `https://openxplay.org/en/linux-devices` (Chinese: `https://openxplay.org/linux-devices`).
+Use this when the user offers a Linux device that has no guided installer: a Phicomm N1, a Raspberry Pi, another TV box, board or dongle. Most arm64 Linux devices can run the OpenXPlay Linux relay if they meet the requirements below. The facts come from the Linux relay's code and packaging (`OpenXPlay/OpenXPlay-Relay`: `rust/packaging/`, `rust/direlay-linux/src/host_capabilities.rs`, `wifi_capabilities.rs`, `host_profile.rs`) as of linux-v0.1.6; the user-facing install steps are on `https://openxplay.org/en/linux-devices` (Chinese: `https://openxplay.org/linux-devices`).
 
 The UFI003 has its own guided installer; use that instead. OpenXPlay Flasher cannot install any other device yet: it lists only the UFI003 in its signed package list, and its N1 profile is not usable until N1 packages are listed.
 

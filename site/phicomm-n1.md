@@ -27,7 +27,7 @@ next:
 
 ::: warning 风险自负
 - 把 Armbian 写入 eMMC 会清除 N1 原有的系统。
-- 我们还没有在 N1 上用 iPhone 完整测试过 CarPlay。Linux 中继到目前为止都是预发布版，尚未在真机上验证的功能见[其他 Linux 设备](/linux-devices)。
+- 我们还没有在 N1 上用 iPhone 完整测试过 CarPlay。Linux 中继尚未在真机上验证的功能见[其他 Linux 设备](/linux-devices)。
 - 请到[交流群](/community)反馈结果，并附上中继和设备支持包的版本。
 :::
 
@@ -50,7 +50,7 @@ N1 自带一块 Wi-Fi 网卡，只用车机浏览器时就够了。要用车机�
 | USB 网卡 | | 连接车机的 Carlink Wi-Fi；Carlink 没在连接时，可以开管理热点 |
 | 在车上打开管理页面 | 手机连接中继的热点 | 手机连接中继的热点，或者连接管理热点 |
 
-只有一块网卡时，设置向导中的“Carlink 应用”和“两者”不能选。拔掉 USB 网卡后 Carlink 会暂停，插回去就恢复。两块网卡的用法还没有在车上完整测试过。这些规则需要 Linux 中继 0.1.6-beta.4 及以上版本。
+只有一块网卡时，设置向导中的“Carlink 应用”和“两者”不能选。拔掉 USB 网卡后 Carlink 会暂停，插回去就恢复。两块网卡的用法还没有在车上完整测试过。这些规则需要 Linux 中继 0.1.6 及以上版本。
 
 每种情况下怎么连接，见[在车上使用](#in-car)。
 
@@ -176,10 +176,10 @@ scp openxplay-phicomm-n1-device-<版本>.tar.gz SHA256SUMS <用户名>@<N1 的 I
 
 ## 安装中继 {#relay .step}
 
-在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本（目前都是预发布版），现在是 `linux-v0.1.6-beta.3`：
+在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本，现在是 `linux-v0.1.6`：
 
 ```sh
-V=0.1.6-beta.3
+V=0.1.6
 base=https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v$V
 curl -fL -O "$base/openxplay-relay_${V}_arm64.deb" -O "$base/SHA256SUMS"
 sha256sum --ignore-missing -c SHA256SUMS

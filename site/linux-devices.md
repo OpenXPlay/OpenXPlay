@@ -24,7 +24,7 @@ next:
 UFI003 有自己的引导式安装，见[用 UFI003 随身 Wi-Fi 作中继](/ufi003-relay)。斐讯 N1 也有自己的教程，见[用斐讯 N1 作中继](/phicomm-n1)。OpenXPlay Flasher 暂时还不能安装其他设备。
 
 ::: warning 风险自负
-在其他设备上手动安装中继，风险由你自己承担。到目前为止，每个 Linux 版本都是预发布版；0.1.6-beta.3 还没有在真机上验证过这些情况：用 iPhone 运行 CarPlay、在车上使用 Carlink、特斯拉、UFI003、WPA3、申请可信 HTTPS 证书、硬件编码、Wi-Fi 直连、I2C、CH341 和远程 MFi，以及在中继上播放音频。请到[交流群](/community)反馈哪些可用、哪些不可用，并附上设备、系统和中继版本。
+在其他设备上手动安装中继，风险由你自己承担。0.1.6 还没有在真机上验证过这些情况：用 iPhone 运行 CarPlay、有线 CarPlay、在车上使用 Carlink、特斯拉、UFI003、WPA3、申请可信 HTTPS 证书、硬件编码、Wi-Fi 直连、I2C、CH341 和远程 MFi，以及在中继上播放音频。请到[交流群](/community)反馈哪些可用、哪些不可用，并附上设备、系统和中继版本。
 :::
 
 ## 设备要求 {#requirements}
@@ -93,17 +93,17 @@ ss -ltnup | grep -E ':(6975|8443|7000|5353)\b'
 
 ## 安装中继 {#install .step}
 
-在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本（包括预发布版）。到目前为止，每个 Linux 版本都是预发布版，最新的是 `linux-v0.1.6-beta.3`。下载 `.deb` 和 `SHA256SUMS`，核对 SHA-256，再连同依赖一起安装：
+在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本，现在是 `linux-v0.1.6`。下载 `.deb` 和 `SHA256SUMS`，核对 SHA-256，再连同依赖一起安装：
 
 ```sh
-V=0.1.6-beta.3
+V=0.1.6
 base=https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v$V
 curl -fL -O "$base/openxplay-relay_${V}_arm64.deb" -O "$base/SHA256SUMS"
 sha256sum --ignore-missing -c SHA256SUMS
 sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 ```
 
-把 `V` 改成最新的版本号。文件名中的预发布版本写作 `0.1.6-beta.3`，软件包内部的版本号则是 `0.1.6~beta.3`。
+把 `V` 改成最新的版本号。预发布版在文件名中写作 `0.1.7-beta.1` 这样的形式，软件包内部的版本号则是 `0.1.7~beta.1`。
 
 `apt-get` 会同时安装 `bluez`、`network-manager`、`iw`、`dnsmasq-base` 和 1.54 及以上版本的 `init-system-helpers`。这个软件包会：
 
@@ -199,7 +199,7 @@ sudo systemctl restart openxplay-relay
 
 ## 更新中继 {#update}
 
-管理页面的“**关于 → 检查更新**”会显示有没有新版本；Linux 目前只有预发布版，请选择“测试版”渠道。像[安装中继](#install)时一样下载新版本的 `.deb` 和 `SHA256SUMS` 并核对，然后运行：
+管理页面的“**关于 → 检查更新**”会显示有没有新版本；想同时看到预发布版，请选择“测试版”渠道。像[安装中继](#install)时一样下载新版本的 `.deb` 和 `SHA256SUMS` 并核对，然后运行：
 
 ```sh
 sudo openxplay-relay-update openxplay-relay_${V}_arm64.deb

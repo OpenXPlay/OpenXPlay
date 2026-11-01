@@ -24,7 +24,7 @@ Besides the UFI003, the OpenXPlay Linux relay can run on other arm64 Linux devic
 The UFI003 has its own guided installer: see [UFI003 USB dongle as the relay](/en/ufi003-relay). The Phicomm N1 has its own guide too: see [Phicomm N1 as the relay](/en/phicomm-n1). OpenXPlay Flasher can’t install other devices yet.
 
 ::: warning At your own risk
-Installing the relay by hand on another device is at your own risk. Every Linux release so far is a pre-release, and 0.1.6-beta.3 has not yet been tested on a device with: CarPlay with an iPhone, Carlink with a car, a Tesla, the UFI003, WPA3, issuing a Trusted HTTPS certificate, hardware encoding, Wi-Fi Direct, I2C, CH341 and remote MFi, and audio on the relay. Tell the [community](/en/community) what worked and what didn’t, with the device, its system and the relay version.
+Installing the relay by hand on another device is at your own risk. 0.1.6 has not yet been tested on a device with: CarPlay with an iPhone, wired CarPlay, Carlink with a car, a Tesla, the UFI003, WPA3, issuing a Trusted HTTPS certificate, hardware encoding, Wi-Fi Direct, I2C, CH341 and remote MFi, and audio on the relay. Tell the [community](/en/community) what worked and what didn’t, with the device, its system and the relay version.
 :::
 
 ## Requirements {#requirements}
@@ -93,17 +93,17 @@ After installing, the admin page’s **Diagnostics → This host** shows what th
 
 ## Install the relay {#install .step}
 
-Take the newest `linux-v` release from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), including pre-releases: every Linux release so far is a pre-release, and the newest is `linux-v0.1.6-beta.3`. Download the `.deb` and `SHA256SUMS`, check the SHA-256, then install the package with its dependencies:
+Take the newest `linux-v` release from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); it is `linux-v0.1.6` now. Download the `.deb` and `SHA256SUMS`, check the SHA-256, then install the package with its dependencies:
 
 ```sh
-V=0.1.6-beta.3
+V=0.1.6
 base=https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v$V
 curl -fL -O "$base/openxplay-relay_${V}_arm64.deb" -O "$base/SHA256SUMS"
 sha256sum --ignore-missing -c SHA256SUMS
 sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 ```
 
-Set `V` to the newest version. File names write a pre-release as `0.1.6-beta.3`; inside the package, its version is `0.1.6~beta.3`.
+Set `V` to the newest version. File names write a pre-release such as `0.1.7-beta.1`; inside the package, its version is `0.1.7~beta.1`.
 
 `apt-get` also installs `bluez`, `network-manager`, `iw`, `dnsmasq-base` and `init-system-helpers` 1.54 or later. The package:
 
@@ -199,7 +199,7 @@ For the Carlink app, see [Carlink app](/en/carlink).
 
 ## Update the relay {#update}
 
-In the admin page, **About → Check for updates** shows whether a newer version exists; Linux has only pre-releases so far, so choose the *Beta* channel. Download the new `.deb` and `SHA256SUMS` and check them as in [Install the relay](#install), then run:
+In the admin page, **About → Check for updates** shows whether a newer version exists; choose the *Beta* channel to see pre-releases as well. Download the new `.deb` and `SHA256SUMS` and check them as in [Install the relay](#install), then run:
 
 ```sh
 sudo openxplay-relay-update openxplay-relay_${V}_arm64.deb
