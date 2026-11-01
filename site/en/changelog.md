@@ -11,6 +11,62 @@ breadcrumb: Changelog
 
 What changed in each OpenXPlay Relay release, newest first. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup start at [Get started](/en/quick-start).
 
+## 0.2.4 {#v0-2-4}
+
+2026-11-01 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.4)
+
+Android app: smoother screens, a Home button that answers the first tap, hotspot details to copy into the phone’s settings, and a Bluetooth fix for some MIUI phones on Android 12.
+
+**New**
+
+- Android app: when the iPhone connects through this phone’s hotspot, Settings → Network offers two ways to set the hotspot up. *Copy to settings (recommended)* suggests a name (OpenXPlay-A-…) and a 16-character password; each button copies one of them and opens the phone’s hotspot settings. *Use my existing hotspot* keeps a hotspot you set up yourself: enter its name and password there. The setup guide offers the same choice, and hotspot details you already saved stay as they are.
+
+**Changes**
+
+- Android app: smoother screens. Measured on a Redmi 14C (HyperOS) with Home open and no car connected; other phones will differ:
+  - While the relay looks for the car, *Record all Bluetooth advertisements* (Experimental) no longer works on the thread that draws the screens. That thread’s idle CPU time drops from 64–119 ms to 25–27 ms per second, 60–77% less.
+  - The button on Home acts on the first tap. Before, a tap within 0.5 s of the button appearing, for example right after returning from Settings, was ignored; now 4 of 4 such taps act.
+  - Until the car’s Carlink session is ready, the two Carlink output threads wake every 50 ms instead of every 5 ms and use 5 ms of CPU per second each instead of 24–27, about 80% less.
+  - The app’s own screens are compiled ahead of time when it is installed, so pages open a little faster the first few times: the longest frame when opening Settings is 80–96 ms instead of 99.6 ms.
+  - In total, the idle app uses 220–234 ms of CPU per second instead of 245–336, 10–30% less.
+- Android app: keeps Android’s older Bluetooth permissions on Android 12 and later. Some MIUI phones on Android 12 still check them when the iPhone connects over Bluetooth, and the connection failed straight away.
+
+**Notes**
+
+- Known issue: opening Settings still holds one frame for 80–96 ms (about five frames at 60 fps) before the page slides in.
+- The Bluetooth fix has not yet been checked on the phone that showed the problem (Redmi K30 Pro, Android 12).
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.4).
+
+## 0.2.3 {#v0-2-3}
+
+2026-10-30 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.3)
+
+Android app: a Home drawn as cables, high performance mode, background access, logs that explain stalls and interruptions, and iOS 16 wireless experiments.
+
+**New**
+
+- Android app: Home draws the connection top to bottom: the iPhone, this phone and the car joined by cables that fill as steps finish, with the steps done on each cable; this phone’s own steps fill a ring around it. Only steps that need you (!) or failed (x) carry a badge, and the step drawer’s handle says *Swipe up for all steps* with the overall count.
+- Android app: high performance mode in Settings → Display, on by default: 20 s after CarPlay connects, the screen dims and every animation stops; only *CarPlay connected* stays. Tap the screen to bring Home back.
+- Android app: Settings → Background shows whether OpenXPlay Relay may run unrestricted in the background, asks the system for it with one tap, and opens the phone maker’s autostart and battery saver pages where they exist. The Background step on Home and the last page of the setup guide open it.
+- Android app: suggested working modes. The relay learns whether this phone turns Wi-Fi off while its hotspot is on; when the chosen setup needs both, it suggests modes that work (the car browser or USB for Carlink or Miracast; this phone’s hotspot, the car’s hotspot or USB for the iPhone connection), and a choice opens its settings page with the change made.
+- Android app: stall watch. The exported log records process pauses, blocked threads with their stacks, connection steps that stop moving and the power state; it keeps a heartbeat for the next start and restarts a log recorder that went silent.
+- Android app: three options in Settings → Experimental for iPhones, for example on iOS 16, that connect wirelessly but never show a picture: open the iAP2 Wi-Fi channel only when the iPhone offers it, release Bluetooth when the iPhone asks, and wait for the iPhone to reconnect. The last one also stops a restart queued by an earlier session from ending a newer one.
+- Android app: Settings → Sound: while *CarPlay audio over the car’s Bluetooth* is on, a tip says what to do when the sound plays on the phone: open the Bluetooth settings on the car’s centre screen, find the iPhone and switch the icon on its right from muted to play.
+
+**Changes**
+
+- Android app: the exported log records how every link of the connection ended: which link, how far it had got, who ended it (the other side, the relay, a timeout or the system) and why. Each interrupted iPhone attempt gets one summary with what the relay did next and the phone’s Wi-Fi, hotspot, Bluetooth, screen and power state. The car’s browser page reports how its previous connection ended.
+- Android app: the exported log records every start wait (network, Carlink, car screen, restart) and every refused start with its reason, and notes when the log recorder ended, went silent or left a gap; info.txt adds the Wi-Fi and hotspot facts, the power state, the previous process and recent exit reasons.
+- Android app: the Experimental page lists its options under one header per release, newest first.
+- Android app: the admin page in the browser uses the relay’s real Bluetooth name in the pairing steps, shows one dialog or sheet at a time with time-limited prompts such as the Carlink PIN first, makes Cancel the main button when confirming something destructive, and keeps the setup step that stopped marked with the reason.
+
+**Notes**
+
+- High performance mode is on by default; turn it off in Settings → Display.
+- The five new options in Settings → Experimental are on by default. Each can be turned off there; the master switch turns them all off.
+- Known issues: the two iOS 16 options (the iAP2 Wi-Fi channel and releasing Bluetooth) have not been checked on an iPhone with current iOS; if an iPhone stops showing a picture after this update, turn those two off first. The working-mode suggestions have been tested on an emulator only.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.3).
+
 ## 0.2.2 {#v0-2-2}
 
 2026-10-28 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.2)
