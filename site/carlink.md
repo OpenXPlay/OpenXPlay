@@ -32,8 +32,8 @@ Carlink 输出仍是实验性功能，有可能连接失败。需要安卓应用
 | 中继 | 注意事项 |
 | --- | --- |
 | 安卓手机 | Carlink 需要 Android 10 及以上。中继手机以 Wi-Fi 客户端加入车机的 Carlink 网络，所以中继手机的 Wi-Fi 必须打开（不用连接任何网络）。无线 CarPlay 请选“此手机的热点”：中继一边开热点给 iPhone，一边用 Wi-Fi 连车机。有些手机打开热点后会自动关闭 Wi-Fi，这类手机无法同时使用两者。 |
-| UFI003 | 它的 Wi-Fi 仅支持 2.4 GHz，无法连接 Carlink Wi-Fi 工作在 5 GHz 的车机。 |
-| 斐讯 N1 | 能连接 5 GHz 的 Carlink 网络。它只有一块 Wi-Fi 网卡，所以 iPhone 会跟着中继转到车机的网络上；另接一块 USB Wi-Fi 网卡时，可以让它专门负责 Carlink，见[网络与 Wi-Fi](/phicomm-n1#wifi)。还没有在车上测试过。 |
+| UFI003 | 只有一块 Wi-Fi 网卡，而且仅支持 2.4 GHz，不能用 Carlink，请用车机浏览器。 |
+| 斐讯 N1 | 需要再接一块 USB Wi-Fi 网卡：自带网卡给 iPhone 开热点，USB 网卡连接车机的 Carlink Wi-Fi，见[一块网卡，还是两块](/phicomm-n1#adapters)。只有自带网卡时不能用 Carlink。还没有在车上测试过。 |
 
 ::: details 车机上有声音，但画面是黑的？ {#black-screen}
 部分车机只在一帧的最开头识别关键帧，0.1.3 及更早的安卓应用在这些车机上会黑屏。需要安卓应用 0.1.5 及以上版本，请[更新到最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)。车机显示倒车影像后，新版本的画面也能恢复。

@@ -21,7 +21,7 @@ next:
 
 # 用斐讯 N1 作中继 <Badge type="info" text="进阶" />
 
-斐讯 N1 是一款采用晶晨 S905D 的电视盒子。装上 Armbian 后，它可以运行 OpenXPlay 的 Linux 中继：通电后自动启动，热点可以用 5 GHz，车机用自带的浏览器或 Carlink 应用显示 CarPlay。[OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) 提供了 N1 的设备支持包。
+斐讯 N1 是一款采用晶晨 S905D 的电视盒子。装上 Armbian 后，它可以运行 OpenXPlay 的 Linux 中继：通电后自动启动，热点可以用 5 GHz，车机用自带的浏览器显示 CarPlay；再接一块 USB Wi-Fi 网卡，也可以用车机的 Carlink 应用。[OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) 提供了 N1 的设备支持包。
 
 整个安装都在电脑上通过 SSH 完成，适合熟悉命令行的用户。OpenXPlay Flasher 暂时还不能安装 N1，见[OpenXPlay Flasher](#flasher)。
 
@@ -36,8 +36,23 @@ next:
 | BCM43455 Wi-Fi，2.4 GHz 和 5 GHz | 中继的热点可以用 5 GHz，画面不容易卡顿 |
 | BCM4345C0 蓝牙，经典蓝牙和低功耗蓝牙 | 无线 CarPlay 和 Carlink 都能用 |
 | 千兆网口 | 安装和管理时接路由器 |
-| 两个 USB 2.0 接口 | 可以再接一块 USB Wi-Fi 网卡，见[网络与 Wi-Fi](#wifi) |
+| 两个 USB 2.0 接口 | 再接一块 USB Wi-Fi 网卡就能用 Carlink，见[一块网卡，还是两块](#adapters) |
 | 12 V 直流供电 | 在车上也需要能稳定提供 12 V 的电源 |
+
+## 一块网卡，还是两块 {#adapters}
+
+N1 自带一块 Wi-Fi 网卡，只用车机浏览器时就够了。要用车机的 Carlink 应用，需要在 USB 接口上再接一块 Wi-Fi 网卡（例如 RTL8822BU）。
+
+| | 一块网卡（N1 自带） | 两块网卡（再接一块 USB Wi-Fi 网卡） |
+| --- | --- | --- |
+| 车机显示 | 车机浏览器 | 车机浏览器、Carlink 应用，或两者 |
+| 自带网卡 | 开中继的热点，iPhone 和车机都连接它 | 开中继的热点，给 iPhone 和车机浏览器用 |
+| USB 网卡 | | 连接车机的 Carlink Wi-Fi；Carlink 没在连接时，可以开管理热点 |
+| 在车上打开管理页面 | 手机连接中继的热点 | 手机连接中继的热点，或者连接管理热点 |
+
+只有一块网卡时，设置向导中的“Carlink 应用”和“两者”不能选。拔掉 USB 网卡后 Carlink 会暂停，插回去就恢复。两块网卡的用法还没有在车上完整测试过。这些规则需要 Linux 中继 0.1.6-beta.4 及以上版本。
+
+每种情况下怎么连接，见[在车上使用](#in-car)。
 
 ## 需要准备 {#requirements}
 
@@ -48,6 +63,7 @@ next:
 | 网线和路由器 | 安装时 N1 用网线接路由器，电脑连接同一个路由器 |
 | 电脑 | Windows、macOS 或 Linux，能写入 U 盘，能运行 `ssh` 命令（Windows 10 和 11 已自带） |
 | Apple 配件（MFi）身份 | `identity.pk8` 和 `certificate.p7b`，由你自行提供，见[什么是 Apple 配件（MFi）身份](/quick-start#mfi-identity) |
+| USB Wi-Fi 网卡（可选） | 只在使用 Carlink 时需要，见[一块网卡，还是两块](#adapters) |
 
 ## 把 Armbian 写入 U 盘 {#usb .step}
 
@@ -174,7 +190,7 @@ sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 
 ## 打开管理页面 {#admin .step}
 
-在同一个局域网中的手机或电脑上打开 `https://<N1 的 IP>:6975`。浏览器会提示证书不受信任，继续访问即可。首次登录的密码是 `openxplay`，登录后请立即修改。忘记密码时，见[忘记了管理密码？](/linux-devices#reset-password)
+在同一个局域网中的手机或电脑上打开 `https://<N1 的 IP>:6975`；iPhone、Mac 和 Windows 电脑也可以打开 `https://openxplay-admin.local:6975`。浏览器会提示证书不受信任，继续访问即可。首次登录的密码是 `openxplay`，登录后请立即修改。忘记密码时，见[忘记了管理密码？](/linux-devices#reset-password)
 
 ## 设置 Wi-Fi 国家或地区 {#country .step}
 
@@ -188,7 +204,7 @@ sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 
 ## 完成设置向导 {#setup .step}
 
-按管理页面的设置向导，依次选择你的车、输出（车机浏览器、Carlink 应用或两者）和网络，再完成它列出的准备事项。中继自己的热点名为 `OpenXPlay-Linux-XXXX`，密码为 `openxplay`，除非你另行设置。各选项的说明见[完成设置向导](/linux-devices#setup)。
+按管理页面的设置向导，依次选择你的车、输出（车机浏览器、Carlink 应用或两者；只有一块网卡时只能选车机浏览器）和网络，再完成它列出的准备事项。中继自己的热点名为 `OpenXPlay-Linux-XXXX`，密码为 `openxplay`，除非你另行设置。各选项的说明见[完成设置向导](/linux-devices#setup)。
 
 ## 配对 iPhone {#pair .step}
 
@@ -198,21 +214,29 @@ sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 
 车机连接中继的热点，在浏览器中打开 `https://10.77.0.1:8443/`；管理页面会列出车机要打开的地址。第一次打开时接受证书警告，原因见[故障排查](/troubleshooting#certificate-warning)。使用 Carlink 应用时，见 [Carlink 应用](/carlink)。
 
-装好后，N1 就可以放到车上了：接通 12 V 电源，中继就会自动启动。在车上用手机打开管理页面时，地址取决于手机连接的热点：
+装好后，N1 就可以放到车上了：接通 12 V 电源，中继就会自动启动。在车上怎么连接，见[在车上使用](#in-car)。
 
-| 手机连接的热点 | 管理页面 |
-| --- | --- |
-| 中继的热点 `OpenXPlay-Linux-XXXX` | `https://10.77.0.1:6975` |
-| 管理热点，默认名为 `OpenXPlay-Admin`，需要另接一块 USB Wi-Fi 网卡，见[网络与 Wi-Fi](#wifi) | `https://10.79.0.1:6975` |
+## 在车上使用 {#in-car}
 
-中继出错停止时，它的热点也会关闭，这时请用管理热点。iPhone 连接管理热点，或与 N1 在同一个局域网时，也可以打开 `https://openxplay-linux.local:6975`。第一次打开后把页面加入书签或添加到主屏幕，以后就不用再输入地址。
+### 一块网卡 {#in-car-one}
+
+1. iPhone 自动连接中继的热点 `OpenXPlay-Linux-XXXX`，开始无线 CarPlay。
+2. 车机连接同一个热点，在浏览器中打开 `https://10.77.0.1:8443/`。
+3. 打开管理页面：手机连接中继的热点，打开 `https://openxplay-car.local:6975` 或 `https://10.77.0.1:6975`。
+
+### 两块网卡 {#in-car-two}
+
+1. iPhone 自动连接中继的热点 `OpenXPlay-Linux-XXXX`，开始无线 CarPlay。
+2. 打开车机上的 Carlink 应用，中继用 USB 网卡自动连接车机的 Carlink Wi-Fi，见 [Carlink 应用](/carlink)。同时使用车机浏览器时，车机连接中继的热点，和一块网卡时相同。
+3. 打开管理页面：手机连接中继的热点，打开 `https://openxplay-car.local:6975` 或 `https://10.77.0.1:6975`。Carlink 没在连接时，也可以连接管理热点 `OpenXPlay-Admin`，打开 `https://openxplay-admin.local:6975` 或 `https://10.79.0.1:6975`。管理热点默认关闭，在“**iPhone 连接 → 无线网络 → 网卡与网络角色**”中开启。
+
+`openxplay-car.local` 只在中继的热点上能用，`openxplay-admin.local` 只在管理热点和家里的局域网上能用。iPhone、Mac 和 Windows 电脑能打开这类 `.local` 地址，很多安卓手机不能，这时请用 IP 地址。第一次打开后把页面加入书签或添加到主屏幕，以后就不用再输入地址。
 
 ## 网络与 Wi-Fi {#wifi}
 
 - N1 的热点和 Wi-Fi 客户端连接只能共用同一个信道同时运行。
-- 使用 Carlink 时，中继要以客户端方式连接车机的 Wi-Fi。N1 只有一块 Wi-Fi 网卡，所以 iPhone 会跟着中继转到车机的网络上。
-- 可以在 USB 接口上再接一块 USB Wi-Fi 网卡（例如 RTL8822BU），在管理页面的“**iPhone 连接 → 无线网络 → 网卡与网络角色**”中，让它负责 Carlink 或管理热点。这种用法还没有完整测试。
-- 网线可以一直接着：在家时，通过路由器分配给 N1 的地址打开管理页面，也可以用 SSH 登录。
+- 插上 USB Wi-Fi 网卡后，中继会自动让它负责 Carlink；也可以在管理页面的“**iPhone 连接 → 无线网络 → 网卡与网络角色**”中手动指定，或者让它开管理热点。
+- 网线可以一直接着：在家时打开 `https://openxplay-admin.local:6975` 或路由器分配给 N1 的地址，也可以用 SSH 登录。
 
 ## 更新 {#updates}
 

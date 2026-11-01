@@ -128,7 +128,7 @@ Unless the file says `"enabled": false`, importing it turns on *Use a free domai
 :::
 
 ::: details Linux relay: in the admin page {#linux-admin}
-1. Open the admin page and log in. Use a phone or computer on the relay’s network, for example with `https://openxplay-linux.local:6975`.
+1. Open the admin page and log in. Use a phone or computer on the relay’s network, for example with `https://openxplay-admin.local:6975`, or `https://openxplay-car.local:6975` on the relay’s hotspot.
 2. Open *Settings* and find *Trusted HTTPS*.
 3. Turn on *Use a free domain name*, choose the *DNS provider*, enter the *Domain name* and the *Token*, and tick *I agree to the Let’s Encrypt Subscriber Agreement*. Each field is saved on its own, and the page shows *Saved*.
 4. Once the status line shows *Ready: … (certificate valid until …)*, open the page on the head unit. *Request certificate now* tries again straight away when needed.
@@ -202,7 +202,7 @@ One example per provider; replace the name and the token with yours:
 The IP address (such as `https://192.168.43.20:8443/`) keeps working as a fallback. It still shows a certificate warning, which may now say that the certificate belongs to another name; that’s expected.
 
 - On the Linux relay, the head-unit page switches to a new certificate only while no CarPlay session is running. If the certificate arrives while CarPlay runs, open the page again after CarPlay ends.
-- The admin page uses the same certificate: replace the IP address or `openxplay-linux.local` in its address with your name, and it opens without a warning too.
+- The admin page uses the same certificate: replace the IP address or `.local` name in its address with your name, and it opens without a warning too.
 
 ## Status messages {#status}
 

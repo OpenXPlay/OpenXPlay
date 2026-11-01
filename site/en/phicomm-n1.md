@@ -21,7 +21,7 @@ next:
 
 # Phicomm N1 as the relay <Badge type="info" text="Advanced" />
 
-The Phicomm N1 is a TV box with an Amlogic S905D. With Armbian installed, it runs the OpenXPlay Linux relay: the relay starts whenever the box is powered, its hotspot can use 5 GHz, and the head unit shows CarPlay in its own browser or Carlink app. [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) provides the N1’s device package.
+The Phicomm N1 is a TV box with an Amlogic S905D. With Armbian installed, it runs the OpenXPlay Linux relay: the relay starts whenever the box is powered, its hotspot can use 5 GHz, and the head unit shows CarPlay in its own browser; add a USB Wi-Fi adapter and the head unit’s Carlink app works too. [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) provides the N1’s device package.
 
 You install everything from a computer over SSH, so this guide is for people who are comfortable with the command line. OpenXPlay Flasher can’t install the N1 yet; see [OpenXPlay Flasher](#flasher).
 
@@ -36,8 +36,23 @@ You install everything from a computer over SSH, so this guide is for people who
 | BCM43455 Wi-Fi, 2.4 GHz and 5 GHz | The relay’s hotspot can use 5 GHz, so the picture stutters less |
 | BCM4345C0 Bluetooth, Classic and Low Energy | Both wireless CarPlay and Carlink work |
 | Gigabit Ethernet | Connects to a router while you install and manage it |
-| Two USB 2.0 ports | Room for a USB Wi-Fi adapter; see [Network and Wi-Fi](#wifi) |
+| Two USB 2.0 ports | A USB Wi-Fi adapter here enables Carlink; see [One adapter or two](#adapters) |
 | 12 V DC power | In the car, too, it needs a supply that delivers a steady 12 V |
+
+## One adapter or two {#adapters}
+
+The N1’s built-in Wi-Fi adapter is enough for the head unit’s browser. For the head unit’s Carlink app, add a second Wi-Fi adapter on a USB port (for example an RTL8822BU).
+
+| | One adapter (built in) | Two adapters (plus a USB Wi-Fi adapter) |
+| --- | --- | --- |
+| Head unit shows CarPlay in | Its browser | Its browser, its Carlink app, or both |
+| Built-in adapter | Runs the relay’s hotspot; the iPhone and the head unit both join it | Runs the relay’s hotspot for the iPhone and the head unit’s browser |
+| USB adapter | | Joins the head unit’s Carlink Wi-Fi; runs the admin hotspot while Carlink isn’t connected |
+| Admin page in the car | Phone joins the relay’s hotspot | Phone joins the relay’s hotspot or the admin hotspot |
+
+With one adapter, the setup guide doesn’t offer *Carlink app* or *Both*. Unplug the USB adapter and Carlink pauses; plug it back in and Carlink resumes. Two adapters haven’t been fully tested in a car yet. These rules need Linux relay 0.1.6-beta.4 or later.
+
+[Using it in the car](#in-car) shows how to connect in each case.
 
 ## What you need {#requirements}
 
@@ -48,6 +63,7 @@ You install everything from a computer over SSH, so this guide is for people who
 | A network cable and a router | The N1 is wired to the router while you install; the computer joins the same router |
 | A computer | Windows, macOS or Linux that can write a USB drive and run `ssh` (built into Windows 10 and 11) |
 | An Apple accessory (MFi) identity | `identity.pk8` and `certificate.p7b`, supplied by you; see [What is an Apple accessory (MFi) identity?](/en/quick-start#mfi-identity) |
+| A USB Wi-Fi adapter (optional) | Only for Carlink; see [One adapter or two](#adapters) |
 
 ## Write Armbian to a USB drive {#usb .step}
 
@@ -174,7 +190,7 @@ Set `V` to the newest version. The device package already installed the dependen
 
 ## Open the admin page {#admin .step}
 
-On a phone or computer on the same network, open `https://<N1 IP>:6975`. The browser warns that the certificate isn’t trusted; continue to the page. The first password is `openxplay`: sign in, then change it. If you forget it, see [Forgot the admin password?](/en/linux-devices#reset-password)
+On a phone or computer on the same network, open `https://<N1 IP>:6975`; an iPhone, a Mac or a Windows computer can also open `https://openxplay-admin.local:6975`. The browser warns that the certificate isn’t trusted; continue to the page. The first password is `openxplay`: sign in, then change it. If you forget it, see [Forgot the admin password?](/en/linux-devices#reset-password)
 
 ## Set the Wi-Fi country {#country .step}
 
@@ -188,7 +204,7 @@ In the admin page, open **Developer options → Identity and certificates** and 
 
 ## Answer the setup guide {#setup .step}
 
-Work through the admin page’s setup guide: your car, the output (the head unit’s browser, its Carlink app, or both) and the network, then what it lists under getting ready. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay`, unless you set your own. [Answer the setup guide](/en/linux-devices#setup) explains each choice.
+Work through the admin page’s setup guide: your car, the output (the head unit’s browser, its Carlink app, or both; with one adapter only the browser) and the network, then what it lists under getting ready. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay`, unless you set your own. [Answer the setup guide](/en/linux-devices#setup) explains each choice.
 
 ## Pair the iPhone {#pair .step}
 
@@ -198,21 +214,29 @@ Choose *Pair iPhone*; pairing stays open for 10 minutes. On the iPhone, open Set
 
 Join the relay’s hotspot from the head unit and open `https://10.77.0.1:8443/` in its browser; the admin page lists the head-unit address. Accept the certificate warning the first time; [Troubleshooting](/en/troubleshooting#certificate-warning) explains why it appears. For the Carlink app, see [Carlink app](/en/carlink).
 
-The N1 is now ready for the car: give it 12 V and the relay starts by itself. In the car, the admin page address depends on the hotspot your phone joins:
+The N1 is now ready for the car: give it 12 V and the relay starts by itself. [Using it in the car](#in-car) shows how to connect.
 
-| Hotspot the phone joins | Admin page |
-| --- | --- |
-| The relay’s hotspot `OpenXPlay-Linux-XXXX` | `https://10.77.0.1:6975` |
-| The admin hotspot, named `OpenXPlay-Admin` by default; needs an extra USB Wi-Fi adapter, see [Network and Wi-Fi](#wifi) | `https://10.79.0.1:6975` |
+## Using it in the car {#in-car}
 
-When the relay stops on an error, its hotspot goes down too; use the admin hotspot then. An iPhone on the admin hotspot, or on the same network as the N1, can also open `https://openxplay-linux.local:6975`. Bookmark the page or add it to the Home Screen the first time, and you won’t need to type the address again.
+### One adapter {#in-car-one}
+
+1. The iPhone joins the relay’s hotspot `OpenXPlay-Linux-XXXX` by itself and wireless CarPlay starts.
+2. The head unit joins the same hotspot and opens `https://10.77.0.1:8443/` in its browser.
+3. Admin page: join the relay’s hotspot from your phone and open `https://openxplay-car.local:6975` or `https://10.77.0.1:6975`.
+
+### Two adapters {#in-car-two}
+
+1. The iPhone joins the relay’s hotspot `OpenXPlay-Linux-XXXX` by itself and wireless CarPlay starts.
+2. Start the head unit’s Carlink app; the relay joins the head unit’s Carlink Wi-Fi with the USB adapter by itself, see [Carlink app](/en/carlink). For the head unit’s browser as well, the head unit joins the relay’s hotspot, as with one adapter.
+3. Admin page: join the relay’s hotspot from your phone and open `https://openxplay-car.local:6975` or `https://10.77.0.1:6975`. While Carlink isn’t connected, you can also join the admin hotspot `OpenXPlay-Admin` and open `https://openxplay-admin.local:6975` or `https://10.79.0.1:6975`. The admin hotspot is off by default; turn it on under **iPhone connection → Wireless network → Interfaces and network roles**.
+
+`openxplay-car.local` works only on the relay’s hotspot, `openxplay-admin.local` only on the admin hotspot and your home network. iPhones, Macs and Windows computers open these `.local` addresses; many Android phones can’t, so use the IP address there. Bookmark the page or add it to the Home Screen the first time, and you won’t need to type the address again.
 
 ## Network and Wi-Fi {#wifi}
 
 - The N1 can run its hotspot and a Wi-Fi station connection together only on one shared channel.
-- With Carlink, the relay joins the car’s Wi-Fi as a station. The N1 has one Wi-Fi radio, so the iPhone follows the relay onto the car’s network.
-- You can add a USB Wi-Fi adapter (for example an RTL8822BU) and give it Carlink or the admin hotspot under **iPhone connection → Wireless network → Interfaces and network roles** in the admin page. This hasn’t been fully tested yet.
-- The network cable can stay plugged in: at home, open the admin page or sign in over SSH at the address the router gave the N1.
+- Plug in a USB Wi-Fi adapter and the relay gives it Carlink by itself; you can also assign it by hand, or give it the admin hotspot, under **iPhone connection → Wireless network → Interfaces and network roles** in the admin page.
+- The network cable can stay plugged in: at home, open `https://openxplay-admin.local:6975` or the address the router gave the N1, or sign in over SSH.
 
 ## Updates {#updates}
 

@@ -42,7 +42,7 @@ UFI003 有自己的引导式安装，见[用 UFI003 随身 Wi-Fi 作中继](/ufi
 | 端口未被占用 | 6975 TCP（管理页面）、8443 TCP（车机网页）、7000 起（AirPlay）、5353 UDP（mDNS，由中继自己应答；与 avahi 同时运行尚未测试）。 | `ss -ltnup` | 必需 |
 | Apple 配件（MFi）身份 | 没有身份时，中继只提供管理页面。 | 由你自行提供，见[添加 CarPlay 身份](#identity) | 必需 |
 | 5 GHz Wi-Fi | 频段为自动时，只要有 5 GHz 信道能开热点就用 5 GHz，否则用 2.4 GHz 的 6 信道。只有 2.4 GHz 也能用（UFI003 就在 2.4 GHz 上运行 CarPlay），这时请在车机网页中把帧率设为 30。 | `iw list`；`iw reg get` | 非必需 |
-| Carlink：能以客户端连接 5 GHz，最好另有一块 Wi-Fi 网卡 | 在真车上使用 Carlink 时，中继要以客户端（station）方式连接车机的 5 GHz Wi-Fi。只有一块 Wi-Fi 网卡时，iPhone 会跟着中继转到车机的网络上。Carlink 还会用到低功耗蓝牙；Wi-Fi 直连可有可无。 | `nmcli device`；`btmgmt info` 中有 `le` | 非必需 |
+| Carlink：第二块 Wi-Fi 网卡，能以客户端连接 5 GHz | 在真车上使用 Carlink 时，中继要用一块不负责 iPhone 热点的 Wi-Fi 网卡，以客户端（station）方式连接车机的 5 GHz Wi-Fi。只有一块 Wi-Fi 网卡时，中继只提供车机浏览器输出。Carlink 还会用到低功耗蓝牙；Wi-Fi 直连可有可无。 | `nmcli device`；`btmgmt info` 中有 `le` | 非必需 |
 
 中继本身占用的资源很少：在 UFI003（382 MB 内存）上，中继约占 2.9 MB 常驻内存，输出进程另占约 1.5 MB；磁盘占用约 5 MB。
 
@@ -133,7 +133,7 @@ sudo sh rust/packaging/install.sh bin/openxplay-relay bin/oxp-relay web admin
 | `model` | 无 |
 | `devicePreset` | `auto`：根据设备树识别 MSM8916 随身 Wi-Fi 和斐讯 N1，否则为 `generic` |
 | `wifiInterface` | `wlan0` |
-| `carlinkInterface` | 留空：与 `wifiInterface` 相同 |
+| `carlinkInterface` | 留空：自动选择另一块 Wi-Fi 网卡 |
 | `hotspotChannel` | `0`：自动 |
 | `bluetoothAdapter` | 编号最小的 `hciN` |
 | `hotspotDownGapSeconds` | `15`（0 至 60）：热点关闭后，要等多久再开启下一个热点 |
@@ -153,9 +153,9 @@ sudo systemctl restart openxplay-relay
 
 ## 打开管理页面 {#admin .step}
 
-用与设备在同一网络中的手机或电脑打开 `https://<设备 IP>:6975`（在设备上运行 `hostname -I` 可以看到它的地址）。能解析 `.local` 名称时，也可以打开 `https://openxplay-linux.local:6975`；很多安卓手机和车机浏览器无法解析这类名称。浏览器会提示中继的自签名证书不受信任，继续访问即可。首次登录的密码是 `openxplay`，登录后请立即修改。
+用与设备在同一网络中的手机或电脑打开 `https://<设备 IP>:6975`（在设备上运行 `hostname -I` 可以看到它的地址）。能解析 `.local` 名称时，也可以打开 `https://openxplay-admin.local:6975`；手机连接中继的热点时，打开 `https://openxplay-car.local:6975`。很多安卓手机和车机浏览器无法解析这类名称。浏览器会提示中继的自签名证书不受信任，继续访问即可。首次登录的密码是 `openxplay`，登录后请立即修改。
 
-可选的**管理热点** `OpenXPlay-Admin` 默认关闭。在管理页面中开启后，连接这个热点并打开 `https://10.79.0.1:6975`。
+可选的**管理热点** `OpenXPlay-Admin` 默认关闭，需要第二块 Wi-Fi 网卡。在管理页面中开启后，连接这个热点并打开 `https://openxplay-admin.local:6975` 或 `https://10.79.0.1:6975`。
 
 ::: details 忘记了管理密码？ {#reset-password}
 ```sh
@@ -183,7 +183,7 @@ sudo systemctl restart openxplay-relay
 管理页面的设置向导会依次询问：
 
 1. **你的车**。
-2. **输出**：车机浏览器、车机的 Carlink 应用，或两者都用。特斯拉的浏览器需要专门适配，见[特斯拉](/tesla)。Linux 上没有投屏接收端（DLNA）输出。
+2. **输出**：车机浏览器、车机的 Carlink 应用，或两者都用。Carlink 需要第二块 Wi-Fi 网卡，只有一块时只能选车机浏览器。特斯拉的浏览器需要专门适配，见[特斯拉](/tesla)。Linux 上没有投屏接收端（DLNA）输出。
 3. **网络**：“这台中继的热点”或“使用车机热点”。中继自己的热点名为 `OpenXPlay-Linux-XXXX`，密码为 `openxplay`（WPA2），除非你另行设置。
 4. **完成准备**：按列出的事项逐项完成。
 

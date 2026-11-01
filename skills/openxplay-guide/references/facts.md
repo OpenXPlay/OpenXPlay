@@ -37,17 +37,17 @@ Every release has a `SHA256SUMS` asset, and GitHub reports a SHA-256 digest for 
 
 Not yet tested in a Tesla. Needs MCU2 or later, wireless CarPlay, *Car browser*, the relay phone's hotspot (5 GHz if possible) or Wi-Fi Direct, and *Remain Connected in Drive* on in the Tesla. Ways, in the app's order: trusted name + shared range address `100.88.0.1` (TeslaMirror, recommended, needs Trusted HTTPS); trusted name + link-local `169.254.88.1` (needs Trusted HTTPS); direct link-local `169.254.88.1` (continue past the certificate warning); public-range `3.3.3.1` (like TeslaAndroid); off. Android 13 and later may drop connections to addresses outside `169.254`.
 
-## Linux relay 0.1.6-beta.3
+## Linux relay 0.1.6-beta.4
 
-- Admin page `https://<device address>:6975` (self-signed certificate; first password `openxplay`); the relay's hotspot `OpenXPlay-Linux-XXXX` with password `openxplay` unless the user set one; optional admin hotspot at `https://10.79.0.1:6975`. Bluetooth name *OpenXPlay Linux*. Head-unit page on port 8443, for example `https://10.77.0.1:8443/` on the relay's hotspot.
+- Admin page `https://<device address>:6975` (self-signed certificate; first password `openxplay`); the relay's hotspot `OpenXPlay-Linux-XXXX` with password `openxplay` unless the user set one; optional admin hotspot (needs a second Wi-Fi adapter) at `https://10.79.0.1:6975`. Names: `openxplay-car.local` on the relay's hotspot (or the car's hotspot in *Use the car's hotspot*), `openxplay-admin.local` on the home network and the admin hotspot; they resolve on iPhones, Macs and Windows, often not on Android. Bluetooth name *OpenXPlay Linux*. Head-unit page on port 8443, for example `https://10.77.0.1:8443/` on the relay's hotspot.
 - Network modes: *This device's hotspot*, *Use the car's hotspot*. Pairing opens for 10 minutes.
-- Outputs: browser, Carlink, or both; Tesla browser adaptation; no DLNA. Wired CarPlay is not released.
+- Outputs: browser, Carlink, or both; Carlink and both need a second Wi-Fi adapter (one radio = browser only); Tesla browser adaptation; no DLNA. Wired CarPlay is not released.
 - Not yet tested on a device in this release: CarPlay with an iPhone, Carlink with a car, a Tesla, the UFI003, WPA3, Trusted HTTPS issuance, hardware encoding, Wi-Fi Direct, I2C, CH341 or remote MFi, and audio on the relay.
 - Admin page text: `admin-web/src/` in `OpenXPlay/OpenXPlay-Relay`.
 
 ## Known limits that shape recommendations
 
-- The UFI003's Wi-Fi is 2.4 GHz only: no 5 GHz Carlink cars, 30 fps suggested.
+- The UFI003 has one Wi-Fi radio, 2.4 GHz only: browser route only (no Carlink), 30 fps suggested.
 - A USB-C iPhone on a USB-C to USB-C cable usually takes the host role and is not found; use wireless, or an OTG adapter with a USB-A to USB-C cable.
 - Some phones turn Wi-Fi off when their hotspot is on; Carlink needs both.
 - HyperOS and MIUI freeze background apps; the relay keeps a low-priority notification while an output runs, so allow notifications.

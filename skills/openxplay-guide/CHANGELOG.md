@@ -8,6 +8,11 @@ Created by riko chen on 2026-10-29
 
 Every change to this skill raises `metadata.version` in `SKILL.md` and adds an entry here; the website build refuses a changed skill without both. MAJOR: older copies would give wrong or unsafe guidance (also raise `minimum-version`). MINOR: a new route, device or step. PATCH: wording and links.
 
+## 0.4.0 (2026-10-31)
+
+- Linux relay 0.1.6-beta.4: one Wi-Fi radio means the browser route only; Carlink (and both outputs) needs a second Wi-Fi adapter. The UFI003 is browser-only.
+- Admin page names: `openxplay-car.local` on the relay's hotspot, `openxplay-admin.local` on the home network and the admin hotspot; the admin hotspot needs a second adapter.
+
 ## 0.3.0 (2026-10-30)
 
 - New *About OpenXPlay* section: introduces the project, who it is for, what it needs, where it stands, and the website (openxplay.org, English at openxplay.org/en/) when someone asks what OpenXPlay is.

@@ -42,7 +42,7 @@ Installing the relay by hand on another device is at your own risk. Every Linux 
 | Free ports | 6975 TCP (admin page), 8443 TCP (head-unit page), 7000 upward (AirPlay), 5353 UDP (mDNS, which the relay answers itself; running avahi alongside is untested). | `ss -ltnup` | Required |
 | Apple accessory (MFi) identity | Without it, the relay only serves the admin page. | You supply it; see [Add your CarPlay identity](#identity) | Required |
 | 5 GHz Wi-Fi | The automatic band uses 5 GHz when a 5 GHz channel can host the hotspot, otherwise 2.4 GHz channel 6. 2.4 GHz only works (the UFI003 runs CarPlay on it); set the frame rate to 30 on the head-unit page. | `iw list`; `iw reg get` | Not required |
-| For Carlink: a 5 GHz station, ideally on a second Wi-Fi adapter | In a real car, Carlink needs the relay to join the car’s 5 GHz Wi-Fi as a station. With one Wi-Fi adapter, the iPhone follows the relay onto the car’s network. Carlink also uses Bluetooth LE; Wi-Fi Direct is optional. | `nmcli device`; `btmgmt info` lists `le` | Not required |
+| For Carlink: a second Wi-Fi adapter that can be a 5 GHz station | In a real car, Carlink needs the relay to join the car’s 5 GHz Wi-Fi as a station on an adapter that isn’t running the iPhone’s hotspot. With one Wi-Fi adapter, the relay offers the browser output only. Carlink also uses Bluetooth LE; Wi-Fi Direct is optional. | `nmcli device`; `btmgmt info` lists `le` | Not required |
 
 The relay itself is small: on the UFI003 (382 MB of RAM) it uses about 2.9 MB of resident memory plus 1.5 MB for its output process, and about 5 MB of disk.
 
@@ -133,7 +133,7 @@ The relay reads an optional host profile, `/etc/openxplay/host.json`. A device p
 | `model` | None |
 | `devicePreset` | `auto`: detects MSM8916 dongles and the Phicomm N1 from the device tree, otherwise `generic` |
 | `wifiInterface` | `wlan0` |
-| `carlinkInterface` | Empty: the same as `wifiInterface` |
+| `carlinkInterface` | Empty: another Wi-Fi adapter, chosen automatically |
 | `hotspotChannel` | `0`: automatic |
 | `bluetoothAdapter` | The lowest `hciN` |
 | `hotspotDownGapSeconds` | `15` (0 to 60): how long the hotspot stays down before the next one starts |
@@ -153,9 +153,9 @@ One invalid field makes the relay ignore the whole file and show the error in th
 
 ## Open the admin page {#admin .step}
 
-On a phone or computer on the same network as the device, open `https://<device IP>:6975` (`hostname -I` on the device prints its addresses). Where `.local` names resolve, `https://openxplay-linux.local:6975` works too; many Android phones and car browsers don’t resolve them. The browser warns about the relay’s self-signed certificate; continue to the page. The first password is `openxplay`: sign in, then change it.
+On a phone or computer on the same network as the device, open `https://<device IP>:6975` (`hostname -I` on the device prints its addresses). Where `.local` names resolve, `https://openxplay-admin.local:6975` works too, and `https://openxplay-car.local:6975` from a phone on the relay’s hotspot; many Android phones and car browsers don’t resolve them. The browser warns about the relay’s self-signed certificate; continue to the page. The first password is `openxplay`: sign in, then change it.
 
-The optional admin hotspot `OpenXPlay-Admin` is off by default. Once you turn it on in the admin page, join it and open `https://10.79.0.1:6975`.
+The optional admin hotspot `OpenXPlay-Admin` is off by default and needs a second Wi-Fi adapter. Once you turn it on in the admin page, join it and open `https://openxplay-admin.local:6975` or `https://10.79.0.1:6975`.
 
 ::: details Forgot the admin password? {#reset-password}
 ```sh
@@ -183,7 +183,7 @@ sudo systemctl restart openxplay-relay
 The admin page’s setup guide asks about:
 
 1. **Your car**.
-2. **Output**: the head unit’s browser, its Carlink app, or both. A Tesla’s browser needs its own adaptation; see [Tesla](/en/tesla). The screen-casting receiver (DLNA) output is not available on Linux.
+2. **Output**: the head unit’s browser, its Carlink app, or both. Carlink needs a second Wi-Fi adapter; with one, only the browser is offered. A Tesla’s browser needs its own adaptation; see [Tesla](/en/tesla). The screen-casting receiver (DLNA) output is not available on Linux.
 3. **Network**: *This device’s hotspot* or *Use the car’s hotspot*. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay` (WPA2), unless you set your own.
 4. **Get ready**: work through what it lists.
 
