@@ -8,6 +8,10 @@ Created by riko chen on 2026-10-29
 
 Every change to this skill raises `metadata.version` in `SKILL.md` and adds an entry here; the website build refuses a changed skill without both. MAJOR: older copies would give wrong or unsafe guidance (also raise `minimum-version`). MINOR: a new route, device or step. PATCH: wording and links.
 
+## 0.4.1 (2026-11-01)
+
+- Facts: the Flasher's signed list (beta, sequence 6) installs relay 0.1.6 on the UFI003 and the Phicomm N1; the facts still said 0.1.5~beta.2.
+
 ## 0.4.0 (2026-11-01)
 
 - Linux relay 0.1.6: one Wi-Fi radio means the browser route only; Carlink (and both outputs) needs a second Wi-Fi adapter. The UFI003 is browser-only.
