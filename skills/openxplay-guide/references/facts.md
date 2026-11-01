@@ -15,9 +15,9 @@ A snapshot from 2026-10-29 (versions and the Linux relay updated 2026-11-01), ta
 | Android app (stable) | 0.2.4 (2026-11-01) | `gh release list -R OpenXPlay/OpenXPlay-Relay`, or `https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest` |
 | Android app (beta) | none newer than the stable release | the same list, pre-releases |
 | Linux relay | 0.1.6 (2026-11-01), the first Linux release since 0.1.3; GitHub marks the Android app as Latest, never a Linux release | tags `linux-v…` in the same repository |
-| UFI003 in the Flasher's signed list | base OpenStick v1, device support 0.2.1, relay 0.1.5~beta.2 | `FLASHER catalog fetch` then `FLASHER files` |
+| UFI003 in the Flasher's signed list | base OpenStick v1, device support 0.2.1, relay 0.1.6 (beta catalog, sequence 6) | `FLASHER catalog fetch` then `FLASHER files` |
 | OpenXPlay Flasher | 0.2.0-beta.2 (macOS 12 or later, Windows 10 or 11) | `gh release list -R OpenXPlay/OpenXPlay-Flasher` |
-| Phicomm N1 device package | 0.1.1-beta.1 (pre-release) | tags `phicomm-n1-device-v…` in `OpenXPlay/OpenXPlay-Hardware` |
+| Phicomm N1 device package | 0.1.1-beta.1 (pre-release); the Flasher's signed list pairs it with relay 0.1.6 | tags `phicomm-n1-device-v…` in `OpenXPlay/OpenXPlay-Hardware` |
 
 Every release has a `SHA256SUMS` asset, and GitHub reports a SHA-256 digest for each asset.
 

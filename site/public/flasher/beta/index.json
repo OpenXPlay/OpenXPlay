@@ -1,13 +1,13 @@
 {
   "schema": "org.openxplay.flasher-catalog/1",
   "channel": "beta",
-  "sequence": 5,
-  "generated": "2026-10-30T08:38:03Z",
+  "sequence": 6,
+  "generated": "2026-11-01T13:09:46Z",
   "devices": {
     "phicomm-n1": {
       "recommended": {
         "device": "0.1.1~beta.1",
-        "relay": "0.1.6~beta.3"
+        "relay": "0.1.6"
       },
       "layers": [
         {
@@ -28,25 +28,25 @@
         },
         {
           "layer": "relay",
-          "version": "0.1.6~beta.3",
-          "source": "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6-beta.3",
+          "version": "0.1.6",
+          "source": "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6",
           "artifacts": [
             {
               "role": "deb",
-              "name": "openxplay-relay_0.1.6-beta.3_arm64.deb",
-              "size": 3087120,
-              "sha256": "43c1ec49f3c22bb0907f9a7b5a1a3f04c417be41ff0738ccb60abd6b37f386d3",
+              "name": "openxplay-relay_0.1.6_arm64.deb",
+              "size": 3281444,
+              "sha256": "65c3e972254fe445e2c8c1666db7c4db30d5893b5f994f1602bd843fa86c1659",
               "urls": [
-                "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v0.1.6-beta.3/openxplay-relay_0.1.6-beta.3_arm64.deb"
+                "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v0.1.6/openxplay-relay_0.1.6_arm64.deb"
               ]
             },
             {
               "role": "manifest",
-              "name": "openxplay-relay_0.1.6-beta.3_arm64.manifest.json",
-              "size": 987,
-              "sha256": "20201f6ee3a432d775b03f84cfae5d124584bd425fddd67268a0d07dfaf6aead",
+              "name": "openxplay-relay_0.1.6_arm64.manifest.json",
+              "size": 952,
+              "sha256": "d98ebc7d5cc3d048e4d85a06721da4939e4f4c08db741507cad4bc78d135175b",
               "urls": [
-                "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v0.1.6-beta.3/openxplay-relay_0.1.6-beta.3_arm64.manifest.json"
+                "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v0.1.6/openxplay-relay_0.1.6_arm64.manifest.json"
               ]
             }
           ]
@@ -57,7 +57,7 @@
       "recommended": {
         "base": "openstick-v1",
         "device": "0.2.1",
-        "relay": "0.1.6~beta.3"
+        "relay": "0.1.6"
       },
       "layers": [
         {
@@ -116,25 +116,25 @@
         },
         {
           "layer": "relay",
-          "version": "0.1.6~beta.3",
-          "source": "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6-beta.3",
+          "version": "0.1.6",
+          "source": "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6",
           "artifacts": [
             {
               "role": "deb",
-              "name": "openxplay-relay_0.1.6-beta.3_arm64.deb",
-              "size": 3087120,
-              "sha256": "43c1ec49f3c22bb0907f9a7b5a1a3f04c417be41ff0738ccb60abd6b37f386d3",
+              "name": "openxplay-relay_0.1.6_arm64.deb",
+              "size": 3281444,
+              "sha256": "65c3e972254fe445e2c8c1666db7c4db30d5893b5f994f1602bd843fa86c1659",
               "urls": [
-                "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v0.1.6-beta.3/openxplay-relay_0.1.6-beta.3_arm64.deb"
+                "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v0.1.6/openxplay-relay_0.1.6_arm64.deb"
               ]
             },
             {
               "role": "manifest",
-              "name": "openxplay-relay_0.1.6-beta.3_arm64.manifest.json",
-              "size": 987,
-              "sha256": "20201f6ee3a432d775b03f84cfae5d124584bd425fddd67268a0d07dfaf6aead",
+              "name": "openxplay-relay_0.1.6_arm64.manifest.json",
+              "size": 952,
+              "sha256": "d98ebc7d5cc3d048e4d85a06721da4939e4f4c08db741507cad4bc78d135175b",
               "urls": [
-                "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v0.1.6-beta.3/openxplay-relay_0.1.6-beta.3_arm64.manifest.json"
+                "https://github.com/OpenXPlay/OpenXPlay-Relay/releases/download/linux-v0.1.6/openxplay-relay_0.1.6_arm64.manifest.json"
               ]
             }
           ]
