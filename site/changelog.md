@@ -9,7 +9,52 @@ breadcrumb: 更新日志
 
 # 更新日志
 
-OpenXPlay Relay 每个版本的变化，最新的在最前面。安装包和校验值见 GitHub 上的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)；安装和设置见[开始使用](/quick-start)。
+OpenXPlay Relay 每个版本的变化，最新的在最前面。安卓应用和 Linux 中继分别发布，Linux 版本的标题带“Linux”。安装包和校验值见 GitHub 上的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)；安装和设置见[开始使用](/quick-start)。
+
+## Linux 0.1.6 {#linux-v0-1-6}
+
+2026-11-01 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6)
+
+Linux 中继：0.1.3 之后的第一个正式版。管理页改用与安卓应用一致、以手机为主的设计，CarPlay 画面贴合车机浏览器，Carlink 使用第二块 Wi-Fi 网卡，新增有线 CarPlay 和可信 HTTPS，并可用 OpenXPlay Flasher 安装和更新。
+
+**新增**
+
+- 管理页改用安卓应用以手机为主的设计，支持浅色和深色。首页把连接显示为一条路径（iPhone → 这台中继 → 车机），每一步都能打开详情和处理方法；首页顶部的齿轮打开设置，菜单与安卓应用相同。用默认密码登录后，会提示你设置自己的密码（可以跳过）。
+- 配对 iPhone 时，页面写明 iPhone 上显示的中继名称 OpenXPlay Linux。首页和“设置 → iPhone 连接”中可以移除已配对的设备。
+- 有线 CarPlay：“设置 → iPhone 连接 → USB 数据线”，iPhone 用 USB-A 转 Lightning 或 USB-A 转 USB-C 数据线插在中继的 USB-A 接口上，车机仍通过 Wi-Fi 连接中继。默认仍是无线。
+- CarPlay 显示区域，默认开启：车机浏览器进入或退出全屏时，CarPlay 画面随之调整，不用重新连接，也没有黑边。
+- “设置 → CarPlay 画面”：分辨率、CarPlay 屏幕宽度、视频编码和帧率，车机网页的设置中也能调整。车机网页因倒车影像等原因退出全屏后，轻触一下即可恢复。
+- “设置 → 车型与屏幕”：按品牌、车型和年款从安卓应用的车型目录选车（含极氪），屏幕参数按车保存。
+- “设置 → 声音 → 通过车辆蓝牙播放 CarPlay 音频（实验性）”，默认开启：音乐、导航和通话改由 iPhone 与车辆的蓝牙连接播放。声音改从 iPhone 播放时，请关闭此选项。
+- “网卡与网络角色”：中继列出所有有线和 Wi-Fi 网卡及其能力，自动决定 iPhone、车机浏览器和 Carlink 各用哪一块，也可以逐项指定。热点频段和信道按 Wi-Fi 硬件选择，可以设置 Wi-Fi 国家或地区和热点安全方式（默认 WPA2）。
+- Carlink 使用第二块 Wi-Fi 网卡，连接车机时 CarPlay 热点保持开启。Carlink 会记住每辆车的连接方式，持续扫描直到找到车机，并把方向盘媒体按键传给 iPhone。
+- 管理热点（默认关闭，需要第二块 Wi-Fi 网卡）：一个常开的热点，用 `https://10.79.0.1:6975` 打开管理页。
+- [可信 HTTPS](/trusted-https)和[特斯拉浏览器适配](/tesla)，与安卓应用相同，默认关闭。
+- 日志、配置文件和检查更新，与安卓应用相同：日志可以保存为 ZIP，也可以上传到 logs.openxplay.org；只有点“检查更新”时才会连接 GitHub。
+- 身份与证书：导入或移除 Apple 配件身份（文件或 ZIP），也可以使用远程 MFi 服务器，或通过 I2C、CH341 连接的认证芯片。
+- 实验性功能，默认全部打开，包括三个用于连接后一直没有画面的 iPhone（如 iOS 16）的开关和“卡顿监测”。如果连接比以前差，请关闭“使用实验功能”。
+- 每个版本都附带 Debian 安装包和安装清单，[OpenXPlay Flasher](/ufi003-relay#install) 用它们安装和更新中继。其他主机可以用主机配置文件 `/etc/openxplay/host.json` 适配，见[其他 Linux 设备](/linux-devices)。
+
+**变更**
+
+- 只有一块 Wi-Fi 网卡时（例如 UFI003），中继只提供浏览器输出；Carlink 需要第二块 Wi-Fi 网卡。出现第二块网卡后，无需重启即可使用 Carlink。
+- 管理页按网络使用不同的名称：iPhone 所在的网络上是 `openxplay-car.local`，其他网络（例如有线网络或管理热点）上是 `openxplay-admin.local`；`openxplay-linux.local` 仍可使用。不输入 `https://` 也能打开管理页。
+- CarPlay 热点和管理热点的密码默认是 `openxplay`，可以在管理页修改。旧版本自动生成的热点密码会在更新后改为 `openxplay`，热点名称不变，车机需要重新输入一次密码。
+- 中继运行期间 CarPlay 热点一直开启，启动失败或点“停止”后也不关闭，在车上仍能打开管理页。
+- “自动连接”在一切就绪后倒数五秒再连接，点“暂不”可以取消；“开机启动”是单独的设置。
+- 连上 iPhone 后启动失败会重试五次，然后停止并给出报告；蓝牙、Wi-Fi、Carlink 或 iPhone 恢复时会再试一次。
+- Carlink 在蓝牙连接和会话中使用相同的身份，因此更新后车机会要求输入一次 Carlink 配对码。
+- 中继显示真实的版本号（0.1.3 显示的是 0.1.2）。缺少 Wi-Fi 网卡时中继不再退出，管理页仍可通过有线网络访问。
+
+**说明**
+
+- 包含 Linux 0.1.5 和 0.1.6 各测试版的全部内容。
+- 从 0.1.3 更新后，请手动刷新一次车机网页；以后更新会自动刷新。
+- 回退到 0.1.3 前，请先放回更新前备份的 `/var/lib/openxplay/settings.json`，或删除这个文件，否则 0.1.3 无法启动。
+- 只在没有 iPhone 和车机的斐讯 N1 上测试过。这个版本与 iPhone 的 CarPlay、有线 CarPlay、与车机的 Carlink、iOS 16 相关选项、通过车辆蓝牙播放 CarPlay 音频、特斯拉和可信 HTTPS 证书签发等，都还没有在设备上测试。
+- 已知问题：在部分车机浏览器上，网页显示的帧数少于收到的帧数，正在排查；“实验性功能 → 提示可用的连接方式”在 Linux 上暂时没有作用。
+- GitHub 上标为 Latest 的始终是安卓应用；Linux 版本的标签以 `linux-v` 开头。
+- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6)。
 
 ## 0.2.4 {#v0-2-4}
 
