@@ -39,7 +39,7 @@ features:
 
 - **An iPhone with CarPlay**: it connects to the relay wirelessly or by USB cable.
 - **A relay**: an Android phone with Android 8.0 or later, or a UFI003 USB dongle.
-- **An Apple accessory (MFi) identity**: two files that you supply yourself; the project doesn’t include one. [Learn more](/en/quick-start#mfi-identity)
+- **An Apple accessory (MFi) identity**: usually two files that you supply yourself; the project doesn’t include one. [Learn more](/en/quick-start#mfi-identity)
 - **The head unit’s browser**: it must decode video with WebCodecs; you can [check it first](/en/check).
 
 </div>

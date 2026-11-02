@@ -22,9 +22,9 @@ Every component is an input, an output or a relay shell, and no component depend
 | Output | Delivers the session to software the head unit already has: browser (`web`), Carlink (`clink`) and screen casting (`cast`). | OpenXPlay-Stream |
 | Relay shell | Wires an input to outputs and translates between them. | OpenXPlay-Relay: the Android app and the Linux relay |
 
-Because outputs talk only to the OXP-Stream model, the same outputs serve every relay. The model and the outputs are implemented three times — Kotlin/JVM for the Android app, Rust for the Linux relay and TypeScript for the browser — and shared protocol test vectors keep the three in step.
+Because outputs talk only to the OXP-Stream model, the same outputs serve every relay. The model and the outputs are implemented once per runtime: Kotlin/JVM for the Android app and Rust for the Linux relay. The receiver page the head-unit browser opens is written in TypeScript, with separate code for the Android and the Linux relay. Shared protocol test vectors keep the implementations in step.
 
-The web output sends H.264 video over a secure WebSocket; the head-unit browser decodes it with WebCodecs and returns touch to the iPhone. On the Linux relay, the Rust outputs run as a separate `oxp-relay` process next to the `openxplay-relay` CarPlay receiver.
+The web output sends H.264 or H.265 video over a secure WebSocket; the head-unit browser decodes it with WebCodecs and returns touch to the iPhone. On the Linux relay, the Rust outputs run as a separate `oxp-relay` process next to the `openxplay-relay` CarPlay receiver.
 
 ## Repositories {#repositories}
 
@@ -39,22 +39,23 @@ The web output sends H.264 video over a secure WebSocket; the head-unit browser 
 
 ## Build and test {#build}
 
-The relays package Stream’s `web/dist`, so build the web receiver before a relay.
+The Android app packages Stream’s `kotlin/web-receiver/dist` and the Linux relay `rust/web-receiver/dist`, so build that web receiver before the relay.
 
 ::: details Build and test commands for each part {#build-commands}
 | Part | Requirements | Commands |
 | --- | --- | --- |
-| Web receiver (Stream) | Node.js 20.19+ or 22.12+ | `cd web && npm ci && npm test && npm run build` |
+| Web receiver for the Android relay (Stream) | Node.js 20.19+ or 22.12+ | `cd kotlin/web-receiver && npm ci && npm test && npm run build` |
+| Web receiver for the Linux relay (Stream) | Node.js 20.19+ or 22.12+ | `cd rust/web-receiver && npm ci && npm test && npm run build` |
 | Kotlin outputs (Stream) | JDK 17 | `cd kotlin && ./gradlew test` |
 | Rust outputs (Stream) | Rust stable | `cd rust && cargo test --workspace` |
 | Admin page (Relay) | Node.js 20.19+ or 22.12+ | `cd admin-web && npm ci && npm test && npm run build` |
-| Android app (Relay) | JDK 17, Android SDK; the admin page and Stream’s `web/dist` built first | `cd android && ./gradlew testDebugUnitTest assembleDebug` |
+| Android app (Relay) | JDK 17, Android SDK; the admin page and Stream’s `kotlin/web-receiver/dist` built first | `cd android && ./gradlew testDebugUnitTest assembleDebug` |
 | Linux relay (Relay) | Rust stable | `cd rust && cargo test` |
 | aarch64 Linux builds (Stream and Relay) | `rustup target add aarch64-unknown-linux-musl`, `llvm-tools`, clang | `rust/scripts/build-aarch64.sh` |
 | Plugins (Web-Plugins) | Node 22 | `npm ci && npm run build && npm test` |
 :::
 
-The Android build includes DiPlay and Stream as Gradle composite builds and expects them next to OpenXPlay-Relay (`../OpenXPlay-DiPlay`, `../OpenXPlay-Stream`); `-Pdiplay.dir=PATH` and `-Pstream.dir=PATH` point elsewhere.
+The Android build includes DiPlay and Stream as Gradle composite builds and expects them next to OpenXPlay-Relay (`../OpenXPlay-DiPlay`, `../OpenXPlay-Stream`); `-Pdiplay.dir=PATH` and `-Pstream.dir=PATH` (pointing at Stream’s `kotlin/` directory) point elsewhere.
 
 ## Contributing {#contributing}
 

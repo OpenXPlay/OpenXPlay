@@ -23,7 +23,7 @@ next:
 
 The Phicomm N1 is a TV box with an Amlogic S905D. With Armbian installed, it runs the OpenXPlay Linux relay: the relay starts whenever the box is powered, its hotspot can use 5 GHz, and the head unit shows CarPlay in its own browser; add a USB Wi-Fi adapter and the head unit’s Carlink app works too. [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) provides the N1’s device package.
 
-You install everything from a computer over SSH, so this guide is for people who are comfortable with the command line. OpenXPlay Flasher can’t install the N1 yet; see [OpenXPlay Flasher](#flasher).
+You install everything from a computer over SSH, so this guide is for people who are comfortable with the command line. OpenXPlay Flasher supports installing the N1, but that hasn’t been tested on a real device yet, so this guide recommends installing by hand for now; see [OpenXPlay Flasher](#flasher).
 
 ::: warning At your own risk
 - Writing Armbian to the eMMC erases the N1’s current system.
@@ -230,7 +230,7 @@ The N1 is now ready for the car: give it 12 V and the relay starts by itself. [U
 2. Start the head unit’s Carlink app; the relay joins the head unit’s Carlink Wi-Fi with the USB adapter by itself, see [Carlink app](/en/carlink). For the head unit’s browser as well, the head unit joins the relay’s hotspot, as with one adapter.
 3. Admin page: join the relay’s hotspot from your phone and open `https://openxplay-car.local:6975` or `https://10.77.0.1:6975`. While Carlink isn’t connected, you can also join the admin hotspot `OpenXPlay-Admin` and open `https://openxplay-admin.local:6975` or `https://10.79.0.1:6975`. The admin hotspot is off by default; turn it on under **iPhone connection → Wireless network → Interfaces and network roles**.
 
-`openxplay-car.local` works only on the relay’s hotspot, `openxplay-admin.local` only on the admin hotspot and your home network. iPhones, Macs and Windows computers open these `.local` addresses; many Android phones can’t, so use the IP address there. Bookmark the page or add it to the Home Screen the first time, and you won’t need to type the address again.
+`openxplay-car.local` works on the iPhone’s network: the relay’s hotspot, or the car’s hotspot if you chose it; `openxplay-admin.local` works on the other networks, such as the admin hotspot and your home network. iPhones, Macs and Windows computers open these `.local` addresses; many Android phones can’t, so use the IP address there. Bookmark the page or add it to the Home Screen the first time, and you won’t need to type the address again.
 
 ## Network and Wi-Fi {#wifi}
 

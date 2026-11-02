@@ -26,7 +26,7 @@ No. The relay does the receiving and connecting, and the head unit uses what it 
 
 ### Which head units work? {#which-head-units}
 
-The head units OpenXPlay has tested are listed under [Head units](/en/head-units), starting with the Xpeng G6. For the web receiver, what matters is the head unit’s browser: it needs WebCodecs H.264 decoding. If your head unit hasn’t been tested yet, open [Check your head unit](/en/check) in its browser to test it, and share the result with the [community](/en/community).
+The head units OpenXPlay has tested are listed under [Head units](/en/head-units), starting with the XPeng G6. For the web receiver, what matters is the head unit’s browser: it needs WebCodecs H.264 decoding. If your head unit hasn’t been tested yet, open [Check your head unit](/en/check) in its browser to test it, and share the result with the [community](/en/community).
 
 ### How is OpenXPlay different from DiPlay? {#diplay}
 
@@ -53,7 +53,7 @@ The relay starts again when power comes back:
 
 ### Does OpenXPlay send my data anywhere? {#data}
 
-OpenXPlay works over local connections. The relay serves the receiver page and its admin page itself; video, audio and touch travel between the iPhone, the relay and the head unit over Bluetooth, Wi-Fi or USB, and the Linux relay starts without waiting for Internet access. Plugins are off by default and run offline in the head-unit browser. Vehicle information from Carlink is collected only when you turn it on and stays on the relay phone. This website has no analytics, and its check page runs only in your browser.
+OpenXPlay works over local connections. The relay serves the receiver page and its admin page itself; video, audio and touch travel between the iPhone, the relay and the head unit over Bluetooth, Wi-Fi or USB, and the Linux relay starts without waiting for Internet access. Plugins are off by default and run offline in the head-unit browser. Vehicle information from Carlink is collected only when you turn it on and stays on the relay device. This website has no analytics, and its check page runs only in your browser.
 
 ### Is the relay’s admin page protected? {#admin-password}
 

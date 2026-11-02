@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-29
 title: 'Tesla: CarPlay in the Tesla browser (experimental)'
-description: The Tesla browser doesn’t open local-network addresses, so the OpenXPlay relay adds an address it can open. Requirements, the four ways to reach the relay (TeslaMirror-style recommended) and how to set it up on the Android relay. Not yet tested in a Tesla.
+description: The Tesla browser doesn’t open local-network addresses, so the OpenXPlay relay adds an address it can open. Requirements, the four ways to reach the relay (TeslaMirror-style recommended) and how to set it up on the Android and Linux relays. Not yet tested in a Tesla.
 breadcrumb: Tesla
 ---
 
@@ -12,7 +12,7 @@ breadcrumb: Tesla
 A Tesla shows CarPlay in its own browser, like other head units, with one difference: the Tesla browser doesn’t open local-network addresses such as `192.168.43.20`. The relay therefore adds an address the Tesla can open, through a local VPN on the relay phone; nothing leaves the phone.
 
 ::: warning Not yet tested in a Tesla
-This adaptation is new in Android app 0.2.0 and hasn’t been tested in a Tesla yet. If you try it, please share the result in the [community](/en/community).
+Android app 0.2.0 and Linux relay 0.1.6 have this adaptation, and neither has been tested in a Tesla yet. If you try it, please share the result in the [community](/en/community).
 :::
 
 ## What you need {#requirements}

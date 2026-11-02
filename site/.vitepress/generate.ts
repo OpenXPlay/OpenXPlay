@@ -35,7 +35,7 @@ export function rememberPage(pageData: PageData): void {
   })
 }
 
-const SUMMARY = 'OpenXPlay shows iPhone CarPlay on Android head units that cannot install apps. A relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle — connects to the iPhone as a CarPlay receiver and passes video, audio and touch on to software the head unit already has: its browser (the web receiver, which decodes H.264 with WebCodecs) or a Carlink app. Nothing is installed on the head unit. The code is open source under AGPL-3.0, with commercial exemptions available from ' + SUPPORT_EMAIL + '.'
+const SUMMARY = 'OpenXPlay shows iPhone CarPlay on Android head units that cannot install apps. A relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle — connects to the iPhone as a CarPlay receiver and passes video, audio and touch on to software the head unit already has: its browser (the web receiver, which decodes H.264 or H.265 with WebCodecs) or a Carlink app. Nothing is installed on the head unit. The code is open source under AGPL-3.0, with commercial exemptions available from ' + SUPPORT_EMAIL + '.'
 
 const NOTES = [
   'Terminology: a "head unit" (Chinese: 车机) is the car’s built-in Android infotainment screen; a "relay" (Chinese: 中继) is the device between the iPhone and the head unit.',
@@ -53,12 +53,12 @@ const REPOSITORIES: [string, string][] = [
 
 const COMPONENT_TEXT: Record<LocaleKey, Record<string, string>> = {
   root: {
-    HeadUnitCheck: '［交互式检测：在车机浏览器中打开本页即可运行，全部在浏览器本地完成。］',
-    RouteChooser: '［方案选择：安卓手机 + 车机浏览器（推荐），见[安卓手机作中继](/android-relay)；UFI003 随身 Wi-Fi + 车机浏览器，见[UFI003 作中继](/ufi003-relay)；斐讯 N1 电视盒子（进阶），见[斐讯 N1 作中继](/phicomm-n1)；安卓手机、UFI003 或斐讯 N1 + Carlink 应用（实验性），见[Carlink 应用](/carlink)。］',
+    HeadUnitCheck: '［交互式检测：在车机浏览器中打开本页即可运行，检查浏览器是否提供网页接收端用到的功能，全部在浏览器本地完成；不能代替在车上实际测试。］',
+    RouteChooser: '［方案选择：安卓手机 + 车机浏览器（推荐），见[安卓手机作中继](/android-relay)；UFI003 随身 Wi-Fi + 车机浏览器，见[UFI003 作中继](/ufi003-relay)；斐讯 N1 电视盒子（进阶），见[斐讯 N1 作中继](/phicomm-n1)；安卓手机或接上第二块 USB Wi-Fi 网卡的斐讯 N1 + Carlink 应用（实验性），见[Carlink 应用](/carlink)；UFI003 只有一块 Wi-Fi 网卡，只能用车机浏览器。］',
   },
   en: {
-    HeadUnitCheck: '[Interactive check: open this page in the head unit’s browser to run it. It runs entirely in the browser.]',
-    RouteChooser: '[Setup chooser: Android phone + head-unit browser (recommended), see [Android phone as the relay](/en/android-relay); UFI003 USB dongle + head-unit browser, see [UFI003 as the relay](/en/ufi003-relay); Phicomm N1 TV box (advanced), see [Phicomm N1 as the relay](/en/phicomm-n1); Android phone, UFI003 or Phicomm N1 + Carlink app (experimental), see [Carlink app](/en/carlink).]',
+    HeadUnitCheck: '[Interactive check: open this page in the head unit’s browser to run it. It checks whether the browser has the features the web receiver uses, entirely in the browser; it doesn’t replace a test in the car.]',
+    RouteChooser: '[Setup chooser: Android phone + head-unit browser (recommended), see [Android phone as the relay](/en/android-relay); UFI003 USB dongle + head-unit browser, see [UFI003 as the relay](/en/ufi003-relay); Phicomm N1 TV box (advanced), see [Phicomm N1 as the relay](/en/phicomm-n1); Android phone, or Phicomm N1 with a second USB Wi-Fi adapter, + Carlink app (experimental), see [Carlink app](/en/carlink); the UFI003 has a single Wi-Fi adapter, so it offers the head-unit browser only.]',
   },
 }
 

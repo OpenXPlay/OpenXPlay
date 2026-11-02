@@ -201,7 +201,7 @@ One example per provider; replace the name and the token with yours:
 
 The IP address (such as `https://192.168.43.20:8443/`) keeps working as a fallback. It still shows a certificate warning, which may now say that the certificate belongs to another name; that’s expected.
 
-- On the Linux relay, the head-unit page switches to a new certificate only while no CarPlay session is running. If the certificate arrives while CarPlay runs, open the page again after CarPlay ends.
+- When a certificate is issued or renewed, CarPlay doesn’t need to end: an open head-unit page stays connected, and pages opened afterwards use the new certificate.
 - The admin page uses the same certificate: replace the IP address or `.local` name in its address with your name, and it opens without a warning too.
 
 ## Status messages {#status}
@@ -261,7 +261,7 @@ Both your provider and Let’s Encrypt limit how often they can be asked. When t
 
 ::: details The name still shows a certificate warning {#still-warning}
 - Check that the address uses the name, not the IP address.
-- Check that the status line shows *Ready*. On the Linux relay, the head-unit page switches to a new certificate only while no CarPlay session is running.
+- Check that the status line shows *Ready*. A head-unit page opened before the certificate was ready keeps its earlier connection; open it again by name.
 - Check the head unit’s date and time. If they are far off, the browser thinks the certificate isn’t valid yet or has expired.
 - A very old head-unit system or browser may not trust Let’s Encrypt certificates; then keep using the IP address.
 :::

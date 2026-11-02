@@ -18,7 +18,9 @@ interface Option<K extends string> { key: K; name: string; tag?: string; tagKind
 interface Result {
   title: string
   summary: string
+  /** Empty when the route isn't available; the card then shows only why and where to go instead. */
   needs: string[]
+  unavailable?: boolean
   note?: string
   action: string
   link: string
@@ -86,12 +88,12 @@ const TEXT: Record<'root' | 'en', Text> = {
       },
       'ufi003-carlink': {
         title: 'UFI003 随身 Wi-Fi + Carlink 应用',
-        summary: '中继经 Wi-Fi 连接车机上的 Carlink 应用。实验性功能，有可能连接失败。',
-        needs: ['支持 CarPlay 的 iPhone', 'UFI003 USB 随身 Wi-Fi 和一台电脑', 'Apple 配件（MFi）身份', '装有 Carlink 应用的车机'],
-        note: 'UFI003 的 Wi-Fi 只有 2.4 GHz，无法连接 Carlink Wi-Fi 工作在 5 GHz 的车机，例如小鹏 G6。',
+        summary: 'UFI003 只有一块 Wi-Fi 网卡，只能用车机浏览器显示 CarPlay。要用 Carlink，请换用安卓手机，或接上第二块 USB Wi-Fi 网卡的斐讯 N1。',
+        needs: [],
+        unavailable: true,
         action: '查看 Carlink 教程',
         link: 'carlink',
-        secondary: { text: '查看实测车机', link: 'head-units' },
+        secondary: { text: '改用车机浏览器', link: 'ufi003-relay' },
       },
       'n1-browser': {
         title: '斐讯 N1 电视盒子 + 车机浏览器',
@@ -104,9 +106,9 @@ const TEXT: Record<'root' | 'en', Text> = {
       },
       'n1-carlink': {
         title: '斐讯 N1 电视盒子 + Carlink 应用',
-        summary: '中继经 Wi-Fi 连接车机上的 Carlink 应用。实验性功能，有可能连接失败。',
-        needs: ['支持 CarPlay 的 iPhone', '斐讯 N1、U 盘、网线和一台电脑', 'Apple 配件（MFi）身份', '装有 Carlink 应用的车机'],
-        note: 'N1 只有一块 Wi-Fi 网卡：中继连接车机的 Carlink 网络时，iPhone 会跟着转到车机的网络上。',
+        summary: '中继经 Wi-Fi 连接车机上的 Carlink 应用。实验性功能，有可能连接失败；需要 Linux 中继 0.1.6 及以上版本。',
+        needs: ['支持 CarPlay 的 iPhone', '斐讯 N1、U 盘、网线和一台电脑', '第二块 USB Wi-Fi 网卡', 'Apple 配件（MFi）身份', '装有 Carlink 应用的车机'],
+        note: 'N1 自带的网卡给 iPhone 开热点，USB 网卡连接车机的 Carlink Wi-Fi。两块网卡的用法还没有在车上测试过。',
         action: '查看斐讯 N1 教程',
         link: 'phicomm-n1',
         secondary: { text: '查看 Carlink 教程', link: 'carlink' },
@@ -156,12 +158,12 @@ const TEXT: Record<'root' | 'en', Text> = {
       },
       'ufi003-carlink': {
         title: 'UFI003 USB dongle + Carlink app',
-        summary: 'The relay connects to the head unit’s Carlink app over Wi-Fi. This is experimental and may fail to connect.',
-        needs: ['An iPhone with CarPlay', 'A UFI003 USB dongle and a computer', 'An Apple accessory (MFi) identity', 'A head unit with a Carlink app'],
-        note: 'The UFI003’s Wi-Fi is 2.4 GHz only, so it can’t join a head unit whose Carlink Wi-Fi runs on 5 GHz, such as the XPeng G6.',
+        summary: 'The UFI003 has a single Wi-Fi adapter, so it shows CarPlay only in the head unit’s browser. For Carlink, use an Android phone, or a Phicomm N1 with a second USB Wi-Fi adapter.',
+        needs: [],
+        unavailable: true,
         action: 'Read the Carlink guide',
         link: 'carlink',
-        secondary: { text: 'See tested head units', link: 'head-units' },
+        secondary: { text: 'Use the head-unit browser instead', link: 'ufi003-relay' },
       },
       'n1-browser': {
         title: 'Phicomm N1 TV box + head-unit browser',
@@ -174,9 +176,9 @@ const TEXT: Record<'root' | 'en', Text> = {
       },
       'n1-carlink': {
         title: 'Phicomm N1 TV box + Carlink app',
-        summary: 'The relay connects to the head unit’s Carlink app over Wi-Fi. This is experimental and may fail to connect.',
-        needs: ['An iPhone with CarPlay', 'A Phicomm N1, a USB drive, a network cable and a computer', 'An Apple accessory (MFi) identity', 'A head unit with a Carlink app'],
-        note: 'The N1 has one Wi-Fi radio: when the relay joins the car’s Carlink network, the iPhone follows it there.',
+        summary: 'The relay connects to the head unit’s Carlink app over Wi-Fi. This is experimental and may fail to connect; it needs Linux relay 0.1.6 or later.',
+        needs: ['An iPhone with CarPlay', 'A Phicomm N1, a USB drive, a network cable and a computer', 'A second Wi-Fi adapter, on USB', 'An Apple accessory (MFi) identity', 'A head unit with a Carlink app'],
+        note: 'The N1’s built-in adapter runs the iPhone’s hotspot and the USB adapter joins the head unit’s Carlink Wi-Fi. Two adapters haven’t been tested in a car yet.',
         action: 'Read the Phicomm N1 guide',
         link: 'phicomm-n1',
         secondary: { text: 'Read the Carlink guide', link: 'carlink' },
@@ -244,14 +246,16 @@ const href = (slug: string) => withBase(prefix.value + slug)
 
     <div class="oxp-chooser__result" aria-live="polite">
       <Transition name="oxp-chooser" mode="out-in">
-        <div :key="key" class="oxp-chooser__card">
+        <div :key="key" class="oxp-chooser__card" :class="{ 'is-unavailable': result.unavailable }">
           <p class="oxp-chooser__eyebrow">{{ t.yourRoute }}</p>
           <p class="oxp-chooser__title">{{ result.title }}</p>
           <p class="oxp-chooser__summary">{{ result.summary }}</p>
-          <p class="oxp-chooser__needs-label">{{ t.needsLabel }}</p>
-          <ul class="oxp-chooser__needs">
-            <li v-for="need in result.needs" :key="need">{{ need }}</li>
-          </ul>
+          <template v-if="result.needs.length">
+            <p class="oxp-chooser__needs-label">{{ t.needsLabel }}</p>
+            <ul class="oxp-chooser__needs">
+              <li v-for="need in result.needs" :key="need">{{ need }}</li>
+            </ul>
+          </template>
           <p v-if="result.note" class="oxp-chooser__note">{{ result.note }}</p>
           <div class="oxp-chooser__actions">
             <a class="oxp-chooser__go" :href="href(result.link)">{{ result.action }}</a>
@@ -391,6 +395,10 @@ const href = (slug: string) => withBase(prefix.value + slug)
   border: 1px solid var(--vp-c-divider);
   border-top: 4px solid var(--chooser-accent);
   background: var(--vp-c-bg-soft);
+}
+
+.oxp-chooser__card.is-unavailable {
+  border-top-color: var(--vp-c-warning-1);
 }
 
 .vp-doc .oxp-chooser__eyebrow {

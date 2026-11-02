@@ -39,7 +39,7 @@ features:
 
 - **支持 CarPlay 的 iPhone**：通过无线或 USB 线连接中继。
 - **一台中继**：Android 8.0 及以上的安卓手机，或 UFI003 随身 Wi-Fi。
-- **Apple 配件（MFi）身份**：两个文件，需要由你自行提供，项目不附带。[了解更多](/quick-start#mfi-identity)
+- **Apple 配件（MFi）身份**：通常是两个文件，需要由你自行提供，项目不附带。[了解更多](/quick-start#mfi-identity)
 - **车机浏览器**：需要支持 WebCodecs 视频解码，可以[先检测](/check)。
 
 </div>

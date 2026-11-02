@@ -34,7 +34,7 @@ The UFI003’s Wi-Fi has no 5 GHz band, so its hotspot runs on 2.4 GHz.
 | Downloading and checking files | The AI downloads them from the signed package list and checks them | You download them from the links Flasher shows; Flasher checks them |
 | Suits you if | You already use an AI assistant that can run commands, such as Claude Code or Codex | You want to see every step yourself, or you don’t use such an assistant |
 
-Both ways use the same Flasher and the same signed package list, with the same backup before flashing and the same safety checks. Windows has native adb and fastboot support from 0.2.0-beta.2; see below for its driver requirements and hardware validation results.
+Both ways use the same Flasher and the same signed package list, with the same modem-partition backup and the same safety checks. Windows has native adb and fastboot support from 0.2.0-beta.2; see below for its driver requirements and hardware validation results.
 
 ## Let an AI assistant install it (recommended) {#ai}
 
@@ -104,7 +104,7 @@ Once it’s open, Flasher takes you through these steps:
 1. **Connect**: plug the UFI003 into the computer. Flasher shows the dongle’s serial number and the version of each layer. A brand-new dongle still runs its original firmware and appears in the list of *other Android devices … connected and ignored*, with its model (usually `msm8916_32_512`) and serial number; check them, then choose *This is a UFI003 with its original firmware*, and Flasher reads the model to confirm it.
 2. **Choose**: the suggested action comes first, for example *Install OpenXPlay from the original firmware* for a new dongle or *Install / update relay* for one that is already set up. The other actions that erase the dongle (reinstall the base system, full reinstall, repair) are under *Reflash (erases the device)*.
 3. **Prepare**: Flasher lists each file it needs with its SHA-256 and download links, but doesn’t download anything itself. Download the files from the links or another source you trust, then choose *Choose file…* or *Choose several files…*. Flasher recognises the files by their SHA-256, so their names don’t matter. Don’t move or delete them until the install has finished.
-4. **Back up** (only when the base system is flashed): Flasher first reads the `modemst1`, `modemst2`, `fsc` and `fsg` partitions from the dongle and saves them to `OpenXPlay Backups` in your Documents folder. They hold modem calibration data unique to this dongle, so keep that folder for good. Actions that erase the dongle also ask you to type its serial number.
+4. **Back up** (only when the base system is flashed): Flasher reads the `modemst1`, `modemst2`, `fsc` and `fsg` partitions from the dongle and saves them to `OpenXPlay Backups` in your Documents folder. They hold modem calibration data unique to this dongle, so keep that folder for good. The original bootloader can’t read those partitions, so on an install from the original firmware Flasher first replaces the bootloader and erases the boot partition, then makes the backup, and installs the system only once the backup has succeeded. Actions that erase the dongle also ask you to type its serial number.
 5. **Flash**: Flasher first shows what this install does and roughly how long it takes (6 to 7 minutes from the original firmware). The dongle restarts a few times; don’t unplug it. If the connection is lost along the way, reconnect and choose *Repair*: Flasher carries on where it stopped and restores those four partitions from the earlier backup.
 6. **Done**: Flasher checks the version of each layer, and under *Next steps* offers buttons to [add your CarPlay identity](#step-identity) and to open the relay’s admin page over USB.
 
@@ -207,7 +207,7 @@ Then carry on from [Open the admin page](#step-admin). Without Flasher, add your
 
 ## Next {#next-steps}
 
-- In cars such as the Xpeng G6, see the recommended setup under [Head units](/en/head-units), for example setting the frame rate to 30 on 2.4 GHz: change it in the admin page under **Settings → CarPlay picture → Frame rate**, and the head-unit page follows it.
+- In cars such as the XPeng G6, see the recommended setup under [Head units](/en/head-units), for example setting the frame rate to 30 on 2.4 GHz: change it in the admin page under **Settings → CarPlay picture → Frame rate**, and the head-unit page follows it.
 - To report a problem, save the logs as a file under **Settings → Logs**, or upload them and send us the log ID.
 - [Trusted HTTPS](/en/trusted-https): remove the certificate warning with a free domain name.
 - Something not working? See [Troubleshooting](/en/troubleshooting).
