@@ -19,7 +19,7 @@ next:
 
 # Android phone as the relay
 
-The recommended setup: an Android phone as the relay and the head unit’s own browser to show CarPlay. Nothing is installed on the head unit. The first setup takes about 10 minutes. This guide follows OpenXPlay Relay 0.2.2.
+The recommended setup: an Android phone as the relay and the head unit’s own browser to show CarPlay. Nothing is installed on the head unit. The first setup takes about 10 minutes. This guide follows OpenXPlay Relay 0.2.4.
 
 ::: tip Before you start
 - An iPhone with CarPlay
@@ -53,11 +53,12 @@ The iPhone connects straight to the relay phone. The head unit reaches the relay
 :::
 
 ::: details This phone’s hotspot: the head unit has no hotspot but can join a Wi-Fi network {#network-hotspot}
-The iPhone and the head unit both join the relay phone’s hotspot.
+The iPhone and the head unit both join the relay phone’s hotspot. The app can’t change Android’s hotspot settings, so the hotspot name and password must match on both sides. There are two ways:
 
-- Enter the hotspot name and password in the app exactly as in Android’s hotspot settings.
-- Choose 5 GHz for the band, here and in Android’s hotspot settings: on 2.4 GHz the picture stutters easily. Switch back to 2.4 GHz only if the head unit can’t join a 5 GHz hotspot.
-- Some phones open only a 2.4 GHz hotspot while connected to Wi-Fi; disconnect Wi-Fi first. Some turn Wi-Fi off when the hotspot is on, which Carlink can’t work with.
+- **Copy to settings (recommended):** the app suggests a name (`OpenXPlay-A-…`) and a 16-character password. Tap *Copy name and open settings* and paste it as the hotspot name in Android’s hotspot settings; come back to the app, tap *Copy password and open settings* and paste it as the password. Choose the security and the band the app shows below, then save the settings and turn the hotspot on.
+- **Use my existing hotspot:** keep a hotspot you set up yourself, and enter its name and password in the app.
+
+Choose 5 GHz for the band, both for *Hotspot band* in the app and in Android’s hotspot settings: on 2.4 GHz the picture stutters easily. Switch back to 2.4 GHz only if the head unit can’t join a 5 GHz hotspot. Some phones open only a 2.4 GHz hotspot while connected to Wi-Fi; disconnect Wi-Fi first. Some turn Wi-Fi off when the hotspot is on, which Carlink can’t work with.
 :::
 
 ::: details Use the car’s hotspot: everyone joins the head unit’s hotspot {#network-car-hotspot}
@@ -69,7 +70,7 @@ The iPhone and the relay phone both join the car’s hotspot. Connect the relay 
    - **Import the CarPlay identity:** select `identity.pk8` and `certificate.p7b` together or one after the other, in any order, or a ZIP containing them. If you pick only one, the app asks for the other.
    - **Pair the iPhone** (wireless): allow the relay phone to become visible when it asks, then on the iPhone open Settings → Bluetooth, choose the relay phone and allow CarPlay.
    - **Save the car’s hotspot** (only with *Use the car’s hotspot*).
-6. **Ready to start:** check the summary. *Connect automatically* is on: next time the app opens, it starts after a short countdown. *Start on boot* starts the relay when the phone starts.
+6. **Ready to start:** check the summary. *Connect automatically* is on: next time the app opens, it starts after a short countdown. *Start on boot* starts the relay when the phone starts. If the page shows *Battery optimization*, tap it and let OpenXPlay Relay run unrestricted in the background; otherwise the phone may pause the relay when the screen is off or another app is open, and the head-unit page stops working. Some phones also have the maker’s own autostart and battery saver settings: open them from Settings → Background in the app.
 
 ## Connect the head unit’s network {#step-network .step}
 
@@ -103,7 +104,9 @@ The connection is still encrypted. Browsers allow WebCodecs video decoding only 
 
 ## Start using it {#step-use .step}
 
-When the page asks for a tap, tap the screen once: the page goes full screen and turns on sound, and the tap doesn’t reach CarPlay. CarPlay then runs on the head unit’s screen and responds to your touches; the home screen says *CarPlay is live*.
+When the page asks for a tap, tap the screen once: the page goes full screen, and the tap doesn’t reach CarPlay. CarPlay then runs on the head unit’s screen and responds to your touches; the home screen says *CarPlay is live*.
+
+By default, CarPlay sound plays over the car’s Bluetooth: keep the iPhone paired with the car and choose Bluetooth as the car’s audio source. To play the sound on the head-unit page instead, see [There is no sound](/en/troubleshooting#no-sound).
 
 To change the picture, the sound or full screen, tap the OpenXPlay icon in CarPlay: the page’s settings slide in. See [Head-unit page settings](/en/daily-use#web-settings).
 

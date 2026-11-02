@@ -5,12 +5,14 @@ Created by riko chen on 2026-10-17
 -->
 <script setup lang="ts">
 // Checks, inside the head unit's own browser, the features the OpenXPlay web receiver relies on.
+// It only asks the browser what it supports: no video is decoded, no relay is contacted, nothing is
+// recorded and no touch is sent, so a pass is not a test in the car.
 // Everything runs locally: no network requests, no storage, no analytics.
 import { computed, onMounted, ref } from 'vue'
 import { useData } from 'vitepress'
 
 type Lang = 'en' | 'zh'
-type Verdict = 'full' | 'h264' | 'unsupported' | 'insecure'
+type Verdict = 'full' | 'h264' | 'partial' | 'unsupported' | 'insecure'
 type Tri = boolean | undefined
 
 interface VideoCase { family: 'H.264' | 'H.265'; profile: string; codec: string; width: number; height: number }
@@ -62,8 +64,9 @@ const TEXT = {
     fallback: 'If this message doesn’t change, this browser can’t run the check. It is most likely too old for the web receiver, which needs WebCodecs.',
     privacy: 'Everything runs inside this page. Nothing is uploaded or stored.',
     verdicts: {
-      full: ['Works with the web receiver', 'This browser has everything the web receiver needs, including H.265 (HEVC) decoding in hardware, which the relay can use for sharper video.'],
-      h264: ['Works, H.264 only', 'This browser can show CarPlay with H.264 video. It doesn’t offer hardware H.265 decoding, so the relay sends H.264 to this screen.'],
+      full: ['Checks passed, with H.265', 'This browser reports the video, sound and microphone features the web receiver uses, and suggests it can decode H.265 (HEVC) in hardware, so the relay can use H.265.'],
+      h264: ['Checks passed, H.264 only', 'This browser reports the video, sound and microphone features the web receiver uses, but doesn’t suggest hardware H.265 decoding, so the relay sends H.264 to this screen.'],
+      partial: ['Picture checks passed; some features are missing', 'This browser reports what the web receiver needs to show the picture, but lacks some of the features listed below.'],
       unsupported: ['Not supported: needs a browser with WebCodecs', ''],
       insecure: ['Open this page over HTTPS', 'Browsers turn on WebCodecs only on secure (HTTPS) pages, so the check can’t run here. Open this page’s https:// address instead.'],
     },
@@ -73,6 +76,16 @@ const TEXT = {
       noWorker: 'The browser lacks Web Workers or OffscreenCanvas, which the web receiver uses to decode and draw video.',
       noSocket: 'The browser lacks WebSocket, which carries the CarPlay session from the relay.',
     },
+    codec: {
+      hevc: 'It suggests hardware H.265 decoding.',
+      h264: 'It doesn’t suggest hardware H.265 decoding, so the relay sends H.264.',
+    },
+    joiner: ' ',
+    abilities: {
+      audio: 'Sound', microphone: 'Microphone', touch: 'Touch', supported: 'Supported', missing: 'Missing', noTouch: 'Not detected',
+      points: (n: number) => (n === 1 ? '1 point' : `${n} points`),
+    },
+    scope: 'The check only asks the browser what it supports. It doesn’t play video, connect to a relay, record sound or send touches, so it doesn’t replace trying it in the car.',
     notes: {
       software: 'The browser doesn’t report hardware H.264 decoding. CarPlay may still work, but video may stutter.',
       noAudio: 'No AudioWorklet: the browser can show CarPlay but can’t play its sound.',
@@ -102,8 +115,9 @@ const TEXT = {
     fallback: '如果这条信息一直不变，说明此浏览器无法运行检测，很可能版本太旧，不支持网页接收端所需的 WebCodecs。',
     privacy: '检测全部在本页面内完成，不上传、不保存任何数据。',
     verdicts: {
-      full: ['可以使用网页接收端', '此浏览器具备网页接收端所需的全部功能，并支持 H.265（HEVC）硬件解码，中继可以用它传输更清晰的画面。'],
-      h264: ['可以使用，仅支持 H.264', '此浏览器可以用 H.264 视频显示 CarPlay。它不提供 H.265 硬件解码，因此中继会向这块屏幕发送 H.264。'],
+      full: ['检查通过，支持 H.265', '此浏览器报告具备网页接收端用到的视频、声音和麦克风功能，并提示可以硬件解码 H.265（HEVC），中继可以使用 H.265。'],
+      h264: ['检查通过，仅支持 H.264', '此浏览器报告具备网页接收端用到的视频、声音和麦克风功能，但没有提示可以硬件解码 H.265，中继会向这块屏幕发送 H.264。'],
+      partial: ['可以显示画面，缺少部分功能', '此浏览器报告具备显示画面所需的功能，但缺少下面列出的部分。'],
       unsupported: ['不支持：需要支持 WebCodecs 的浏览器', ''],
       insecure: ['请通过 HTTPS 打开本页', '浏览器只在安全（HTTPS）页面中启用 WebCodecs，因此这里无法检测。请改用本页的 https:// 地址打开。'],
     },
@@ -113,6 +127,16 @@ const TEXT = {
       noWorker: '浏览器缺少 Web Worker 或 OffscreenCanvas，网页接收端要用它们解码和绘制视频。',
       noSocket: '浏览器缺少 WebSocket，无法从中继接收 CarPlay 会话。',
     },
+    codec: {
+      hevc: '它提示可以硬件解码 H.265。',
+      h264: '它没有提示可以硬件解码 H.265，中继会发送 H.264。',
+    },
+    joiner: '',
+    abilities: {
+      audio: '声音', microphone: '麦克风', touch: '触控', supported: '支持', missing: '不支持', noTouch: '未检测到',
+      points: (n: number) => `${n} 点`,
+    },
+    scope: '检测只询问浏览器支持哪些功能，不播放视频、不连接中继、不录音，也不传回触控，不能代替在车上实际使用。',
     notes: {
       software: '浏览器没有报告 H.264 硬件解码。CarPlay 也许仍能使用，但画面可能卡顿。',
       noAudio: '没有 AudioWorklet：浏览器能显示 CarPlay，但无法播放声音。',
@@ -287,7 +311,8 @@ async function run(): Promise<void> {
 
 const hardwareOrEfficient = (result: VideoResult) => result.hardware === true || result.powerEfficient === true
 
-const verdict = computed<{ kind: Verdict; reason?: keyof typeof TEXT.en.reasons } | null>(() => {
+/** Video decides whether the receiver can run; sound and the microphone decide whether that is all of it. */
+const verdict = computed<{ kind: Verdict; reason?: keyof typeof TEXT.en.reasons; hevc?: boolean } | null>(() => {
   const r = results.value
   if (!r) return null
   const h264 = r.video.filter(v => v.family === 'H.264' && v.supported)
@@ -297,7 +322,23 @@ const verdict = computed<{ kind: Verdict; reason?: keyof typeof TEXT.en.reasons 
   if (!h264.length) return { kind: 'unsupported', reason: 'noH264' }
   if (!r.worker || !r.offscreen) return { kind: 'unsupported', reason: 'noWorker' }
   if (!r.webSocket) return { kind: 'unsupported', reason: 'noSocket' }
-  return { kind: h265.length ? 'full' : 'h264' }
+  const hevc = h265.length > 0
+  if (!r.audioWorklet || !r.microphone) return { kind: 'partial', hevc }
+  return { kind: hevc ? 'full' : 'h264', hevc }
+})
+
+/** Sound, microphone and touch, each on its own, for every verdict that can show a picture. */
+const abilities = computed<Row[]>(() => {
+  const r = results.value
+  const v = verdict.value
+  if (!r || !v || v.kind === 'insecure' || v.kind === 'unsupported') return []
+  const a = t.value.abilities
+  const points = r.touch.maxTouchPoints
+  return [
+    { key: 'audio', label: a.audio, value: r.audioWorklet ? a.supported : a.missing, ok: r.audioWorklet },
+    { key: 'microphone', label: a.microphone, value: r.microphone ? a.supported : a.missing, ok: r.microphone },
+    { key: 'touch', label: a.touch, value: points ? a.points(points) : a.noTouch, ok: points >= 2 ? true : undefined },
+  ]
 })
 
 const notes = computed<string[]>(() => {
@@ -387,7 +428,9 @@ const verdictText = computed(() => {
   const v = verdict.value
   if (!v) return null
   const [title, detail] = t.value.verdicts[v.kind]
-  return { title, detail: v.reason ? t.value.reasons[v.reason] : detail }
+  if (v.reason) return { title, detail: t.value.reasons[v.reason] }
+  if (v.kind === 'partial') return { title, detail: detail + t.value.joiner + (v.hevc ? t.value.codec.hevc : t.value.codec.h264) }
+  return { title, detail }
 })
 
 /** The report stays in English so anyone can read it, whatever the page language. */
@@ -494,9 +537,15 @@ onMounted(() => { void run() })
       <section class="oxp-check__verdict" :class="`is-${verdict.kind}`" role="status" aria-live="polite">
         <p class="oxp-check__title">{{ verdictText.title }}</p>
         <p class="oxp-check__detail">{{ verdictText.detail }}</p>
+        <ul v-if="abilities.length" class="oxp-check__abilities">
+          <li v-for="item in abilities" :key="item.key" :class="item.ok === undefined ? '' : item.ok ? 'is-yes' : 'is-no'">
+            {{ item.label }} <strong>{{ item.value }}</strong>
+          </li>
+        </ul>
         <ul v-if="notes.length" class="oxp-check__notes">
           <li v-for="note in notes" :key="note">{{ note }}</li>
         </ul>
+        <p class="oxp-check__scope">{{ t.scope }}</p>
       </section>
 
       <div class="oxp-check__actions">
@@ -606,6 +655,11 @@ onMounted(() => { void run() })
   background: var(--vp-c-tip-soft);
 }
 
+.oxp-check__verdict.is-partial {
+  border-color: var(--vp-c-warning-1);
+  background: var(--vp-c-warning-soft);
+}
+
 .oxp-check__verdict.is-unsupported {
   border-color: var(--vp-c-danger-1);
   background: var(--vp-c-danger-soft);
@@ -627,8 +681,45 @@ onMounted(() => { void run() })
   margin: 8px 0 0;
 }
 
+.vp-doc .oxp-check__abilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vp-doc .oxp-check__abilities li {
+  margin: 0;
+  padding: 4px 12px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  background: var(--vp-c-bg);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.vp-doc .oxp-check__abilities strong {
+  margin-left: 4px;
+}
+
+.vp-doc .oxp-check__abilities .is-yes strong {
+  color: var(--vp-c-success-1);
+}
+
+.vp-doc .oxp-check__abilities .is-no strong {
+  color: var(--vp-c-danger-1);
+}
+
 .vp-doc .oxp-check__notes {
   margin: 12px 0 0;
+}
+
+.vp-doc .oxp-check__scope {
+  margin: 12px 0 0;
+  color: var(--vp-c-text-2);
+  font-size: 14px;
 }
 
 .oxp-check__actions {

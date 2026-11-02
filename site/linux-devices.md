@@ -9,7 +9,7 @@ schema: howto
 howtoName: 在 arm64 Linux 设备上手动安装 OpenXPlay Linux 中继
 howtoTools:
   - 支持 CarPlay 的 iPhone
-  - 带 systemd、NetworkManager、BlueZ、经典蓝牙和可开热点 Wi-Fi 的 arm64 Linux 设备
+  - 带 systemd、NetworkManager 和可开热点 Wi-Fi 的 arm64 Linux 设备（无线连接 iPhone 还需要 BlueZ 和经典蓝牙）
   - 你自行提供的 Apple 配件（MFi）身份
   - 浏览器支持 WebCodecs 的安卓车机
 next:
@@ -34,17 +34,18 @@ UFI003 有自己的引导式安装，见[用 UFI003 随身 Wi-Fi 作中继](/ufi
 | 64 位 ARM（aarch64） | 发布版只为 aarch64 构建。它们是静态链接的 musl 可执行文件，与 glibc 和 Debian 的版本无关。 | `uname -m` 输出 `aarch64`；安装 `.deb` 时，`dpkg --print-architecture` 输出 `arm64` | 必需 |
 | 以 systemd 为 init | 中继作为 systemd 服务 `openxplay-relay.service` 运行。 | `ps -p 1 -o comm=` 输出 `systemd` | 必需 |
 | NetworkManager | 所有热点和 Wi-Fi 连接都由 `nmcli` 建立；它的共享模式配合 `dnsmasq-base` 分配地址（DHCP）。 | `systemctl is-active NetworkManager` | 必需 |
-| BlueZ | 中继通过 D-Bus 使用 `bluetoothd`，并使用 `sdptool`、`hciconfig` 和 `btmgmt` 这几个工具。 | `systemctl is-active bluetooth`；`command -v sdptool hciconfig btmgmt` | 必需 |
+| BlueZ | 中继通过 D-Bus 使用 `bluetoothd`，并使用 `sdptool`、`hciconfig` 和 `btmgmt` 这几个工具。 | `systemctl is-active bluetooth`；`command -v sdptool hciconfig btmgmt` | 无线连接和 Carlink 时必需 |
 | `iw` | 中继用它读取 Wi-Fi 网卡的工作模式、信道和国家代码。 | `command -v iw` | 必需 |
-| 经典蓝牙（BR/EDR） | 无线 CarPlay 通过 RFCOMM 传输 iAP2，RFCOMM 属于经典蓝牙。只支持低功耗蓝牙（LE）的蓝牙适配器无法使用。 | `btmgmt info` 中有 `br/edr` | 必需 |
-| 内核支持 RFCOMM | 原因同上。UFI003 的内核原本没有 RFCOMM，它的设备支持包补上了 `rfcomm.ko`。 | `sudo modprobe rfcomm` | 必需 |
+| 经典蓝牙（BR/EDR） | 无线 CarPlay 通过 RFCOMM 传输 iAP2，RFCOMM 属于经典蓝牙。只支持低功耗蓝牙（LE）的蓝牙适配器不能用于无线连接。 | `btmgmt info` 中有 `br/edr` | 无线连接时必需 |
+| 内核支持 RFCOMM | 原因同上。UFI003 的内核原本没有 RFCOMM，它的设备支持包补上了 `rfcomm.ko`。 | `sudo modprobe rfcomm` | 无线连接时必需 |
 | Wi-Fi 能作接入点（AP 模式） | 中继自己的热点（默认网络）需要它。 | `iw list` 的 *Supported interface modes* 中有 `AP` | 必需 |
 | 端口未被占用 | 6975 TCP（管理页面）、8443 TCP（车机网页）、7000 起（AirPlay）、5353 UDP（mDNS，由中继自己应答；与 avahi 同时运行尚未测试）。 | `ss -ltnup` | 必需 |
 | Apple 配件（MFi）身份 | 没有身份时，中继只提供管理页面。 | 由你自行提供，见[添加 CarPlay 身份](#identity) | 必需 |
 | 5 GHz Wi-Fi | 频段为自动时，只要有 5 GHz 信道能开热点就用 5 GHz，否则用 2.4 GHz 的 6 信道。只有 2.4 GHz 也能用（UFI003 就在 2.4 GHz 上运行 CarPlay），这时请在车机网页中把帧率设为 30。 | `iw list`；`iw reg get` | 非必需 |
-| Carlink：第二块 Wi-Fi 网卡，能以客户端连接 5 GHz | 在真车上使用 Carlink 时，中继要用一块不负责 iPhone 热点的 Wi-Fi 网卡，以客户端（station）方式连接车机的 5 GHz Wi-Fi。只有一块 Wi-Fi 网卡时，中继只提供车机浏览器输出。Carlink 还会用到低功耗蓝牙；Wi-Fi 直连可有可无。 | `nmcli device`；`btmgmt info` 中有 `le` | 非必需 |
+| 第二块 Wi-Fi 网卡，能以客户端连接 5 GHz | 在真车上使用 Carlink 时，中继要用一块不负责 iPhone 热点的 Wi-Fi 网卡，以客户端（station）方式连接车机的 5 GHz Wi-Fi。只有一块 Wi-Fi 网卡时，中继只提供车机浏览器输出。Carlink 还会用到低功耗蓝牙；Wi-Fi 直连可有可无。 | `nmcli device`；`btmgmt info` 中有 `le` | Carlink 时必需 |
+| USB 主机接口（USB-A），内核提供 usbfs 和 TUN/TAP | 用数据线连接时，iPhone 插在中继的 USB-A 接口上；中继通过 usbfs 直接驱动它，并用一块 TAP 虚拟网卡承载 CarPlay 的网络连接。这种连接方式还没有在设备上验证。 | `ls /dev/bus/usb /dev/net/tun` | USB 连接时必需 |
 
-中继本身占用的资源很少：在 UFI003（382 MB 内存）上，中继约占 2.9 MB 常驻内存，输出进程另占约 1.5 MB；磁盘占用约 5 MB。
+中继本身占用的资源很少。2026 年 10 月 15 日，Rust 版 Linux 中继的第一个开发构建在 UFI003（382 MB 内存）上空闲运行、没有 CarPlay 会话时，中继约占 2.9 MB 常驻内存，输出进程另占约 1.5 MB；磁盘占用约 5 MB。0.1.6 还没有重新测量。
 
 | 系统 | |
 | --- | --- |
@@ -68,6 +69,7 @@ sudo iw list
 sudo iw reg get
 printf '' | sudo btmgmt --index 0 info
 sudo modprobe rfcomm && lsmod | grep rfcomm
+ls /dev/bus/usb /dev/net/tun
 ss -ltnup | grep -E ':(6975|8443|7000|5353)\b'
 ```
 
@@ -78,10 +80,11 @@ ss -ltnup | grep -E ':(6975|8443|7000|5353)\b'
 | `systemctl is-active` | 两行 `active` |
 | `nmcli device` | Wi-Fi 网卡（类型为 `wifi`）；名称不是 `wlan0` 时需要[主机配置](#host-profile) |
 | `command -v` | 每个工具一行路径；少了哪一行，就是缺了哪个工具 |
-| `iw list` | *Supported interface modes* 中有 `AP`；*valid interface combinations* 允许 AP 和客户端（`managed`）同时运行；5 GHz 信道及其标记 |
+| `iw list` | *Supported interface modes* 中有 `AP`；5 GHz 信道及其标记 |
 | `iw reg get` | Wi-Fi 国家代码，它决定各信道的标记 |
 | `btmgmt info` | *supported settings* 中有 `br/edr`；使用 Carlink 时还要有 `le` |
 | `modprobe rfcomm` | 模块列表中出现 `rfcomm`；仅供参考 |
+| `ls` | 两个路径都存在；只有用数据线连接 iPhone 时才需要 |
 | `ss` | 没有输出，或者只有你可以停掉的程序 |
 
 中继开自己的热点时，会依次尝试 5 GHz 的 36、40、44、48 和 149 至 165 信道。只有 `iw list` 没有标为 disabled、no IR 或 radar detection 的信道才能开热点；连接 5 GHz 网络时，信道只要不是 disabled 即可。没有合适的 5 GHz 信道时，中继使用 2.4 GHz 的 6 信道。
@@ -178,6 +181,8 @@ sudo install -D -m 0600 -o root -g root -t /var/lib/openxplay/mfi identity.pk8 c
 sudo systemctl restart openxplay-relay
 ```
 
+没有这两个文件、但有其他认证来源时，可以在“**设置 → 身份与证书 → MFi 认证设备**”中改用远程 MFi 服务器，或通过 I2C、CH341 转接器连接的认证芯片。0.1.6 还没有在设备上验证这些方式。
+
 ## 完成设置向导 {#setup .step}
 
 管理页面的设置向导会依次询问：
@@ -242,7 +247,7 @@ sudo apt-get purge openxplay-relay
 | --- | --- |
 | OpenWrt，以及其他没有 systemd 或 NetworkManager 的系统 | 中继两者都需要 |
 | 32 位 ARM（armv7）、x86 和 RISC-V 设备 | 没有对应的构建 |
-| 只支持低功耗蓝牙（LE）的蓝牙适配器 | 无线 CarPlay 需要经典蓝牙（RFCOMM） |
+| 只支持低功耗蓝牙（LE）的蓝牙适配器 | 无线 CarPlay 需要经典蓝牙（RFCOMM）；用数据线连接时不需要蓝牙，但这种方式还没有在设备上验证 |
 | ESP32 等单片机 | 无法运行 Linux |
 
 ## 接下来 {#next-steps}

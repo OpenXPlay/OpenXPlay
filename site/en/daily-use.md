@@ -32,9 +32,9 @@ With the Android relay, tap the OpenXPlay icon in CarPlay to open the page’s s
 | Resolution | Automatic, Native, 1080p, 720p, Whole screen. Native uses the head unit’s own screen pixels: the sharpest picture, but it needs more Wi-Fi bandwidth, and the relay lowers it when the browser can’t decode it. |
 | CarPlay screen width | 125, 200, 250 or 300 mm. It is the size reported to the iPhone: larger values show more icons on one page; the default is 200 mm. |
 | Video codec | *Automatic (recommended)* uses H.265 when the browser decodes it in hardware and falls back to H.264 if it fails. *Force H.265* and *Force H.264* are for testing. |
-| Frame rate | Automatic (30 or 60 fps from the head unit’s refresh rate) or 30 to 60 fps. Over 2.4 GHz Wi-Fi, 30 is smoother. |
+| Frame rate | Automatic (follows the refresh rate negotiated with the head unit, within 30–60 fps), or 30, 35, 40, 45, 50, 55 or 60 fps. Over 2.4 GHz Wi-Fi, 30 is smoother. |
 | Playback | *Smart* balances smoothness and delay for your network, *Quality* gives the smoothest motion with a little more delay, *Speed* the lowest delay but may skip frames. |
-| Tap to return to full screen | A reverse camera or another screen can make the browser leave full screen. Back on the page, it shows *Tap to return to full screen*; tap once and it does. With this off, the page stays a window and CarPlay fits it. |
+| Tap to return to full screen | A reverse camera or another screen can make the browser leave full screen. Back on the page, it shows *Tap to return to full screen*; one tap returns to full screen (see the [known issue](#fullscreen-known-issue)). With this off, the page stays a window and CarPlay fits it. |
 
 The relay keeps the resolution, screen width, codec and frame rate, so the app shows the same choices under Settings → CarPlay picture.
 
@@ -42,11 +42,15 @@ The relay keeps the resolution, screen width, codec and frame rate, so the app s
 Browsers allow full screen only after a tap, so the page can’t return to full screen by itself. This tap doesn’t reach CarPlay.
 :::
 
+::: info Known issue {#fullscreen-known-issue}
+In the current releases (Android app 0.2.4, Linux relay 0.1.6), a tap may not return to full screen, and on some browsers entering or leaving full screen can make CarPlay reconnect; the fix comes with the next releases.
+:::
+
 ## Choose your car {#car-model}
 
 In the app’s Settings → Car and screen, choose the brand, the model and, if you know it, the year. The list has every XPeng model line sold in China, the Tesla models and ZEEKR; the XPeng G6 2023 comes with built-in screen data. If your car isn’t listed, choose *Other* and type its name. Until you choose a car, the home screen shows *Choose your car*.
 
-*CarPlay view areas*, in the same place, is on by default: when the head unit’s browser window changes (entering or leaving full screen, split screen), CarPlay re-lays out to fit without reconnecting. The section also shows the head-unit screen data the relay has detected, which helps optimize the display at the next CarPlay start.
+*CarPlay view areas*, in the same place, is on by default: when the head unit’s browser window changes (entering or leaving full screen, split screen), CarPlay re-lays out to fit without reconnecting (with exceptions on some browsers; see the [known issue](#fullscreen-known-issue)). The section also shows the head-unit screen data the relay has detected, which helps optimize the display at the next CarPlay start.
 
 With a Tesla, set up the [Tesla browser](/en/tesla) as well.
 

@@ -9,7 +9,7 @@ schema: howto
 howtoName: Install the OpenXPlay Linux relay by hand on an arm64 Linux device
 howtoTools:
   - iPhone with CarPlay
-  - arm64 Linux device with systemd, NetworkManager, BlueZ, Bluetooth Classic and Wi-Fi that can run an access point
+  - arm64 Linux device with systemd, NetworkManager and Wi-Fi that can run an access point (plus BlueZ and Bluetooth Classic to connect the iPhone wirelessly)
   - Apple accessory (MFi) identity that you supply
   - Android head unit with a browser that supports WebCodecs
 next:
@@ -34,17 +34,18 @@ Installing the relay by hand on another device is at your own risk. 0.1.6 has no
 | 64-bit ARM (aarch64) | Releases are built only for aarch64. They are static musl binaries, so the glibc or Debian version doesn’t matter to them. | `uname -m` prints `aarch64`; for the `.deb`, `dpkg --print-architecture` prints `arm64` | Required |
 | systemd as init | The relay runs as the systemd service `openxplay-relay.service`. | `ps -p 1 -o comm=` prints `systemd` | Required |
 | NetworkManager | `nmcli` builds every hotspot and Wi-Fi connection; its shared mode, with `dnsmasq-base`, hands out addresses (DHCP). | `systemctl is-active NetworkManager` | Required |
-| BlueZ | The relay uses `bluetoothd` over D-Bus and the tools `sdptool`, `hciconfig` and `btmgmt`. | `systemctl is-active bluetooth`; `command -v sdptool hciconfig btmgmt` | Required |
+| BlueZ | The relay uses `bluetoothd` over D-Bus and the tools `sdptool`, `hciconfig` and `btmgmt`. | `systemctl is-active bluetooth`; `command -v sdptool hciconfig btmgmt` | Required for wireless and Carlink |
 | `iw` | The relay reads the Wi-Fi adapter’s modes, channels and country with it. | `command -v iw` | Required |
-| Bluetooth Classic (BR/EDR) | Wireless CarPlay talks iAP2 over RFCOMM, a Bluetooth Classic protocol. An adapter with only Bluetooth Low Energy can’t work. | `btmgmt info` lists `br/edr` | Required |
-| RFCOMM in the kernel | For the same reason. The UFI003’s kernel lacked it; its device package adds `rfcomm.ko`. | `sudo modprobe rfcomm` | Required |
+| Bluetooth Classic (BR/EDR) | Wireless CarPlay talks iAP2 over RFCOMM, a Bluetooth Classic protocol. An adapter with only Bluetooth Low Energy can’t connect the iPhone wirelessly. | `btmgmt info` lists `br/edr` | Required for wireless |
+| RFCOMM in the kernel | For the same reason. The UFI003’s kernel lacked it; its device package adds `rfcomm.ko`. | `sudo modprobe rfcomm` | Required for wireless |
 | Wi-Fi that can run an access point (AP mode) | The relay’s own hotspot, the default network, needs it. | `iw list` shows `AP` under *Supported interface modes* | Required |
 | Free ports | 6975 TCP (admin page), 8443 TCP (head-unit page), 7000 upward (AirPlay), 5353 UDP (mDNS, which the relay answers itself; running avahi alongside is untested). | `ss -ltnup` | Required |
 | Apple accessory (MFi) identity | Without it, the relay only serves the admin page. | You supply it; see [Add your CarPlay identity](#identity) | Required |
 | 5 GHz Wi-Fi | The automatic band uses 5 GHz when a 5 GHz channel can host the hotspot, otherwise 2.4 GHz channel 6. 2.4 GHz only works (the UFI003 runs CarPlay on it); set the frame rate to 30 on the head-unit page. | `iw list`; `iw reg get` | Not required |
-| For Carlink: a second Wi-Fi adapter that can be a 5 GHz station | In a real car, Carlink needs the relay to join the car’s 5 GHz Wi-Fi as a station on an adapter that isn’t running the iPhone’s hotspot. With one Wi-Fi adapter, the relay offers the browser output only. Carlink also uses Bluetooth LE; Wi-Fi Direct is optional. | `nmcli device`; `btmgmt info` lists `le` | Not required |
+| A second Wi-Fi adapter that can be a 5 GHz station | In a real car, Carlink needs the relay to join the car’s 5 GHz Wi-Fi as a station on an adapter that isn’t running the iPhone’s hotspot. With one Wi-Fi adapter, the relay offers the browser output only. Carlink also uses Bluetooth LE; Wi-Fi Direct is optional. | `nmcli device`; `btmgmt info` lists `le` | Required for Carlink |
+| A USB host port (USB-A), with usbfs and TUN/TAP in the kernel | For a cable connection, the iPhone plugs into a USB-A port on the relay; the relay drives it through usbfs and carries CarPlay’s network over a TAP virtual interface. This connection hasn’t been tested on a device yet. | `ls /dev/bus/usb /dev/net/tun` | Required for USB |
 
-The relay itself is small: on the UFI003 (382 MB of RAM) it uses about 2.9 MB of resident memory plus 1.5 MB for its output process, and about 5 MB of disk.
+The relay itself is small. On 2026-10-15, the first development build of the Rust Linux relay, idle on a UFI003 (382 MB of RAM) with no CarPlay session, used about 2.9 MB of resident memory plus 1.5 MB for its output process, and about 5 MB of disk. 0.1.6 hasn’t been measured again.
 
 | System | |
 | --- | --- |
@@ -68,6 +69,7 @@ sudo iw list
 sudo iw reg get
 printf '' | sudo btmgmt --index 0 info
 sudo modprobe rfcomm && lsmod | grep rfcomm
+ls /dev/bus/usb /dev/net/tun
 ss -ltnup | grep -E ':(6975|8443|7000|5353)\b'
 ```
 
@@ -78,10 +80,11 @@ ss -ltnup | grep -E ':(6975|8443|7000|5353)\b'
 | `systemctl is-active` | `active`, twice |
 | `nmcli device` | The Wi-Fi interfaces (type `wifi`); a name other than `wlan0` needs a [host profile](#host-profile) |
 | `command -v` | One path per tool; a missing line is a missing tool |
-| `iw list` | `AP` under *Supported interface modes*; *valid interface combinations* that allow AP and station (`managed`) together; the 5 GHz channels and their flags |
+| `iw list` | `AP` under *Supported interface modes*; the 5 GHz channels and their flags |
 | `iw reg get` | The Wi-Fi country, which sets the channel flags |
 | `btmgmt info` | `br/edr` under *supported settings*, and `le` for Carlink |
 | `modprobe rfcomm` | `rfcomm` in the module list; only a hint |
+| `ls` | Both paths exist; needed only to connect the iPhone by cable |
 | `ss` | Nothing, or only programs you can stop |
 
 For its own hotspot, the relay tries 5 GHz channels 36, 40, 44, 48 and 149 to 165. A channel can host the hotspot only if `iw list` doesn’t mark it disabled, no IR or radar detection; joining a 5 GHz network only needs the channel not to be disabled. If no 5 GHz channel qualifies, the relay uses 2.4 GHz channel 6.
@@ -178,6 +181,8 @@ sudo install -D -m 0600 -o root -g root -t /var/lib/openxplay/mfi identity.pk8 c
 sudo systemctl restart openxplay-relay
 ```
 
+Without these two files but with another authentication source, choose a remote MFi server, or an authentication chip over I2C or a CH341 adapter, under **Settings → Identity and certificates → MFi target**. 0.1.6 hasn’t been tested on a device with these yet.
+
 ## Answer the setup guide {#setup .step}
 
 The admin page’s setup guide asks about:
@@ -242,7 +247,7 @@ The settings, pairings, keys and identity in `/var/lib/openxplay` are kept; dele
 | --- | --- |
 | OpenWrt, and other systems without systemd or NetworkManager | The relay needs both |
 | 32-bit ARM (armv7), x86 and RISC-V boards | There is no build for them |
-| Bluetooth adapters with only Bluetooth Low Energy | Wireless CarPlay needs Bluetooth Classic (RFCOMM) |
+| Bluetooth adapters with only Bluetooth Low Energy | Wireless CarPlay needs Bluetooth Classic (RFCOMM); a cable connection needs no Bluetooth, but hasn’t been tested on a device yet |
 | ESP32 and other microcontrollers | They don’t run Linux |
 
 ## Next {#next-steps}

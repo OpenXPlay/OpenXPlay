@@ -67,11 +67,13 @@ Copy the folder [skills/openxplay-guide](https://github.com/OpenXPlay/OpenXPlay/
 | --- | --- |
 | An iPhone with CarPlay | It connects to the relay wirelessly (Bluetooth and Wi-Fi) or by USB cable. |
 | A relay | An Android phone with Android 8.0 or later and the OpenXPlay Relay app; or a UFI003 USB dongle, plus a computer to flash and install it; or a Phicomm N1 TV box: see [Phicomm N1 as the relay](/en/phicomm-n1). Other arm64 Linux devices can be installed by hand: see [Other Linux devices](/en/linux-devices). |
-| An Apple accessory (MFi) identity | The two files `identity.pk8` and `certificate.p7b`, which you supply yourself; see below. |
+| An Apple accessory (MFi) identity | Usually the two files `identity.pk8` and `certificate.p7b`, which you supply yourself; see below. |
 | The head unit’s browser | It must decode video with WebCodecs. Open [Check your head unit](/en/check) in the head unit’s browser to find out. In a Tesla, see [Tesla](/en/tesla). |
 
 ::: details What is an Apple accessory (MFi) identity? {#mfi-identity}
-The relay uses this identity to authenticate with the iPhone as an accessory, and only then does CarPlay start; without an identity, the Android app doesn’t start CarPlay. It consists of the two files `identity.pk8` and `certificate.p7b`. The repositories and their builds contain none; you supply your own.
+The relay uses this identity to authenticate with the iPhone as an accessory, and only then does CarPlay start; without an identity, the Android app doesn’t start CarPlay. The guides on this site use the most common form: the two files `identity.pk8` and `certificate.p7b`. The repositories and their builds contain none; you supply your own.
+
+Without these two files but with another authentication source, choose a remote MFi server, or an authentication chip over I2C or a CH341 adapter, under Settings → Identity and certificates → MFi target on the relay. These also need your own authentication source; the guides on this site don’t cover them, and on Linux 0.1.6 they haven’t been tested on a device yet.
 :::
 
 ### Which relay to choose {#choose-relay}

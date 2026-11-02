@@ -22,9 +22,9 @@ OpenXPlay 由相互独立的组件构成：输入负责接收投屏会话，输�
 | 输出 | 把会话交给车机上已有的软件：浏览器（`web`）、Carlink（`clink`）和投屏（`cast`）。 | OpenXPlay-Stream |
 | 中继外壳 | 把输入接到输出，并负责两者之间的转换。 | OpenXPlay-Relay：安卓应用和 Linux 中继 |
 
-由于输出只与 OXP-Stream 模型交互，同一套输出可以服务所有中继。模型和各输出按运行时分别实现了三套：安卓应用用 Kotlin/JVM，Linux 中继用 Rust，浏览器用 TypeScript；共享的协议测试向量让三套实现保持一致。
+由于输出只与 OXP-Stream 模型交互，同一套输出可以服务所有中继。模型和各输出按运行时分别实现：安卓应用用 Kotlin/JVM，Linux 中继用 Rust；车机浏览器打开的网页接收端用 TypeScript 编写，安卓和 Linux 中继各有一份独立的代码。共享的协议测试向量让各实现保持一致。
 
-Web 输出把 H.264 视频经安全 WebSocket 发给车机，车机浏览器用 WebCodecs 解码，并把触控传回 iPhone。在 Linux 中继上，Rust 版输出作为独立的 `oxp-relay` 进程，与 CarPlay 接收端 `openxplay-relay` 并行运行。
+Web 输出把 H.264 或 H.265 视频经安全 WebSocket 发给车机，车机浏览器用 WebCodecs 解码，并把触控传回 iPhone。在 Linux 中继上，Rust 版输出作为独立的 `oxp-relay` 进程，与 CarPlay 接收端 `openxplay-relay` 并行运行。
 
 ## 仓库 {#repositories}
 
@@ -39,22 +39,23 @@ Web 输出把 H.264 视频经安全 WebSocket 发给车机，车机浏览器用 
 
 ## 构建与测试 {#build}
 
-中继会打包 Stream 的 `web/dist`，因此请先构建网页接收端，再构建中继。
+安卓应用打包 Stream 的 `kotlin/web-receiver/dist`，Linux 中继打包 `rust/web-receiver/dist`，因此请先构建对应的网页接收端，再构建中继。
 
 ::: details 各部分的构建与测试命令 {#build-commands}
 | 部分 | 要求 | 命令 |
 | --- | --- | --- |
-| 网页接收端（Stream） | Node.js 20.19+ 或 22.12+ | `cd web && npm ci && npm test && npm run build` |
+| 安卓中继的网页接收端（Stream） | Node.js 20.19+ 或 22.12+ | `cd kotlin/web-receiver && npm ci && npm test && npm run build` |
+| Linux 中继的网页接收端（Stream） | Node.js 20.19+ 或 22.12+ | `cd rust/web-receiver && npm ci && npm test && npm run build` |
 | Kotlin 输出（Stream） | JDK 17 | `cd kotlin && ./gradlew test` |
 | Rust 输出（Stream） | Rust 稳定版 | `cd rust && cargo test --workspace` |
 | 管理页面（Relay） | Node.js 20.19+ 或 22.12+ | `cd admin-web && npm ci && npm test && npm run build` |
-| 安卓应用（Relay） | JDK 17、Android SDK；需先构建管理页面和 Stream 的 `web/dist` | `cd android && ./gradlew testDebugUnitTest assembleDebug` |
+| 安卓应用（Relay） | JDK 17、Android SDK；需先构建管理页面和 Stream 的 `kotlin/web-receiver/dist` | `cd android && ./gradlew testDebugUnitTest assembleDebug` |
 | Linux 中继（Relay） | Rust 稳定版 | `cd rust && cargo test` |
 | 面向 aarch64 Linux 的构建（Stream 和 Relay） | `rustup target add aarch64-unknown-linux-musl`、`llvm-tools`、clang | `rust/scripts/build-aarch64.sh` |
 | 插件（Web-Plugins） | Node 22 | `npm ci && npm run build && npm test` |
 :::
 
-安卓构建以 Gradle 复合构建的方式引入 DiPlay 和 Stream，默认要求它们检出在 OpenXPlay-Relay 旁边（`../OpenXPlay-DiPlay`、`../OpenXPlay-Stream`）；可用 `-Pdiplay.dir=PATH` 和 `-Pstream.dir=PATH` 指定其他位置。
+安卓构建以 Gradle 复合构建的方式引入 DiPlay 和 Stream，默认要求它们检出在 OpenXPlay-Relay 旁边（`../OpenXPlay-DiPlay`、`../OpenXPlay-Stream`）；可用 `-Pdiplay.dir=PATH` 和 `-Pstream.dir=PATH`（指向 Stream 的 `kotlin/` 目录）指定其他位置。
 
 ## 参与贡献 {#contributing}
 

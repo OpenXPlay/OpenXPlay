@@ -22,7 +22,7 @@ Today the relay delivers CarPlay to these head-unit entry points:
 
 | Entry point | How it works | Touch | Status |
 | --- | --- | --- | --- |
-| Browser (web receiver) | H.264 video over a secure WebSocket, decoded with WebCodecs | Yes | In development |
+| Browser (web receiver) | H.264 or H.265 video over a secure WebSocket, decoded with WebCodecs | Yes | In development |
 | Carlink app | Over Wi-Fi | Yes | Experimental |
 | Screen-casting receivers (DLNA, Miracast) | Casting | No | Testing (Android developer options) |
 | Tesla browser | The [web receiver](/en/tesla) at an address the Tesla browser can open | Yes | Experimental |
@@ -35,11 +35,11 @@ Think of OpenXPlay as a set of CarPlay building blocks that you combine freely: 
 
 | Metric | Usage / cost |
 | --- | --- |
-| Resident memory | 4.3 MB |
-| Disk space | 5 MB |
+| Resident memory | About 2.9 MB (relay) + 1.5 MB (output process) |
+| Disk space | About 5 MB |
 | Hardware cost | From CNY 15 / USD 3, excluding the MFi part |
 
-These figures are for a specific solution and configuration. Actual usage and cost depend on the solution, the devices and the environment.
+The memory and disk figures are a historical measurement from 2026-10-15 on a UFI003: the first development build of the Rust Linux relay, idle with no CarPlay session. The current release hasn’t been measured again. These figures are for a specific solution and configuration. Actual usage and cost depend on the solution, the devices and the environment.
 
 ## Open source {#open-source}
 

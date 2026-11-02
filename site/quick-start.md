@@ -67,11 +67,13 @@ AI 助手会先问清你的车、iPhone 和手头的设备，推荐一种方案�
 | --- | --- |
 | 支持 CarPlay 的 iPhone | 通过无线（蓝牙和 Wi-Fi）或 USB 线连接中继。 |
 | 一台中继 | Android 8.0 及以上的安卓手机，安装 OpenXPlay Relay 应用；或者一个 UFI003 USB 随身 Wi-Fi，外加一台电脑用来刷机和安装；或者一台斐讯 N1 电视盒子，见[用斐讯 N1 作中继](/phicomm-n1)。其他 arm64 Linux 设备可以手动安装，见[其他 Linux 设备](/linux-devices)。 |
-| Apple 配件（MFi）身份 | `identity.pk8` 和 `certificate.p7b` 两个文件，需要由你自行提供，见下方说明。 |
+| Apple 配件（MFi）身份 | 通常是 `identity.pk8` 和 `certificate.p7b` 两个文件，需要由你自行提供，见下方说明。 |
 | 车机浏览器 | 需要支持 WebCodecs 视频解码。在车机浏览器中打开[检测车机](/check)就能知道。特斯拉见[特斯拉](/tesla)。 |
 
 ::: details 什么是 Apple 配件（MFi）身份？ {#mfi-identity}
-中继要用这个身份向 iPhone 完成配件认证，CarPlay 才会启动；没有身份时，安卓应用不会启动 CarPlay。它由 `identity.pk8` 和 `certificate.p7b` 两个文件组成。各仓库及其构建产物都不包含该身份，需要由你自行提供。
+中继要用这个身份向 iPhone 完成配件认证，CarPlay 才会启动；没有身份时，安卓应用不会启动 CarPlay。本网站的教程按最常见的方式编写：身份由 `identity.pk8` 和 `certificate.p7b` 两个文件组成。各仓库及其构建产物都不包含该身份，需要由你自行提供。
+
+没有这两个文件、但有其他认证来源时，可以在中继的“设置 → 身份与证书 → MFi 认证设备”中改用远程 MFi 服务器，或通过 I2C、CH341 转接器连接的认证芯片。这些方式同样需要你自己的认证来源；本网站的教程不介绍它们，Linux 0.1.6 上也还没有完成设备验收。
 :::
 
 ### 中继怎么选 {#choose-relay}

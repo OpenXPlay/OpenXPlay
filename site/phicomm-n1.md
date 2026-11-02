@@ -23,7 +23,7 @@ next:
 
 斐讯 N1 是一款采用晶晨 S905D 的电视盒子。装上 Armbian 后，它可以运行 OpenXPlay 的 Linux 中继：通电后自动启动，热点可以用 5 GHz，车机用自带的浏览器显示 CarPlay；再接一块 USB Wi-Fi 网卡，也可以用车机的 Carlink 应用。[OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) 提供了 N1 的设备支持包。
 
-整个安装都在电脑上通过 SSH 完成，适合熟悉命令行的用户。OpenXPlay Flasher 暂时还不能安装 N1，见[OpenXPlay Flasher](#flasher)。
+整个安装都在电脑上通过 SSH 完成，适合熟悉命令行的用户。OpenXPlay Flasher 已经支持安装 N1，但还没有在真机上测试过，所以本教程暂时推荐手动安装，见[OpenXPlay Flasher](#flasher)。
 
 ::: warning 风险自负
 - 把 Armbian 写入 eMMC 会清除 N1 原有的系统。
@@ -230,7 +230,7 @@ sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 2. 打开车机上的 Carlink 应用，中继用 USB 网卡自动连接车机的 Carlink Wi-Fi，见 [Carlink 应用](/carlink)。同时使用车机浏览器时，车机连接中继的热点，和一块网卡时相同。
 3. 打开管理页面：手机连接中继的热点，打开 `https://openxplay-car.local:6975` 或 `https://10.77.0.1:6975`。Carlink 没在连接时，也可以连接管理热点 `OpenXPlay-Admin`，打开 `https://openxplay-admin.local:6975` 或 `https://10.79.0.1:6975`。管理热点默认关闭，在“**iPhone 连接 → 无线网络 → 网卡与网络角色**”中开启。
 
-`openxplay-car.local` 只在中继的热点上能用，`openxplay-admin.local` 只在管理热点和家里的局域网上能用。iPhone、Mac 和 Windows 电脑能打开这类 `.local` 地址，很多安卓手机不能，这时请用 IP 地址。第一次打开后把页面加入书签或添加到主屏幕，以后就不用再输入地址。
+`openxplay-car.local` 用在 iPhone 所在的网络上：中继的热点，或者你选择的车机热点；`openxplay-admin.local` 用在其他网络上，例如管理热点和家里的局域网。iPhone、Mac 和 Windows 电脑能打开这类 `.local` 地址，很多安卓手机不能，这时请用 IP 地址。第一次打开后把页面加入书签或添加到主屏幕，以后就不用再输入地址。
 
 ## 网络与 Wi-Fi {#wifi}
 

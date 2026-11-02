@@ -29,10 +29,10 @@ The relay serves the receiver page over HTTPS because browsers allow WebCodecs v
 Use a 2.4 GHz network for the head unit:
 
 - The UFI003 dongle’s Wi-Fi has no 5 GHz band, so its hotspot is always 2.4 GHz.
-- On the Android relay, set the car-hotspot band to 2.4 GHz in the app’s settings.
+- With *This phone’s hotspot* on the Android relay, the app can’t change Android’s hotspot settings: set the band to 2.4 GHz in Android’s hotspot settings, then choose 2.4 GHz for *Hotspot band* under Settings → iPhone connection → Network in the app too.
 - With *Use the car’s hotspot*, the network must offer 2.4 GHz. The UFI003 only sees 2.4 GHz networks anyway.
 
-For Carlink, the UFI003 can’t join a head unit whose Carlink Wi-Fi runs on 5 GHz.
+The UFI003 has a single Wi-Fi radio, so it offers the head unit’s browser only, not [Carlink](/en/carlink).
 
 ### The iPhone doesn’t pair over Bluetooth {#bluetooth-pairing}
 
@@ -82,11 +82,16 @@ The browser lacks WebCodecs video decoding, or the page wasn’t opened over HTT
 
 ### There is no sound {#no-sound}
 
-Browsers block sound until you touch the page. If the receiver says sound is paused, tap the screen once. If there is still no sound, run [Check your head unit](/en/check): the browser needs AudioWorklet to play CarPlay audio.
+First check *CarPlay audio over the car’s Bluetooth (experimental)* under Settings → Sound (Settings → Audio on the Linux admin page). It is on by default:
+
+- **On:** the sound doesn’t go through the head-unit page; the iPhone plays it over its own Bluetooth connection with the car. Keep the iPhone paired with the car and choose Bluetooth as the car’s audio source. If the sound plays on the iPhone, turn the option off.
+- **Off:** the head-unit page plays the sound; reconnect CarPlay after turning the option off. Browsers block sound until you touch the page; if the receiver says sound is paused, tap the screen once. If there is still no sound, run [Check your head unit](/en/check): the browser needs AudioWorklet to play CarPlay audio.
 
 ### Siri or calls can’t hear me {#microphone}
 
-The browser asks for the microphone the first time CarPlay needs your voice; choose Allow. The microphone works only over HTTPS. On the Android relay, also allow the microphone permission; it uses the head unit’s microphone by default; to use the relay phone’s, turn on *Microphone source* under Settings → Developer options.
+While *CarPlay audio over the car’s Bluetooth* is on (the default), Siri and calls also go over the iPhone’s Bluetooth connection with the car and don’t use the browser’s microphone: check that the iPhone is connected to the car’s Bluetooth.
+
+With the option off and CarPlay reconnected, the browser asks for the microphone the first time CarPlay needs your voice; choose Allow. The microphone works only over HTTPS. On the Android relay, also allow the microphone permission; it uses the head unit’s microphone by default; to use the relay phone’s, turn on *Microphone source* under Settings → Developer options.
 
 ## Still stuck? {#still-stuck}
 
