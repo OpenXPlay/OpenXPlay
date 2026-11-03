@@ -35,8 +35,6 @@ The table shows the relay and version used at the time. The current releases (An
 
 - **Tesla browser**: from Android app 0.2.0 and Linux relay 0.1.6; see [Tesla](/en/tesla).
 - **Carlink on the Linux relay**: from Linux relay 0.1.6, with a second Wi-Fi adapter joining the car; see [Carlink app](/en/carlink).
-- **CarLife**: from Android app 0.2.5, over Wi-Fi or USB; see [CarLife](/en/carlife). Tested only over Wi-Fi with a phone standing in for the head unit; USB not yet tested.
-- **Wireless display (DLNA, Miracast)**: selectable from Android app 0.2.5; the head unit shows the picture only and you operate CarPlay on the relay phone; see [Wireless display](/en/wireless-display).
 - **Car list**: the XPeng model lines, Tesla and ZEEKR in the app’s Settings → Car and screen are there to choose screen data; being in the list doesn’t mean a car has been tested.
 
 Your car isn’t listed? Open [Check your head unit](/en/check) in its browser and post the report in the [community](/en/community), with the car model, the head-unit system version and the relay version. The check shows only that the browser has the features needed; it doesn’t count as a test in the car.
@@ -60,7 +58,7 @@ Your car isn’t listed? Open [Check your head unit](/en/check) in its browser a
 
 ### Recommended setup {#xpeng-g6-setup}
 
-- **Which to choose:** Both routes have shown a picture in the car. The browser route has been tested more and runs full screen with the Android relay; the Carlink route uses the car’s own Carlink app and is still experimental.
+- **Which to choose:** Both routes have shown a picture in the car. The browser route has been tested more and runs full screen with the Android relay; the Carlink route uses the car’s own Carlink app.
 - **Browser route:** Use the Android relay and choose XPeng G6 2023 in Settings → Car and screen. On a relay with only 2.4 GHz Wi-Fi, such as the UFI003, set the frame rate to 30 in the web receiver’s settings. If the picture takes long to appear with H.265, set *Video codec* to *Force H.264*.
 - **Carlink route:** Use Android app 0.1.5 or later ([download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)) on a relay phone with 5 GHz Wi-Fi (Carlink needs Android 10 or later); on the first connection, enter the pairing code shown on the car’s screen into the relay. Leave *Video codec* on *Automatic* and the relay sends the H.265 picture as it is.
 
@@ -107,7 +105,7 @@ Every format below is supported at both 30 and 60 fps.
 
 ### Carlink app {#xpeng-g6-carlink}
 
-Tested in the car with development builds of the Android relay; the picture shows (experimental), and the [test results](#xpeng-g6-results) list each item. Android app 0.1.3 and earlier play sound on this car but keep the picture black; 0.1.5 fixes this. The car creates its own 5 GHz Wi-Fi network for Carlink and the relay joins it, so the relay needs 5 GHz Wi-Fi. The UFI003 can’t use Carlink; the Linux relay runs Carlink on a second Wi-Fi adapter, which hasn’t been tested in this car yet.
+Tested in the car with development builds of the Android relay; the picture shows, and the [test results](#xpeng-g6-results) list each item. Android app 0.1.3 and earlier play sound on this car but keep the picture black; 0.1.5 fixes this. The car creates its own 5 GHz Wi-Fi network for Carlink and the relay joins it, so the relay needs 5 GHz Wi-Fi. The UFI003 can’t use Carlink; the Linux relay runs Carlink on a second Wi-Fi adapter, which hasn’t been tested in this car yet.
 
 ::: details Carlink video support {#xpeng-g6-carlink-video}
 | Item | The car’s Carlink app |

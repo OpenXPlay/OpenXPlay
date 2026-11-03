@@ -23,7 +23,7 @@ iPhone 连接到一台中继：运行 OpenXPlay Relay 应用的安卓手机，�
 | 车机入口 | 工作方式 | 触控 | 状态 |
 | --- | --- | --- | --- |
 | 浏览器（网页接收端） | H.264 或 H.265 视频经安全 WebSocket 传输，由 WebCodecs 解码 | 支持 | 开发中 |
-| Carlink 应用 | 经 Wi-Fi 连接 | 支持 | 实验性 |
+| Carlink 应用 | [经 Wi-Fi 连接](/carlink) | 支持 | 开发中 |
 | CarLife | [经 Wi-Fi 或 USB 连接](/carlife) | 支持 | 实验性（安卓） |
 | 投屏接收端（DLNA、Miracast） | [无线投屏](/wireless-display)，在中继手机上操作 | 不支持 | 实验性（安卓） |
 | 特斯拉浏览器 | [网页接收端](/tesla)，使用特斯拉浏览器能打开的地址 | 支持 | 实验性 |

@@ -38,8 +38,6 @@ Android app: a CarLife output, wireless display as an output operated on the pho
 **Notes**
 
 - Includes everything in 0.2.5-beta.1 and 0.2.5-beta.2.
-- CarLife was tested over Wi-Fi with a phone running CarLife as the car; it hasn’t been tested in a car or over a USB cable.
-- Wireless display and the DiPlay update haven’t been tested in a car with this release.
 - Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5).
 
 ## Linux 0.1.6 {#linux-v0-1-6}

@@ -35,8 +35,6 @@ pageClass: oxp-reference
 
 - **特斯拉浏览器**：安卓应用 0.2.0 起、Linux 中继 0.1.6 起提供，见[特斯拉](/tesla)。
 - **Linux 中继的 Carlink**：Linux 中继 0.1.6 起，用第二块 Wi-Fi 网卡连接车机，见 [Carlink 应用](/carlink)。
-- **CarLife**：安卓应用 0.2.5 起，经 Wi-Fi 或 USB 连接，见 [CarLife](/carlife)。只在 Wi-Fi 上用手机代替车机测过，USB 还没有测过。
-- **无线投屏（DLNA、Miracast）**：安卓应用 0.2.5 起可以选择，车机只显示画面，在中继手机上操作，见[无线投屏](/wireless-display)。
 - **车型目录**：应用“设置 → 车型与屏幕”里的小鹏各车系、特斯拉和极氪用来选择屏幕数据，列在目录里不代表测过。
 
 你的车不在表中？在车机浏览器中打开[检测车机](/check)，把报告连同车型、车机系统版本和中继版本发到[交流群](/community)。检测只说明浏览器提供了所需的功能，不算在车上测过。
@@ -60,7 +58,7 @@ pageClass: oxp-reference
 
 ### 推荐设置 {#xpeng-g6-setup}
 
-- **怎么选：** 两条路线在车上都显示过画面。浏览器路线测得更多，使用安卓中继时可以全屏；Carlink 路线用车机自带的 Carlink 应用，仍是实验性功能。
+- **怎么选：** 两条路线在车上都显示过画面。浏览器路线测得更多，使用安卓中继时可以全屏；Carlink 路线用车机自带的 Carlink 应用。
 - **浏览器路线：** 推荐用安卓中继，并在“设置 → 车型与屏幕”中选择小鹏 G6 2023 款。中继只有 2.4 GHz Wi-Fi 时（例如 UFI003），在网页接收端的设置中把帧率设为 30。使用 H.265 时画面迟迟不出现，就把“视频编码”改为“强制 H.264”。
 - **Carlink 路线：** 使用安卓应用 0.1.5 或更新版本（[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)），中继手机需要支持 5 GHz Wi-Fi（Carlink 需要 Android 10 及以上），第一次连接时在中继中输入车机屏幕上的配对码。“视频编码”保持“自动”，中继会直接发送 H.265 画面。
 
@@ -107,7 +105,7 @@ pageClass: oxp-reference
 
 ### Carlink 应用 {#xpeng-g6-carlink}
 
-已用安卓中继的开发版在车上测试，可以显示画面（实验性），逐项结果见[测试结果](#xpeng-g6-results)。安卓应用 0.1.3 及更早的版本在这台车上有声音但画面全黑，0.1.5 修复了这个问题。车机为 Carlink 建立自己的 5 GHz Wi-Fi，中继加入这个网络，因此中继需要支持 5 GHz Wi-Fi。UFI003 不能用 Carlink；Linux 中继用第二块 Wi-Fi 网卡运行 Carlink，还没有在这台车上测过。
+已用安卓中继的开发版在车上测试，可以显示画面，逐项结果见[测试结果](#xpeng-g6-results)。安卓应用 0.1.3 及更早的版本在这台车上有声音但画面全黑，0.1.5 修复了这个问题。车机为 Carlink 建立自己的 5 GHz Wi-Fi，中继加入这个网络，因此中继需要支持 5 GHz Wi-Fi。UFI003 不能用 Carlink；Linux 中继用第二块 Wi-Fi 网卡运行 Carlink，还没有在这台车上测过。
 
 ::: details Carlink 视频支持 {#xpeng-g6-carlink-video}
 | 项目 | 车机的 Carlink 应用 |

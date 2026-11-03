@@ -38,8 +38,6 @@ OpenXPlay Relay 每个版本的变化，最新的在最前面。安卓应用和 
 **说明**
 
 - 包含 0.2.5-beta.1 和 0.2.5-beta.2 的全部内容。
-- CarLife 已通过 Wi-Fi 用一台运行 CarLife 的手机充当车机测试过，还没有在车上或通过 USB 线测试。
-- 无线投屏和 DiPlay 更新还没有用这个版本在车上测试过。
 - 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5)。
 
 ## Linux 0.1.6 {#linux-v0-1-6}
