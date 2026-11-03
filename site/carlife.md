@@ -12,7 +12,7 @@ breadcrumb: CarLife
 车机装有 CarLife（百度 CarLife）时，可以用这条路线：中继把 CarPlay 的画面和触控送到车机的 CarLife，声音仍通过 iPhone 与车机的蓝牙连接播放。CarLife 使用 H.264；iPhone 发出 H.265 时，中继手机用硬件编解码器把它转换为 H.264。
 
 ::: warning 实验性功能
-需要安卓应用 0.2.5 及以上版本，请[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)。Linux 中继没有 CarLife 输出。CarLife 只在 Wi-Fi 上用一部运行 CarLife 的手机代替车机测试过（见[车机资料](/head-units#bench)），还没有在车上或通过 USB 线测试。
+需要安卓应用 0.2.5 及以上版本，请[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)。Linux 中继没有 CarLife 输出。
 :::
 
 ## 开启 CarLife 输出 {#step-enable .step}
