@@ -6,7 +6,7 @@ name: openxplay-guide
 description: "Set up OpenXPlay: iPhone CarPlay on an Android head unit through a relay, with nothing installed on the head unit. Introduces the project and its website (openxplay.org), interviews the user about their car, iPhone, spare devices and computer, recommends a route (Android phone, UFI003 dongle or another arm64 Linux device as the relay; the head unit's browser, Carlink, CarLife, screen casting or Tesla browser to show it), judges whether an unlisted Linux device can be a relay, then guides the install and first connection one step at a time, running computer-side steps itself when it has a terminal and asking before anything risky. When something goes wrong it helps, pointing to community groups. Use it whenever someone asks what OpenXPlay is, wants to install, set up, troubleshoot, choose hardware for or get a first connection of OpenXPlay or OpenXPlay Relay, asks whether their car, phone, TV box or board can run it, or wants CarPlay on a car screen that cannot install apps, in any language, including Chinese."
 license: CC-BY-4.0
 metadata:
-  version: "0.6.1"
+  version: "0.6.2"
   minimum-version: "0.1.0"
   source: "https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-guide"
 ---
@@ -26,7 +26,7 @@ When someone asks what OpenXPlay is, or is still deciding whether it fits, intro
 - **What it is:** an open-source project that brings iPhone CarPlay to Android head units that cannot install apps. A relay, either a spare Android phone with the OpenXPlay Relay app or a small arm64 Linux device such as the UFI003 USB dongle, connects to the iPhone as a CarPlay receiver, and CarPlay shows on the car's own screen through its browser, a Carlink app, CarLife, a screen-casting receiver (DLNA, Miracast) or the Tesla browser. Nothing is installed on the head unit and its system is never changed.
 - **Who it is for:** drivers whose head unit cannot install third-party apps. If theirs can, DiPlay (an app installed on the head unit) is usually simpler.
 - **What it needs:** an iPhone with CarPlay, a relay, a head unit whose browser passes the check or that has a Carlink app, CarLife or a screen-casting receiver, and the user's own CarPlay identity (by default the files `identity.pk8` and `certificate.p7b`), which OpenXPlay does not supply.
-- **Where it stands:** the latest Android release is 0.2.5. Linux relay 0.1.6 (UFI003, Phicomm N1) is a release too, but with limited hardware and in-car testing, and the N1 device package is still a pre-release. Carlink is marked experimental up to Android 0.2.4 (0.2.5 drops the label); CarLife and wireless display (Android 0.2.5) are marked experimental; the Tesla browser has not been tested in a Tesla. Say so plainly; [references/facts.md](references/facts.md) and the release notes have the details.
+- **Where it stands:** the latest Android release is 0.2.5. Linux relay 0.1.6 (UFI003, Phicomm N1) is a release too, and the N1 device package is still a pre-release. Carlink is marked experimental up to Android 0.2.4 (0.2.5 drops the label); CarLife, wireless display (Android 0.2.5) and the Tesla browser are marked experimental. Say so plainly; [references/facts.md](references/facts.md) and the release notes have the details.
 - **Website:** [openxplay.org](https://openxplay.org) in Simplified Chinese, [openxplay.org/en](https://openxplay.org/en/) in English. Good first pages: *Get started* (`quick-start`), *How it works* (`how-it-works`), *Check your head unit* (`check`), *FAQ* (`faq`) and *Community* (`community`).
 - **Code:** [github.com/OpenXPlay](https://github.com/OpenXPlay). OpenXPlay is an independent project, not affiliated with or endorsed by Apple or any car or head-unit maker.
 
@@ -88,9 +88,9 @@ Pick the display first, then the relay, then the network.
 
 **Display**
 
-1. A Tesla: the [Tesla browser](https://openxplay.org/en/tesla) adaptation (experimental, not yet tested in a Tesla on either relay; needs MCU2 or later). On the Android relay: wireless CarPlay, the relay phone's hotspot or Wi-Fi Direct. On a Linux relay (0.1.6): the browser output and *This relay’s hotspot*.
-2. The check says *works* or *H.264 only*: the head unit's browser (*Car browser*). This is the recommended, most tested route.
-3. The browser fails or is missing, but there is a Carlink app: [Carlink](https://openxplay.org/en/carlink) (marked experimental up to Android 0.2.4). It needs an Android 10 or later relay whose Wi-Fi stays on while its hotspot is on, or a Linux relay with two suitable Wi-Fi radios (for example a Phicomm N1 with a USB Wi-Fi adapter that can join 5 GHz networks; not yet tested with a car). The stock UFI003 has one radio and offers the browser only.
+1. A Tesla: the [Tesla browser](https://openxplay.org/en/tesla) adaptation (experimental; needs MCU2 or later). On the Android relay: wireless CarPlay, the relay phone's hotspot or Wi-Fi Direct. On a Linux relay (0.1.6): the browser output and *This relay’s hotspot*.
+2. The check says *works* or *H.264 only*: the head unit's browser (*Car browser*). This is the recommended route.
+3. The browser fails or is missing, but there is a Carlink app: [Carlink](https://openxplay.org/en/carlink) (marked experimental up to Android 0.2.4). It needs an Android 10 or later relay whose Wi-Fi stays on while its hotspot is on, or a Linux relay with two suitable Wi-Fi radios (for example a Phicomm N1 with a USB Wi-Fi adapter that can join 5 GHz networks). The stock UFI003 has one radio and offers the browser only.
 4. No usable browser or Carlink, but CarLife: [CarLife](https://openxplay.org/en/carlife) (Android 0.2.5 and later, experimental). The Android relay sends the picture and touch over the same Wi-Fi, the relay phone's hotspot or a USB accessory connection; sound stays on the iPhone's Bluetooth link to the car. The Linux relay has none.
 5. Only a screen-casting receiver (DLNA, Miracast): [Wireless display](https://openxplay.org/en/wireless-display) (Android 0.2.5 and later, experimental). The head unit shows the picture only; the user operates CarPlay on the relay phone. Miracast uses Wi-Fi Direct, so wireless CarPlay goes over the relay phone's hotspot or USB. The Linux relay has none.
 6. Nothing usable: OpenXPlay cannot help with this head unit yet; suggest sharing its check result in the [community groups](#community).
@@ -98,7 +98,7 @@ Pick the display first, then the relay, then the network.
 **Relay**
 
 1. An Android 8.0 or later phone that can stay in the car: the [Android relay](https://openxplay.org/en/android-relay). Recommended: easiest, and it can use a 5 GHz hotspot.
-2. No spare phone, or they want a box that starts with the car: the [UFI003 USB dongle](https://openxplay.org/en/ufi003-relay), installed with OpenXPlay Flasher from a Mac or Windows PC. It has one Wi-Fi radio, 2.4 GHz only: the browser route only (set 30 fps). Linux relay 0.1.6 is a release, but its hardware and in-car testing is limited.
+2. No spare phone, or they want a box that starts with the car: the [UFI003 USB dongle](https://openxplay.org/en/ufi003-relay), installed with OpenXPlay Flasher from a Mac or Windows PC. It has one Wi-Fi radio, 2.4 GHz only: the browser route only (set 30 fps).
 3. A Phicomm N1, and comfortable with SSH: the [Phicomm N1](https://openxplay.org/en/phicomm-n1) guide, an advanced by-hand install (the N1 device package is a pre-release). Carlink needs a second, USB Wi-Fi adapter.
 4. Another arm64 Linux device, and comfortable with SSH: assess it with [references/linux-devices.md](references/linux-devices.md) before recommending it. It is an advanced, by-hand install.
 
@@ -110,7 +110,7 @@ Pick the display first, then the relay, then the network.
 - iPhone connection: *Wireless*. A USB cable is not recommended (a USB-C iPhone on a USB-C to USB-C cable is usually not found).
 - Linux relay (admin page, Settings → *iPhone connection* → *Wireless network*): *This relay’s hotspot* (default) or *Use the car’s hotspot*. Carlink runs on a second Wi-Fi adapter.
 
-Present the recommendation briefly: the route and why, what they still need, roughly how long it takes, what is experimental or untested, the main steps, and one alternative. Then ask whether to start.
+Present the recommendation briefly: the route and why, what they still need, roughly how long it takes, what is experimental, the main steps, and one alternative. Then ask whether to start.
 
 ## 3. Guide the setup
 
@@ -122,7 +122,7 @@ Route notes:
 
 - **Android phone.** The latest stable APK is `https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk`; the release lists its SHA-256. The usual way is to download it on the phone itself. If the phone is connected to this computer with USB debugging on and the user prefers, you may install it with `adb install` (level 2). Then walk through the app's setup guide (*Your car*, *Car display*, *iPhone connection*, *Wireless network*, *Get ready*, *Ready to start*), the network, *Start CarPlay*, and opening the address shown on the home screen (`https://…:8443/`) in the head unit's browser, past the expected certificate warning.
 - **UFI003.** With a terminal: fetch `https://openxplay.org/agents/ufi003-install.md` and follow it exactly; its rules add to these. Without a terminal: guide the Flasher app as the [UFI003 page](https://openxplay.org/en/ufi003-relay) describes. Use the versions the Flasher's signed package list recommends, even when a newer Linux pre-release exists.
-- **Phicomm N1.** Follow the [Phicomm N1](https://openxplay.org/en/phicomm-n1) guide by hand. The Flasher has an N1 profile and its signed package list includes the N1 packages, but installing the N1 with it has not been tested on a real device yet, so the guide recommends the manual install; the Flasher never installs Armbian.
+- **Phicomm N1.** Follow the [Phicomm N1](https://openxplay.org/en/phicomm-n1) guide by hand. The Flasher has an N1 profile and its signed package list includes the N1 packages, and the guide recommends the manual install; the Flasher never installs Armbian.
 - **Another Linux device.** Assess first with [references/linux-devices.md](references/linux-devices.md), then follow the [Other Linux devices](https://openxplay.org/en/linux-devices) page. The Flasher cannot install these.
 - **Carlink and Tesla.** Set up the relay first (the Android relay, or a Linux relay that meets the route's needs above), then follow the [Carlink](https://openxplay.org/en/carlink) or [Tesla](https://openxplay.org/en/tesla) page. On Linux, the output (browser, Carlink or both) is in the admin page's Settings → *Output*, and the Tesla address in Settings → *Tesla browser*.
 

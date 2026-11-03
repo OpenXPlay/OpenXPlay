@@ -8,7 +8,7 @@ Created by riko chen on 2026-10-29
 
 Use this when the user offers a Linux device that has no guided installer: a Phicomm N1, a Raspberry Pi, another TV box, board or dongle. Most arm64 Linux devices can run the OpenXPlay Linux relay if they meet the requirements below. The facts come from the Linux relay's code and packaging (`OpenXPlay/OpenXPlay-Relay`: `rust/packaging/`, `rust/direlay-linux/src/host_capabilities.rs`, `wifi_capabilities.rs`, `host_profile.rs`) as of linux-v0.1.6; the user-facing install steps are on `https://openxplay.org/en/linux-devices` (Chinese: `https://openxplay.org/linux-devices`).
 
-The UFI003 has its own guided installer; use that instead. The Phicomm N1 has its own guide (`https://openxplay.org/en/phicomm-n1`; Chinese: `https://openxplay.org/phicomm-n1`): its packages are in OpenXPlay Flasher's signed package list, but installing the N1 with the Flasher has not been tested on a real device yet, so install it by hand with that guide. The Flasher cannot install any other device.
+The UFI003 has its own guided installer; use that instead. The Phicomm N1 has its own guide (`https://openxplay.org/en/phicomm-n1`; Chinese: `https://openxplay.org/phicomm-n1`): its packages are in OpenXPlay Flasher's signed package list; the guide recommends installing it by hand. The Flasher cannot install any other device.
 
 ## How to assess
 
@@ -28,7 +28,7 @@ For every route:
 | BlueZ installed | The Debian package depends on `bluez`, whatever the route | `dpkg -s bluez` (Debian) |
 | Wi-Fi | The head unit reaches the relay over Wi-Fi, also when the iPhone is on a USB cable. The default network is the relay's own hotspot, which needs access point mode; *Use the car’s hotspot* needs only a station | `sudo iw list`: *Supported interface modes* includes `AP` (and `managed`) |
 | `iw` | Wi-Fi capability and country checks | `command -v iw` |
-| The user's own MFi identity | Without it the relay serves only its admin page. The files `identity.pk8` and `certificate.p7b` are the default source; the *MFi target* setting can instead use a remote MFi server or an authentication chip over I2C or a CH341 adapter (not yet tested on a device in 0.1.6) | Ask (yes or no only) |
+| The user's own MFi identity | Without it the relay serves only its admin page. The files `identity.pk8` and `certificate.p7b` are the default source; the *MFi target* setting can instead use a remote MFi server or an authentication chip over I2C or a CH341 adapter | Ask (yes or no only) |
 
 Wireless CarPlay (the default):
 
@@ -40,7 +40,7 @@ Wireless CarPlay (the default):
 
 The empty `printf` before `btmgmt` matters: `btmgmt` hangs when its input is `/dev/null`.
 
-Wired (USB) CarPlay, new in 0.1.6 and not yet tested on a device: Bluetooth is not needed for the iPhone.
+Wired (USB) CarPlay, new in 0.1.6: Bluetooth is not needed for the iPhone.
 
 | Requirement | Why | Check |
 | --- | --- | --- |
@@ -58,10 +58,10 @@ Carlink: a second Wi-Fi radio and Bluetooth LE; see the limits below.
 | One radio | Browser route only: the relay offers Carlink only with a second Wi-Fi adapter (another phy) that can be a 5 GHz station. Count the phys in `iw list`. |
 | No Wi-Fi Direct (P2P client) | Optional; only some Carlink cars use it. |
 | Bluetooth LE missing but BR/EDR present | Wireless CarPlay works; Carlink needs LE too. |
-| No Bluetooth Classic (LE only, or no Bluetooth) | No wireless CarPlay; only wired CarPlay over a USB-A host port remains (not yet tested on a device). With no Bluetooth at all, no Carlink either. |
-| Ports already used (6975 admin, 8443 head-unit page, 7000 AirPlay, 5353 mDNS) | `ss -ltnup \| grep -E ':(6975\|8443\|7000\|5353)\b'`. Another mDNS responder (avahi) next to the relay is untested. |
+| No Bluetooth Classic (LE only, or no Bluetooth) | No wireless CarPlay; only wired CarPlay over a USB-A host port remains. With no Bluetooth at all, no Carlink either. |
+| Ports already used (6975 admin, 8443 head-unit page, 7000 AirPlay, 5353 mDNS) | `ss -ltnup \| grep -E ':(6975\|8443\|7000\|5353)\b'`. |
 | Wi-Fi interface not called `wlan0`, or several Bluetooth adapters | Write `/etc/openxplay/host.json` (`wifiInterface`, `bluetoothAdapter`); see the site page. |
-| Debian 11, 12 or 13 | Tested. Ubuntu and other distributions with systemd, NetworkManager and BlueZ may work but are untested; the Debian package needs `dpkg`/`apt`, otherwise use the tarball and install the dependencies yourself. |
+| Debian 11, 12 or 13 | Supported. Ubuntu and other distributions with systemd, NetworkManager and BlueZ may work; the Debian package needs `dpkg`/`apt`, otherwise use the tarball and install the dependencies yourself. |
 | Memory and storage | Small: the first Rust build (2026-10-15) used about 4.4 MB of memory when idle and 5 MB on disk on the UFI003 (382 MB RAM). Almost any board is enough. |
 | Clock | No real-time clock is fine; the relay's clock guard works with systemd-timesyncd and does nothing with chrony. |
 
@@ -92,4 +92,4 @@ Tell the user plainly which of these applies, with the evidence:
 | Needs work | A missing piece that can be added: install NetworkManager or BlueZ tools, load or build `rfcomm`, add a USB Wi-Fi or Bluetooth Classic adapter, or reinstall a supported system. Say what and how hard. |
 | Not possible | A blocker from *Not possible today*. Suggest the Android phone or a UFI003 instead. |
 
-Also say that Linux relay 0.1.6 is a release but with limited hardware and in-car testing (its release notes list what is still untested), and that a hand install on an unlisted device is at the user's own risk; invite them to share the result in the community.
+Also say that a hand install on an unlisted device is at the user's own risk; invite them to share the result in the community.

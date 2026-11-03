@@ -73,8 +73,6 @@ Our suggestion: with a GitHub account, choose DuckDNS, which takes the fewest st
 2. Create a zone (dynv6’s word for a name). Once signed in, type a name and choose the `dynv6.net` suffix, for example `myrelay.dynv6.net`. Don’t choose another suffix; the next item explains why.
 3. Get an HTTP token. Open the Keys page ([dynv6.com/keys](https://dynv6.com/keys)) and create or copy an HTTP token; limit it to this zone if you can.
 
-OpenXPlay is still testing whether dynv6 accepts private addresses.
-
 **What to save:** the full name, such as `myrelay.dynv6.net`, and the HTTP token.
 :::
 

@@ -30,7 +30,7 @@ import HeadUnitCheck from './.vitepress/theme/components/HeadUnitCheck.vue'
 | 可以显示画面，缺少部分功能 | 显示画面所需的功能都在，但缺少声音（AudioWorklet）或麦克风接口：CarPlay 能显示，声音、Siri 或通话可能无法通过浏览器使用。 |
 | 不支持：需要支持 WebCodecs 的浏览器 | 缺少必需的功能，最常见的是 WebCodecs 视频解码。如果车机还有其他浏览器，可以换一个试试，或者改用 [Carlink 应用](/carlink)。 |
 
-检测只询问浏览器支持哪些功能：它不播放视频、不连接中继、不录音，也不传回触控。所以检测通过不等于在车上测过，也不保证播放流畅；流畅度还取决于车机硬件和 Wi-Fi 连接。在车上测过的车见[车机资料](/head-units)。
+检测只询问浏览器支持哪些功能：它不播放视频、不连接中继、不录音，也不传回触控。所以检测通过不保证播放流畅；流畅度还取决于车机硬件和 Wi-Fi 连接。在车上测过的车见[车机资料](/head-units)。
 
 ## 检测项目 {#what-is-checked}
 

@@ -23,11 +23,10 @@ next:
 
 The Phicomm N1 is a TV box with an Amlogic S905D. With Armbian installed, it runs the OpenXPlay Linux relay: the relay starts whenever the box is powered, its hotspot can use 5 GHz, and the head unit shows CarPlay in its own browser; add a USB Wi-Fi adapter and the head unit’s Carlink app works too. [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) provides the N1’s device package.
 
-You install everything from a computer over SSH, so this guide is for people who are comfortable with the command line. OpenXPlay Flasher supports installing the N1, but that hasn’t been tested on a real device yet, so this guide recommends installing by hand for now; see [OpenXPlay Flasher](#flasher).
+You install everything from a computer over SSH, so this guide is for people who are comfortable with the command line. This guide recommends installing by hand; OpenXPlay Flasher can also install the N1, see [OpenXPlay Flasher](#flasher).
 
 ::: warning At your own risk
 - Writing Armbian to the eMMC erases the N1’s current system.
-- We haven’t yet tested CarPlay end to end with an iPhone on the N1. [Other Linux devices](/en/linux-devices) lists what the Linux relay hasn’t been tested with on a device yet.
 - Tell the [community](/en/community) how it went, with the relay and device package versions.
 :::
 
@@ -50,7 +49,7 @@ The N1’s built-in Wi-Fi adapter is enough for the head unit’s browser. For t
 | USB adapter | | Joins the head unit’s Carlink Wi-Fi; runs the admin hotspot while Carlink isn’t connected |
 | Admin page in the car | Phone joins the relay’s hotspot | Phone joins the relay’s hotspot or the admin hotspot |
 
-With one adapter, the setup guide doesn’t offer *Carlink app* or *Both*. Unplug the USB adapter and Carlink pauses; plug it back in and Carlink resumes. Two adapters haven’t been fully tested in a car yet. These rules need Linux relay 0.1.6 or later.
+With one adapter, the setup guide doesn’t offer *Carlink app* or *Both*. Unplug the USB adapter and Carlink pauses; plug it back in and Carlink resumes. These rules need Linux relay 0.1.6 or later.
 
 [Using it in the car](#in-car) shows how to connect in each case.
 
@@ -75,7 +74,7 @@ We test with ophub’s [amlogic-s9xxx-armbian](https://github.com/ophub/amlogic-
 
 Check it with `certutil -hashfile <file> SHA256` on Windows, `shasum -a 256 <file>` on macOS or `sha256sum <file>` on Linux. Then unpack the `.img` file and write it to the USB drive with [balenaEtcher](https://etcher.balena.io/) or [Rufus](https://rufus.ie/) (Windows).
 
-The device package needs Debian 13 (trixie). ophub’s other Debian 13 images for the N1, such as the one with kernel 6.18, should work too but haven’t been tested.
+The device package needs Debian 13 (trixie). ophub’s other Debian 13 images for the N1, such as the one with kernel 6.18, should work too.
 
 ## Boot the N1 from the USB drive {#boot .step}
 
@@ -246,7 +245,7 @@ The N1 is now ready for the car: give it 12 V and the relay starts by itself. [U
 
 ## OpenXPlay Flasher {#flasher}
 
-OpenXPlay Flasher has an N1 profile that installs the device package and the relay over SSH on the network, and its signed package list lists both N1 packages. Installing the N1 with Flasher hasn’t been tested on a real device yet, so install by hand with this guide until it has. Flasher doesn’t install Armbian.
+OpenXPlay Flasher has an N1 profile that installs the device package and the relay over SSH on the network, and its signed package list lists both N1 packages. Installing by hand with this guide is recommended. Flasher doesn’t install Armbian.
 
 ## Uninstall {#uninstall}
 

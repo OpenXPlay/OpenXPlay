@@ -23,11 +23,10 @@ next:
 
 斐讯 N1 是一款采用晶晨 S905D 的电视盒子。装上 Armbian 后，它可以运行 OpenXPlay 的 Linux 中继：通电后自动启动，热点可以用 5 GHz，车机用自带的浏览器显示 CarPlay；再接一块 USB Wi-Fi 网卡，也可以用车机的 Carlink 应用。[OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) 提供了 N1 的设备支持包。
 
-整个安装都在电脑上通过 SSH 完成，适合熟悉命令行的用户。OpenXPlay Flasher 已经支持安装 N1，但还没有在真机上测试过，所以本教程暂时推荐手动安装，见[OpenXPlay Flasher](#flasher)。
+整个安装都在电脑上通过 SSH 完成，适合熟悉命令行的用户。本教程推荐手动安装；OpenXPlay Flasher 也支持安装 N1，见[OpenXPlay Flasher](#flasher)。
 
 ::: warning 风险自负
 - 把 Armbian 写入 eMMC 会清除 N1 原有的系统。
-- 我们还没有在 N1 上用 iPhone 完整测试过 CarPlay。Linux 中继尚未在真机上验证的功能见[其他 Linux 设备](/linux-devices)。
 - 请到[交流群](/community)反馈结果，并附上中继和设备支持包的版本。
 :::
 
@@ -50,7 +49,7 @@ N1 自带一块 Wi-Fi 网卡，只用车机浏览器时就够了。要用车机�
 | USB 网卡 | | 连接车机的 Carlink Wi-Fi；Carlink 没在连接时，可以开管理热点 |
 | 在车上打开管理页面 | 手机连接中继的热点 | 手机连接中继的热点，或者连接管理热点 |
 
-只有一块网卡时，设置向导中的“Carlink 应用”和“两者”不能选。拔掉 USB 网卡后 Carlink 会暂停，插回去就恢复。两块网卡的用法还没有在车上完整测试过。这些规则需要 Linux 中继 0.1.6 及以上版本。
+只有一块网卡时，设置向导中的“Carlink 应用”和“两者”不能选。拔掉 USB 网卡后 Carlink 会暂停，插回去就恢复。这些规则需要 Linux 中继 0.1.6 及以上版本。
 
 每种情况下怎么连接，见[在车上使用](#in-car)。
 
@@ -75,7 +74,7 @@ N1 自带一块 Wi-Fi 网卡，只用车机浏览器时就够了。要用车机�
 
 在 Windows 上用 `certutil -hashfile <文件> SHA256`、在 macOS 上用 `shasum -a 256 <文件>`、在 Linux 上用 `sha256sum <文件>` 核对。然后解压得到 `.img` 文件，用 [balenaEtcher](https://etcher.balena.io/) 或 [Rufus](https://rufus.ie/)（Windows）把它写入 U 盘。
 
-设备支持包要求 Debian 13（trixie）。ophub 其他 Debian 13 的 N1 镜像，例如 6.18 内核的，应该也能用，但还没有测试过。
+设备支持包要求 Debian 13（trixie）。ophub 其他 Debian 13 的 N1 镜像，例如 6.18 内核的，应该也能用。
 
 ## 从 U 盘启动 N1 {#boot .step}
 
@@ -246,7 +245,7 @@ sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 
 ## OpenXPlay Flasher {#flasher}
 
-OpenXPlay Flasher 已有 N1 的设备配置，通过网络 SSH 安装设备支持包和中继，签名的软件包列表也已列出 N1 的这两个软件包。但用 Flasher 安装 N1 还没有在真机上测试过，在此之前请按本页手动安装。Flasher 不会安装 Armbian。
+OpenXPlay Flasher 已有 N1 的设备配置，通过网络 SSH 安装设备支持包和中继，签名的软件包列表也已列出 N1 的这两个软件包。推荐按本页手动安装。Flasher 不会安装 Armbian。
 
 ## 卸载 {#uninstall}
 

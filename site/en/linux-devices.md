@@ -24,7 +24,7 @@ Besides the UFI003, the OpenXPlay Linux relay can run on other arm64 Linux devic
 The UFI003 has its own guided installer: see [UFI003 USB dongle as the relay](/en/ufi003-relay). The Phicomm N1 has its own guide too: see [Phicomm N1 as the relay](/en/phicomm-n1). OpenXPlay Flasher can’t install other devices yet.
 
 ::: warning At your own risk
-Installing the relay by hand on another device is at your own risk. 0.1.6 has not yet been tested on a device with: CarPlay with an iPhone, wired CarPlay, Carlink with a car, a Tesla, the UFI003, WPA3, issuing a Trusted HTTPS certificate, hardware encoding, Wi-Fi Direct, I2C, CH341 and remote MFi, and audio on the relay. Tell the [community](/en/community) what worked and what didn’t, with the device, its system and the relay version.
+Installing the relay by hand on another device is at your own risk. Tell the [community](/en/community) what worked and what didn’t, with the device, its system and the relay version.
 :::
 
 ## Requirements {#requirements}
@@ -39,13 +39,13 @@ Installing the relay by hand on another device is at your own risk. 0.1.6 has no
 | Bluetooth Classic (BR/EDR) | Wireless CarPlay talks iAP2 over RFCOMM, a Bluetooth Classic protocol. An adapter with only Bluetooth Low Energy can’t connect the iPhone wirelessly. | `btmgmt info` lists `br/edr` | Required for wireless |
 | RFCOMM in the kernel | For the same reason. The UFI003’s kernel lacked it; its device package adds `rfcomm.ko`. | `sudo modprobe rfcomm` | Required for wireless |
 | Wi-Fi that can run an access point (AP mode) | The relay’s own hotspot, the default network, needs it. | `iw list` shows `AP` under *Supported interface modes* | Required |
-| Free ports | 6975 TCP (admin page), 8443 TCP (head-unit page), 7000 upward (AirPlay), 5353 UDP (mDNS, which the relay answers itself; running avahi alongside is untested). | `ss -ltnup` | Required |
+| Free ports | 6975 TCP (admin page), 8443 TCP (head-unit page), 7000 upward (AirPlay), 5353 UDP (mDNS, which the relay answers itself). | `ss -ltnup` | Required |
 | Apple accessory (MFi) identity | Without it, the relay only serves the admin page. | You supply it; see [Add your CarPlay identity](#identity) | Required |
 | 5 GHz Wi-Fi | The automatic band uses 5 GHz when a 5 GHz channel can host the hotspot, otherwise 2.4 GHz channel 6. 2.4 GHz only works (the UFI003 runs CarPlay on it); set the frame rate to 30 on the head-unit page. | `iw list`; `iw reg get` | Not required |
 | A second Wi-Fi adapter that can be a 5 GHz station | In a real car, Carlink needs the relay to join the car’s 5 GHz Wi-Fi as a station on an adapter that isn’t running the iPhone’s hotspot. With one Wi-Fi adapter, the relay offers the browser output only. Carlink also uses Bluetooth LE; Wi-Fi Direct is optional. | `nmcli device`; `btmgmt info` lists `le` | Required for Carlink |
-| A USB host port (USB-A), with usbfs and TUN/TAP in the kernel | For a cable connection, the iPhone plugs into a USB-A port on the relay; the relay drives it through usbfs and carries CarPlay’s network over a TAP virtual interface. This connection hasn’t been tested on a device yet. | `ls /dev/bus/usb /dev/net/tun` | Required for USB |
+| A USB host port (USB-A), with usbfs and TUN/TAP in the kernel | For a cable connection, the iPhone plugs into a USB-A port on the relay; the relay drives it through usbfs and carries CarPlay’s network over a TAP virtual interface. | `ls /dev/bus/usb /dev/net/tun` | Required for USB |
 
-The relay itself is small. On 2026-10-15, the first development build of the Rust Linux relay, idle on a UFI003 (382 MB of RAM) with no CarPlay session, used about 2.9 MB of resident memory plus 1.5 MB for its output process, and about 5 MB of disk. 0.1.6 hasn’t been measured again.
+The relay itself is small. On 2026-10-15, the first development build of the Rust Linux relay, idle on a UFI003 (382 MB of RAM) with no CarPlay session, used about 2.9 MB of resident memory plus 1.5 MB for its output process, and about 5 MB of disk.
 
 | System | |
 | --- | --- |
@@ -53,7 +53,6 @@ The relay itself is small. On 2026-10-15, the first development build of the Rus
 | OpenStick Debian 11 on the UFI003 (NetworkManager 1.30, BlueZ 5.55) | In use |
 | Armbian trixie on the Phicomm N1 (NetworkManager 1.52, BlueZ 5.82) | In use |
 | Debian 13 on a Raspberry Pi 5 | The developers’ reference board; no device package for it yet |
-| Ubuntu and other distributions | Untested |
 
 ::: details Commands to check a device {#check}
 Run these on the device over SSH. The commands with `sudo` need root.
@@ -181,7 +180,7 @@ sudo install -D -m 0600 -o root -g root -t /var/lib/openxplay/mfi identity.pk8 c
 sudo systemctl restart openxplay-relay
 ```
 
-Without these two files but with another authentication source, choose a remote MFi server, or an authentication chip over I2C or a CH341 adapter, under **Settings → Identity and certificates → MFi target**. 0.1.6 hasn’t been tested on a device with these yet.
+Without these two files but with another authentication source, choose a remote MFi server, or an authentication chip over I2C or a CH341 adapter, under **Settings → Identity and certificates → MFi target**.
 
 ## Answer the setup guide {#setup .step}
 
@@ -247,7 +246,7 @@ The settings, pairings, keys and identity in `/var/lib/openxplay` are kept; dele
 | --- | --- |
 | OpenWrt, and other systems without systemd or NetworkManager | The relay needs both |
 | 32-bit ARM (armv7), x86 and RISC-V boards | There is no build for them |
-| Bluetooth adapters with only Bluetooth Low Energy | Wireless CarPlay needs Bluetooth Classic (RFCOMM); a cable connection needs no Bluetooth, but hasn’t been tested on a device yet |
+| Bluetooth adapters with only Bluetooth Low Energy | Wireless CarPlay needs Bluetooth Classic (RFCOMM); a cable connection needs no Bluetooth |
 | ESP32 and other microcontrollers | They don’t run Linux |
 
 ## Next {#next-steps}

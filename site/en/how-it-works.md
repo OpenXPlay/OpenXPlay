@@ -40,7 +40,7 @@ Think of OpenXPlay as a set of CarPlay building blocks that you combine freely: 
 | Disk space | About 5 MB |
 | Hardware cost | From CNY 15 / USD 3, excluding the MFi part |
 
-The memory and disk figures are a historical measurement from 2026-10-15 on a UFI003: the first development build of the Rust Linux relay, idle with no CarPlay session. The current release hasn’t been measured again. These figures are for a specific solution and configuration. Actual usage and cost depend on the solution, the devices and the environment.
+The memory and disk figures are a historical measurement from 2026-10-15 on a UFI003: the first development build of the Rust Linux relay, idle with no CarPlay session. These figures are for a specific solution and configuration. Actual usage and cost depend on the solution, the devices and the environment.
 
 ## Open source {#open-source}
 

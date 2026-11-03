@@ -73,7 +73,7 @@ Copy the folder [skills/openxplay-guide](https://github.com/OpenXPlay/OpenXPlay/
 ::: details What is an Apple accessory (MFi) identity? {#mfi-identity}
 The relay uses this identity to authenticate with the iPhone as an accessory, and only then does CarPlay start; without an identity, the Android app doesn’t start CarPlay. The guides on this site use the most common form: the two files `identity.pk8` and `certificate.p7b`. The repositories and their builds contain none; you supply your own.
 
-Without these two files but with another authentication source, choose a remote MFi server, or an authentication chip over I2C or a CH341 adapter, under Settings → Identity and certificates → MFi target on the relay. These also need your own authentication source; the guides on this site don’t cover them, and on Linux 0.1.6 they haven’t been tested on a device yet.
+Without these two files but with another authentication source, choose a remote MFi server, or an authentication chip over I2C or a CH341 adapter, under Settings → Identity and certificates → MFi target on the relay. These also need your own authentication source; the guides on this site don’t cover them.
 :::
 
 ### Which relay to choose {#choose-relay}
