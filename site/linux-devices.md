@@ -188,7 +188,7 @@ sudo systemctl restart openxplay-relay
 管理页面的设置向导会依次询问：
 
 1. **你的车**。
-2. **输出**：车机浏览器、车机的 Carlink 应用，或两者都用。Carlink 需要第二块 Wi-Fi 网卡，只有一块时只能选车机浏览器。特斯拉的浏览器需要专门适配，见[特斯拉](/tesla)。Linux 上没有投屏接收端（DLNA）输出。
+2. **输出**：车机浏览器、车机的 Carlink 应用，或两者都用。Carlink 需要第二块 Wi-Fi 网卡，只有一块时只能选车机浏览器。特斯拉的浏览器需要专门适配，见[特斯拉](/tesla)。Linux 上没有[无线投屏](/wireless-display)和 [CarLife](/carlife) 输出。
 3. **iPhone 连接**：“无线”（默认），或者“USB 数据线”：iPhone 用 USB-A 转 Lightning 或 USB-A 转 USB-C 数据线插在中继的 USB-A 接口上，车机仍通过 Wi-Fi 连接中继。
 4. **网络**：“这台中继的热点”或“使用车机热点”。中继自己的热点名为 `OpenXPlay-Linux-XXXX`，密码为 `openxplay`（WPA2），除非你另行设置。
 5. **完成准备**：按列出的事项逐项完成。

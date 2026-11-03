@@ -11,6 +11,37 @@ breadcrumb: Changelog
 
 What changed in each OpenXPlay Relay release, newest first. The Android app and the Linux relay are released separately; Linux releases say “Linux” in their heading. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup start at [Get started](/en/quick-start).
 
+## 0.2.5 {#v0-2-5}
+
+2026-11-02 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5)
+
+Android app: a CarLife output, wireless display as an output operated on the phone, and DiPlay 0.2.22.
+
+**New**
+
+- Android app: a [CarLife](/en/carlife) output (experimental). CarPlay’s picture and touch go to the car’s CarLife over the same Wi-Fi, this phone’s hotspot or a USB accessory connection; sound stays on the iPhone’s Bluetooth link to the car. Choose it in the setup guide or in Settings → Output; the car’s IP address is optional.
+- Android app: [Wireless display](/en/wireless-display) (DLNA, Miracast) can be chosen in the setup guide and in Settings → Output, marked *Experimental*. The car shows the picture only; with wireless display only, this phone shows CarPlay and takes touch, with a back button, and Home offers *Show CarPlay* while connected.
+- Android app: logs keep a connection timeline even when the system log drops records, and an export says when its capture is incomplete.
+
+**Changes**
+
+- Android app: the Carlink app output is no longer marked *Experimental* in the setup guide and in Settings → Output.
+- Android app: DLNA wireless display carries every CarPlay sound (alerts, Siri, calls), not only music, when car Bluetooth audio is off.
+- Android app: wireless display follows Settings → CarPlay picture → *Resolution*; DLNA declares the car screen itself.
+- Android app: with DLNA, the car no longer stays on an old frame after a swipe, and a renderer that connects starts at a fresh picture.
+- Android app: on the head-unit page, tapping restores full screen again, entering or leaving full screen no longer restarts CarPlay (Samsung Internet), and frames that arrive in a burst are shown instead of dropped.
+- Android app: Carlink gives slow head units 4 s to answer the MTU request (the XPeng G9 takes 1.8 s), so the connection no longer fails at service discovery. Thanks, hellowalker.
+- Android app: on Xiaomi phones with Android 10 or 11, Carlink’s Wi-Fi scan priming runs at most once every 2 minutes, leaving scans for the system Wi-Fi dialog, so joining the car’s Wi-Fi fails less often. Thanks, hellowalker.
+- Android app: DiPlay 0.2.22. Wired CarPlay connects on the first attempt after a replug; a wireless start retries as soon as Bluetooth turns on; announcing CarPlay on the hotspot no longer waits about 20 s; wireless music keeps the iPhone’s speed (no stutter); the USB microphone records speech instead of silence; multi-finger gestures are steadier; connections and received data are checked more strictly.
+- Android app: [Trusted HTTPS](/en/trusted-https) keeps rate limits from the certificate authority per name, account or environment, and 45- and 64-day certificates renew on time.
+
+**Notes**
+
+- Includes everything in 0.2.5-beta.1 and 0.2.5-beta.2.
+- CarLife was tested over Wi-Fi with a phone running CarLife as the car; it hasn’t been tested in a car or over a USB cable.
+- Wireless display and the DiPlay update haven’t been tested in a car with this release.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5).
+
 ## Linux 0.1.6 {#linux-v0-1-6}
 
 2026-11-01 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6)

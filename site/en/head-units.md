@@ -20,7 +20,7 @@ This page lists the cars OpenXPlay has been tested in, which route and which rel
 | [XPeng G6](#xpeng-g6) 2023 | Carlink v2.0.4-202512161819-c0d784a | Carlink | Android phone, 0.1.4-rc.1 test builds and later development builds | 2026-10-20—22 | Picture shown in H.264 and H.265; the touch and reverse-camera fixes await a retest |
 | [XPeng P7+](#xpeng-p7-plus) | Not recorded | Carlink | Android phone, 0.2.3 | 2026-10-31 | No picture; the cause is still being investigated (owner’s log) |
 
-The table shows the relay and version used at the time. The current releases (Android app 0.2.4, Linux relay 0.1.6) haven’t yet been fully tested in a car.
+The table shows the relay and version used at the time. The current releases (Android app 0.2.5, Linux relay 0.1.6) haven’t yet been fully tested in a car.
 
 ## Tests outside a car {#bench}
 
@@ -29,12 +29,14 @@ The table shows the relay and version used at the time. The current releases (An
 | Samsung Internet 21.1 on a Samsung Galaxy S20+ phone (Android 13), standing in for the head unit | Browser | Development builds of the Android relay and of the Linux relay on a UFI003, with a real iPhone; also replayed video | 2026-10-14—20 | H.264 and H.265 picture and touch work; tap to return to full screen failed, and entering or leaving full screen made CarPlay reconnect (see the [known issue](/en/daily-use#fullscreen-known-issue)); sound and microphone not tested |
 | Carlink demo app 2.0.6 on the same S20+, standing in for the head unit | Carlink | Development tools on a Raspberry Pi 5, replaying recorded video | 2026-10-14 | Picture and touch positions correct; no real CarPlay, sound not tested |
 | Xiaomi REDMI G Pro 27U monitor (Xiaomi hyperDLNA) | Wireless display (DLNA) | Development tool on a Mac, replaying a recording of the iPhone’s picture | 2026-10-22, 10-27 | H.264 and H.265 keep playing; the picture and the delay haven’t been checked by eye yet; no touch |
+| CarLife 4.0.0.43 on a Samsung phone, standing in for the head unit | CarLife (Wi-Fi) | Android phone Redmi 14C, 0.2.5 development build, with a real iPhone; also replayed H.265 video | 2026-11-02 | 1920×864 picture; touch correct for opening Settings, Back, Home and swiping between pages, and the picture returns after CarLife restarts; H.265 keeps playing after the relay phone’s hardware converts it to H.264; sound and USB not tested |
 
 ## Built, not yet tested in a car {#not-tested}
 
 - **Tesla browser**: from Android app 0.2.0 and Linux relay 0.1.6; see [Tesla](/en/tesla).
 - **Carlink on the Linux relay**: from Linux relay 0.1.6, with a second Wi-Fi adapter joining the car; see [Carlink app](/en/carlink).
-- **Wireless display (DLNA, Miracast)**: selectable from Android beta 0.2.5-beta.1; picture only, no touch.
+- **CarLife**: from Android app 0.2.5, over Wi-Fi or USB; see [CarLife](/en/carlife). Tested only over Wi-Fi with a phone standing in for the head unit; USB not yet tested.
+- **Wireless display (DLNA, Miracast)**: selectable from Android app 0.2.5; the head unit shows the picture only and you operate CarPlay on the relay phone; see [Wireless display](/en/wireless-display).
 - **Car list**: the XPeng model lines, Tesla and ZEEKR in the app’s Settings → Car and screen are there to choose screen data; being in the list doesn’t mean a car has been tested.
 
 Your car isn’t listed? Open [Check your head unit](/en/check) in its browser and post the report in the [community](/en/community), with the car model, the head-unit system version and the relay version. The check shows only that the browser has the features needed; it doesn’t count as a test in the car.

@@ -14,7 +14,7 @@ If the head unit has no usable browser but does have a Carlink app, try this rou
 ::: warning Experimental feature
 The Carlink output is still experimental and may fail to connect. It needs Android app 0.1.5 or later; [download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk). From 0.1.5, the black screen with sound on some head units, such as the XPeng G6, is fixed, and the picture takes the shape of the car’s Carlink window. What has been tested in a car, and which fixes still await a retest, is under [Head units](/en/head-units#xpeng-g6).
 
-This page follows the stable Android app 0.2.4. Beta 0.2.5-beta.1 no longer marks Carlink as experimental in the setup guide and in Settings → Output; only the label changed.
+This page follows Android app 0.2.5. From 0.2.5, the setup guide and Settings → Output no longer mark Carlink as experimental; only the label changed.
 :::
 
 ## Turn on the Carlink output {#step-enable .step}

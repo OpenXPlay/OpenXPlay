@@ -14,7 +14,7 @@ breadcrumb: Carlink 应用
 ::: warning 实验性功能
 Carlink 输出仍是实验性功能，有可能连接失败。需要安卓应用 0.1.5 及以上版本，请[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)：从 0.1.5 起，部分车机（例如小鹏 G6）有声音但画面全黑的问题已修复，画面按车机 Carlink 窗口的比例显示。哪些已经在车上测过、哪些修复还待复测，见[车机资料](/head-units#xpeng-g6)。
 
-本页按安卓应用正式版 0.2.4 编写。测试版 0.2.5-beta.1 在设置向导和“设置 → 输出”中不再把 Carlink 标为实验性，这次只改了标签。
+本页按安卓应用 0.2.5 编写。从 0.2.5 起，设置向导和“设置 → 输出”不再把 Carlink 标为实验性，这次只改了标签。
 :::
 
 ## 开启 Carlink 输出 {#step-enable .step}

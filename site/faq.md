@@ -18,11 +18,11 @@ schema: faq
 
 ### OpenXPlay 是什么？ {#what-is-openxplay}
 
-OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone CarPlay。由一台中继（运行 OpenXPlay Relay 应用的安卓手机，或 UFI003 USB 随身 Wi-Fi 这类小型 Linux 设备）连接 iPhone，再把 CarPlay 交给车机上已有的软件显示，例如车机浏览器或 Carlink 应用。详见[工作原理](/how-it-works)。
+OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone CarPlay。由一台中继（运行 OpenXPlay Relay 应用的安卓手机，或 UFI003 USB 随身 Wi-Fi 这类小型 Linux 设备）连接 iPhone，再把 CarPlay 交给车机上已有的软件显示，例如车机浏览器、Carlink、CarLife 或投屏接收功能。详见[工作原理](/how-it-works)。
 
 ### 车机上需要安装什么吗？ {#install-on-head-unit}
 
-不需要。接收和连接都由中继完成，车机只用它已有的浏览器或 Carlink 应用，也不会修改车机系统。
+不需要。接收和连接都由中继完成，车机只用它已有的浏览器、Carlink、CarLife 或投屏接收功能，也不会修改车机系统。
 
 ### 哪些车机可以用？ {#which-head-units}
 

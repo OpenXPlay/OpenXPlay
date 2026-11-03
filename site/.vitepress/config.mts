@@ -18,7 +18,7 @@ const mail = `<a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`
 const tag = (kind: 'warning' | 'info', text: string) => `<span class="VPBadge ${kind} oxp-sidebar-tag">${text}</span>`
 
 // Pages that belong to "Get started" in the nav: the start page and every setup guide.
-const GUIDE_PAGES = 'quick-start|check|android-relay|ufi003-relay|ufi003-flash|phicomm-n1|linux-devices|carlink|tesla|daily-use|trusted-https'
+const GUIDE_PAGES = 'quick-start|check|android-relay|ufi003-relay|ufi003-flash|phicomm-n1|linux-devices|carlink|carlife|wireless-display|tesla|daily-use|trusted-https'
 // Pages that belong to "FAQ" in the nav.
 const HELP_PAGES = 'faq|troubleshooting|head-units'
 
@@ -50,6 +50,8 @@ const english: DefaultTheme.Config = {
         { text: `Phicomm N1 TV box ${tag('info', 'Advanced')}`, link: '/en/phicomm-n1' },
         { text: `Other Linux devices ${tag('info', 'Advanced')}`, link: '/en/linux-devices' },
         { text: `Carlink app ${tag('warning', 'Experimental')}`, link: '/en/carlink' },
+        { text: `CarLife ${tag('warning', 'Experimental')}`, link: '/en/carlife' },
+        { text: `Wireless display ${tag('warning', 'Experimental')}`, link: '/en/wireless-display' },
         { text: `Tesla ${tag('warning', 'Experimental')}`, link: '/en/tesla' },
       ],
     },
@@ -120,6 +122,8 @@ const chinese: DefaultTheme.Config = {
         { text: `斐讯 N1 电视盒子 ${tag('info', '进阶')}`, link: '/phicomm-n1' },
         { text: `其他 Linux 设备 ${tag('info', '进阶')}`, link: '/linux-devices' },
         { text: `Carlink 应用 ${tag('warning', '实验性')}`, link: '/carlink' },
+        { text: `CarLife ${tag('warning', '实验性')}`, link: '/carlife' },
+        { text: `无线投屏 ${tag('warning', '实验性')}`, link: '/wireless-display' },
         { text: `特斯拉 ${tag('warning', '实验性')}`, link: '/tesla' },
       ],
     },

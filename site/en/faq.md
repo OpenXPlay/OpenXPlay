@@ -18,11 +18,11 @@ For certificate warnings, Wi-Fi, Bluetooth pairing, picture or sound problems, s
 
 ### What is OpenXPlay? {#what-is-openxplay}
 
-OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps. A relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle — connects to the iPhone and passes CarPlay to software the head unit already has, such as its browser or a Carlink app. See [How it works](/en/how-it-works).
+OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps. A relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle — connects to the iPhone and passes CarPlay to software the head unit already has, such as its browser, Carlink, CarLife or screen-casting receiver. See [How it works](/en/how-it-works).
 
 ### Do I need to install anything on the head unit? {#install-on-head-unit}
 
-No. The relay does the receiving and connecting, and the head unit uses what it already has: its browser or its Carlink app. The head unit’s system is never modified.
+No. The relay does the receiving and connecting, and the head unit uses what it already has: its browser, Carlink, CarLife or screen-casting receiver. The head unit’s system is never modified.
 
 ### Which head units work? {#which-head-units}
 

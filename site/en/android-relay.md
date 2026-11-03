@@ -19,7 +19,7 @@ next:
 
 # Android phone as the relay
 
-The recommended setup: an Android phone as the relay and the head unit’s own browser to show CarPlay. Nothing is installed on the head unit. The first setup takes about 10 minutes. This guide follows OpenXPlay Relay 0.2.4.
+The recommended setup: an Android phone as the relay and the head unit’s own browser to show CarPlay. Nothing is installed on the head unit. The first setup takes about 10 minutes. This guide follows OpenXPlay Relay 0.2.5.
 
 ::: tip Before you start
 - An iPhone with CarPlay
@@ -29,7 +29,7 @@ The recommended setup: an Android phone as the relay and the head unit’s own b
 
 ## Check the head unit’s browser {#step-check .step}
 
-In the head unit’s browser, open [openxplay.org/check](/en/check). The page tests whether the browser can decode CarPlay’s video; continue once it says the browser works. If it doesn’t, try the [Carlink app](/en/carlink) instead. In a Tesla, see [Tesla](/en/tesla).
+In the head unit’s browser, open [openxplay.org/check](/en/check). The page tests whether the browser can decode CarPlay’s video; continue once it says the browser works. If it doesn’t, try the [Carlink app](/en/carlink), [CarLife](/en/carlife) or [Wireless display](/en/wireless-display) instead. In a Tesla, see [Tesla](/en/tesla).
 
 ## Install OpenXPlay Relay {#step-install .step}
 
@@ -44,7 +44,7 @@ Earlier versions are on [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/
 The first time you open the app, a setup guide takes you through a few pages; a bar at the top shows how far you are.
 
 1. **Your car:** choose the brand and the model; the year can stay *Not sure*. The list has XPeng, Tesla and ZEEKR; if your car isn’t listed, choose *Other* and type its name. Different cars get different settings: the XPeng G6 2023 comes with its screen data, a Tesla needs the [Tesla browser](/en/tesla) setting, and for a ZEEKR the guide suggests [Trusted HTTPS](/en/trusted-https).
-2. **Car display:** choose *Car browser*. *Carlink app* is experimental, see [Carlink](/en/carlink). *Wireless display* (DLNA, Miracast) shows *Coming soon* and can’t be chosen yet.
+2. **Car display:** choose *Car browser*. If the head unit has no usable browser, see [Carlink app](/en/carlink), and the experimental [Wireless display](/en/wireless-display) (DLNA, Miracast) and [CarLife](/en/carlife).
 3. **iPhone connection:** choose *Wireless*: in the car, the iPhone connects by itself over Bluetooth and Wi-Fi. *USB cable* is not recommended: the relay phone has to power the iPhone through the cable, and only some cables work; a USB-C iPhone on a USB-C to USB-C cable usually isn’t found (see [Troubleshooting](/en/troubleshooting#usb-iphone-not-found)). The app asks you to confirm when you choose it.
 4. **Wireless network:** the iPhone, the relay phone and the head unit must reach each other. Choose one for your car; open it for details:
 

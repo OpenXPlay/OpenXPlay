@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
 title: 'How it works: the iPhone, the relay and the head unit'
-description: The OpenXPlay relay route. An iPhone connects to an Android or Linux relay, which acts as the CarPlay receiver and passes video, audio and touch on to the head unit’s browser, Carlink app or other entry points.
+description: The OpenXPlay relay route. An iPhone connects to an Android or Linux relay, which acts as the CarPlay receiver and passes video, audio and touch on to the head unit’s browser, Carlink, CarLife or screen-casting receiver.
 breadcrumb: How it works
 ---
 
@@ -24,7 +24,8 @@ Today the relay delivers CarPlay to these head-unit entry points:
 | --- | --- | --- | --- |
 | Browser (web receiver) | H.264 or H.265 video over a secure WebSocket, decoded with WebCodecs | Yes | In development |
 | Carlink app | Over Wi-Fi | Yes | Experimental |
-| Screen-casting receivers (DLNA, Miracast) | Casting | No | Testing (Android developer options) |
+| CarLife | [Over Wi-Fi or USB](/en/carlife) | Yes | Experimental (Android) |
+| Screen-casting receivers (DLNA, Miracast) | [Wireless display](/en/wireless-display), operated on the relay phone | No | Experimental (Android) |
 | Tesla browser | The [web receiver](/en/tesla) at an address the Tesla browser can open | Yes | Experimental |
 
 ## Up to 28 combinations {#combinations}

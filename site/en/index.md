@@ -5,7 +5,7 @@
 layout: home
 title: 'OpenXPlay: CarPlay for Android head units that can’t install apps'
 titleTemplate: false
-description: OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps. An Android phone or a small Linux device relays CarPlay to the head unit’s browser or Carlink app. Open source.
+description: OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps. An Android phone or a small Linux device relays CarPlay to the head unit’s browser, Carlink, CarLife or screen-casting receiver. Open source.
 hero:
   name: OpenXPlay
   text: CarPlay for head units that can’t install apps
@@ -50,7 +50,7 @@ OpenXPlay is for **drivers who want CarPlay but can’t install third-party apps
 
 | Your head unit | What to use |
 | --- | --- |
-| Can’t install apps | **OpenXPlay**: a phone or external device does the work, and CarPlay appears in the head unit’s browser, its Carlink app or a similar entry point. |
+| Can’t install apps | **OpenXPlay**: a phone or external device does the work, and CarPlay appears in the head unit’s browser, Carlink, CarLife or screen-casting receiver. |
 | Can install apps | **[DiPlay](https://github.com/shihabal3amri/DiPlay)**: install the app on a compatible Android head unit, which receives and shows CarPlay itself. |
 
 To see how it works in detail and which head-unit entry points it supports, read [How it works](/en/how-it-works).
@@ -58,7 +58,7 @@ To see how it works in detail and which head-unit entry points it supports, read
 ## Common questions {#questions}
 
 ::: details Do I need to install anything on the head unit?
-No. The relay does the receiving and connecting, and the head unit uses what it already has: its browser or its Carlink app. The head unit’s system is never modified.
+No. The relay does the receiving and connecting, and the head unit uses what it already has: its browser, Carlink, CarLife or screen-casting receiver. The head unit’s system is never modified.
 :::
 
 ::: details Is it free?
