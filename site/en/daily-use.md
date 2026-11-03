@@ -43,7 +43,7 @@ Browsers allow full screen only after a tap, so the page can’t return to full 
 :::
 
 ::: info Known issue {#fullscreen-known-issue}
-In the current releases (Android app 0.2.4, Linux relay 0.1.6), a tap may not return to full screen, and on some browsers entering or leaving full screen can make CarPlay reconnect; the fix comes with the next releases.
+In Android app 0.2.4 and earlier and in Linux relay 0.1.6, a tap may not return to full screen, and on some browsers entering or leaving full screen can make CarPlay reconnect. Android app 0.2.5 fixes this; the Linux relay’s fix comes with its next release.
 :::
 
 ## Choose your car {#car-model}

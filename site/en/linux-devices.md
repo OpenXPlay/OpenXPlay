@@ -188,7 +188,7 @@ Without these two files but with another authentication source, choose a remote 
 The admin page’s setup guide asks about:
 
 1. **Your car**.
-2. **Output**: the head unit’s browser, its Carlink app, or both. Carlink needs a second Wi-Fi adapter; with one, only the browser is offered. A Tesla’s browser needs its own adaptation; see [Tesla](/en/tesla). The screen-casting receiver (DLNA) output is not available on Linux.
+2. **Output**: the head unit’s browser, its Carlink app, or both. Carlink needs a second Wi-Fi adapter; with one, only the browser is offered. A Tesla’s browser needs its own adaptation; see [Tesla](/en/tesla). [Wireless display](/en/wireless-display) and [CarLife](/en/carlife) aren’t available on Linux.
 3. **iPhone connection**: *Wireless* (the default), or *USB cable* with the iPhone plugged into a USB-A port on the relay through a USB-A to Lightning or USB-A to USB-C cable; the head unit still reaches the relay over Wi-Fi.
 4. **Network**: *This relay’s hotspot* or *Use the car’s hotspot*. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay` (WPA2), unless you set your own.
 5. **Get ready**: work through what it lists.

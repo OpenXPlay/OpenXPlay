@@ -5,7 +5,7 @@
 layout: home
 title: OpenXPlay：车机装不了软件，也能用 CarPlay
 titleTemplate: false
-description: OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone CarPlay：由安卓手机或小型 Linux 设备作为中继，通过车机自带的浏览器或 Carlink 应用显示。开源项目。
+description: OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone CarPlay：由安卓手机或小型 Linux 设备作为中继，通过车机自带的浏览器、Carlink、CarLife 或投屏接收功能显示。开源项目。
 hero:
   name: OpenXPlay
   text: 车机装不了软件，也能用 CarPlay
@@ -50,7 +50,7 @@ OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使�
 
 | 你的车机 | 适合的方案 |
 | --- | --- |
-| 无法安装应用 | **OpenXPlay**：由手机或外部设备承接相关能力，借助车机已有的浏览器、Carlink 应用等入口显示 CarPlay。 |
+| 无法安装应用 | **OpenXPlay**：由手机或外部设备承接相关能力，借助车机已有的浏览器、Carlink、CarLife 或投屏接收功能显示 CarPlay。 |
 | 可以安装应用 | **[DiPlay](https://github.com/shihabal3amri/DiPlay)**：在兼容的安卓车机上安装应用，由车机直接接收并显示 CarPlay。 |
 
 想知道它具体怎样工作、支持哪些车机入口，请看[工作原理](/how-it-works)。
@@ -58,7 +58,7 @@ OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使�
 ## 常见疑问 {#questions}
 
 ::: details 车机上需要安装什么吗？
-不需要。接收和连接都由中继完成，车机只用它已有的浏览器或 Carlink 应用，也不会修改车机系统。
+不需要。接收和连接都由中继完成，车机只用它已有的浏览器、Carlink、CarLife 或投屏接收功能，也不会修改车机系统。
 :::
 
 ::: details 免费吗？

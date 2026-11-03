@@ -19,7 +19,7 @@ next:
 
 # 用安卓手机作中继
 
-推荐的用法：一部安卓手机作中继，车机用自带的浏览器显示 CarPlay，车机上不用安装任何软件。第一次设置大约需要 10 分钟。本教程按 OpenXPlay Relay 0.2.4 编写。
+推荐的用法：一部安卓手机作中继，车机用自带的浏览器显示 CarPlay，车机上不用安装任何软件。第一次设置大约需要 10 分钟。本教程按 OpenXPlay Relay 0.2.5 编写。
 
 ::: tip 开始前请准备
 - 支持 CarPlay 的 iPhone
@@ -29,7 +29,7 @@ next:
 
 ## 检测车机浏览器 {#step-check .step}
 
-在车机浏览器中打开 [openxplay.org/check](/check)。页面会检测浏览器能否解码 CarPlay 的视频；显示可以使用，再继续下面的步骤。检测不通过时，可以改用 [Carlink 应用](/carlink)；特斯拉请看[特斯拉](/tesla)。
+在车机浏览器中打开 [openxplay.org/check](/check)。页面会检测浏览器能否解码 CarPlay 的视频；显示可以使用，再继续下面的步骤。检测不通过时，可以改用 [Carlink 应用](/carlink)、[CarLife](/carlife) 或[无线投屏](/wireless-display)；特斯拉请看[特斯拉](/tesla)。
 
 ## 安装 OpenXPlay Relay {#step-install .step}
 
@@ -44,7 +44,7 @@ next:
 第一次打开应用会进入设置向导，顶部的进度条显示当前在第几步。
 
 1. **你的车**：选择品牌和车型，年款可以选“不确定”。列表中有小鹏、特斯拉和极氪；没有你的车时选“其他”并填写名称。不同车型使用不同的设置：小鹏 G6 2023 款自带屏幕数据，特斯拉需要设置[特斯拉浏览器适配](/tesla)，极氪车主向导会建议设置[可信 HTTPS](/trusted-https)。
-2. **车机显示**：选“车载浏览器”。“Carlink 应用”是实验性功能，见 [Carlink](/carlink)。“无线投屏”（DLNA、Miracast）显示“待开放”，暂时不能选择。
+2. **车机显示**：选“车载浏览器”。车机没有可用的浏览器时，见 [Carlink 应用](/carlink)，以及实验性的[无线投屏](/wireless-display)（DLNA、Miracast）和 [CarLife](/carlife)。
 3. **iPhone 连接**：选“无线”：上车后 iPhone 会通过蓝牙和 Wi-Fi 自动连上。不推荐“USB 数据线”：中继手机要通过数据线给 iPhone 供电，而且对数据线有要求，USB-C 接口的 iPhone 用两头都是 USB-C 的线通常连不上（见[故障排查](/troubleshooting#usb-iphone-not-found)），选择时应用也会再确认一次。
 4. **无线网络**：iPhone、中继手机和车机之间需要能互相连通。按你的车选择一种，点开看说明：
 

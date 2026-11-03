@@ -11,6 +11,37 @@ breadcrumb: 更新日志
 
 OpenXPlay Relay 每个版本的变化，最新的在最前面。安卓应用和 Linux 中继分别发布，Linux 版本的标题带“Linux”。安装包和校验值见 GitHub 上的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)；安装和设置见[开始使用](/quick-start)。
 
+## 0.2.5 {#v0-2-5}
+
+2026-11-02 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5)
+
+安卓应用：新增 CarLife 输出，无线投屏可以作为输出选择并在手机上操作，更新到 DiPlay 0.2.22。
+
+**新增**
+
+- 安卓应用：[CarLife](/carlife) 输出（实验性）。CarPlay 的画面和触控通过同一 Wi-Fi、本机热点或 USB 附件连接发送到车机的 CarLife；声音仍通过 iPhone 蓝牙直连车机。在设置向导或“设置 → 输出”中选择；车机 IP 地址可选。
+- 安卓应用：[无线投屏](/wireless-display)（DLNA、Miracast）可以在设置向导和“设置 → 输出”中选择，标记为“实验性”。车机只显示画面；只使用无线投屏时，本机显示 CarPlay 并可触控，带返回按钮，连接期间首页提供“显示 CarPlay”。
+- 安卓应用：系统日志丢失记录时，日志仍保留连接时间线；导出的日志会注明采集是否完整。
+
+**变更**
+
+- 安卓应用：Carlink 应用输出在设置向导和“设置 → 输出”中不再标记为实验性。
+- 安卓应用：关闭车机蓝牙音频时，DLNA 无线投屏传输 CarPlay 的全部声音（提示音、Siri、通话），不再只有音乐。
+- 安卓应用：无线投屏遵循“CarPlay 画面 → 分辨率”；DLNA 直接声明车机屏幕尺寸。
+- 安卓应用：DLNA 滑动后车机不再停在旧画面，新连接的播放器从最新画面开始。
+- 安卓应用：车机网页上轻触可再次恢复全屏，进入或退出全屏不再重启 CarPlay（三星浏览器），短时间内连续到达的帧会显示而不是丢弃。
+- 安卓应用：Carlink 给响应慢的车机 4 秒回应 MTU 请求（小鹏 G9 需要 1.8 秒），连接不再卡在服务发现。感谢 hellowalker。
+- 安卓应用：Android 10 或 11 的小米手机上，Carlink 的 Wi-Fi 扫描预热每 2 分钟最多一次，把扫描次数留给系统 Wi-Fi 对话框，加入车机 Wi-Fi 更少失败。感谢 hellowalker。
+- 安卓应用：更新到 DiPlay 0.2.22。重新插线后有线 CarPlay 第一次就能连上；蓝牙打开后立即重试无线启动；在热点上广播 CarPlay 不再等待约 20 秒；无线音乐保持 iPhone 的速度（不再卡顿）；USB 麦克风能录到语音而不是静音；多指手势更稳定；对连接和收到的数据检查更严格。
+- 安卓应用：[可信 HTTPS](/trusted-https) 的证书机构频率限制按域名、账户或环境分别记录，45 天和 64 天证书按时续期。
+
+**说明**
+
+- 包含 0.2.5-beta.1 和 0.2.5-beta.2 的全部内容。
+- CarLife 已通过 Wi-Fi 用一台运行 CarLife 的手机充当车机测试过，还没有在车上或通过 USB 线测试。
+- 无线投屏和 DiPlay 更新还没有用这个版本在车上测试过。
+- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5)。
+
 ## Linux 0.1.6 {#linux-v0-1-6}
 
 2026-11-01 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6)

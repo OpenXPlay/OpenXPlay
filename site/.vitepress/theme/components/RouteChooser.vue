@@ -11,7 +11,7 @@ import { computed, ref } from 'vue'
 import { useData, withBase } from 'vitepress'
 
 type Relay = 'android' | 'ufi003' | 'n1'
-type Display = 'browser' | 'carlink'
+type Display = 'browser' | 'carlink' | 'carlife' | 'wireless'
 type RouteKey = `${Relay}-${Display}`
 
 interface Option<K extends string> { key: K; name: string; tag?: string; tagKind?: 'tip' | 'warning' | 'info'; desc: string }
@@ -42,6 +42,8 @@ const ICONS: Record<Relay | Display, string> = {
   n1: '<rect x="2.5" y="8" width="19" height="8" rx="2.5"/><path d="M6.5 12h.01"/><path d="M14 12h3.5"/><path d="M6 19h12"/>',
   browser: '<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M3 9h18"/><path d="M6 6.75h.01M8.5 6.75h.01"/>',
   carlink: '<path d="M4.5 13 6.6 7.6A2 2 0 0 1 8.46 6.3h7.08a2 2 0 0 1 1.86 1.3L19.5 13"/><rect x="3.5" y="13" width="17" height="5" rx="1.5"/><path d="M6 20.5V18M18 20.5V18"/><path d="M7.5 15.5h.01M16.5 15.5h.01"/>',
+  carlife: '<rect x="3" y="5" width="18" height="12" rx="2.5"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="m10 9 4 2-4 2z"/>',
+  wireless: '<path d="M3 8V6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5H14"/><path d="M3 12a8 8 0 0 1 8 8"/><path d="M3 16a4 4 0 0 1 4 4"/><path d="M3 20h.01"/>',
 }
 
 const TEXT: Record<'root' | 'en', Text> = {
@@ -58,6 +60,8 @@ const TEXT: Record<'root' | 'en', Text> = {
     displays: [
       { key: 'browser', name: '车机浏览器', tag: '推荐', tagKind: 'tip', desc: '直接显示 iPhone 的画面，支持触控。需要浏览器支持 WebCodecs。' },
       { key: 'carlink', name: 'Carlink 应用', tag: '实验性', tagKind: 'warning', desc: '车机没有可用的浏览器、但装有 Carlink 应用时可以试试。' },
+      { key: 'carlife', name: 'CarLife', tag: '实验性', tagKind: 'warning', desc: '车机装有 CarLife 时可以试试，经 Wi-Fi 或 USB 连接。' },
+      { key: 'wireless', name: '无线投屏', tag: '实验性', tagKind: 'warning', desc: '车机只能接收 DLNA 或 Miracast 投屏时可以试试；车机只显示画面。' },
     ],
     results: {
       'android-browser': {
@@ -113,6 +117,60 @@ const TEXT: Record<'root' | 'en', Text> = {
         link: 'phicomm-n1',
         secondary: { text: '查看 Carlink 教程', link: 'carlink' },
       },
+      'android-carlife': {
+        title: '安卓手机 + CarLife',
+        summary: '中继把 CarPlay 的画面和触控送到车机的 CarLife，经同一 Wi-Fi、中继手机的热点或 USB 连接。实验性功能；需要安卓应用 0.2.5 或更新版本。',
+        needs: ['支持 CarPlay 的 iPhone', 'Android 8.0 及以上的安卓手机', 'Apple 配件（MFi）身份', '装有 CarLife 的车机'],
+        note: '声音由 iPhone 通过蓝牙直接连接车机播放。还没有在车上测试过。',
+        action: '查看 CarLife 教程',
+        link: 'carlife',
+        secondary: { text: '查看安卓手机教程', link: 'android-relay' },
+      },
+      'android-wireless': {
+        title: '安卓手机 + 无线投屏',
+        summary: '中继把 CarPlay 的画面投到车机的 DLNA 或 Miracast 接收端，在中继手机上操作 CarPlay。实验性功能；需要安卓应用 0.2.5 或更新版本。',
+        needs: ['支持 CarPlay 的 iPhone', 'Android 8.0 及以上的安卓手机', 'Apple 配件（MFi）身份', '能接收 DLNA 或 Miracast 投屏的车机'],
+        note: '不能在车机上触控 CarPlay。还没有在车上测试过。',
+        action: '查看无线投屏教程',
+        link: 'wireless-display',
+        secondary: { text: '查看安卓手机教程', link: 'android-relay' },
+      },
+      'ufi003-carlife': {
+        title: 'UFI003 随身 Wi-Fi + CarLife',
+        summary: 'CarLife 输出只在安卓应用中提供，Linux 中继没有。要用 CarLife，请换用安卓手机。',
+        needs: [],
+        unavailable: true,
+        action: '查看 CarLife 教程',
+        link: 'carlife',
+        secondary: { text: '改用车机浏览器', link: 'ufi003-relay' },
+      },
+      'ufi003-wireless': {
+        title: 'UFI003 随身 Wi-Fi + 无线投屏',
+        summary: '无线投屏只在安卓应用中提供，Linux 中继没有。要用无线投屏，请换用安卓手机。',
+        needs: [],
+        unavailable: true,
+        action: '查看无线投屏教程',
+        link: 'wireless-display',
+        secondary: { text: '改用车机浏览器', link: 'ufi003-relay' },
+      },
+      'n1-carlife': {
+        title: '斐讯 N1 电视盒子 + CarLife',
+        summary: 'CarLife 输出只在安卓应用中提供，Linux 中继没有。要用 CarLife，请换用安卓手机。',
+        needs: [],
+        unavailable: true,
+        action: '查看 CarLife 教程',
+        link: 'carlife',
+        secondary: { text: '改用车机浏览器', link: 'phicomm-n1' },
+      },
+      'n1-wireless': {
+        title: '斐讯 N1 电视盒子 + 无线投屏',
+        summary: '无线投屏只在安卓应用中提供，Linux 中继没有。要用无线投屏，请换用安卓手机。',
+        needs: [],
+        unavailable: true,
+        action: '查看无线投屏教程',
+        link: 'wireless-display',
+        secondary: { text: '改用车机浏览器', link: 'phicomm-n1' },
+      },
     },
   },
   en: {
@@ -128,6 +186,8 @@ const TEXT: Record<'root' | 'en', Text> = {
     displays: [
       { key: 'browser', name: 'Head-unit browser', tag: 'Recommended', tagKind: 'tip', desc: 'Shows the iPhone’s picture directly, with touch. The browser must support WebCodecs.' },
       { key: 'carlink', name: 'Carlink app', tag: 'Experimental', tagKind: 'warning', desc: 'Worth a try when the head unit has no usable browser but has a Carlink app.' },
+      { key: 'carlife', name: 'CarLife', tag: 'Experimental', tagKind: 'warning', desc: 'Worth a try when the head unit has CarLife; over Wi-Fi or USB.' },
+      { key: 'wireless', name: 'Wireless display', tag: 'Experimental', tagKind: 'warning', desc: 'Worth a try when the head unit only receives DLNA or Miracast casting; it shows the picture only.' },
     ],
     results: {
       'android-browser': {
@@ -182,6 +242,60 @@ const TEXT: Record<'root' | 'en', Text> = {
         action: 'Read the Phicomm N1 guide',
         link: 'phicomm-n1',
         secondary: { text: 'Read the Carlink guide', link: 'carlink' },
+      },
+      'android-carlife': {
+        title: 'Android phone + CarLife',
+        summary: 'The relay sends CarPlay’s picture and touch to the head unit’s CarLife over the same Wi-Fi, the relay phone’s hotspot or USB. This is experimental; it needs Android app 0.2.5 or later.',
+        needs: ['An iPhone with CarPlay', 'An Android phone with Android 8.0 or later', 'An Apple accessory (MFi) identity', 'A head unit with CarLife'],
+        note: 'Sound plays from the iPhone over its Bluetooth link to the car. Not yet tested in a car.',
+        action: 'Read the CarLife guide',
+        link: 'carlife',
+        secondary: { text: 'Read the Android phone guide', link: 'android-relay' },
+      },
+      'android-wireless': {
+        title: 'Android phone + wireless display',
+        summary: 'The relay casts CarPlay’s picture to the head unit’s DLNA or Miracast receiver, and you operate CarPlay on the relay phone. This is experimental; it needs Android app 0.2.5 or later.',
+        needs: ['An iPhone with CarPlay', 'An Android phone with Android 8.0 or later', 'An Apple accessory (MFi) identity', 'A head unit that receives DLNA or Miracast casting'],
+        note: 'CarPlay can’t be touched on the head unit. Not yet tested in a car.',
+        action: 'Read the wireless display guide',
+        link: 'wireless-display',
+        secondary: { text: 'Read the Android phone guide', link: 'android-relay' },
+      },
+      'ufi003-carlife': {
+        title: 'UFI003 USB dongle + CarLife',
+        summary: 'Only the Android app has the CarLife output; the Linux relay doesn’t. For CarLife, use an Android phone.',
+        needs: [],
+        unavailable: true,
+        action: 'Read the CarLife guide',
+        link: 'carlife',
+        secondary: { text: 'Use the head-unit browser instead', link: 'ufi003-relay' },
+      },
+      'ufi003-wireless': {
+        title: 'UFI003 USB dongle + wireless display',
+        summary: 'Only the Android app has wireless display; the Linux relay doesn’t. For wireless display, use an Android phone.',
+        needs: [],
+        unavailable: true,
+        action: 'Read the wireless display guide',
+        link: 'wireless-display',
+        secondary: { text: 'Use the head-unit browser instead', link: 'ufi003-relay' },
+      },
+      'n1-carlife': {
+        title: 'Phicomm N1 TV box + CarLife',
+        summary: 'Only the Android app has the CarLife output; the Linux relay doesn’t. For CarLife, use an Android phone.',
+        needs: [],
+        unavailable: true,
+        action: 'Read the CarLife guide',
+        link: 'carlife',
+        secondary: { text: 'Use the head-unit browser instead', link: 'phicomm-n1' },
+      },
+      'n1-wireless': {
+        title: 'Phicomm N1 TV box + wireless display',
+        summary: 'Only the Android app has wireless display; the Linux relay doesn’t. For wireless display, use an Android phone.',
+        needs: [],
+        unavailable: true,
+        action: 'Read the wireless display guide',
+        link: 'wireless-display',
+        secondary: { text: 'Use the head-unit browser instead', link: 'phicomm-n1' },
       },
     },
   },

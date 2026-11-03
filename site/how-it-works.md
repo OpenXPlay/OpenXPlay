@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
 title: 工作原理：iPhone、中继和车机怎样连起来
-description: OpenXPlay 的中继连接路线：iPhone 连接安卓或 Linux 中继，中继充当 CarPlay 接收端，再把视频、音频和触控转给车机的浏览器、Carlink 应用等入口。
+description: OpenXPlay 的中继连接路线：iPhone 连接安卓或 Linux 中继，中继充当 CarPlay 接收端，再把视频、音频和触控转给车机的浏览器、Carlink、CarLife 或投屏接收功能。
 breadcrumb: 工作原理
 ---
 
@@ -24,7 +24,8 @@ iPhone 连接到一台中继：运行 OpenXPlay Relay 应用的安卓手机，�
 | --- | --- | --- | --- |
 | 浏览器（网页接收端） | H.264 或 H.265 视频经安全 WebSocket 传输，由 WebCodecs 解码 | 支持 | 开发中 |
 | Carlink 应用 | 经 Wi-Fi 连接 | 支持 | 实验性 |
-| 投屏接收端（DLNA、Miracast） | 投屏 | 不支持 | 测试中（安卓开发者选项） |
+| CarLife | [经 Wi-Fi 或 USB 连接](/carlife) | 支持 | 实验性（安卓） |
+| 投屏接收端（DLNA、Miracast） | [无线投屏](/wireless-display)，在中继手机上操作 | 不支持 | 实验性（安卓） |
 | 特斯拉浏览器 | [网页接收端](/tesla)，使用特斯拉浏览器能打开的地址 | 支持 | 实验性 |
 
 ## 最多 28 种组合 {#combinations}
