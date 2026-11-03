@@ -35,7 +35,7 @@ Enter the pairing code the car screen shows now into the relay (the Android app,
 | --- | --- |
 | Android phone | Carlink needs Android 10 or later. The relay phone joins the car’s Carlink network as a Wi-Fi client, so its Wi-Fi must be on (it needn’t be connected to anything). For wireless CarPlay choose *This phone’s hotspot*: the relay runs its hotspot for the iPhone and joins the car over Wi-Fi at the same time. Some phones turn Wi-Fi off when their hotspot is on; they can’t do both. |
 | UFI003 | It has one Wi-Fi adapter, 2.4 GHz only, so Carlink isn’t available; use the head unit’s browser. |
-| Phicomm N1 | Needs a USB Wi-Fi adapter as well: the built-in adapter runs the iPhone’s hotspot and the USB adapter joins the head unit’s Carlink Wi-Fi, see [One adapter or two](/en/phicomm-n1#adapters). With the built-in adapter alone, Carlink isn’t available. Not yet tested in a car. |
+| Phicomm N1 | Needs a USB Wi-Fi adapter as well: the built-in adapter runs the iPhone’s hotspot and the USB adapter joins the head unit’s Carlink Wi-Fi, see [One adapter or two](/en/phicomm-n1#adapters). With the built-in adapter alone, Carlink isn’t available. |
 
 ::: details Sound but a black picture on the head unit? {#black-screen}
 Some head units recognise a key frame only at the very start of a frame, and Android app 0.1.3 and earlier show a black screen on them. It needs Android app 0.1.5 or later; [update to the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk). 0.1.5 also brings the picture back after the reverse camera.
@@ -46,5 +46,5 @@ The relay phone’s Wi-Fi is off. Carlink has the relay phone join the car’s n
 :::
 
 ::: details The picture doesn’t fill the screen after the car switches to full screen? {#full-screen}
-The car tells the relay its window size only when Carlink connects. When you switch its area during a session, for example from two thirds of the screen to full screen, the car just scales the existing picture up and leaves bars at the sides. Turn on Settings → Output → *Reconnect when the window size changes*: after a switch, the first touch reconnects, and the picture stops for a few seconds. Whether the XPeng G6 reports its full-screen size after reconnecting is still being tested.
+The car tells the relay its window size only when Carlink connects. When you switch its area during a session, for example from two thirds of the screen to full screen, the car just scales the existing picture up and leaves bars at the sides. Turn on Settings → Output → *Reconnect when the window size changes*: after a switch, the first touch reconnects, and the picture stops for a few seconds.
 :::

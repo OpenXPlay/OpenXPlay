@@ -73,8 +73,6 @@ howtoTools:
 2. 新建一个 zone（dynv6 对域名的叫法）。登录后填一个名字，后缀选择 `dynv6.net`，例如 `myrelay.dynv6.net`。不要选其他后缀，原因见下一项。
 3. 取得 HTTP Token。打开 Keys 页面（[dynv6.com/keys](https://dynv6.com/keys)），新建或复制一个 HTTP Token，建议把它限定为只能管理这个 zone。
 
-OpenXPlay 还在测试 dynv6 能否登记私有地址。
-
 **要保存的信息**：完整域名，例如 `myrelay.dynv6.net`，以及 HTTP Token。
 :::
 

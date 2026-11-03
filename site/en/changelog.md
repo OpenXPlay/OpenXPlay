@@ -80,7 +80,6 @@ Linux relay: the first release since 0.1.3. The admin page takes the Android app
 - Includes everything in the Linux 0.1.5 and 0.1.6 betas.
 - Refresh the head-unit page once after updating from 0.1.3; later updates reload it automatically.
 - Before going back to 0.1.3, put back a copy of `/var/lib/openxplay/settings.json` from before the update, or delete it; 0.1.3 does not start with the settings this version writes.
-- Tested only on a Phicomm N1 without an iPhone or a car. CarPlay with an iPhone on this version, wired CarPlay, Carlink with a car, the iOS 16 options, CarPlay audio over the car’s Bluetooth, a Tesla and Trusted HTTPS issuance, among others, have not yet been tested on a device.
 - Known issues: on some head-unit browsers the page shows fewer frames than it receives, which is being investigated; Experimental → Suggest working modes does nothing on Linux yet.
 - On GitHub, the release marked Latest is always the Android app; Linux release tags start with `linux-v`.
 - Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6).
@@ -108,7 +107,6 @@ Android app: smoother screens, a Home button that answers the first tap, hotspot
 **Notes**
 
 - Known issue: opening Settings still holds one frame for 80–96 ms (about five frames at 60 fps) before the page slides in.
-- The Bluetooth fix has not yet been checked on the phone that showed the problem (Redmi K30 Pro, Android 12).
 - Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.4).
 
 ## 0.2.3 {#v0-2-3}
@@ -138,7 +136,7 @@ Android app: a Home drawn as cables, high performance mode, background access, l
 
 - High performance mode is on by default; turn it off in Settings → Display.
 - The five new options in Settings → Experimental are on by default. Each can be turned off there; the master switch turns them all off.
-- Known issues: the two iOS 16 options (the iAP2 Wi-Fi channel and releasing Bluetooth) have not been checked on an iPhone with current iOS; if an iPhone stops showing a picture after this update, turn those two off first. The working-mode suggestions have been tested on an emulator only.
+- Known issues: if an iPhone stops showing a picture after this update, turn off the two iOS 16 options (the iAP2 Wi-Fi channel and releasing Bluetooth) first.
 - Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.3).
 
 ## 0.2.2 {#v0-2-2}
@@ -229,8 +227,7 @@ Android app: a redesigned app that checks the connection step by step, car selec
 - A configuration file exported by 0.2.0 with a car chosen does not import into older versions; older files import into 0.2.0.
 - If CarPlay sound plays from the iPhone instead of the car, turn off Settings → Sound → *CarPlay audio over the car’s Bluetooth*, or keep the iPhone paired with the car and choose Bluetooth as the car’s audio source.
 - Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.0).
-- Known issues: the XPeng G6 does not tell the phone its new size when you switch its Carlink area during a session, and whether reconnecting makes it report the full-screen size is not verified yet; wired CarPlay with a USB-C iPhone on a USB-C to USB-C cable usually does not work (use an OTG adapter or wireless); some phones turn Wi-Fi off when their hotspot is on, and Carlink needs both; navigation prompts and ringtones over Carlink may be silent (not yet verified); on Carlink head units that need H.264, transcoding on the phone can stop after a timestamp jump, and the original stream is sent instead; on the head-unit page, a tap meant to return to full screen may neither restore it nor reach CarPlay; on Android 13 and later, connections to a Tesla address outside 169.254 may be dropped (the app warns).
-- Not yet tested in a car: the Tesla browser adaptation, Carlink picture sizes other than *Automatic*, the head-unit page settings from the OpenXPlay icon, and the Experimental options with wireless CarPlay and Carlink together.
+- Known issues: the XPeng G6 does not tell the phone its new size when you switch its Carlink area during a session; wired CarPlay with a USB-C iPhone on a USB-C to USB-C cable usually does not work (use an OTG adapter or wireless); some phones turn Wi-Fi off when their hotspot is on, and Carlink needs both; navigation prompts and ringtones over Carlink may be silent; on Carlink head units that need H.264, transcoding on the phone can stop after a timestamp jump, and the original stream is sent instead; on the head-unit page, a tap meant to return to full screen may neither restore it nor reach CarPlay; on Android 13 and later, connections to a Tesla address outside 169.254 may be dropped (the app warns).
 
 ## 0.1.5 {#v0-1-5}
 
@@ -312,7 +309,7 @@ A stability release for the Android app, with a video codec setting on the head-
 **Fixes**
 
 - Android app: fixed a deadlock that could freeze the picture, stop touch input and make the app stop responding.
-- Android app: accepts the iPhone’s H.265 configuration. For now the Android app asks the iPhone for H.264, which has been verified end to end.
+- Android app: accepts the iPhone’s H.265 configuration. For now the Android app asks the iPhone for H.264.
 - Linux relay: admin sign-in, the Bluetooth pairing window and the Carlink pairing code keep working when the device clock is wrong or jumps (the UFI003 has no clock battery).
 
 **Notes**

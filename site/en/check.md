@@ -30,7 +30,7 @@ On the head unit, type <code>{{ $frontmatter.checkAddress }}</code> into the bro
 | Picture checks passed; some features are missing | Everything needed for the picture is there, but sound (AudioWorklet) or the microphone API is missing: CarPlay shows, but sound, Siri or calls may not work through the browser. |
 | Not supported: needs a browser with WebCodecs | A required feature is missing, most often WebCodecs video decoding. Try another browser on the head unit, if it has one, or use the [Carlink app](/en/carlink). |
 
-The check only asks the browser what it supports: it doesn’t play video, connect to a relay, record sound or send touches. So a passing result isn’t a test in the car, and it can’t promise smooth playback, which also depends on the head unit’s hardware and the Wi-Fi connection. Results from cars are under [Head units](/en/head-units).
+The check only asks the browser what it supports: it doesn’t play video, connect to a relay, record sound or send touches. So a passing result can’t promise smooth playback, which also depends on the head unit’s hardware and the Wi-Fi connection. Results from cars are under [Head units](/en/head-units).
 
 ## What is checked {#what-is-checked}
 

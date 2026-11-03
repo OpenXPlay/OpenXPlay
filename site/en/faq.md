@@ -26,7 +26,7 @@ No. The relay does the receiving and connecting, and the head unit uses what it 
 
 ### Which head units work? {#which-head-units}
 
-The head units OpenXPlay has tested are listed under [Head units](/en/head-units), starting with the XPeng G6. For the web receiver, what matters is the head unit’s browser: it needs WebCodecs H.264 decoding. If your head unit hasn’t been tested yet, open [Check your head unit](/en/check) in its browser to test it, and share the result with the [community](/en/community).
+The head units OpenXPlay has tested are listed under [Head units](/en/head-units), starting with the XPeng G6. For the web receiver, what matters is the head unit’s browser: it needs WebCodecs H.264 decoding. If your head unit isn’t listed, open [Check your head unit](/en/check) in its browser to test it, and share the result with the [community](/en/community).
 
 ### How is OpenXPlay different from DiPlay? {#diplay}
 
