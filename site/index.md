@@ -3,78 +3,78 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
 layout: home
-title: OpenXPlay：车机装不了软件，也能用 CarPlay
+title: 'OpenXPlay: CarPlay for Android head units that can’t install apps'
 titleTemplate: false
-description: OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone CarPlay：由安卓手机或小型 Linux 设备作为中继，通过车机自带的浏览器、Carlink、CarLife 或投屏接收功能显示。开源项目。
+description: OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps. An Android phone or a small Linux device relays CarPlay to the head unit’s browser, Carlink, CarLife or screen-casting receiver. Open source.
 hero:
   name: OpenXPlay
-  text: 车机装不了软件，也能用 CarPlay
-  tagline: 用一部安卓手机或一个 UFI003 随身 Wi-Fi 作中继，iPhone 的 CarPlay 就能显示在车机自带的浏览器里。车机上什么都不用装。
+  text: CarPlay for head units that can’t install apps
+  tagline: Use an Android phone or a UFI003 USB dongle as the relay, and your iPhone’s CarPlay shows up in the head unit’s own browser. Nothing is installed on the head unit.
   actions:
     - theme: brand
-      text: 开始使用
+      text: Get started
       link: /quick-start
     - theme: alt
-      text: 检测我的车机
+      text: Check my head unit
       link: /check
-featuresTitle: 三步用上 CarPlay
+featuresTitle: Three steps to CarPlay
 features:
-  - title: 检测车机
-    details: 在车机浏览器中打开 openxplay.org/check，看看它能否显示 CarPlay。
+  - title: Check your head unit
+    details: Open openxplay.org/check in the head unit’s browser to see whether it can show CarPlay.
     link: /check
-    linkText: 开始检测
-  - title: 准备中继
-    details: 在安卓手机上安装 OpenXPlay Relay 应用，或者把 UFI003 随身 Wi-Fi 刷成中继。
+    linkText: Run the check
+  - title: Prepare a relay
+    details: Install the OpenXPlay Relay app on an Android phone, or turn a UFI003 USB dongle into a relay.
     link: /quick-start
-    linkText: 选择方案
-  - title: 上车连接
-    details: iPhone 连上中继后，在车机浏览器中打开中继显示的地址，轻触一下屏幕即可开始。
+    linkText: Choose a setup
+  - title: Connect in the car
+    details: Once the iPhone is connected to the relay, open the address the relay shows in the head unit’s browser and tap the screen once to start.
     link: /android-relay
-    linkText: 查看教程
+    linkText: Read the guide
 ---
 
-## 开始前需要准备 {#requirements}
+## What you need {#requirements}
 
 <div class="oxp-checklist">
 
-- **支持 CarPlay 的 iPhone**：通过无线或 USB 线连接中继。
-- **一台中继**：Android 8.0 及以上的安卓手机，或 UFI003 随身 Wi-Fi。
-- **Apple 配件（MFi）身份**：通常是两个文件，需要由你自行提供，项目不附带。[了解更多](/quick-start#mfi-identity)
-- **车机浏览器**：需要支持 WebCodecs 视频解码，可以[先检测](/check)。
+- **An iPhone with CarPlay**: it connects to the relay wirelessly or by USB cable.
+- **A relay**: an Android phone with Android 8.0 or later, or a UFI003 USB dongle.
+- **An Apple accessory (MFi) identity**: usually two files that you supply yourself; the project doesn’t include one. [Learn more](/quick-start#mfi-identity)
+- **The head unit’s browser**: it must decode video with WebCodecs; you can [check it first](/check).
 
 </div>
 
-## 适合谁 {#who-it-is-for}
+## Who OpenXPlay is for {#who-it-is-for}
 
-OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使用 CarPlay 的车主**。它不会修改车机系统：接收和连接由手机或外部设备完成，CarPlay 通过车机已有的入口显示。
+OpenXPlay is for **drivers who want CarPlay but can’t install third-party apps on their Android head unit**. The head unit’s system is never modified: a phone or an external device does the receiving and connecting, and CarPlay appears through an entry point the head unit already has.
 
-| 你的车机 | 适合的方案 |
+| Your head unit | What to use |
 | --- | --- |
-| 无法安装应用 | **OpenXPlay**：由手机或外部设备承接相关能力，借助车机已有的浏览器、Carlink、CarLife 或投屏接收功能显示 CarPlay。 |
-| 可以安装应用 | **[DiPlay](https://github.com/shihabal3amri/DiPlay)**：在兼容的安卓车机上安装应用，由车机直接接收并显示 CarPlay。 |
+| Can’t install apps | **OpenXPlay**: a phone or external device does the work, and CarPlay appears in the head unit’s browser, Carlink, CarLife or screen-casting receiver. |
+| Can install apps | **[DiPlay](https://github.com/shihabal3amri/DiPlay)**: install the app on a compatible Android head unit, which receives and shows CarPlay itself. |
 
-想知道它具体怎样工作、支持哪些车机入口，请看[工作原理](/how-it-works)。
+To see how it works in detail and which head-unit entry points it supports, read [How it works](/how-it-works).
 
-## 常见疑问 {#questions}
+## Common questions {#questions}
 
-::: details 车机上需要安装什么吗？
-不需要。接收和连接都由中继完成，车机只用它已有的浏览器、Carlink、CarLife 或投屏接收功能，也不会修改车机系统。
+::: details Do I need to install anything on the head unit?
+No. The relay does the receiving and connecting, and the head unit uses what it already has: its browser, Carlink, CarLife or screen-casting receiver. The head unit’s system is never modified.
 :::
 
-::: details 免费吗？
-免费。软件以 AGPL-3.0 开源。要正常使用，还需要一个由你自行提供的 Apple 配件（MFi）身份。详见[许可证](/licensing)。
+::: details Is it free?
+Yes. The software is open source under AGPL-3.0. A working setup also needs an Apple accessory (MFi) identity that you supply. See [Licensing](/licensing).
 :::
 
-::: details 我的车机能用吗？
-关键在于车机浏览器：它需要支持 WebCodecs 视频解码。在车机浏览器中打开[检测车机](/check)就能知道；实测过的车机列在[车机资料](/head-units)中。
+::: details Will my head unit work?
+What matters is the head unit’s browser: it needs WebCodecs video decoding. Open [Check your head unit](/check) in its browser to find out; the head units OpenXPlay has tested are listed under [Head units](/head-units).
 :::
 
-::: details 会把我的数据发到别处吗？
-OpenXPlay 通过本地连接工作：视频、音频和触控经蓝牙、Wi-Fi 或 USB 在 iPhone、中继和车机之间传输，网页接收端和管理页面都由中继自己提供。详见[常见问题](/faq#data)。
+::: details Does it send my data anywhere?
+OpenXPlay works over local connections: video, audio and touch travel between the iPhone, the relay and the head unit over Bluetooth, Wi-Fi or USB, and the relay serves the receiver page and its admin page itself. See the [FAQ](/faq#data).
 :::
 
-更多问题见[常见问题](/faq)；遇到连接、画面或声音的问题，请看[故障排查](/troubleshooting)。
+More answers are in the [FAQ](/faq); for problems with the connection, the picture or the sound, see [Troubleshooting](/troubleshooting).
 
-## 加入交流群 {#join}
+## Join the community {#join}
 
-分享车机适配情况、反馈问题，或参与测试与开发：QQ 群 **1015739350**，另有微信群和 [Discord](https://discord.gg/j3cKd5Tax)。入群二维码见[交流群](/community)。
+Share how OpenXPlay works with your head unit, report problems, or help test and develop the project: [Discord](https://discord.gg/j3cKd5Tax), QQ group **1015739350** and a WeChat group. The QR codes are on the [Community](/community) page.

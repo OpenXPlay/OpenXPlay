@@ -2,59 +2,59 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
-title: 常见问题
-description: 关于 OpenXPlay 的常见问题：它是什么、车机上要不要装软件、哪些车机能用、和 DiPlay 的区别、是否免费、延迟、断电和隐私。
-breadcrumb: 常见问题
+title: FAQ
+description: Common questions about OpenXPlay — what it is, whether anything is installed on the head unit, which head units work, how it differs from DiPlay, whether it is free, delay, power cuts and privacy.
+breadcrumb: FAQ
 schema: faq
 ---
 
-# 常见问题
+# FAQ
 
-::: tip 遇到问题？
-证书警告、Wi-Fi、蓝牙配对、画面或声音的问题，请看[故障排查](/troubleshooting)。
+::: tip Something not working?
+For certificate warnings, Wi-Fi, Bluetooth pairing, picture or sound problems, see [Troubleshooting](/troubleshooting).
 :::
 
-## 关于 OpenXPlay {#about}
+## About OpenXPlay {#about}
 
-### OpenXPlay 是什么？ {#what-is-openxplay}
+### What is OpenXPlay? {#what-is-openxplay}
 
-OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone CarPlay。由一台中继（运行 OpenXPlay Relay 应用的安卓手机，或 UFI003 USB 随身 Wi-Fi 这类小型 Linux 设备）连接 iPhone，再把 CarPlay 交给车机上已有的软件显示，例如车机浏览器、Carlink、CarLife 或投屏接收功能。详见[工作原理](/how-it-works)。
+OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps. A relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle — connects to the iPhone and passes CarPlay to software the head unit already has, such as its browser, Carlink, CarLife or screen-casting receiver. See [How it works](/how-it-works).
 
-### 车机上需要安装什么吗？ {#install-on-head-unit}
+### Do I need to install anything on the head unit? {#install-on-head-unit}
 
-不需要。接收和连接都由中继完成，车机只用它已有的浏览器、Carlink、CarLife 或投屏接收功能，也不会修改车机系统。
+No. The relay does the receiving and connecting, and the head unit uses what it already has: its browser, Carlink, CarLife or screen-casting receiver. The head unit’s system is never modified.
 
-### 哪些车机可以用？ {#which-head-units}
+### Which head units work? {#which-head-units}
 
-OpenXPlay 实测过的车机列在[车机资料](/head-units)中，目前收录了小鹏 G6。对网页接收端来说，关键在于车机浏览器：它需要支持 WebCodecs H.264 解码。如果你的车机不在其中，请在车机浏览器中打开[检测车机](/check)测试，并把结果分享到[交流群](/community)。
+The head units OpenXPlay has tested are listed under [Head units](/head-units), starting with the XPeng G6. For the web receiver, what matters is the head unit’s browser: it needs WebCodecs H.264 decoding. If your head unit isn’t listed, open [Check your head unit](/check) in its browser to test it, and share the result with the [community](/community).
 
-### OpenXPlay 和 DiPlay 有什么区别？ {#diplay}
+### How is OpenXPlay different from DiPlay? {#diplay}
 
-DiPlay 面向能够安装应用的车机：在兼容的安卓车机上安装后，由车机直接接收并显示 CarPlay。OpenXPlay 主要面向无法安装应用的车机：由手机或外部设备承接相关能力，借助车机已有的浏览器、Carlink 应用等入口显示 CarPlay。
+DiPlay is for head units that can install apps: you install it on a compatible Android head unit, which receives and shows CarPlay itself. OpenXPlay is mainly for head units that can’t install apps: a phone or external device does the work, and CarPlay appears through the head unit’s existing browser, Carlink app or similar entry points.
 
-### OpenXPlay 免费吗？ {#free}
+### Is OpenXPlay free? {#free}
 
-免费。软件以 AGPL-3.0 开源，可以免费使用。要正常使用，还需要一个由你自行提供的 Apple 配件（MFi）身份；各仓库及其构建产物都不包含该身份。无法使用 AGPL-3.0 的组织可以发邮件到 [support@openxplay.org](mailto:support@openxplay.org) 申请豁免。UFI003 等设备的支持文件（OpenXPlay-Hardware）沿用 OpenStick 的条款，个人可以免费使用，但禁止商用，也不提供豁免。详见[许可证](/licensing)。
+Yes. The software is open source under AGPL-3.0 and free to use. A working setup also needs an Apple accessory (MFi) identity that you supply; the repositories and their builds contain none. Organisations that can’t use AGPL-3.0 can ask for an exemption at [support@openxplay.org](mailto:support@openxplay.org). The device support files for devices such as the UFI003 (OpenXPlay-Hardware) follow OpenStick’s terms: free for personal use, no commercial use and no exemptions. See [Licensing](/licensing).
 
-## 使用 {#usage}
+## Using it {#usage}
 
-### 延迟大概有多少？ {#delay}
+### How much delay should I expect? {#delay}
 
-仓库中暂时还没有公布延迟数据。中继把 iPhone 的视频（H.264 或 H.265）经安全 WebSocket 发给车机，由车机浏览器用 WebCodecs 解码，所以延迟主要取决于 Wi-Fi 连接和车机的解码能力。在网页接收端设置的“播放模式”中，“速度优先”延迟最低，但可能跳过部分画面；“质量优先”画面最流畅，延迟略高；“智能”会根据网络自动平衡两者。
+The repositories don’t publish delay figures yet. The relay sends the iPhone’s video (H.264 or H.265) over a secure WebSocket, and the head unit’s browser decodes it with WebCodecs, so the delay depends mostly on the Wi-Fi link and the head unit’s decoder. In the web receiver’s settings, *Speed* gives the lowest delay but may skip frames, *Quality* gives the smoothest motion with a little more delay, and *Smart* balances the two for your network.
 
-### 汽车断电后会怎样？ {#power-cuts}
+### What happens when the car cuts the power? {#power-cuts}
 
-恢复供电后，中继会重新启动：
+The relay starts again when power comes back:
 
-- Linux 中继作为系统服务运行，开机自动启动，出错时自动重启。它启动时不等待网络连接或时间同步；即使设备时钟不准，证书也依然有效。如果生成证书时时钟不准，中继会在时钟同步后替换这些证书，浏览器可能需要你重新接受新证书。
-- 安卓应用可以在手机开机时自动启动。部分手机会阻止自启动；如果 OpenXPlay Relay 没有打开，请手动打开。
+- The Linux relay runs as a system service that starts at boot and restarts if it fails. It doesn’t wait for Internet access or time synchronisation, and its certificates stay valid even if the device clock is wrong. If the clock was wrong when certificates were made, the relay replaces them once the clock is synchronised, and the browser may ask you to accept the new certificate.
+- The Android app can start automatically when the phone boots. Some phones block this; if OpenXPlay Relay doesn’t open, open it yourself.
 
-## 隐私与安全 {#privacy}
+## Privacy and security {#privacy}
 
-### OpenXPlay 会把我的数据发到别处吗？ {#data}
+### Does OpenXPlay send my data anywhere? {#data}
 
-OpenXPlay 通过本地连接工作。网页接收端和管理页面都由中继自己提供；视频、音频和触控经蓝牙、Wi-Fi 或 USB 在 iPhone、中继和车机之间传输，Linux 中继启动时也不等待互联网连接。插件默认关闭，在车机浏览器中离线运行。来自 Carlink 的车辆信息只在你开启后才会收集，并且只保存在中继设备上。本网站没有任何统计分析，检测页也只在你的浏览器中运行。
+OpenXPlay works over local connections. The relay serves the receiver page and its admin page itself; video, audio and touch travel between the iPhone, the relay and the head unit over Bluetooth, Wi-Fi or USB, and the Linux relay starts without waiting for Internet access. Plugins are off by default and run offline in the head-unit browser. Vehicle information from Carlink is collected only when you turn it on and stays on the relay device. This website has no analytics, and its check page runs only in your browser.
 
-### 中继的管理页面有保护吗？ {#admin-password}
+### Is the relay’s admin page protected? {#admin-password}
 
-有。管理页面使用 HTTPS，并需要管理密码登录。登录页会显示首次使用的密码，请登录后立即修改。只要还在使用默认密码，管理页面就会提醒你。
+Yes. The admin page uses HTTPS and asks for an admin password. The login page shows the first-time password; change it right away. The admin page warns you while the default password is still in use.

@@ -2,83 +2,83 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
-title: 开发者：架构、仓库、构建与插件
-description: OpenXPlay 的构成：输入、输出和中继外壳只通过 OXP-Stream 模型交互；各仓库的作用、构建与测试命令、参与贡献的方式，以及网页接收端插件。
-breadcrumb: 开发者
+title: 'Developers: architecture, repositories, builds and plugins'
+description: How OpenXPlay is built — inputs, outputs and relay shells that talk only through the OXP-Stream model — plus what each repository does, build and test commands, how to contribute, and web receiver plugins.
+breadcrumb: Developers
 ---
 
-# 开发者
+# Developers
 
-OpenXPlay 由相互独立的组件构成：输入负责接收投屏会话，输出负责把会话交给车机上的软件，中继外壳把两者连接起来。组件之间只通过 OXP-Stream 模型交互。许可证和商业豁免见[许可证](/licensing)。
+OpenXPlay is built from independent components: inputs that receive a projection session, outputs that deliver it to software on the head unit, and relay shells that wire the two together. Components talk to each other only through the OXP-Stream model. Licences and commercial exemptions are under [Licensing](/licensing).
 
-## 架构 {#architecture}
+## Architecture {#architecture}
 
-每个组件都是输入、输出或中继外壳之一，组件之间互不依赖：
+Every component is an input, an output or a relay shell, and no component depends on another:
 
-| 部分 | 作用 | 所在位置 |
+| Part | Role | Where it lives |
 | --- | --- | --- |
-| 输入 | 从手机接收会话。CarPlay 输入就是中继里的 CarPlay 接收端。 | OpenXPlay-DiPlay（安卓应用）；Rust 编写的 CarPlay 接收端 `openxplay-relay` 及 `carplay-iap2`、`carplay-airplay` crate（Linux 中继） |
-| OXP-Stream 模型 | 共享的会话模型：视频、音频、触控和按键。组件可以在进程内使用它，也可以通过 Stream 传输协议使用。 | OpenXPlay-Stream 的 `core` |
-| 输出 | 把会话交给车机上已有的软件：浏览器（`web`）、Carlink（`clink`）和投屏（`cast`）。 | OpenXPlay-Stream |
-| 中继外壳 | 把输入接到输出，并负责两者之间的转换。 | OpenXPlay-Relay：安卓应用和 Linux 中继 |
+| Input | Receives the session from the phone. The CarPlay input is the relay’s CarPlay receiver. | OpenXPlay-DiPlay (Android app); the Rust CarPlay receiver `openxplay-relay` with the `carplay-iap2` and `carplay-airplay` crates (Linux relay) |
+| OXP-Stream model | The shared session model: video, audio, touch and keys. Components use it in process or over the Stream wire protocol. | `core` in OpenXPlay-Stream |
+| Output | Delivers the session to software the head unit already has: browser (`web`), Carlink (`clink`) and screen casting (`cast`). | OpenXPlay-Stream |
+| Relay shell | Wires an input to outputs and translates between them. | OpenXPlay-Relay: the Android app and the Linux relay |
 
-由于输出只与 OXP-Stream 模型交互，同一套输出可以服务所有中继。模型和各输出按运行时分别实现：安卓应用用 Kotlin/JVM，Linux 中继用 Rust；车机浏览器打开的网页接收端用 TypeScript 编写，安卓和 Linux 中继各有一份独立的代码。共享的协议测试向量让各实现保持一致。
+Because outputs talk only to the OXP-Stream model, the same outputs serve every relay. The model and the outputs are implemented once per runtime: Kotlin/JVM for the Android app and Rust for the Linux relay. The receiver page the head-unit browser opens is written in TypeScript, with separate code for the Android and the Linux relay. Shared protocol test vectors keep the implementations in step.
 
-Web 输出把 H.264 或 H.265 视频经安全 WebSocket 发给车机，车机浏览器用 WebCodecs 解码，并把触控传回 iPhone。在 Linux 中继上，Rust 版输出作为独立的 `oxp-relay` 进程，与 CarPlay 接收端 `openxplay-relay` 并行运行。
+The web output sends H.264 or H.265 video over a secure WebSocket; the head-unit browser decodes it with WebCodecs and returns touch to the iPhone. On the Linux relay, the Rust outputs run as a separate `oxp-relay` process next to the `openxplay-relay` CarPlay receiver.
 
-## 仓库 {#repositories}
+## Repositories {#repositories}
 
-| 仓库 | 作用 | 许可证 |
+| Repository | Role | Licence |
 | --- | --- | --- |
-| [OpenXPlay](https://github.com/OpenXPlay/OpenXPlay) | 项目入口：README 和示意图 | — |
-| [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) | OpenXPlay Relay：安卓应用和 Linux 中继，以及两者共用的网页管理页面 | AGPL-3.0-only；派生自 DiPlay 和 xcertplay 的文件仍为 GPL-3.0-only |
-| [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) | 输出到车机接收端（浏览器、Carlink 和投屏），以及共享模型 | AGPL-3.0-only |
-| [OpenXPlay-DiPlay](https://github.com/OpenXPlay/OpenXPlay-DiPlay) | 安卓中继使用的 CarPlay 接收端，派生自 DiPlay | GPL-3.0 |
-| [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) | 中继设备的支持文件，每种设备一个目录，例如 `UFI003/` | OpenXPlay-Hardware License（开源，禁止商用）；Linux 内核部分仍为 GPL-2.0-only |
-| [OpenXPlay-Web-Plugins](https://github.com/OpenXPlay/OpenXPlay-Web-Plugins) | 网页接收端的可选插件：规范、SDK、宿主、工具和官方插件 | Apache-2.0 OR MIT |
+| [OpenXPlay](https://github.com/OpenXPlay/OpenXPlay) | Project entry: README and diagrams | — |
+| [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) | OpenXPlay Relay: the Android app and the Linux relay, with the web admin page both share | AGPL-3.0-only; files derived from DiPlay and xcertplay stay GPL-3.0-only |
+| [OpenXPlay-Stream](https://github.com/OpenXPlay/OpenXPlay-Stream) | Outputs to head-unit receivers — browser, Carlink and screen casting — and the shared model | AGPL-3.0-only |
+| [OpenXPlay-DiPlay](https://github.com/OpenXPlay/OpenXPlay-DiPlay) | The CarPlay receiver used by the Android relay, forked from DiPlay | GPL-3.0 |
+| [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) | Support files for relay devices, one directory per device, such as `UFI003/` | OpenXPlay-Hardware License (open source, no commercial use); Linux kernel parts stay GPL-2.0-only |
+| [OpenXPlay-Web-Plugins](https://github.com/OpenXPlay/OpenXPlay-Web-Plugins) | Optional plugins for the web receiver: spec, SDK, host, tools and official plugins | Apache-2.0 OR MIT |
 
-## 构建与测试 {#build}
+## Build and test {#build}
 
-安卓应用打包 Stream 的 `kotlin/web-receiver/dist`，Linux 中继打包 `rust/web-receiver/dist`，因此请先构建对应的网页接收端，再构建中继。
+The Android app packages Stream’s `kotlin/web-receiver/dist` and the Linux relay `rust/web-receiver/dist`, so build that web receiver before the relay.
 
-::: details 各部分的构建与测试命令 {#build-commands}
-| 部分 | 要求 | 命令 |
+::: details Build and test commands for each part {#build-commands}
+| Part | Requirements | Commands |
 | --- | --- | --- |
-| 安卓中继的网页接收端（Stream） | Node.js 20.19+ 或 22.12+ | `cd kotlin/web-receiver && npm ci && npm test && npm run build` |
-| Linux 中继的网页接收端（Stream） | Node.js 20.19+ 或 22.12+ | `cd rust/web-receiver && npm ci && npm test && npm run build` |
-| Kotlin 输出（Stream） | JDK 17 | `cd kotlin && ./gradlew test` |
-| Rust 输出（Stream） | Rust 稳定版 | `cd rust && cargo test --workspace` |
-| 管理页面（Relay） | Node.js 20.19+ 或 22.12+ | `cd admin-web && npm ci && npm test && npm run build` |
-| 安卓应用（Relay） | JDK 17、Android SDK；需先构建管理页面和 Stream 的 `kotlin/web-receiver/dist` | `cd android && ./gradlew testDebugUnitTest assembleDebug` |
-| Linux 中继（Relay） | Rust 稳定版 | `cd rust && cargo test` |
-| 面向 aarch64 Linux 的构建（Stream 和 Relay） | `rustup target add aarch64-unknown-linux-musl`、`llvm-tools`、clang | `rust/scripts/build-aarch64.sh` |
-| 插件（Web-Plugins） | Node 22 | `npm ci && npm run build && npm test` |
+| Web receiver for the Android relay (Stream) | Node.js 20.19+ or 22.12+ | `cd kotlin/web-receiver && npm ci && npm test && npm run build` |
+| Web receiver for the Linux relay (Stream) | Node.js 20.19+ or 22.12+ | `cd rust/web-receiver && npm ci && npm test && npm run build` |
+| Kotlin outputs (Stream) | JDK 17 | `cd kotlin && ./gradlew test` |
+| Rust outputs (Stream) | Rust stable | `cd rust && cargo test --workspace` |
+| Admin page (Relay) | Node.js 20.19+ or 22.12+ | `cd admin-web && npm ci && npm test && npm run build` |
+| Android app (Relay) | JDK 17, Android SDK; the admin page and Stream’s `kotlin/web-receiver/dist` built first | `cd android && ./gradlew testDebugUnitTest assembleDebug` |
+| Linux relay (Relay) | Rust stable | `cd rust && cargo test` |
+| aarch64 Linux builds (Stream and Relay) | `rustup target add aarch64-unknown-linux-musl`, `llvm-tools`, clang | `rust/scripts/build-aarch64.sh` |
+| Plugins (Web-Plugins) | Node 22 | `npm ci && npm run build && npm test` |
 :::
 
-安卓构建以 Gradle 复合构建的方式引入 DiPlay 和 Stream，默认要求它们检出在 OpenXPlay-Relay 旁边（`../OpenXPlay-DiPlay`、`../OpenXPlay-Stream`）；可用 `-Pdiplay.dir=PATH` 和 `-Pstream.dir=PATH`（指向 Stream 的 `kotlin/` 目录）指定其他位置。
+The Android build includes DiPlay and Stream as Gradle composite builds and expects them next to OpenXPlay-Relay (`../OpenXPlay-DiPlay`, `../OpenXPlay-Stream`); `-Pdiplay.dir=PATH` and `-Pstream.dir=PATH` (pointing at Stream’s `kotlin/` directory) point elsewhere.
 
-## 参与贡献 {#contributing}
+## Contributing {#contributing}
 
-| 仓库 | 贡献方式 |
+| Repository | How contributions are accepted |
 | --- | --- |
-| 所有仓库 | 遵循 [OpenXPlay 贡献者许可协议](https://github.com/OpenXPlay/OpenXPlay/blob/main/CLA.md)（协议文本为英文）。在任意一个 OpenXPlay 仓库的 pull request 里按 CLA 检查的提示回复一次即可，之后所有仓库都会通过。如需代表组织贡献，请先联系 [support@openxplay.org](mailto:support@openxplay.org) 签订企业协议。 |
-| OpenXPlay-DiPlay | 这个派生仓库与上游 DiPlay 保持同步，请让改动尽量小而通用。 |
+| Every repository | Under the [OpenXPlay Contributor License Agreement](https://github.com/OpenXPlay/OpenXPlay/blob/main/CLA.md). Accept it once by replying on a pull request to any OpenXPlay repository, as the CLA check asks; it then passes in all of them. To contribute on behalf of an organisation, contact [support@openxplay.org](mailto:support@openxplay.org) for a corporate agreement first. |
+| OpenXPlay-DiPlay | The fork stays close to upstream DiPlay, so keep changes minimal and generic. |
 
-本项目未对市售 CarPlay 盒子进行逆向工程。项目部分安卓接收能力复用了 DiPlay 和 xcertplay 的实现，感谢上游项目及贡献者的工作。
+This project did not reverse-engineer commercial CarPlay boxes. Parts of the Android receiver reuse code from DiPlay and xcertplay; thanks to the upstream projects and their contributors.
 
-## 插件 {#plugins}
+## Plugins {#plugins}
 
-插件为网页接收端增加一些离线的小功能。插件是可选的，**默认关闭**：插件关闭时，参考接收端不会创建插件 frame，也不会发出插件请求；中继的插件路由和通道会拒绝访问。Stream 和 Relay 各自实现插件契约（`oxp-web-plugin/0`），从不依赖 OpenXPlay-Web-Plugins。经过审核的插件包在沙箱、CSP 和防护层下运行，无法访问网络。插件可以在中继管理页面中开启，它们在车机浏览器中运行，不影响 CarPlay。
+Plugins add small, offline extras to the web receiver. They are optional and **off by default**: with plugins off, the reference receiver creates no plugin frame and makes no plugin requests, and the relay’s plugin routes and channels refuse access. Stream and Relay implement the plugin contract (`oxp-web-plugin/0`) themselves and never depend on OpenXPlay-Web-Plugins. Reviewed plugin packages run without network access under sandbox, CSP and guard layers. Turn plugins on in the relay admin page; they run in the head-unit browser and don’t affect CarPlay.
 
-| 官方插件 | 功能 | 许可证 |
+| Official plugin | What it does | Licence |
 | --- | --- | --- |
-| 猫咪伙伴（`cats`） | 四种像素猫咪，日常安静陪伴，停车后接球玩耍 | 代码 Apache-2.0 OR MIT；猫咪素材 CC0 1.0 |
-| 口袋游戏屋（`games`） | 停车时玩的离线轻触游戏 | Apache-2.0 OR MIT |
-| 静谧光景（`visuals`） | 歌曲进度光带、封面氛围光、日夜天空和驻车壁炉 | Apache-2.0 OR MIT |
-| 鲸鱼娘（`whale-girl`） | 可选的非商业社区角色伙伴 | 代码 Apache-2.0 OR MIT；素材 CC BY-NC-SA 4.0 及大肥鱼项目署名许可 1.0 |
+| Cozy Cats (`cats`) | Four pixel cats with gentle daily routines and a play room while parked | Code Apache-2.0 OR MIT; cat art CC0 1.0 |
+| Pocket Playroom (`games`) | Offline tap games for parked moments | Apache-2.0 OR MIT |
+| Quiet Lights (`visuals`) | Song progress, album glow, a local-time sky and a parked fireplace | Apache-2.0 OR MIT |
+| Whale Girl (`whale-girl`) | An optional, non-commercial community character companion | Code Apache-2.0 OR MIT; art CC BY-NC-SA 4.0 and 大肥鱼项目署名许可 1.0 |
 
-**鲸鱼娘署名。** 鲸鱼娘 by 上善无形（[来源](https://www.bilibili.com/opus/1231977657712771073)），CC BY-NC-SA 4.0。女仆设计：ZipZipPipe（[来源](https://www.pixiv.net/artworks/148186519)），CC BY-NC-SA 4.0。精灵图集：YunYueSama（[codex-deepseek-pet](https://github.com/YunYueSama/codex-deepseek-pet)），大肥鱼项目署名许可 1.0。由 OpenXPlay.org 于 2026-10-16 修改（移除围裙徽标、重新标注各行），以 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans) 发布。本角色是社区同人角色，与 DeepSeek 无关联，亦未经其认可或代言；素材不得用于商业用途。
+**Whale Girl attribution.** 鲸鱼娘 by 上善无形 ([source](https://www.bilibili.com/opus/1231977657712771073)), CC BY-NC-SA 4.0. Maid design by ZipZipPipe ([source](https://www.pixiv.net/artworks/148186519)), CC BY-NC-SA 4.0. Sprite atlas by YunYueSama ([codex-deepseek-pet](https://github.com/YunYueSama/codex-deepseek-pet)), 大肥鱼项目署名许可 1.0. Modified by OpenXPlay.org on 2026-10-16 (apron emblem removed, rows relabelled) and released under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). The character is a community fan character, not affiliated with or endorsed by DeepSeek, and its assets may not be used commercially.
 
-**猫咪伙伴署名。** Pet Cats Pack by LuizMelo（[来源](https://luizmelo.itch.io/pet-cat-pack)），CC0 1.0，由 OpenXPlay.org 重新配色。
+**Cozy Cats attribution.** Pet Cats Pack by LuizMelo ([source](https://luizmelo.itch.io/pet-cat-pack)), CC0 1.0, recoloured by OpenXPlay.org.
 
-想开发自己的插件，可以从模拟器开始：在 OpenXPlay-Web-Plugins 中运行 `npm run dev -- --enable`，会在 `http://localhost:5173` 加载官方插件。`npm run validate` 用于校验插件包，`npm run pack` 用于打包；其余内容见[仓库 README](https://github.com/OpenXPlay/OpenXPlay-Web-Plugins)。
+To build your own plugin, start with the simulator: `npm run dev -- --enable` in OpenXPlay-Web-Plugins loads the official plugins at `http://localhost:5173`. `npm run validate` checks a package and `npm run pack` builds one; the [repository README](https://github.com/OpenXPlay/OpenXPlay-Web-Plugins) covers the rest.

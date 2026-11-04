@@ -15,19 +15,19 @@ import {
 } from './site'
 
 const SOCIAL_IMAGE = {
-  root: {
+  zh: {
     file: 'og-image-zh.png',
     alt: 'OpenXPlay 中继连接路线：iPhone 经 Android 或 Linux 中继连接车机的浏览器、Carlink、无线投屏或有线投屏',
   },
-  en: {
+  root: {
     file: 'og-image-en.png',
     alt: 'OpenXPlay relay route: an iPhone connects through an Android or Linux relay to the head unit’s browser, Carlink, wireless display or wired display',
   },
 } as const
 
 const SOFTWARE_DESCRIPTION: Record<LocaleKey, string> = {
-  root: '开源中继软件：让无法安装应用的安卓车机通过车机自带的浏览器或 Carlink 应用显示 iPhone CarPlay。可作为 Android 应用运行，也可运行在小型 Linux 设备上。',
-  en: 'Open-source relay software that shows iPhone CarPlay on Android head units that cannot install apps, through the head unit’s browser or Carlink app. Runs as an Android app or on small Linux devices.',
+  zh: '开源中继软件：让无法安装应用的安卓车机通过车机自带的浏览器或 Carlink 应用显示 iPhone CarPlay。可作为 Android 应用运行，也可运行在小型 Linux 设备上。',
+  root: 'Open-source relay software that shows iPhone CarPlay on Android head units that cannot install apps, through the head unit’s browser or Carlink app. Runs as an Android app or on small Linux devices.',
 }
 
 const organizationId = `${SITE_ROOT}#organization`

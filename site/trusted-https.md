@@ -2,171 +2,171 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-20
-title: 可信 HTTPS：用免费域名去掉证书警告
-description: 用 DuckDNS 或 dynv6 的免费域名和 Let's Encrypt 证书，让车机浏览器打开 OpenXPlay 中继的网页时不再出现证书警告。包括注册域名、设置安卓和 Linux 中继、状态信息、隐私和故障排查。
-breadcrumb: 可信 HTTPS
+title: Trusted HTTPS with a free domain name
+description: Use a free DuckDNS or dynv6 name and a Let’s Encrypt certificate so the head unit’s browser opens the OpenXPlay relay page without a certificate warning. Covers registration, setting up the Android and Linux relays, status messages, privacy and troubleshooting.
+breadcrumb: Trusted HTTPS
 schema: howto
-howtoName: 用免费域名为 OpenXPlay 中继开启可信 HTTPS
+howtoName: Turn on trusted HTTPS for an OpenXPlay relay with a free domain name
 howtoTools:
-  - DuckDNS 或 dynv6 的免费域名
-  - 支持可信 HTTPS 的 OpenXPlay Relay（安卓应用或 Linux 中继）
-  - 能上网的中继（安卓中继需要移动数据）
+  - A free domain name from DuckDNS or dynv6
+  - OpenXPlay Relay with Trusted HTTPS (Android app or Linux relay)
+  - Internet access on the relay (mobile data on the Android relay)
 ---
 
-# 可信 HTTPS
+# Trusted HTTPS
 
-用免费域名，让车机打开网页时不再出现证书警告。中继把自己的地址登记到你的免费域名下，再为这个域名申请 Let's Encrypt 证书；车机浏览器用这个域名打开网页，证书就能通过验证。车机上不用安装任何软件，也不用改任何设置。
+Open the head-unit page without a certificate warning, using a free domain name. The relay publishes its address under your free name and gets a Let’s Encrypt certificate for that name; when the head unit’s browser opens the page by the name, the certificate checks out. Nothing is installed or changed on the head unit.
 
-::: info 支持的版本
-需要安卓应用 0.1.5 及以上版本（[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)），或 Linux 中继 0.1.6 及以上版本（在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本）。
+::: info Supported versions
+It needs Android app 0.1.5 or later ([download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)), or Linux relay 0.1.6 or later (choose the newest `linux-v` release in [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)).
 :::
 
-## 工作原理 {#how-it-works}
+## How it works {#how-it-works}
 
-浏览器信任一张证书，需要同时满足两个条件：证书由公共证书机构签发，证书上的域名和地址栏里的一致。中继自己生成的证书不是公共机构签发的，用 IP 地址打开时也没有域名可以核对，所以浏览器会警告（见[证书警告](/troubleshooting#certificate-warning)）。开启可信 HTTPS 后，中继会自动完成三件事：
+A browser trusts a certificate only when a public certificate authority signed it and the name on it matches the address bar. The relay’s own certificate isn’t signed by a public authority, and an IP address gives the browser no name to check, so the browser warns (see [Certificate warning](/troubleshooting#certificate-warning)). With Trusted HTTPS on, the relay does three things by itself:
 
-- **登记地址**：把中继在车机网络中的私有地址（例如 `192.168.43.20`）登记为你的域名的地址。地址变化时，例如安卓热点重新开启后，中继会重新登记。
-- **申请证书**：通过服务商的接口在域名下临时添加一条验证记录，向 Let's Encrypt 证明这个域名由你控制，然后取得证书。证书到期前，中继会自动续期。
-- **提供网页**：车机浏览器用 `https://<你的域名>:8443/` 打开网页时，中继出示这张证书。
+- **Publishes its address:** it points your name at the relay’s private address on the head unit’s network, such as `192.168.43.20`, and updates it when the address changes, for example after the Android hotspot restarts.
+- **Gets a certificate:** through your provider’s API it adds a temporary record under the name, which proves to Let’s Encrypt that you control the name, and receives a certificate. It renews the certificate before it expires.
+- **Serves the page:** when the head unit’s browser opens `https://<your name>:8443/`, the relay presents that certificate.
 
-验证只在中继、服务商和 Let's Encrypt 之间进行，不需要从互联网访问中继，中继的网页仍然只能在车机网络中打开。这项功能默认关闭；不开启时，中继和以前完全一样。
+The check runs between the relay, your provider and Let’s Encrypt only: nothing on the internet connects to the relay, and its page still opens only on the head unit’s network. The feature is off by default; while it is off, the relay works exactly as before.
 
-## 准备工作 {#requirements}
+## What you need {#requirements}
 
-| 需要准备 | 说明 |
+| You need | Details |
 | --- | --- |
-| 一个免费域名 | 在 DuckDNS 或 dynv6 注册，见第 1 步。注册后要记下完整域名和 Token。 |
-| 支持可信 HTTPS 的中继 | 安卓应用 0.1.5 及以上版本，或 Linux 中继 0.1.6 及以上版本。 |
-| 中继能上网 | 登记地址、申请和续期证书都要联网。安卓中继需要打开移动数据。 |
+| A free domain name | From DuckDNS or dynv6; see step 1. Keep the full name and the token. |
+| A relay with Trusted HTTPS | The Android app 0.1.5 or later, or the Linux relay 0.1.6 or later. |
+| Internet access on the relay | To publish the address and to get and renew certificates. The Android relay needs mobile data. |
 
-::: details 为什么安卓中继需要移动数据？ {#why-mobile-data}
-车机要先查到域名对应的地址，才能打开网页。车机连着中继手机的热点时，是通过中继手机来查的，中继手机不能上网就查不到。车机连着自己的热点或共用 Wi-Fi 时，由那个网络来查，那个网络也需要能上网。Linux 中继开着自己的热点时不受这个限制：它会在热点里直接回答这个域名，车机不联网也能查到。另外，安卓热点每次开启时地址都可能变化，中继要联网才能把新地址登记到域名下。
+::: details Why mobile data on the Android relay? {#why-mobile-data}
+The head unit has to look the name up before it can open the page. On the relay phone’s hotspot, it asks the relay phone, which can answer only with internet access. On the head unit’s own hotspot or a shared Wi-Fi, that network does the lookup and needs internet access itself. The Linux relay on its own hotspot is the exception: it answers the name inside the hotspot, so the head unit finds it even without internet access. The relay also needs internet access to publish its address, which on Android can change every time the hotspot starts.
 :::
 
-::: details 多久需要联网一次？ {#how-often-online}
-证书会过期：Let's Encrypt 的证书最长只能用几个月，而且有效期还在缩短。中继会提前自动续期，但只能在联网时进行，所以至少每隔几周要让中继联一次网。证书过期后，浏览器会重新显示警告；用 IP 地址打开仍然可以，和以前一样。
+::: details How often does it need internet access? {#how-often-online}
+Certificates expire: Let’s Encrypt certificates last a few months at most, and their lifetime is getting shorter. The relay renews them in good time, but only while it is online, so let it reach the internet at least every few weeks. Once a certificate has expired, the browser warns again; the IP address keeps working as before.
 :::
 
-## 注册免费域名 {#register .step}
+## Register a free name {#register .step}
 
-请专门为中继注册一个新域名。中继会改写域名的地址，所以不要使用已经用在别处的域名，例如用来从外面访问家里设备的域名。每台中继要用各自的域名，否则它们会互相覆盖地址。域名会被公开，起名时请避开能认出你的信息，见[隐私](#privacy)。
+Register a new name just for the relay. The relay overwrites the name’s address, so don’t use a name you already use for something else, such as reaching devices at home from outside. Give each relay a name of its own, or they overwrite each other’s address. The name becomes public, so choose one that doesn’t identify you; see [Privacy](#privacy).
 
-两家服务商都免费，中继都支持：{#choose-provider}
+Both providers are free and the relay supports both: {#choose-provider}
 
-| 服务商 | 域名示例 | 注册方式 | Token 能管理什么 |
+| Provider | Example name | Sign-up | What the token can change |
 | --- | --- | --- | --- |
-| DuckDNS | `myrelay.duckdns.org` | 用 GitHub、Google、Reddit 或 X（Twitter）账号登录，不用另设密码 | 整个账号下的所有域名 |
-| dynv6 | `myrelay.dynv6.net` | 邮箱和密码 | 整个账号，或只限一个 zone（域名） |
+| DuckDNS | `myrelay.duckdns.org` | Sign in with GitHub, Google, Reddit or X (Twitter); no separate password | Every name in the account |
+| dynv6 | `myrelay.dynv6.net` | Email and password | The whole account, or one zone (name) |
 
-建议：有 GitHub 账号就选 DuckDNS，步骤最少；没有的话选 dynv6，用邮箱就能注册，Token 也可以只限于这一个域名。
+Our suggestion: with a GitHub account, choose DuckDNS, which takes the fewest steps; without one, choose dynv6, which needs only an email address and whose token can be limited to this one name.
 
-::: details DuckDNS：注册步骤 {#duckdns}
-1. 用 GitHub 账号登录 DuckDNS。在电脑或手机的浏览器中打开 [duckdns.org](https://www.duckdns.org/)，选择 GitHub 登录；也可以用 Google、Reddit 或 X 登录，但在中国大陆通常用不了。
-2. 添加一个域名。在以 `.duckdns.org` 结尾的输入框中填一个名字，例如 `myrelay`，然后添加。添加成功后，列表中会出现 `myrelay.duckdns.org`。它现在指向的地址不用管，中继会自动更新。
-3. 在页面顶部找到 token，形如 `a1b2c3d4-0000-0000-0000-000000000000`，这就是要填进中继的 Token。
+::: details DuckDNS: how to register {#duckdns}
+1. Sign in to DuckDNS with GitHub. In a browser on your computer or phone, open [duckdns.org](https://www.duckdns.org/) and choose GitHub; Google, Reddit and X are offered too, but usually don’t work from mainland China.
+2. Add a name. Type a name such as `myrelay` into the field that ends in `.duckdns.org` and add it. `myrelay.duckdns.org` then appears in the list. Ignore the address it points to; the relay updates it.
+3. Find the token near the top of the page. It looks like `a1b2c3d4-0000-0000-0000-000000000000`, and it is the token you enter on the relay.
 
-**要保存的信息**：完整域名，例如 `myrelay.duckdns.org`（不只是 `myrelay`），以及 Token。DuckDNS 的 Token 可以修改账号下的所有域名，请像密码一样保管，见[保管好 Token](#token-safety)。
+**What to save:** the full name, such as `myrelay.duckdns.org` (not just `myrelay`), and the token. A DuckDNS token can change every name in the account, so keep it like a password; see [Keeping the token safe](#token-safety).
 :::
 
-::: details dynv6：注册步骤 {#dynv6}
-1. 注册 dynv6 账号。在 [dynv6.com](https://dynv6.com/) 点“Sign up”，填写邮箱和密码（至少 8 个字符），再点确认邮件中的链接。
-2. 新建一个 zone（dynv6 对域名的叫法）。登录后填一个名字，后缀选择 `dynv6.net`，例如 `myrelay.dynv6.net`。不要选其他后缀，原因见下一项。
-3. 取得 HTTP Token。打开 Keys 页面（[dynv6.com/keys](https://dynv6.com/keys)），新建或复制一个 HTTP Token，建议把它限定为只能管理这个 zone。
+::: details dynv6: how to register {#dynv6}
+1. Create a dynv6 account. On [dynv6.com](https://dynv6.com/), choose *Sign up*, enter your email and a password (at least 8 characters), then open the link in the confirmation email.
+2. Create a zone (dynv6’s word for a name). Once signed in, type a name and choose the `dynv6.net` suffix, for example `myrelay.dynv6.net`. Don’t choose another suffix; the next item explains why.
+3. Get an HTTP token. Open the Keys page ([dynv6.com/keys](https://dynv6.com/keys)) and create or copy an HTTP token; limit it to this zone if you can.
 
-**要保存的信息**：完整域名，例如 `myrelay.dynv6.net`，以及 HTTP Token。
+**What to save:** the full name, such as `myrelay.dynv6.net`, and the HTTP token.
 :::
 
-::: details 为什么 dynv6 要选 dynv6.net？ {#why-dynv6-net}
-dynv6 还提供其他后缀，但只有 `dynv6.net` 在公共后缀列表（Public Suffix List）中。Let's Encrypt 按这个列表计算每周可以签发的证书数量：用 `dynv6.net` 时，你的域名单独计算；用其他后缀时，要和这个后缀下的所有用户共用同一个配额，申请很容易失败。
+::: details Why dynv6.net on dynv6? {#why-dynv6-net}
+dynv6 offers other suffixes too, but only `dynv6.net` is on the Public Suffix List. Let’s Encrypt counts its weekly certificate limit by that list: under `dynv6.net` your name is counted on its own; under another suffix it shares one limit with every user of that suffix, and requests fail easily.
 :::
 
-::: details 在中国大陆能用吗？ {#in-mainland-china}
-2026 年 10 月 20 日实测：DuckDNS 在家庭宽带和中国联通移动数据下，接口和域名都能正常使用，登录方式中只有 GitHub 比较可行；dynv6 在同一次实测中接口可以访问，注册时要选择 `dynv6.net` 后缀。
+::: details Does it work from mainland China? {#in-mainland-china}
+Tested on 2026-10-20: on DuckDNS, the API and the names work on home broadband and on China Unicom mobile data, and of the sign-in options only GitHub is practical; on dynv6, the API is reachable in the same test, and you choose the `dynv6.net` suffix when you register.
 :::
 
-::: details 保管好 Token {#token-safety}
-Token 相当于域名的密码：拿到它的人可以把你的域名指向别的地址。
+::: details Keeping the token safe {#token-safety}
+The token works like a password for the name: anyone who has it can point your name somewhere else.
 
-- 把 Token 存在密码管理器里。不要发到聊天群，也不要截图分享设置页面或配置文件。
-- Token 只保存在中继上。填好后，应用和管理页面只显示“已保存 Token”，不会再显示 Token 本身。
-- 用配置文件导入后，删除手机上的那个文件。
+- Keep the token in a password manager. Don’t post it in a chat, and don’t share screenshots of the settings or the configuration file.
+- The token stays on the relay. Once entered, the app and the admin page show only *Token saved*, never the token itself.
+- After importing a configuration file, delete the file from the phone.
 
-如果 Token 泄露了，到服务商那里换一个新的，再把新 Token 填进中继（或重新导入配置文件）：
+If the token leaks, get a new one from your provider and enter it on the relay (or import the configuration file again):
 
-| 服务商 | 怎样换 Token |
+| Provider | How to replace the token |
 | --- | --- |
-| DuckDNS | 在账号页面，点登录邮箱旁边的三条横线，再点“recreate token”。新 Token 适用于账号下的所有域名。 |
-| dynv6 | 在 Keys 页面删除旧的 HTTP Token，再新建一个。 |
+| DuckDNS | On the account page, select the three small lines next to your login email, then *recreate token*. The new token covers every name in the account. |
+| dynv6 | On the Keys page, delete the old HTTP token and create a new one. |
 :::
 
-## 在中继上设置 {#setup .step}
+## Set it up on the relay {#setup .step}
 
-按你的中继选择一种方式，效果相同。证书由 Let's Encrypt 免费签发，申请前需要同意它的[订户协议](https://letsencrypt.org/repository/)：中继不会替你同意，没有同意时也不会申请证书。中继在 Let's Encrypt 注册账号时，不会提供邮箱等联系方式。{#letsencrypt-terms}
+Pick one way for your relay; they all do the same. Let’s Encrypt issues the certificate for free, and asks you to agree to its [Subscriber Agreement](https://letsencrypt.org/repository/) first: the relay never agrees for you, and requests no certificate until you do. The relay creates its Let’s Encrypt account without an email address or any other contact details. {#letsencrypt-terms}
 
-::: details 安卓中继：在应用中填写 {#android-settings}
-1. 打开 OpenXPlay Relay，进入“设置 → 车机访问 → 可信 HTTPS”。
-2. 打开“使用免费域名”。
-3. 在“域名服务商”中选择 DuckDNS 或 dynv6。下面会显示这个服务商的注册方法，以及服务商官网和本教程的链接。每个服务商的域名和 Token 分开保存，切换服务商时会显示对应服务商已保存的内容。
-4. 在“域名”中填写完整域名。例如 `myrelay.duckdns.org`，不能只填 `myrelay`。
-5. 在“Token”中粘贴服务商的 Token。保存后，这里只显示“已保存 Token”；以后留空就会保留原来的 Token。
-6. 勾选“我同意 Let's Encrypt 订户协议”。
-7. 点“保存”。状态行会先后显示“正在更新域名地址…”、“正在申请证书…”，成功后显示“已就绪：…（证书有效期至 …）”。
+::: details Android relay: in the app {#android-settings}
+1. Open OpenXPlay Relay and go to Settings → Head-unit access → Trusted HTTPS.
+2. Turn on *Use a free domain name*.
+3. Under *DNS provider*, choose DuckDNS or dynv6. The page shows how to register with that provider, with links to its site and to this guide. Each provider keeps its own name and token; switching shows what is saved for it.
+4. Under *Domain name*, enter the full name. Use `myrelay.duckdns.org`, for example, not just `myrelay`.
+5. Paste the provider’s token under *Token*. Once saved, the field shows only *Token saved*; leaving it empty later keeps the saved token.
+6. Tick *I agree to the Let’s Encrypt Subscriber Agreement*.
+7. Tap *Save*. The status line shows *Updating the domain’s address…*, then *Requesting a certificate…*, and finally *Ready: … (certificate valid until …)*.
 :::
 
-::: details 安卓中继：导入配置文件 {#android-import}
-不想在手机上输入长长的 Token 时，可以在电脑上写好配置文件再导入。
+::: details Android relay: import a configuration file {#android-import}
+If you’d rather not type a long token on the phone, write a configuration file on a computer and import it.
 
-1. 在电脑上写好配置文件。用文本编辑器新建一个文件，例如 `public-name.json`，按[配置文件格式](#config-file)填写，保存为 UTF-8 纯文本。
-2. 用 USB 数据线把文件复制到中继手机上，例如“下载”（Download）文件夹；也可以直接在手机上用文本编辑应用新建这个文件。文件里有 Token，最好不要通过聊天软件或网盘传送。
-3. 在“设置 → 车机访问 → 可信 HTTPS”中，点服务商卡片最下方的“导入配置文件”，在文件选择器中选中这个文件。
-4. 导入成功后，应用只显示服务商和域名，并切换到文件中的服务商，设置立即生效。文件有错误时，应用会指出是哪一项出了问题。
-5. 删除手机上的这个文件。
+1. Write the file on a computer. In a text editor, create a file such as `public-name.json`, fill it in as described in [Configuration file format](#config-file) and save it as plain UTF-8 text.
+2. Copy the file to the relay phone over a USB cable, for example into the Download folder, or create it on the phone with a text editor app. The file contains the token, so avoid sending it through chat apps or cloud storage.
+3. In Settings → Head-unit access → Trusted HTTPS, tap *Import configuration file* at the bottom of the provider card and choose the file in the file picker.
+4. After a successful import, the app shows only the provider and the name, switches to the file’s provider, and the settings take effect right away. If the file has a mistake, the app says which entry is wrong.
+5. Delete the file from the phone.
 
-导入的文件没有写 `"enabled": false` 时，相当于打开了“使用免费域名”。
+Unless the file says `"enabled": false`, importing it turns on *Use a free domain name*.
 :::
 
-::: details Linux 中继：在管理页面中填写 {#linux-admin}
-1. 打开管理页面并登录。在连入中继网络的手机或电脑上打开管理页面，例如 `https://openxplay-admin.local:6975`；连接中继的热点时是 `https://openxplay-car.local:6975`。
-2. 打开“设置”，找到“可信 HTTPS”。
-3. 打开“使用免费域名”，选择“域名服务商”，填写“域名”和“Token”，再勾选“我同意 Let's Encrypt 订户协议”。每一项都会单独保存，页面会显示“已保存”。
-4. 等状态行显示“已就绪：…（证书有效期至 …）”，就可以在车机上打开。需要时可以点“立即申请证书”。
+::: details Linux relay: in the admin page {#linux-admin}
+1. Open the admin page and log in. Use a phone or computer on the relay’s network, for example with `https://openxplay-admin.local:6975`, or `https://openxplay-car.local:6975` on the relay’s hotspot.
+2. Open *Settings* and find *Trusted HTTPS*.
+3. Turn on *Use a free domain name*, choose the *DNS provider*, enter the *Domain name* and the *Token*, and tick *I agree to the Let’s Encrypt Subscriber Agreement*. Each field is saved on its own, and the page shows *Saved*.
+4. Once the status line shows *Ready: … (certificate valid until …)*, open the page on the head unit. *Request certificate now* tries again straight away when needed.
 
-Token 保存后不会再显示；以后留空就会保留原来的 Token。
+The token isn’t shown again once saved; leaving the field empty later keeps the saved token.
 :::
 
-::: details Linux 中继：编辑配置文件 {#linux-file}
-管理页面的这些设置保存在 `/var/lib/openxplay/public-name.json` 中。你也可以直接写这个文件，格式见[配置文件格式](#config-file)：
+::: details Linux relay: edit the configuration file {#linux-file}
+The admin page stores these settings in `/var/lib/openxplay/public-name.json`. You can also write that file yourself, in the [configuration file format](#config-file):
 
-1. 在电脑上写好文件，复制到中继上。例如复制到 `/root/public-name.json`。
-2. 以 root 身份把它放进中继的状态目录，设为只有 root 可以读写（权限 0600），然后删除副本：
+1. Write the file on a computer and copy it to the relay. For example, copy it to `/root/public-name.json`.
+2. As root, put it into the relay’s state directory, readable and writable by root only (mode 0600), then delete the copy:
 
    ```sh
    install -o root -g root -m 0600 /root/public-name.json /var/lib/openxplay/public-name.json
    rm /root/public-name.json
    ```
 
-3. 中继每隔几秒检查一次这个文件，改动后会自动重新读取，不需要重启。然后在管理页面中查看状态。
+3. The relay checks the file every few seconds and reads it again after a change, with no restart. Then check the status in the admin page.
 
-这个文件和 `settings.json` 是分开的，不要把这些设置写进 `settings.json`。
+This file is separate from `settings.json`; don’t put these settings into `settings.json`.
 :::
 
-::: details 配置文件格式 {#config-file}
-安卓中继导入的文件和 Linux 中继的 `/var/lib/openxplay/public-name.json` 格式相同，都是一个 JSON 对象：
+::: details Configuration file format {#config-file}
+The file the Android relay imports and the Linux relay’s `/var/lib/openxplay/public-name.json` share one format, a JSON object:
 
-| 键 | 必填 | 说明 |
+| Key | Required | Meaning |
 | --- | --- | --- |
-| `version` | 是 | 固定为 `1`。 |
-| `enabled` | 否 | `true` 为开启（默认），`false` 为关闭。 |
-| `provider` | 是 | `duckdns` 或 `dynv6`。 |
-| `name` | 是 | 完整域名，末尾不加点，大小写均可。DuckDNS 必须是 `<名字>.duckdns.org`；dynv6 填 Token 所管理的域名，通常是 `<名字>.dynv6.net`。 |
-| `token` | 是 | 服务商的 Token，不含空格。DuckDNS 的 Token 形如 `a1b2c3d4-0000-0000-0000-000000000000`。 |
-| `agreeLetsEncryptTerms` | 是 | 设为 `true`，表示你同意 Let's Encrypt 订户协议。没有同意时，中继不会申请证书。 |
-| `acme` | 否 | `production`（默认）。`staging` 只用于测试，这样申请的证书不受浏览器信任。 |
+| `version` | Yes | Always `1`. |
+| `enabled` | No | `true` turns it on (the default), `false` turns it off. |
+| `provider` | Yes | `duckdns` or `dynv6`. |
+| `name` | Yes | The full name, without a trailing dot, in any letter case. For DuckDNS it must be `<name>.duckdns.org`; for dynv6, the name the token manages, normally `<name>.dynv6.net`. |
+| `token` | Yes | The provider’s token, without spaces. A DuckDNS token looks like `a1b2c3d4-0000-0000-0000-000000000000`. |
+| `agreeLetsEncryptTerms` | Yes | `true` means you agree to the Let’s Encrypt Subscriber Agreement. Without it, the relay requests no certificate. |
+| `acme` | No | `production` (the default). `staging` is for testing only: its certificates aren’t trusted by browsers. |
 
-- 文件中不能有表里没有的键：拼错的键会报错，并指出是哪一个。
-- 文件最大 16 KiB。
+- Keys that aren’t in the table are an error that names the key, so a typo can’t slip through.
+- The file can be at most 16 KiB.
 
-每个服务商一个例子，把域名和 Token 换成你自己的：
+One example per provider; replace the name and the token with yours:
 
 ```json
 {
@@ -191,89 +191,89 @@ Token 保存后不会再显示；以后留空就会保留原来的 Token。
 ```
 :::
 
-## 在车机上打开 {#open .step}
+## Open it on the head unit {#open .step}
 
-1. 等状态行显示“已就绪：…（证书有效期至 …）”。第一次申请证书通常需要一两分钟。
-2. 在车机浏览器中用域名打开网页。地址由 `https://`、你的域名和 `:8443/` 组成，例如 `https://myrelay.duckdns.org:8443/`。准备就绪后，中继列出的车机地址中，排在最前面的就是这个地址。
-3. 页面会直接打开，不再出现证书警告。把它加入书签，替换原来用 IP 地址的书签。
+1. Wait until the status line shows *Ready: … (certificate valid until …)*. The first certificate usually takes a minute or two.
+2. Open the page by the name in the head unit’s browser. The address is `https://` followed by your name and `:8443/`, for example `https://myrelay.duckdns.org:8443/`. Once it is ready, the relay lists this address first among the head-unit addresses.
+3. The page opens straight away, without a certificate warning. Bookmark it in place of the old bookmark with the IP address.
 
-原来的 IP 地址（例如 `https://192.168.43.20:8443/`）仍然可以使用，作为备用。用它打开时还会出现证书警告，警告中也可能提示证书属于另一个域名，这是正常的。
+The IP address (such as `https://192.168.43.20:8443/`) keeps working as a fallback. It still shows a certificate warning, which may now say that the certificate belongs to another name; that’s expected.
 
-- 证书申请成功或续期时，不用结束 CarPlay：已经打开的车机网页不会断开，之后新打开的页面使用新证书。
-- 管理页面也使用同一张证书：把管理页面地址中的 IP 地址或 `.local` 名称换成你的域名，打开时同样不会再有警告。
+- When a certificate is issued or renewed, CarPlay doesn’t need to end: an open head-unit page stays connected, and pages opened afterwards use the new certificate.
+- The admin page uses the same certificate: replace the IP address or `.local` name in its address with your name, and it opens without a warning too.
 
-## 状态信息 {#status}
+## Status messages {#status}
 
-应用和管理页面中的状态行会显示下面这些信息：
+The status line in the app and the admin page shows one of these:
 
-| 状态 | 含义 | 怎么办 |
+| Status | Meaning | What to do |
 | --- | --- | --- |
-| “未开启” | 没有打开“使用免费域名”。 | 需要时打开它。 |
-| “请填写域名服务商、域名和 Token，并同意协议。” | 还缺某一项，或者没有勾选协议。 | 补全设置。 |
-| “等待联网” | 中继不能上网；Linux 中继的时钟还没有同步时也会显示这个状态。 | 安卓中继打开移动数据；Linux 中继连接能上网的网络。联网（时钟同步）后中继会自动重试。 |
-| “正在更新域名地址…” | 正在把中继的地址登记到域名下。 | 稍等。 |
-| “正在申请证书…” | 正在向 Let's Encrypt 申请证书。 | 稍等，通常需要一两分钟。 |
-| “已就绪：…（证书有效期至 …）” | 证书有效，域名指向中继当前的地址。 | 用域名打开车机网页。 |
-| “出现问题：…。将于 … 重试。” | 出了错。冒号后面是原因，最后是下次自动重试的时间。 | 见下方“出现问题时的原因”。 |
+| *Off* | *Use a free domain name* is off. | Turn it on when you want it. |
+| *Fill in the provider, domain name and token, and agree to the terms.* | Something is missing, or the agreement isn’t ticked. | Complete the settings. |
+| *Waiting for internet access* | The relay has no internet access. The Linux relay also shows this while its clock isn’t synchronised yet. | On the Android relay, turn on mobile data; on the Linux relay, connect a network with internet access. Once online (and the clock is synchronised), the relay retries by itself. |
+| *Updating the domain’s address…* | The relay is publishing its address under the name. | Wait. |
+| *Requesting a certificate…* | The relay is asking Let’s Encrypt for a certificate. | Wait; it usually takes a minute or two. |
+| *Ready: … (certificate valid until …)* | The certificate is valid and the name points at the relay’s current address. | Open the head-unit page by the name. |
+| *Problem: …. Next try at ….* | Something went wrong. The reason follows the colon, then the time of the next automatic try. | See “Reasons for a problem” below. |
 
-::: details 出现问题时的原因 {#status-reasons}
-| 原因 | 说明和处理 |
+::: details Reasons for a problem {#status-reasons}
+| Reason | What it means and what to do |
 | --- | --- |
-| “服务商拒绝了这个 Token” | Token 不对或已经失效，见[服务商拒绝了 Token](#token-rejected)。 |
-| “服务商找不到这个域名” | 域名拼错了，或者不在所选服务商的这个账号下。填写完整域名，例如 `myrelay.duckdns.org`，并确认“域名服务商”选对了。 |
-| “服务商要求稍后再试” | 请求太频繁。不用处理，中继会在显示的时间重试。 |
-| “无法连接服务商” | 中继没有网络，或者连不上服务商。检查中继能否上网；服务商临时故障时，中继会自动重试。 |
-| “服务商的域名服务器未及时生效” | 验证记录没有及时出现在服务商的域名服务器上，通常是服务商暂时较慢。中继会自动重试，也可以稍后点“立即申请证书”。 |
-| “Let's Encrypt 拒绝了请求：…” | 冒号后面是 Let's Encrypt 给出的原因。检查域名和 Token；如果一直出现，请把这条信息发到[交流群](/community)。 |
-| “Let's Encrypt 要求稍后再试” | 达到了 Let's Encrypt 的次数限制。等到显示的时间，见[要求稍后再试](#rate-limits)。 |
-| “还没有车机网络地址” | 中继还没有连上车机所在的网络，没有可以登记的地址。按教程中的[连接车机网络](/android-relay#step-network)连接车机网络。 |
+| *The provider rejected the token* | The token is wrong or no longer valid; see [The provider rejects the token](#token-rejected). |
+| *The provider doesn’t know this domain name* | The name is misspelt, or it isn’t in this account at the chosen provider. Enter the full name, such as `myrelay.duckdns.org`, and check the *DNS provider*. |
+| *The provider asked to wait* | Too many requests. Nothing to do; the relay tries again at the time shown. |
+| *Can’t reach the provider* | The relay is offline or can’t reach the provider. Check the relay’s internet access; if the provider is down for a while, the relay keeps trying. |
+| *The provider’s name servers didn’t show the change in time* | The check record didn’t reach the provider’s name servers in time, usually because the provider was slow for a moment. The relay tries again by itself, or choose *Request certificate now* later. |
+| *Let’s Encrypt rejected the request: …* | Let’s Encrypt’s reason follows the colon. Check the name and the token; if it keeps happening, post the message in the [community](/community). |
+| *Let’s Encrypt asked to wait* | A Let’s Encrypt limit was reached. Wait until the time shown; see [Asked to wait](#rate-limits). |
+| *No head-unit network address yet* | The relay isn’t on the head unit’s network yet, so it has no address to publish. Connect the head unit’s network as in the guide’s [Connect the head unit’s network](/android-relay#step-network). |
 
-遇到网络或服务商的问题时，中继会自动重试，间隔逐渐拉长：1 分钟、5 分钟、30 分钟、2 小时、6 小时，之后每天一次。中继的地址或设置变化后，会重新从 1 分钟开始。想马上再试，可以点“立即申请证书”。
+After a network or provider problem, the relay tries again at growing intervals: 1 minute, 5 minutes, 30 minutes, 2 hours, 6 hours, then once a day. A new relay address or a settings change starts again at 1 minute. To try again right away, choose *Request certificate now*.
 :::
 
-## 故障排查 {#troubleshooting}
+## Troubleshooting {#troubleshooting}
 
-::: details 用域名打不开网页 {#name-not-resolving}
-先确认状态行显示的是“已就绪”，地址以 `https://` 开头，并带有 `:8443`。然后检查：
+::: details The page doesn’t open by the name {#name-not-resolving}
+First check that the status line shows *Ready*, and that the address starts with `https://` and includes `:8443`. Then:
 
-- **中继不能上网。** 车机连着安卓中继的热点时，要通过中继手机查询域名。打开中继手机的移动数据；暂时没有网络时，先用 IP 地址打开。Linux 中继开着自己的热点时，会在热点里直接回答这个域名，不需要联网。
-- **地址刚刚变过。** 热点重新开启后，地址可能会变，中继要先登记新地址。等状态行重新显示“已就绪”，稍等片刻再刷新车机网页。
-- **路由器拦截了私有地址。** 使用共用 Wi-Fi 时，有些路由器开启了“DNS 重绑定保护”（DNS rebinding protection），会丢弃指向私有地址的查询结果。在路由器中为你的域名设置例外，或者关闭这项保护；不行就改用 IP 地址。
-- **DNS 过滤。** 中继手机或车机如果使用了带过滤功能的 DNS 或广告拦截应用，也可能丢弃这类结果。换一个 DNS，或者暂时关闭过滤再试。
+- **The relay has no internet access.** On the Android relay’s hotspot, the head unit looks the name up through the relay phone. Turn on the relay phone’s mobile data; until then, open the page by its IP address. The Linux relay on its own hotspot answers the name itself and needs no internet access for this.
+- **The address has just changed.** After the hotspot restarts, the address may change and the relay has to publish the new one first. Wait until the status line shows *Ready* again, give it a moment, then reload the head-unit page.
+- **The router blocks private addresses.** On a shared Wi-Fi, some routers have DNS rebinding protection turned on, which drops answers that point at private addresses. Add an exception for your name in the router, or turn the protection off; otherwise use the IP address.
+- **DNS filtering.** A filtering DNS service or an ad blocker on the relay phone or the head unit can drop these answers too. Try another DNS, or turn the filter off for a moment.
 :::
 
-::: details 服务商拒绝了 Token {#token-rejected}
-- 重新复制 Token，注意不要多出空格，也不要漏掉字符。
-- 确认 Token 和域名属于同一个账号，并且“域名服务商”选对了。
-- DuckDNS：重新生成过 Token 后，旧的就不能用了，请填入新 Token。
-- dynv6：Token 限定了 zone 时，确认限定的就是这个域名。
+::: details The provider rejects the token {#token-rejected}
+- Copy the token again, without extra spaces or missing characters.
+- Check that the token and the name belong to the same account and that the *DNS provider* is right.
+- DuckDNS: after you recreate the token, the old one stops working; enter the new one.
+- dynv6: if the token is limited to a zone, check that it is this name’s zone.
 :::
 
-::: details 要求稍后再试 {#rate-limits}
-服务商和 Let's Encrypt 都限制请求次数。出现“服务商要求稍后再试”或“Let's Encrypt 要求稍后再试”时，不用做任何操作，中继会在显示的时间自动重试。
+::: details Asked to wait {#rate-limits}
+Both your provider and Let’s Encrypt limit how often they can be asked. When the status shows *The provider asked to wait* or *Let’s Encrypt asked to wait*, do nothing: the relay tries again at the time shown.
 
-- Let's Encrypt 为同一个域名每 7 天最多签发 5 张证书，同一个域名每小时最多允许 5 次验证失败（2026 年 10 月的规则）。中继按 Let's Encrypt 建议的时间续期时，不受这些限制。
-- 不要反复“移除”再重新设置。移除会删除证书，每次重新设置都要申请一张新证书，很快就会用完这个配额。
-- 中继自己也会控制次数：同一个域名每 24 小时最多申请 3 次新证书；已有的证书离到期还有 7 天以上、又没到续期时间时，不会重新申请。
+- Let’s Encrypt issues at most 5 certificates for the same name every 7 days, and allows at most 5 failed checks for a name per hour (the rules in October 2026). Renewals at the time Let’s Encrypt suggests don’t count against these limits.
+- Don’t keep choosing *Remove* and setting it up again. Removing deletes the certificate, so every new setup needs a new certificate, and the limit runs out quickly.
+- The relay limits itself too: at most 3 new certificates per name every 24 hours, and none while the current certificate has more than 7 days left and isn’t due for renewal.
 :::
 
-::: details 用域名打开仍有证书警告 {#still-warning}
-- 确认地址中用的是域名，而不是 IP 地址。
-- 确认状态行显示的是“已就绪”。证书就绪前打开的车机网页仍在用原来的连接，用域名重新打开即可。
-- 检查车机的日期和时间。时间相差太多时，浏览器会认为证书还没生效或已经过期。
-- 车机的系统或浏览器很旧时，可能不信任 Let's Encrypt 的证书，这时只能继续用 IP 地址打开。
+::: details The name still shows a certificate warning {#still-warning}
+- Check that the address uses the name, not the IP address.
+- Check that the status line shows *Ready*. A head-unit page opened before the certificate was ready keeps its earlier connection; open it again by name.
+- Check the head unit’s date and time. If they are far off, the browser thinks the certificate isn’t valid yet or has expired.
+- A very old head-unit system or browser may not trust Let’s Encrypt certificates; then keep using the IP address.
 :::
 
-## 隐私 {#privacy}
+## Privacy {#privacy}
 
-- **域名会公开。** Let's Encrypt 签发的每张证书都会记入公开的证书透明度（Certificate Transparency）日志，任何人都能查到你的域名。
-- **私有地址也会公开。** 任何人查询这个域名，都能看到中继登记的地址，例如 `192.168.43.20`。这是车机网络内部的地址，从互联网上访问不到，但谁都能看到它。
-- **起一个认不出你的名字。** 不要用姓名、车牌号、手机号等信息，最好用一串随机的字母和数字，例如 `k7m2q9x4.duckdns.org`。
-- **服务商知道你的账号。** DuckDNS 知道你登录用的 GitHub 等账号，dynv6 知道你的邮箱。中继更新地址和申请证书时，服务商和 Let's Encrypt 会看到中继上网用的公网地址。
-- **Token 只保存在中继上**，见[保管好 Token](#token-safety)。
+- **The name becomes public.** Every certificate Let’s Encrypt issues is recorded in public Certificate Transparency logs, where anyone can find your name.
+- **So does the private address.** Anyone who looks the name up sees the address the relay published, such as `192.168.43.20`. It belongs to the head unit’s network and can’t be reached from the internet, but anyone can see it.
+- **Choose a name that doesn’t identify you.** Avoid your name, number plate or phone number; a random string of letters and digits such as `k7m2q9x4.duckdns.org` is best.
+- **Your provider knows your account.** DuckDNS knows the GitHub (or other) account you sign in with; dynv6 knows your email address. When the relay updates the address or requests a certificate, the provider and Let’s Encrypt see the public address of the relay’s internet connection.
+- **The token stays on the relay;** see [Keeping the token safe](#token-safety).
 
-## 关闭或移除 {#turn-off}
+## Turning it off or removing it {#turn-off}
 
-- **关闭**：关掉“使用免费域名”后，中继停止所有请求，只使用自己生成的证书，车机浏览器会重新显示证书警告。Linux 中继也可以在配置文件中写 `"enabled": false`。
-- **移除**：在安卓应用或 Linux 中继的管理页面中点“移除”并确认，会删除设置、Token、证书和相关密钥。在 Linux 中继上直接删除 `/var/lib/openxplay/public-name.json` 效果相同。
-- 这两种方式都不会改动服务商那边的域名，它仍然指向最后登记的地址。不再需要时，可以到服务商网站删除域名。
+- **Turn off:** with *Use a free domain name* off, the relay stops all requests and serves only its own certificate, so the head unit’s browser warns again. On the Linux relay, `"enabled": false` in the configuration file does the same.
+- **Remove:** *Remove* in the Android app or in the Linux relay’s admin page (after you confirm) deletes the settings, the token, the certificate and its keys. On the Linux relay, deleting `/var/lib/openxplay/public-name.json` does the same.
+- Neither changes the name at your provider: it keeps pointing at the last published address. If you no longer need it, delete it on the provider’s website.

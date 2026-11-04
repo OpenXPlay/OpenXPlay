@@ -2,48 +2,48 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-29
-title: 特斯拉：在特斯拉浏览器中显示 CarPlay（实验性）
-description: 特斯拉浏览器不能打开局域网地址，OpenXPlay 中继会加上一个它能打开的地址。所需条件、四种访问方式（推荐 TeslaMirror 方式），以及在安卓和 Linux 中继上的设置方法。
-breadcrumb: 特斯拉
+title: 'Tesla: CarPlay in the Tesla browser (experimental)'
+description: The Tesla browser doesn’t open local-network addresses, so the OpenXPlay relay adds an address it can open. Requirements, the four ways to reach the relay (TeslaMirror-style recommended) and how to set it up on the Android and Linux relays.
+breadcrumb: Tesla
 ---
 
-# 特斯拉 <Badge type="warning" text="实验性" />
+# Tesla <Badge type="warning" text="Experimental" />
 
-特斯拉和其他车机一样，用自带的浏览器显示 CarPlay，区别只有一点：特斯拉浏览器不能打开 `192.168.43.20` 这样的局域网地址。所以中继手机会通过本地 VPN 加上一个特斯拉能打开的地址，数据不会离开手机。
+A Tesla shows CarPlay in its own browser, like other head units, with one difference: the Tesla browser doesn’t open local-network addresses such as `192.168.43.20`. The relay therefore adds an address the Tesla can open, through a local VPN on the relay phone; nothing leaves the phone.
 
-::: tip 版本要求
-安卓应用 0.2.0 和 Linux 中继 0.1.6 起提供这项适配。欢迎到[交流群](/community)分享你的使用结果。
+::: tip Version
+Android app 0.2.0 and Linux relay 0.1.6 have this adaptation. Please share how it works for you in the [community](/community).
 :::
 
-## 所需条件 {#requirements}
+## What you need {#requirements}
 
-- 安卓应用 0.2.0 及以上（[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)）；从 0.2.2 起有单独的设置页面。
-- MCU2 或更新车机的特斯拉。
-- 无线 CarPlay：USB 连接已经占用了 Android 唯一的 VPN。
-- 输出选择“车载浏览器”。
-- 特斯拉连接中继手机的热点（最好用 5 GHz）或它的 Wi-Fi 直连网络。“使用车机热点”不行：车机热点不会把这个地址转给手机。
-- 在特斯拉的 Wi-Fi 设置中打开“驾驶时保持连接”（Remain Connected in Drive）。
+- Android app 0.2.0 or later ([download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)); from 0.2.2 it has its own settings page.
+- A Tesla with MCU2 or later.
+- Wireless CarPlay: the USB connection already uses Android’s only VPN.
+- *Car browser* as the output.
+- The Tesla on the relay phone’s hotspot (5 GHz if possible) or on its Wi-Fi Direct network. *Use the car’s hotspot* doesn’t work: the car’s hotspot doesn’t pass the address to the phone.
+- *Remain Connected in Drive* turned on in the Tesla’s Wi-Fi settings.
 
-## 设置方法 {#setup}
+## Set it up {#setup}
 
-1. 按[用安卓手机作中继](/android-relay)设置中继，在“你的车”中选择特斯拉和你的车型。
-2. 在应用中打开“设置 → 特斯拉浏览器适配”，从下面选择一种方式。带可信域名的方式需要先设置[可信 HTTPS](/trusted-https)。第一次使用时，Android 会请求 VPN 授权。
-3. 开启 CarPlay。应用首页会把特斯拉地址排在最前面；在特斯拉浏览器中打开它。
+1. Set up the relay as in [Android phone as the relay](/android-relay), and choose Tesla and your model under *Your car*.
+2. In the app, open Settings → *Tesla browser* and choose one of the ways below. The ones with a trusted name need [Trusted HTTPS](/trusted-https) first. Android asks for VPN consent the first time.
+3. Start CarPlay. The home screen lists the Tesla address first; open it in the Tesla browser.
 
-| 方式 | 手机上的地址 | 说明 |
+| Way | Address on the phone | What to know |
 | --- | --- | --- |
-| 可信域名 + 共享网段地址（TeslaMirror 方式，推荐） | `100.88.0.1` | 需要可信 HTTPS；特斯拉打开你的可信域名时没有证书警告。 |
-| 可信域名 + 链路本地地址 | `169.254.88.1` | 需要可信 HTTPS。特斯拉要能通过手机热点上网，才能查到这个域名。 |
-| 直接地址（链路本地） | `169.254.88.1` | 不需要账号：打开 `https://169.254.88.1:8443`，在证书警告页选择继续访问。只有特斯拉浏览器允许继续访问时才能使用。 |
-| 公网网段地址（TeslaAndroid 方式） | `3.3.3.1` | 打开这个地址，在证书警告页选择继续访问。 |
-| 关闭 | | 默认。 |
+| Trusted name + shared range address (TeslaMirror, recommended) | `100.88.0.1` | Needs Trusted HTTPS; the Tesla opens your trusted name without a certificate warning. |
+| Trusted name, link-local address | `169.254.88.1` | Needs Trusted HTTPS. The Tesla needs internet through the phone’s hotspot to look up the name. |
+| Direct link-local address | `169.254.88.1` | No account needed: open `https://169.254.88.1:8443` and continue past the certificate warning. Works only if the Tesla browser lets you continue. |
+| Public-range address (like TeslaAndroid) | `3.3.3.1` | Open the address and continue past the certificate warning. |
+| Off | | The default. |
 
-手机上的地址可以修改。切换方式时 CarPlay 不会断开。
+You can change the address on the phone. Switching between ways keeps CarPlay running.
 
-::: details Android 13 及更高版本
-Android 13 及更高版本可能会丢弃热点设备发往 `169.254` 以外地址的连接（已在 Android 15 上出现）。如果特斯拉打不开页面，请改用 `169.254` 开头地址的方式。出现这种情况时应用会提示。
+::: details Android 13 and later
+Android 13 and later may drop connections from the hotspot to an address outside `169.254`; this was seen on Android 15. If the Tesla can’t open the page, use a way with a `169.254` address. The app warns when this applies.
 :::
 
-## Linux 中继 {#linux}
+## Linux relay {#linux}
 
-Linux 中继从 0.1.6 起提供同样的几种方式：在管理页中打开特斯拉浏览器适配，输出选择“车载浏览器”，并使用中继自己的热点。中继会把这个地址加到它的热点上，停止时移除；带可信域名的方式同样需要可信 HTTPS。
+The Linux relay has the same ways from 0.1.6: in its admin page, turn on the Tesla browser, with *Car browser* as the output and the relay’s own hotspot. The relay adds the address to its hotspot and removes it when you stop the relay; the trusted-name ways need Trusted HTTPS here too.

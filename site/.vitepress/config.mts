@@ -24,64 +24,64 @@ const HELP_PAGES = 'faq|troubleshooting|head-units'
 
 const english: DefaultTheme.Config = {
   nav: [
-    { text: 'Get started', link: '/en/quick-start', activeMatch: `^/en/(${GUIDE_PAGES})$` },
-    { text: 'How it works', link: '/en/how-it-works' },
-    { text: 'FAQ', link: '/en/faq', activeMatch: `^/en/(${HELP_PAGES})$` },
-    { text: 'Community', link: '/en/community' },
+    { text: 'Get started', link: '/quick-start', activeMatch: `^/(${GUIDE_PAGES})$` },
+    { text: 'How it works', link: '/how-it-works' },
+    { text: 'FAQ', link: '/faq', activeMatch: `^/(${HELP_PAGES})$` },
+    { text: 'Community', link: '/community' },
   ],
   sidebar: [
     {
       text: 'Start here',
       items: [
-        { text: 'How it works', link: '/en/how-it-works' },
-        { text: 'Get started', link: '/en/quick-start' },
-        { text: 'Check your head unit', link: '/en/check' },
+        { text: 'How it works', link: '/how-it-works' },
+        { text: 'Get started', link: '/quick-start' },
+        { text: 'Check your head unit', link: '/check' },
       ],
     },
     {
       text: 'Set up a relay',
       items: [
-        { text: 'Android phone', link: '/en/android-relay' },
+        { text: 'Android phone', link: '/android-relay' },
         {
           text: 'UFI003 USB dongle',
-          link: '/en/ufi003-relay',
-          items: [{ text: 'Flash the base image', link: '/en/ufi003-flash' }],
+          link: '/ufi003-relay',
+          items: [{ text: 'Flash the base image', link: '/ufi003-flash' }],
         },
-        { text: `Phicomm N1 TV box ${tag('info', 'Advanced')}`, link: '/en/phicomm-n1' },
-        { text: `Other Linux devices ${tag('info', 'Advanced')}`, link: '/en/linux-devices' },
-        { text: 'Carlink app', link: '/en/carlink' },
-        { text: `CarLife ${tag('warning', 'Experimental')}`, link: '/en/carlife' },
-        { text: `Wireless display ${tag('warning', 'Experimental')}`, link: '/en/wireless-display' },
-        { text: `Tesla ${tag('warning', 'Experimental')}`, link: '/en/tesla' },
+        { text: `Phicomm N1 TV box ${tag('info', 'Advanced')}`, link: '/phicomm-n1' },
+        { text: `Other Linux devices ${tag('info', 'Advanced')}`, link: '/linux-devices' },
+        { text: 'Carlink app', link: '/carlink' },
+        { text: `CarLife ${tag('warning', 'Experimental')}`, link: '/carlife' },
+        { text: `Wireless display ${tag('warning', 'Experimental')}`, link: '/wireless-display' },
+        { text: `Tesla ${tag('warning', 'Experimental')}`, link: '/tesla' },
       ],
     },
     {
       text: 'Using it',
       items: [
-        { text: 'Everyday use and settings', link: '/en/daily-use' },
-        { text: 'Trusted HTTPS', link: '/en/trusted-https' },
+        { text: 'Everyday use and settings', link: '/daily-use' },
+        { text: 'Trusted HTTPS', link: '/trusted-https' },
       ],
     },
     {
       text: 'Help',
       items: [
-        { text: 'Troubleshooting', link: '/en/troubleshooting' },
-        { text: 'FAQ', link: '/en/faq' },
-        { text: 'Head units', link: '/en/head-units' },
+        { text: 'Troubleshooting', link: '/troubleshooting' },
+        { text: 'FAQ', link: '/faq' },
+        { text: 'Head units', link: '/head-units' },
       ],
     },
     {
       text: 'Project',
       items: [
-        { text: 'Changelog', link: '/en/changelog' },
-        { text: 'Community', link: '/en/community' },
-        { text: 'Developers', link: '/en/developers' },
-        { text: 'Licensing', link: '/en/licensing' },
+        { text: 'Changelog', link: '/changelog' },
+        { text: 'Community', link: '/community' },
+        { text: 'Developers', link: '/developers' },
+        { text: 'Licensing', link: '/licensing' },
       ],
     },
   ],
   footer: {
-    message: `GitHub: ${repositoryLinks}<br>Contact: ${mail} · <a href="${BASE}en/developers">Developers</a> · <a href="${BASE}en/licensing">Licensing</a> · Site code: <a href="https://opensource.org/license/mit">MIT</a> · Content: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>`,
+    message: `GitHub: ${repositoryLinks}<br>Contact: ${mail} · <a href="${BASE}developers">Developers</a> · <a href="${BASE}licensing">Licensing</a> · Site code: <a href="https://opensource.org/license/mit">MIT</a> · Content: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>`,
     copyright: 'CarPlay and iPhone are trademarks of Apple Inc. OpenXPlay is an independent project and is not affiliated with, endorsed or certified by Apple.',
   },
   outline: { level: [2, 3], label: 'On this page' },
@@ -96,64 +96,64 @@ const english: DefaultTheme.Config = {
 
 const chinese: DefaultTheme.Config = {
   nav: [
-    { text: '开始使用', link: '/quick-start', activeMatch: `^/(${GUIDE_PAGES})$` },
-    { text: '工作原理', link: '/how-it-works' },
-    { text: '常见问题', link: '/faq', activeMatch: `^/(${HELP_PAGES})$` },
-    { text: '交流群', link: '/community' },
+    { text: '开始使用', link: '/zh/quick-start', activeMatch: `^/zh/(${GUIDE_PAGES})$` },
+    { text: '工作原理', link: '/zh/how-it-works' },
+    { text: '常见问题', link: '/zh/faq', activeMatch: `^/zh/(${HELP_PAGES})$` },
+    { text: '交流群', link: '/zh/community' },
   ],
   sidebar: [
     {
       text: '入门',
       items: [
-        { text: '工作原理', link: '/how-it-works' },
-        { text: '开始使用', link: '/quick-start' },
-        { text: '检测车机', link: '/check' },
+        { text: '工作原理', link: '/zh/how-it-works' },
+        { text: '开始使用', link: '/zh/quick-start' },
+        { text: '检测车机', link: '/zh/check' },
       ],
     },
     {
       text: '安装中继',
       items: [
-        { text: '安卓手机', link: '/android-relay' },
+        { text: '安卓手机', link: '/zh/android-relay' },
         {
           text: 'UFI003 随身 Wi-Fi',
-          link: '/ufi003-relay',
-          items: [{ text: '刷入基础镜像', link: '/ufi003-flash' }],
+          link: '/zh/ufi003-relay',
+          items: [{ text: '刷入基础镜像', link: '/zh/ufi003-flash' }],
         },
-        { text: `斐讯 N1 电视盒子 ${tag('info', '进阶')}`, link: '/phicomm-n1' },
-        { text: `其他 Linux 设备 ${tag('info', '进阶')}`, link: '/linux-devices' },
-        { text: 'Carlink 应用', link: '/carlink' },
-        { text: `CarLife ${tag('warning', '实验性')}`, link: '/carlife' },
-        { text: `无线投屏 ${tag('warning', '实验性')}`, link: '/wireless-display' },
-        { text: `特斯拉 ${tag('warning', '实验性')}`, link: '/tesla' },
+        { text: `斐讯 N1 电视盒子 ${tag('info', '进阶')}`, link: '/zh/phicomm-n1' },
+        { text: `其他 Linux 设备 ${tag('info', '进阶')}`, link: '/zh/linux-devices' },
+        { text: 'Carlink 应用', link: '/zh/carlink' },
+        { text: `CarLife ${tag('warning', '实验性')}`, link: '/zh/carlife' },
+        { text: `无线投屏 ${tag('warning', '实验性')}`, link: '/zh/wireless-display' },
+        { text: `特斯拉 ${tag('warning', '实验性')}`, link: '/zh/tesla' },
       ],
     },
     {
       text: '使用',
       items: [
-        { text: '日常使用与设置', link: '/daily-use' },
-        { text: '可信 HTTPS', link: '/trusted-https' },
+        { text: '日常使用与设置', link: '/zh/daily-use' },
+        { text: '可信 HTTPS', link: '/zh/trusted-https' },
       ],
     },
     {
       text: '帮助',
       items: [
-        { text: '故障排查', link: '/troubleshooting' },
-        { text: '常见问题', link: '/faq' },
-        { text: '车机资料', link: '/head-units' },
+        { text: '故障排查', link: '/zh/troubleshooting' },
+        { text: '常见问题', link: '/zh/faq' },
+        { text: '车机资料', link: '/zh/head-units' },
       ],
     },
     {
       text: '项目',
       items: [
-        { text: '更新日志', link: '/changelog' },
-        { text: '交流群', link: '/community' },
-        { text: '开发者', link: '/developers' },
-        { text: '许可证', link: '/licensing' },
+        { text: '更新日志', link: '/zh/changelog' },
+        { text: '交流群', link: '/zh/community' },
+        { text: '开发者', link: '/zh/developers' },
+        { text: '许可证', link: '/zh/licensing' },
       ],
     },
   ],
   footer: {
-    message: `GitHub：${repositoryLinks}<br>联系：${mail} · <a href="${BASE}developers">开发者</a> · <a href="${BASE}licensing">许可证</a> · 网站代码：<a href="https://opensource.org/license/mit">MIT</a> · 内容：<a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hans">CC BY 4.0</a>`,
+    message: `GitHub：${repositoryLinks}<br>联系：${mail} · <a href="${BASE}zh/developers">开发者</a> · <a href="${BASE}zh/licensing">许可证</a> · 网站代码：<a href="https://opensource.org/license/mit">MIT</a> · 内容：<a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hans">CC BY 4.0</a>`,
     copyright: 'CarPlay 和 iPhone 是 Apple Inc. 的商标。OpenXPlay 为独立项目，与 Apple 不存在隶属、认可或认证关系。',
   },
   outline: { level: [2, 3], label: '本页内容' },
@@ -178,7 +178,7 @@ export default defineConfig({
   base: BASE,
   cleanUrls: true,
   lastUpdated: true,
-  srcExclude: ['README.md'],
+  srcExclude: ['README.md', 'public/**'],
   title: SITE_NAME,
 
   head: [
@@ -193,21 +193,21 @@ export default defineConfig({
   // Keep in step with LOCALES in site.ts.
   locales: {
     root: {
-      label: '简体中文',
-      lang: LOCALES.root.lang,
-      title: SITE_NAME,
-      titleTemplate: `:title | ${SITE_NAME}`,
-      description: 'OpenXPlay 让无法安装应用的安卓车机，通过车机自带的浏览器或 Carlink 应用显示 iPhone CarPlay。',
-      themeConfig: chinese,
-    },
-    en: {
       label: 'English',
-      lang: LOCALES.en.lang,
-      link: '/en/',
+      lang: LOCALES.root.lang,
       title: SITE_NAME,
       titleTemplate: `:title | ${SITE_NAME}`,
       description: 'OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps, through the head unit’s browser or Carlink app.',
       themeConfig: english,
+    },
+    zh: {
+      label: '简体中文',
+      lang: LOCALES.zh.lang,
+      link: '/zh/',
+      title: SITE_NAME,
+      titleTemplate: `:title | ${SITE_NAME}`,
+      description: 'OpenXPlay 让无法安装应用的安卓车机，通过车机自带的浏览器或 Carlink 应用显示 iPhone CarPlay。',
+      themeConfig: chinese,
     },
   },
 
@@ -225,7 +225,7 @@ export default defineConfig({
     hostname: SITE_ROOT,
     transformItems(items) {
       // Add x-default (the fallback locale's page, as in seo.ts) to every group of language alternates.
-      return items.map(item => {
+      return items.filter(item => item.url !== '404').map(item => {
         if (!item.links?.length) return item
         const fallback = item.links.find(link => link.lang === LOCALES[FALLBACK_LOCALE].lang)
         const links = item.links.filter(link => link.lang !== 'x-default')

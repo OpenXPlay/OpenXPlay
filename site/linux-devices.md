@@ -2,60 +2,60 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-29
-title: 在其他设备上运行 Linux 中继：设备要求与手动安装
-description: 检查一台 arm64 Linux 开发板、电视盒子或随身 Wi-Fi 能否运行 OpenXPlay Linux 中继，用 Debian 软件包手动安装中继，添加 CarPlay 身份并配对 iPhone，以及怎样更新和卸载中继。
-breadcrumb: 其他设备上的 Linux 中继
+title: 'Linux relay on other devices: requirements and manual install'
+description: Check whether an arm64 Linux board, TV box or dongle can run the OpenXPlay Linux relay, install the relay by hand from its Debian package, add your CarPlay identity, pair your iPhone, and update or remove the relay.
+breadcrumb: Linux relay on other devices
 schema: howto
-howtoName: 在 arm64 Linux 设备上手动安装 OpenXPlay Linux 中继
+howtoName: Install the OpenXPlay Linux relay by hand on an arm64 Linux device
 howtoTools:
-  - 支持 CarPlay 的 iPhone
-  - 带 systemd、NetworkManager 和可开热点 Wi-Fi 的 arm64 Linux 设备（无线连接 iPhone 还需要 BlueZ 和经典蓝牙）
-  - 你自行提供的 Apple 配件（MFi）身份
-  - 浏览器支持 WebCodecs 的安卓车机
+  - iPhone with CarPlay
+  - arm64 Linux device with systemd, NetworkManager and Wi-Fi that can run an access point (plus BlueZ and Bluetooth Classic to connect the iPhone wirelessly)
+  - Apple accessory (MFi) identity that you supply
+  - Android head unit with a browser that supports WebCodecs
 next:
-  text: 日常使用与设置
+  text: Everyday use and settings
   link: /daily-use
 ---
 
-# 其他设备上的 Linux 中继 <Badge type="info" text="进阶" />
+# Linux relay on other devices <Badge type="info" text="Advanced" />
 
-除了 UFI003，OpenXPlay 的 Linux 中继也能在其他 arm64 Linux 设备上运行，例如开发板、电视盒子和随身 Wi-Fi。本页面向熟悉 SSH 和命令行的用户：怎样判断一台设备能否运行中继、怎样手动安装，以及怎样更新和卸载。和其他方案一样，车机上不需要安装任何东西。
+Besides the UFI003, the OpenXPlay Linux relay can run on other arm64 Linux devices: boards, TV boxes and dongles. This page is for people who are comfortable with SSH and the command line. It shows how to tell whether a device can run the relay, how to install it by hand, and how to update and remove it. As always, nothing is installed on the head unit.
 
-UFI003 有自己的引导式安装，见[用 UFI003 随身 Wi-Fi 作中继](/ufi003-relay)。斐讯 N1 也有自己的教程，见[用斐讯 N1 作中继](/phicomm-n1)。OpenXPlay Flasher 暂时还不能安装其他设备。
+The UFI003 has its own guided installer: see [UFI003 USB dongle as the relay](/ufi003-relay). The Phicomm N1 has its own guide too: see [Phicomm N1 as the relay](/phicomm-n1). OpenXPlay Flasher can’t install other devices yet.
 
-::: warning 风险自负
-在其他设备上手动安装中继，风险由你自己承担。请到[交流群](/community)反馈哪些可用、哪些不可用，并附上设备、系统和中继版本。
+::: warning At your own risk
+Installing the relay by hand on another device is at your own risk. Tell the [community](/community) what worked and what didn’t, with the device, its system and the relay version.
 :::
 
-## 设备要求 {#requirements}
+## Requirements {#requirements}
 
-| 要求 | 为什么需要 | 怎样检查 | |
+| Requirement | Why it matters | How to check | |
 | --- | --- | --- | --- |
-| 64 位 ARM（aarch64） | 发布版只为 aarch64 构建。它们是静态链接的 musl 可执行文件，与 glibc 和 Debian 的版本无关。 | `uname -m` 输出 `aarch64`；安装 `.deb` 时，`dpkg --print-architecture` 输出 `arm64` | 必需 |
-| 以 systemd 为 init | 中继作为 systemd 服务 `openxplay-relay.service` 运行。 | `ps -p 1 -o comm=` 输出 `systemd` | 必需 |
-| NetworkManager | 所有热点和 Wi-Fi 连接都由 `nmcli` 建立；它的共享模式配合 `dnsmasq-base` 分配地址（DHCP）。 | `systemctl is-active NetworkManager` | 必需 |
-| BlueZ | 中继通过 D-Bus 使用 `bluetoothd`，并使用 `sdptool`、`hciconfig` 和 `btmgmt` 这几个工具。 | `systemctl is-active bluetooth`；`command -v sdptool hciconfig btmgmt` | 无线连接和 Carlink 时必需 |
-| `iw` | 中继用它读取 Wi-Fi 网卡的工作模式、信道和国家代码。 | `command -v iw` | 必需 |
-| 经典蓝牙（BR/EDR） | 无线 CarPlay 通过 RFCOMM 传输 iAP2，RFCOMM 属于经典蓝牙。只支持低功耗蓝牙（LE）的蓝牙适配器不能用于无线连接。 | `btmgmt info` 中有 `br/edr` | 无线连接时必需 |
-| 内核支持 RFCOMM | 原因同上。UFI003 的内核原本没有 RFCOMM，它的设备支持包补上了 `rfcomm.ko`。 | `sudo modprobe rfcomm` | 无线连接时必需 |
-| Wi-Fi 能作接入点（AP 模式） | 中继自己的热点（默认网络）需要它。 | `iw list` 的 *Supported interface modes* 中有 `AP` | 必需 |
-| 端口未被占用 | 6975 TCP（管理页面）、8443 TCP（车机网页）、7000 起（AirPlay）、5353 UDP（mDNS，由中继自己应答）。 | `ss -ltnup` | 必需 |
-| Apple 配件（MFi）身份 | 没有身份时，中继只提供管理页面。 | 由你自行提供，见[添加 CarPlay 身份](#identity) | 必需 |
-| 5 GHz Wi-Fi | 频段为自动时，只要有 5 GHz 信道能开热点就用 5 GHz，否则用 2.4 GHz 的 6 信道。只有 2.4 GHz 也能用（UFI003 就在 2.4 GHz 上运行 CarPlay），这时请在车机网页中把帧率设为 30。 | `iw list`；`iw reg get` | 非必需 |
-| 第二块 Wi-Fi 网卡，能以客户端连接 5 GHz | 在真车上使用 Carlink 时，中继要用一块不负责 iPhone 热点的 Wi-Fi 网卡，以客户端（station）方式连接车机的 5 GHz Wi-Fi。只有一块 Wi-Fi 网卡时，中继只提供车机浏览器输出。Carlink 还会用到低功耗蓝牙；Wi-Fi 直连可有可无。 | `nmcli device`；`btmgmt info` 中有 `le` | Carlink 时必需 |
-| USB 主机接口（USB-A），内核提供 usbfs 和 TUN/TAP | 用数据线连接时，iPhone 插在中继的 USB-A 接口上；中继通过 usbfs 直接驱动它，并用一块 TAP 虚拟网卡承载 CarPlay 的网络连接。 | `ls /dev/bus/usb /dev/net/tun` | USB 连接时必需 |
+| 64-bit ARM (aarch64) | Releases are built only for aarch64. They are static musl binaries, so the glibc or Debian version doesn’t matter to them. | `uname -m` prints `aarch64`; for the `.deb`, `dpkg --print-architecture` prints `arm64` | Required |
+| systemd as init | The relay runs as the systemd service `openxplay-relay.service`. | `ps -p 1 -o comm=` prints `systemd` | Required |
+| NetworkManager | `nmcli` builds every hotspot and Wi-Fi connection; its shared mode, with `dnsmasq-base`, hands out addresses (DHCP). | `systemctl is-active NetworkManager` | Required |
+| BlueZ | The relay uses `bluetoothd` over D-Bus and the tools `sdptool`, `hciconfig` and `btmgmt`. | `systemctl is-active bluetooth`; `command -v sdptool hciconfig btmgmt` | Required for wireless and Carlink |
+| `iw` | The relay reads the Wi-Fi adapter’s modes, channels and country with it. | `command -v iw` | Required |
+| Bluetooth Classic (BR/EDR) | Wireless CarPlay talks iAP2 over RFCOMM, a Bluetooth Classic protocol. An adapter with only Bluetooth Low Energy can’t connect the iPhone wirelessly. | `btmgmt info` lists `br/edr` | Required for wireless |
+| RFCOMM in the kernel | For the same reason. The UFI003’s kernel lacked it; its device package adds `rfcomm.ko`. | `sudo modprobe rfcomm` | Required for wireless |
+| Wi-Fi that can run an access point (AP mode) | The relay’s own hotspot, the default network, needs it. | `iw list` shows `AP` under *Supported interface modes* | Required |
+| Free ports | 6975 TCP (admin page), 8443 TCP (head-unit page), 7000 upward (AirPlay), 5353 UDP (mDNS, which the relay answers itself). | `ss -ltnup` | Required |
+| Apple accessory (MFi) identity | Without it, the relay only serves the admin page. | You supply it; see [Add your CarPlay identity](#identity) | Required |
+| 5 GHz Wi-Fi | The automatic band uses 5 GHz when a 5 GHz channel can host the hotspot, otherwise 2.4 GHz channel 6. 2.4 GHz only works (the UFI003 runs CarPlay on it); set the frame rate to 30 on the head-unit page. | `iw list`; `iw reg get` | Not required |
+| A second Wi-Fi adapter that can be a 5 GHz station | In a real car, Carlink needs the relay to join the car’s 5 GHz Wi-Fi as a station on an adapter that isn’t running the iPhone’s hotspot. With one Wi-Fi adapter, the relay offers the browser output only. Carlink also uses Bluetooth LE; Wi-Fi Direct is optional. | `nmcli device`; `btmgmt info` lists `le` | Required for Carlink |
+| A USB host port (USB-A), with usbfs and TUN/TAP in the kernel | For a cable connection, the iPhone plugs into a USB-A port on the relay; the relay drives it through usbfs and carries CarPlay’s network over a TAP virtual interface. | `ls /dev/bus/usb /dev/net/tun` | Required for USB |
 
-中继本身占用的资源很少。2026 年 10 月 15 日，Rust 版 Linux 中继的第一个开发构建在 UFI003（382 MB 内存）上空闲运行、没有 CarPlay 会话时，中继约占 2.9 MB 常驻内存，输出进程另占约 1.5 MB；磁盘占用约 5 MB。
+The relay itself is small. On 2026-10-15, the first development build of the Rust Linux relay, idle on a UFI003 (382 MB of RAM) with no CarPlay session, used about 2.9 MB of resident memory plus 1.5 MB for its output process, and about 5 MB of disk.
 
-| 系统 | |
+| System | |
 | --- | --- |
-| Debian 11（bullseye）、12（bookworm）和 13（trixie） | `.deb` 在这三个版本上都经过测试 |
-| UFI003 上的 OpenStick Debian 11（NetworkManager 1.30、BlueZ 5.55） | 正在使用 |
-| 斐讯 N1 上的 Armbian trixie（NetworkManager 1.52、BlueZ 5.82） | 正在使用 |
-| 树莓派 5 上的 Debian 13 | 开发者的参考设备，暂无设备支持包 |
+| Debian 11 (bullseye), 12 (bookworm) and 13 (trixie) | The `.deb` is tested on each |
+| OpenStick Debian 11 on the UFI003 (NetworkManager 1.30, BlueZ 5.55) | In use |
+| Armbian trixie on the Phicomm N1 (NetworkManager 1.52, BlueZ 5.82) | In use |
+| Debian 13 on a Raspberry Pi 5 | The developers’ reference board; no device package for it yet |
 
-::: details 检查设备的命令 {#check}
-通过 SSH 在设备上运行下面的命令。带 `sudo` 的命令需要 root 权限。
+::: details Commands to check a device {#check}
+Run these on the device over SSH. The commands with `sudo` need root.
 
 ```sh
 uname -m; dpkg --print-architecture; . /etc/os-release; echo "$ID $VERSION_ID"
@@ -72,30 +72,30 @@ ls /dev/bus/usb /dev/net/tun
 ss -ltnup | grep -E ':(6975|8443|7000|5353)\b'
 ```
 
-| 命令 | 应看到 |
+| Command | Look for |
 | --- | --- |
-| `uname -m`、`dpkg --print-architecture` | `aarch64` 和 `arm64`；这一行后面的命令输出发行版和版本号 |
+| `uname -m`, `dpkg --print-architecture` | `aarch64` and `arm64`; the rest of the line prints the distribution and its version |
 | `ps -p 1 -o comm=` | `systemd` |
-| `systemctl is-active` | 两行 `active` |
-| `nmcli device` | Wi-Fi 网卡（类型为 `wifi`）；名称不是 `wlan0` 时需要[主机配置](#host-profile) |
-| `command -v` | 每个工具一行路径；少了哪一行，就是缺了哪个工具 |
-| `iw list` | *Supported interface modes* 中有 `AP`；5 GHz 信道及其标记 |
-| `iw reg get` | Wi-Fi 国家代码，它决定各信道的标记 |
-| `btmgmt info` | *supported settings* 中有 `br/edr`；使用 Carlink 时还要有 `le` |
-| `modprobe rfcomm` | 模块列表中出现 `rfcomm`；仅供参考 |
-| `ls` | 两个路径都存在；只有用数据线连接 iPhone 时才需要 |
-| `ss` | 没有输出，或者只有你可以停掉的程序 |
+| `systemctl is-active` | `active`, twice |
+| `nmcli device` | The Wi-Fi interfaces (type `wifi`); a name other than `wlan0` needs a [host profile](#host-profile) |
+| `command -v` | One path per tool; a missing line is a missing tool |
+| `iw list` | `AP` under *Supported interface modes*; the 5 GHz channels and their flags |
+| `iw reg get` | The Wi-Fi country, which sets the channel flags |
+| `btmgmt info` | `br/edr` under *supported settings*, and `le` for Carlink |
+| `modprobe rfcomm` | `rfcomm` in the module list; only a hint |
+| `ls` | Both paths exist; needed only to connect the iPhone by cable |
+| `ss` | Nothing, or only programs you can stop |
 
-中继开自己的热点时，会依次尝试 5 GHz 的 36、40、44、48 和 149 至 165 信道。只有 `iw list` 没有标为 disabled、no IR 或 radar detection 的信道才能开热点；连接 5 GHz 网络时，信道只要不是 disabled 即可。没有合适的 5 GHz 信道时，中继使用 2.4 GHz 的 6 信道。
+For its own hotspot, the relay tries 5 GHz channels 36, 40, 44, 48 and 149 to 165. A channel can host the hotspot only if `iw list` doesn’t mark it disabled, no IR or radar detection; joining a 5 GHz network only needs the channel not to be disabled. If no 5 GHz channel qualifies, the relay uses 2.4 GHz channel 6.
 
-`btmgmt` 那一行前面的空 `printf` 不能省：输入是 `/dev/null` 时 `btmgmt` 会卡住。`--index 0` 表示第一个蓝牙适配器 `hci0`。
+Keep the empty `printf` in the `btmgmt` line: `btmgmt` hangs when its input is `/dev/null`. `--index 0` is the first adapter, `hci0`.
 
-装好中继后，管理页面的“**诊断 → 本机能力**”会显示中继自己检测到的结果：RFCOMM；蓝牙 BR/EDR、LE 和 Secure Connections；每块网卡是否支持 AP 和客户端；能开热点的 5 GHz 信道；Wi-Fi 国家代码；以及缺少的工具。结果与上面的命令不一致时，以管理页面为准。
+After installing, the admin page’s **Diagnostics → This host** shows what the relay itself finds: RFCOMM; Bluetooth BR/EDR, LE and Secure Connections; AP and station support for each interface; the 5 GHz channels that can host the hotspot; the Wi-Fi country; and missing tools. Trust that view over these commands.
 :::
 
-## 安装中继 {#install .step}
+## Install the relay {#install .step}
 
-在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本，现在是 `linux-v0.1.6`。下载 `.deb` 和 `SHA256SUMS`，核对 SHA-256，再连同依赖一起安装：
+Take the newest `linux-v` release from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); it is `linux-v0.1.6` now. Download the `.deb` and `SHA256SUMS`, check the SHA-256, then install the package with its dependencies:
 
 ```sh
 V=0.1.6
@@ -105,20 +105,20 @@ sha256sum --ignore-missing -c SHA256SUMS
 sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 ```
 
-把 `V` 改成最新的版本号。预发布版在文件名中写作 `0.1.7-beta.1` 这样的形式，软件包内部的版本号则是 `0.1.7~beta.1`。
+Set `V` to the newest version. File names write a pre-release such as `0.1.7-beta.1`; inside the package, its version is `0.1.7~beta.1`.
 
-`apt-get` 会同时安装 `bluez`、`network-manager`、`iw`、`dnsmasq-base` 和 1.54 及以上版本的 `init-system-helpers`。这个软件包会：
+`apt-get` also installs `bluez`, `network-manager`, `iw`, `dnsmasq-base` and `init-system-helpers` 1.54 or later. The package:
 
-- 把中继安装到 `/opt/openxplay`；
-- 添加 systemd 服务 `openxplay-relay.service`，首次安装时启用并启动它；
-- 添加更新命令 `/usr/sbin/openxplay-relay-update`；
-- 添加两个 NetworkManager 配置文件：关闭 Wi-Fi 节能，扫描时不使用随机 MAC 地址；
-- 添加时钟保护，它配合 systemd-timesyncd 工作，在使用 chrony 的系统上不做任何事。
+- installs the relay to `/opt/openxplay`;
+- adds the systemd service `openxplay-relay.service`, enabled and started on the first install;
+- adds the update command `/usr/sbin/openxplay-relay-update`;
+- adds two NetworkManager configuration files: Wi-Fi power saving off, and no random MAC address while scanning;
+- adds a clock guard, which works with systemd-timesyncd and does nothing with chrony.
 
-卸载软件包时会保留 `/var/lib/openxplay`。
+Removing the package keeps `/var/lib/openxplay`.
 
-::: details 改用压缩包安装 {#tarball}
-从同一个版本下载 `openxplay-relay-<版本>-linux-aarch64.tar.gz` 和 `SHA256SUMS` 并核对。压缩包不会安装任何依赖，请先装好 `bluez`、`network-manager`、`iw` 和 `dnsmasq-base`，然后运行：
+::: details Install from the tarball instead {#tarball}
+Download `openxplay-relay-<version>-linux-aarch64.tar.gz` and `SHA256SUMS` from the same release and check them. The tarball installs no dependencies, so install `bluez`, `network-manager`, `iw` and `dnsmasq-base` first. Then:
 
 ```sh
 tar -xzf openxplay-relay-$V-linux-aarch64.tar.gz
@@ -127,22 +127,22 @@ sudo sh rust/packaging/install.sh bin/openxplay-relay bin/oxp-relay web admin
 ```
 :::
 
-::: details Wi-Fi 网卡不叫 wlan0？添加主机配置 {#host-profile}
-中继会读取可选的主机配置文件 `/etc/openxplay/host.json`。它通常由设备支持包写入；其他设备可以自己编写。所有字段都可以省略：
+::: details Wi-Fi not called wlan0? Add a host profile {#host-profile}
+The relay reads an optional host profile, `/etc/openxplay/host.json`. A device package normally writes it; on other devices you can write it yourself. Every field is optional:
 
-| 字段 | 默认值 |
+| Field | Default |
 | --- | --- |
-| `model` | 无 |
-| `devicePreset` | `auto`：根据设备树识别 MSM8916 随身 Wi-Fi 和斐讯 N1，否则为 `generic` |
+| `model` | None |
+| `devicePreset` | `auto`: detects MSM8916 dongles and the Phicomm N1 from the device tree, otherwise `generic` |
 | `wifiInterface` | `wlan0` |
-| `carlinkInterface` | 留空：自动选择另一块 Wi-Fi 网卡 |
-| `hotspotChannel` | `0`：自动 |
-| `bluetoothAdapter` | 编号最小的 `hciN` |
-| `hotspotDownGapSeconds` | `15`（0 至 60）：热点关闭后，要等多久再开启下一个热点 |
-| `secureConnections` | `pairing-off`：只在配对窗口开放时关闭蓝牙 Secure Connections；另一个值是 `untouched` |
+| `carlinkInterface` | Empty: another Wi-Fi adapter, chosen automatically |
+| `hotspotChannel` | `0`: automatic |
+| `bluetoothAdapter` | The lowest `hciN` |
+| `hotspotDownGapSeconds` | `15` (0 to 60): how long the hotspot stays down before the next one starts |
+| `secureConnections` | `pairing-off`: Bluetooth Secure Connections off only while pairing is open; or `untouched` |
 | `bluetoothGuardStatus` | `/run/openxplay/bluetooth-guard.json` |
 
-例如，Wi-Fi 网卡是 `wlan1` 时：
+For example, for Wi-Fi on `wlan1`:
 
 ```sh
 sudo mkdir -p /etc/openxplay
@@ -150,107 +150,107 @@ echo '{"wifiInterface": "wlan1"}' | sudo tee /etc/openxplay/host.json
 sudo systemctl restart openxplay-relay
 ```
 
-只要有一个字段无效，中继就会忽略整个文件，并在管理页面中显示错误。设置按下面的顺序生效，后者覆盖前者：内置默认值、主机配置、管理页面中的设置、命令行参数。
+One invalid field makes the relay ignore the whole file and show the error in the admin page. Settings apply in this order, each overriding the one before: built-in defaults, the host profile, the admin page’s settings, the command line.
 :::
 
-## 打开管理页面 {#admin .step}
+## Open the admin page {#admin .step}
 
-用与设备在同一网络中的手机或电脑打开 `https://<设备 IP>:6975`（在设备上运行 `hostname -I` 可以看到它的地址）。能解析 `.local` 名称时，也可以打开 `https://openxplay-admin.local:6975`；手机连接中继的热点时，打开 `https://openxplay-car.local:6975`。很多安卓手机和车机浏览器无法解析这类名称。浏览器会提示中继的自签名证书不受信任，继续访问即可。首次登录的密码是 `openxplay`，登录后请立即修改。
+On a phone or computer on the same network as the device, open `https://<device IP>:6975` (`hostname -I` on the device prints its addresses). Where `.local` names resolve, `https://openxplay-admin.local:6975` works too, and `https://openxplay-car.local:6975` from a phone on the relay’s hotspot; many Android phones and car browsers don’t resolve them. The browser warns about the relay’s self-signed certificate; continue to the page. The first password is `openxplay`: sign in, then change it.
 
-可选的**管理热点** `OpenXPlay-Admin` 默认关闭，需要第二块 Wi-Fi 网卡。在管理页面中开启后，连接这个热点并打开 `https://openxplay-admin.local:6975` 或 `https://10.79.0.1:6975`。
+The optional admin hotspot `OpenXPlay-Admin` is off by default and needs a second Wi-Fi adapter. Once you turn it on in the admin page, join it and open `https://openxplay-admin.local:6975` or `https://10.79.0.1:6975`.
 
-::: details 忘记了管理密码？ {#reset-password}
+::: details Forgot the admin password? {#reset-password}
 ```sh
 sudo systemctl stop openxplay-relay
 sudo /opt/openxplay/bin/openxplay-relay --reset-admin-password
 sudo systemctl start openxplay-relay
 ```
 
-第二条命令把密码重置为 `openxplay` 后退出。
+The second command resets the password to `openxplay` and exits.
 :::
 
-## 添加 CarPlay 身份 {#identity .step}
+## Add your CarPlay identity {#identity .step}
 
-安装包中绝不包含 Apple 配件（MFi）身份，需要你自己提供。在管理页面中打开“**设置 → 身份与证书**”，选择 `identity.pk8` 和 `certificate.p7b`，或者包含这两个文件的 ZIP。
+Install packages never contain an Apple accessory (MFi) identity; you supply your own. In the admin page, open **Settings → Identity and certificates** and choose `identity.pk8` and `certificate.p7b`, or a ZIP that contains both.
 
-也可以手动放入这两个文件：属主为 root、权限为 0600，然后重启中继：
+Or put the files in place by hand, owned by root with mode 0600, and restart the relay:
 
 ```sh
 sudo install -D -m 0600 -o root -g root -t /var/lib/openxplay/mfi identity.pk8 certificate.p7b
 sudo systemctl restart openxplay-relay
 ```
 
-没有这两个文件、但有其他认证来源时，可以在“**设置 → 身份与证书 → MFi 认证设备**”中改用远程 MFi 服务器，或通过 I2C、CH341 转接器连接的认证芯片。
+Without these two files but with another authentication source, choose a remote MFi server, or an authentication chip over I2C or a CH341 adapter, under **Settings → Identity and certificates → MFi target**.
 
-## 完成设置向导 {#setup .step}
+## Answer the setup guide {#setup .step}
 
-管理页面的设置向导会依次询问：
+The admin page’s setup guide asks about:
 
-1. **你的车**。
-2. **输出**：车机浏览器、车机的 Carlink 应用，或两者都用。Carlink 需要第二块 Wi-Fi 网卡，只有一块时只能选车机浏览器。特斯拉的浏览器需要专门适配，见[特斯拉](/tesla)。Linux 上没有[无线投屏](/wireless-display)和 [CarLife](/carlife) 输出。
-3. **iPhone 连接**：“无线”（默认），或者“USB 数据线”：iPhone 用 USB-A 转 Lightning 或 USB-A 转 USB-C 数据线插在中继的 USB-A 接口上，车机仍通过 Wi-Fi 连接中继。
-4. **网络**：“这台中继的热点”或“使用车机热点”。中继自己的热点名为 `OpenXPlay-Linux-XXXX`，密码为 `openxplay`（WPA2），除非你另行设置。
-5. **完成准备**：按列出的事项逐项完成。
+1. **Your car**.
+2. **Output**: the head unit’s browser, its Carlink app, or both. Carlink needs a second Wi-Fi adapter; with one, only the browser is offered. A Tesla’s browser needs its own adaptation; see [Tesla](/tesla). [Wireless display](/wireless-display) and [CarLife](/carlife) aren’t available on Linux.
+3. **iPhone connection**: *Wireless* (the default), or *USB cable* with the iPhone plugged into a USB-A port on the relay through a USB-A to Lightning or USB-A to USB-C cable; the head unit still reaches the relay over Wi-Fi.
+4. **Network**: *This relay’s hotspot* or *Use the car’s hotspot*. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay` (WPA2), unless you set your own.
+5. **Get ready**: work through what it lists.
 
-## 配对 iPhone {#pair .step}
+## Pair the iPhone {#pair .step}
 
-首页提示配对 iPhone 时，点“配对”，配对窗口会开放 10 分钟。在 iPhone 上打开“设置 → 蓝牙”，选择 `OpenXPlay Linux`。
+When Home asks you to pair the iPhone, tap *Pair*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`.
 
-要换一部 iPhone，或者重新配对：在首页或“设置 → iPhone 连接”中移除旧的已配对设备，在 iPhone 的蓝牙设置里忽略 `OpenXPlay Linux`，再重新开放配对。
+To switch to another iPhone or pair again: remove the old paired device on Home or in Settings → iPhone connection, forget `OpenXPlay Linux` in the iPhone’s Bluetooth settings, then open pairing again.
 
-## 在车机上打开 CarPlay {#head-unit .step}
+## Open CarPlay on the head unit {#head-unit .step}
 
-车机连接中继的热点，在浏览器中打开 `https://10.77.0.1:8443/`。中继使用第一个空闲的 `10.77.x.1` 地址，管理页面会列出车机要打开的地址；选择“使用车机热点”时，请打开管理页面列出的地址。第一次打开时接受证书警告，原因见[故障排查](/troubleshooting#certificate-warning)。
+Join the relay’s hotspot from the head unit and open `https://10.77.0.1:8443/` in its browser. The relay takes the first free `10.77.x.1` address, and the admin page lists the head-unit address; with *Use the car’s hotspot*, open the address it lists. Accept the certificate warning the first time; [Troubleshooting](/troubleshooting#certificate-warning) explains why it appears.
 
-使用 Carlink 应用时，见 [Carlink 应用](/carlink)。
+For the Carlink app, see [Carlink app](/carlink).
 
-## 更新中继 {#update}
+## Update the relay {#update}
 
-管理页面的“**关于 → 检查更新**”会显示有没有新版本；想同时看到预发布版，请选择“测试版”渠道。像[安装中继](#install)时一样下载新版本的 `.deb` 和 `SHA256SUMS` 并核对，然后运行：
+In the admin page, **About → Check for updates** shows whether a newer version exists; choose the *Beta* channel to see pre-releases as well. Download the new `.deb` and `SHA256SUMS` and check them as in [Install the relay](#install), then run:
 
 ```sh
 sudo openxplay-relay-update openxplay-relay_${V}_arm64.deb
 ```
 
-更新命令会安装新版本，等中继启动后再观察 15 秒，确认它没有退出或重启；新版本起不来时，它会自动装回上一个版本。设置、配对和身份文件保存在 `/var/lib/openxplay`，更新时保持不变。
+The update command installs the new version, waits for the relay to start and watches it for 15 seconds to make sure it doesn’t exit or restart; if the new version doesn’t come up, it puts the previous one back. Settings, pairings and the identity live in `/var/lib/openxplay` and stay as they are.
 
-| 命令 | 作用 |
+| Command | What it does |
 | --- | --- |
-| `sudo openxplay-relay-update --list` | 列出缓存的版本 |
-| `sudo openxplay-relay-update --rollback` | 装回缓存中比当前版本旧的最新版本 |
+| `sudo openxplay-relay-update --list` | Lists the cached versions |
+| `sudo openxplay-relay-update --rollback` | Puts back the newest cached version older than the current one |
 
-用更新命令装过的版本缓存在 `/var/cache/openxplay/relay`，最多保留 3 个。只有当前版本也在缓存中时才能回退，用 `apt-get` 装的第一个版本不在其中。
+Versions installed with the update command are cached in `/var/cache/openxplay/relay`, at most 3 of them. Rolling back needs the current version in the cache too; the first version, installed with `apt-get`, isn’t there.
 
-## 日志与卸载 {#uninstall}
+## Logs and removal {#uninstall}
 
-查看中继本次开机以来的日志，或者实时跟踪：
+Read the relay’s log since this boot, or follow it live:
 
 ```sh
 journalctl -u openxplay-relay -b
 journalctl -u openxplay-relay -f
 ```
 
-向别人反馈问题时，可以在管理页面的“**日志**”中导出日志文件。
+To report a problem, export the logs from **Logs** in the admin page.
 
-卸载中继：
+Remove the relay:
 
 ```sh
 sudo apt-get purge openxplay-relay
 ```
 
-`/var/lib/openxplay` 中的设置、配对、密钥和身份文件会保留；不再需要时，用 `sudo rm -rf /var/lib/openxplay` 删除。
+The settings, pairings, keys and identity in `/var/lib/openxplay` are kept; delete them with `sudo rm -rf /var/lib/openxplay` once you no longer need them.
 
-## 不支持的设备和系统 {#not-supported}
+## Not supported {#not-supported}
 
-| 设备或系统 | 原因 |
+| Device or system | Why |
 | --- | --- |
-| OpenWrt，以及其他没有 systemd 或 NetworkManager 的系统 | 中继两者都需要 |
-| 32 位 ARM（armv7）、x86 和 RISC-V 设备 | 没有对应的构建 |
-| 只支持低功耗蓝牙（LE）的蓝牙适配器 | 无线 CarPlay 需要经典蓝牙（RFCOMM）；用数据线连接时不需要蓝牙 |
-| ESP32 等单片机 | 无法运行 Linux |
+| OpenWrt, and other systems without systemd or NetworkManager | The relay needs both |
+| 32-bit ARM (armv7), x86 and RISC-V boards | There is no build for them |
+| Bluetooth adapters with only Bluetooth Low Energy | Wireless CarPlay needs Bluetooth Classic (RFCOMM); a cable connection needs no Bluetooth |
+| ESP32 and other microcontrollers | They don’t run Linux |
 
-## 接下来 {#next-steps}
+## Next {#next-steps}
 
-- [日常使用与设置](/daily-use)：每次上车怎么连接，以及车机网页的各项设置。
-- [可信 HTTPS](/trusted-https)：用免费域名去掉证书警告。
-- 遇到问题？请看[故障排查](/troubleshooting)，也欢迎到[交流群](/community)分享你的设备运行情况。
+- [Everyday use and settings](/daily-use): connecting on each drive, and the head-unit page’s settings.
+- [Trusted HTTPS](/trusted-https): remove the certificate warning with a free domain name.
+- Something not working? See [Troubleshooting](/troubleshooting), and tell the [community](/community) how your device did.

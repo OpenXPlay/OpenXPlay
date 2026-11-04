@@ -48,7 +48,7 @@ iPhone 通过安卓或 Linux 中继，连接车机已有的浏览器、Carlink�
 从 https://openxplay.org/agents/skills/index.json 安装 openxplay-guide 技能到 ~/.claude/skills/openxplay-guide/，并核对每个文件的 SHA-256。
 ```
 
-然后新开一个对话，说“帮我安装 OpenXPlay”。其他能读网页的 AI 助手可以只用一次：让它阅读 <https://openxplay.org/agents/skills/openxplay-guide/SKILL.md> 并按说明操作。每个版本的变化见[更新记录](skills/openxplay-guide/CHANGELOG.md)，更多方式见[开始使用](https://openxplay.org/quick-start#ai-assistant)。
+然后新开一个对话，说“帮我安装 OpenXPlay”。其他能读网页的 AI 助手可以只用一次：让它阅读 <https://openxplay.org/agents/skills/openxplay-guide/SKILL.md> 并按说明操作。每个版本的变化见[更新记录](skills/openxplay-guide/CHANGELOG.md)，更多方式见[开始使用](https://openxplay.org/zh/quick-start#ai-assistant)。
 
 ## 与 DiPlay 有什么区别？
 

@@ -2,58 +2,58 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
-title: 刷入 UFI003 基础镜像（OpenStick Debian 11）
-description: UFI003 运行 OpenXPlay Linux 中继所需的 OpenStick v1 基础镜像：下载地址、SHA-256 校验值、刷机前的注意事项，以及已运行 OpenStick 时的重刷命令。
-breadcrumb: 刷入 UFI003 基础镜像
+title: Flash the UFI003 base image (OpenStick Debian 11)
+description: The OpenStick v1 base image the UFI003 needs to run the OpenXPlay Linux relay. Downloads, SHA-256 checksums, cautions before flashing, and the commands to re-flash a dongle that already runs OpenStick.
+breadcrumb: Flash the UFI003 base image
 prev:
-  text: UFI003 作中继
+  text: UFI003 as the relay
   link: /ufi003-relay
 next:
-  text: 继续：安装设备支持包
+  text: 'Continue: install the device package'
   link: /ufi003-relay#step-device
 ---
 
-# 刷入 UFI003 基础镜像
+# Flash the UFI003 base image
 
-UFI003 使用 OpenStick 的 [v1 版本](https://github.com/OpenStick/OpenStick/releases/tag/v1)（2022-02-08 发布），系统为 Debian 11。本页是[不用 Flasher 的命令行安装](/ufi003-relay#manual)的第一步，刷好后回到 [UFI003 作中继](/ufi003-relay#step-device)继续安装设备支持包和中继。推荐[让 AI 帮你安装](/ufi003-relay#ai)或[自己用 Flasher 安装](/ufi003-relay#flasher)：OpenXPlay Flasher 会完成本页的步骤，并自动备份四个基带分区。原厂引导程序读不出这四个分区，所以第一次从原厂系统安装时，Flasher 先换上新的引导程序并擦除 boot 分区，再做备份，备份成功后才继续安装系统。
+The UFI003 runs OpenStick [release v1](https://github.com/OpenStick/OpenStick/releases/tag/v1) (published 2022-02-08), a Debian 11 system. This page is the first step of the [command-line install without Flasher](/ufi003-relay#manual); once the dongle is flashed, go back to [UFI003 as the relay](/ufi003-relay#step-device) to install the device package and the relay. The recommended ways are to [let an AI assistant install it](/ufi003-relay#ai) or to [install it yourself with Flasher](/ufi003-relay#flasher): OpenXPlay Flasher does the steps on this page and backs up the four modem partitions automatically. The original bootloader can’t read those partitions, so on a first install from the stock system Flasher first replaces the bootloader and erases the boot partition, then makes the backup, and installs the system only once the backup has succeeded.
 
-::: danger 刷机前请注意
-- 刷机包会覆盖原机的分区表和引导程序，之后无法再运行原厂安卓系统，OpenStick 也不提供恢复方法。
-- 第一次刷机前先做整机备份，至少保留 `modemst1`、`modemst2`、`fsc`、`fsg` 四个分区：它们存有这台设备独有的基带校准数据，丢失后无法从别处找回。
-- 重刷会清空设备上的所有数据，包括你放入的 CarPlay 身份、iPhone 配对记录和 Wi-Fi 设置。
+::: danger Before you flash
+- The flash package replaces the partition table and the bootloader. The stock Android system won’t run afterwards, and OpenStick offers no way back.
+- Back up the whole device before the first flash, and at the very least the partitions `modemst1`, `modemst2`, `fsc` and `fsg`: they hold modem calibration data unique to this device that can’t be recovered from anywhere else.
+- Flashing erases everything on the device, including the CarPlay identity you added, the iPhone pairings and the Wi-Fi settings.
 :::
 
-## 下载并校验文件 {#downloads}
+## Download and check the files {#downloads}
 
-OpenStick 禁止商用，OpenXPlay 不转发这些文件；请从 OpenStick 的发布页下载，并核对 SHA-256（macOS 用 `shasum -a 256 文件名`，Linux 用 `sha256sum 文件名`）：
+OpenStick forbids commercial use, and OpenXPlay doesn’t redistribute these files: download them from OpenStick’s release page and check their SHA-256 (`shasum -a 256 FILE` on macOS, `sha256sum FILE` on Linux):
 
-| 文件 | 用途 |
+| File | Purpose |
 | --- | --- |
-| [`debian.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/debian.zip)（约 377 MB） | Debian 11 根文件系统 `rootfs.img`，另带一份 `boot.img` |
-| [`boot-ufi001c.img`](https://github.com/OpenStick/OpenStick/releases/download/v1/boot-ufi001c.img) | 内核引导分区，UFI003 用这一个；与 `debian.zip` 中通用的 `boot.img` 不是同一个文件 |
-| [`base-generic.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/base-generic.zip) | 引导程序等底层分区和刷机脚本，只在第一次从原厂系统刷机时需要 |
+| [`debian.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/debian.zip) (about 377 MB) | The Debian 11 root file system `rootfs.img`, plus a copy of `boot.img` |
+| [`boot-ufi001c.img`](https://github.com/OpenStick/OpenStick/releases/download/v1/boot-ufi001c.img) | The kernel boot partition for the UFI003; not the same file as the generic `boot.img` in `debian.zip` |
+| [`base-generic.zip`](https://github.com/OpenStick/OpenStick/releases/download/v1/base-generic.zip) | The bootloader and other low-level partitions with a flash script, needed only for the first flash from the stock system |
 
-::: details SHA-256 校验值 {#checksums}
-| 文件 | SHA-256 |
+::: details SHA-256 checksums {#checksums}
+| File | SHA-256 |
 | --- | --- |
 | `debian.zip` | `8be6f100e8fc3f612e0b03c199d01f51d38b953a19343ad0f4cf7a2f7a57f603` |
 | `boot-ufi001c.img` | `a2b527e98a5cee0a4c3cad5099af7ce0648246f19d20d13ef2c168e400c81b33` |
 | `base-generic.zip` | `b609b91c94b07d7cde4141a578df5c1440fbe75140f0c645c7124356774e2418` |
 :::
 
-发布页上的其他 `boot-*.img` 和 `firmware-*.zip` 属于其他型号，UFI003 用不到。
+The other `boot-*.img` and `firmware-*.zip` files on the release page are for other models; the UFI003 doesn’t need them.
 
-## 第一次从原厂系统刷机 {#first-flash}
+## First flash from the stock system {#first-flash}
 
-第一次刷机需要 `base-generic.zip` 中的引导程序和刷机脚本 `flash.sh`。**不要直接运行这个脚本**，原因如下；请逐条执行其中的命令，确认四个分区都已从你的设备取回、文件确实被替换后再继续。
+The first flash needs the bootloader and the flash script `flash.sh` from `base-generic.zip`. **Don’t run the script as is**, for the reasons below: run its commands line by line, and continue only once all four partitions have been read from your device and the files really were replaced.
 
-::: details 为什么不能直接运行 flash.sh？ {#flash-script}
-`flash.sh` 先擦除引导分区、换上新的引导程序，然后才把 `modemst1`、`modemst2`、`fsc`、`fsg` 四个分区备份成同名的 `.bin` 文件，最后再写回设备。压缩包里本来就带着这四个 `.bin` 文件，其中三个有实际内容，但不是你这台设备的数据；脚本不会因为某一步失败而停下，备份失败时，写回设备的就是压缩包里的这几个文件。
+::: details Why not just run flash.sh? {#flash-script}
+`flash.sh` erases the boot partition and installs the new bootloader first, only then backs up the partitions `modemst1`, `modemst2`, `fsc` and `fsg` to `.bin` files of the same names, and finally writes them back. The zip already contains four such `.bin` files, three of them with real content that isn’t your device’s data. The script doesn’t stop when a step fails, so if the backup fails, the zip’s files are what gets written to your device.
 :::
 
-## 已运行 OpenStick 时重刷 {#reflash}
+## Re-flash a dongle that runs OpenStick {#reflash}
 
-已经运行 OpenStick 的 UFI003 重刷时，只需要写入根文件系统和引导分区。解压 `debian.zip`，把 `boot-ufi001c.img` 放进其中的 `debian` 目录，在该目录里执行下面的命令。不要直接运行目录中的 `flash.sh`：它写入的是通用的 `boot.img`。
+To re-flash a UFI003 that already runs OpenStick, only the root file system and the boot partition need writing. Unpack `debian.zip`, put `boot-ufi001c.img` in its `debian` directory and run these commands there. Don’t run that directory’s `flash.sh` as it is: it writes the generic `boot.img`.
 
 ```sh
 adb reboot bootloader
@@ -62,6 +62,6 @@ fastboot flash boot boot-ufi001c.img
 fastboot reboot
 ```
 
-::: warning 写入 rootfs.img 时要加 -S 200M
-用 fastboot 写入 `rootfs.img` 时加上 `-S 200M`（`debian.zip` 自带的 `flash.sh` 已经这样做）。按默认的约 256 MB 分块传输，UFI003 会在中途失败。
+::: warning Write rootfs.img with -S 200M
+Write `rootfs.img` with fastboot’s `-S 200M` (the `flash.sh` in `debian.zip` does). With the default chunks of about 256 MB, the UFI003 fails halfway through.
 :::

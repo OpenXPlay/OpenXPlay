@@ -2,164 +2,164 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
-title: 用 UFI003 随身 Wi-Fi 作中继（Linux 中继）
-description: 把 UFI003 USB 随身 Wi-Fi 设为 OpenXPlay Linux 中继：推荐让电脑上的 AI 助手读安装说明、用 OpenXPlay Flasher 安装，也可以自己用 Flasher 图形界面安装；装好后添加 CarPlay 身份、配对 iPhone，在车机浏览器中打开 CarPlay。
-breadcrumb: UFI003 作中继
+title: UFI003 USB dongle as the relay (Linux relay)
+description: Set up a UFI003 USB dongle as the OpenXPlay Linux relay. The recommended way is to let an AI assistant on your computer read the install instructions and install it with OpenXPlay Flasher; you can also install it yourself in the Flasher app. Then add your CarPlay identity, pair your iPhone and open CarPlay in the head unit’s browser.
+breadcrumb: UFI003 as the relay
 schema: howto
-howtoName: 用 UFI003 随身 Wi-Fi 作 Linux 中继，在车机浏览器中显示 iPhone CarPlay
+howtoName: Show iPhone CarPlay in the head unit’s browser with a UFI003 USB dongle as the Linux relay
 howtoTools:
-  - 支持 CarPlay 的 iPhone
-  - UFI003 USB 随身 Wi-Fi
-  - Windows 10 / 11 或 macOS 12 及以上的电脑
-  - 你自行提供的 Apple 配件（MFi）身份
-  - 浏览器支持 WebCodecs 的安卓车机
+  - iPhone with CarPlay
+  - UFI003 USB dongle
+  - A computer with Windows 10 / 11 or macOS 12 or later
+  - Apple accessory (MFi) identity that you supply
+  - Android head unit with a browser that supports WebCodecs
 next:
-  text: 日常使用与设置
+  text: Everyday use and settings
   link: /daily-use
 ---
 
-# 用 UFI003 随身 Wi-Fi 作中继
+# UFI003 USB dongle as the relay
 
-UFI003 是一款 msm8916 4G USB 随身 Wi-Fi。刷入 OpenStick Debian 11 系统后，它可以运行 OpenXPlay 的 Linux 中继：通电后自动启动，车机用自带的浏览器显示 CarPlay。[OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) 提供了所需的支持文件。
+The UFI003 is an msm8916 4G USB dongle. With the OpenStick Debian 11 system flashed onto it, it runs the OpenXPlay Linux relay: the relay starts by itself when the dongle is powered, and the head unit shows CarPlay in its own browser. [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) has the support files it needs.
 
-UFI003 的 Wi-Fi 没有 5 GHz 频段，热点工作在 2.4 GHz。
+The UFI003’s Wi-Fi has no 5 GHz band, so its hotspot runs on 2.4 GHz.
 
-## 两种安装方式 {#install}
+## Two ways to install {#install}
 
-安装由电脑上的 [OpenXPlay Flasher](https://github.com/OpenXPlay/OpenXPlay-Flasher)（应用中显示为“OpenXPlay 刷机工具”）完成。它会把三层装到随身 Wi-Fi 上：基础系统（OpenStick Debian 11）、设备支持和 OpenXPlay 中继。以后中继出新版本时，通常只需要更新中继这一层，不用重新刷机。
+[OpenXPlay Flasher](https://github.com/OpenXPlay/OpenXPlay-Flasher) on your computer does the installing. It puts three layers on the dongle: the base system (OpenStick Debian 11), device support and the OpenXPlay relay. When a new relay version comes out, usually only the relay layer needs updating, without flashing again.
 
-| | 让 AI 帮你安装（推荐） | 自己用 Flasher 安装 |
+| | Let an AI assistant install it (recommended) | Install it yourself with Flasher |
 | --- | --- | --- |
-| 怎样操作 | 把一段话发给电脑上的 AI 助手，在关键处确认 | 打开 Flasher 应用，按提示一步步操作 |
-| 下载和核对文件 | AI 按签名的软件包列表下载并核对 | 你按 Flasher 给出的链接下载，Flasher 核对 |
-| 适合 | 已经在用 Claude Code、Codex 等能运行命令的 AI 助手 | 想自己掌握每一步，或者没有这类 AI 助手 |
+| What you do | Send one message to the AI assistant on your computer and confirm at the key moments | Open the Flasher app and follow its steps |
+| Downloading and checking files | The AI downloads them from the signed package list and checks them | You download them from the links Flasher shows; Flasher checks them |
+| Suits you if | You already use an AI assistant that can run commands, such as Claude Code or Codex | You want to see every step yourself, or you don’t use such an assistant |
 
-两种方式用的是同一个 Flasher 和同一份签名的软件包列表，基带分区的备份和各项安全检查也完全相同。Windows 从 0.2.0-beta.2 起原生支持 adb 和 fastboot；所需驱动及真机验证结果见下文。
+Both ways use the same Flasher and the same signed package list, with the same modem-partition backup and the same safety checks. Windows has native adb and fastboot support from 0.2.0-beta.2; see below for its driver requirements and hardware validation results.
 
-## 让 AI 帮你安装（推荐） {#ai}
+## Let an AI assistant install it (recommended) {#ai}
 
-我们为 AI 助手写了一份[安装说明](https://openxplay.org/agents/ufi003-install.md)。AI 助手读了它，就会在你的电脑上下载 Flasher 和所需文件、核对 SHA-256，再用 Flasher 的命令行完成安装；遇到报错时，它能按电脑的实际情况处理。你需要一个能在电脑上运行命令的 AI 助手，例如 [Claude Code](https://claude.com/claude-code) 或 [OpenAI Codex](https://github.com/openai/codex)。
+We wrote [install instructions for AI assistants](https://openxplay.org/agents/ufi003-install.md). An assistant that has read them downloads Flasher and the files it needs on your computer, checks their SHA-256 and installs everything with Flasher’s command line; when something goes wrong, it can deal with your computer’s actual situation. You need an AI assistant that can run commands on your computer, such as [Claude Code](https://claude.com/claude-code) or [OpenAI Codex](https://github.com/openai/codex).
 
-1. 用 USB 把 UFI003 直接插到电脑上，不要经过无独立供电的集线器。其他手机最好先拔掉。
-2. 打开 AI 助手，把下面这段话发给它：
+1. Plug the UFI003 directly into the computer by USB, not through an unpowered hub. Unplug other phones if you can.
+2. Open the AI assistant and send it this message:
 
    ```text
-   请阅读 https://openxplay.org/agents/ufi003-install.md
-   严格按照其中的说明，用 OpenXPlay Flasher 把我插在这台电脑上的
-   UFI003 随身 Wi-Fi 装成 OpenXPlay 中继。
-   每一步先告诉我要做什么；清空设备之前，等我输入设备序列号确认。
-   请用中文和我交流。
+   Read https://openxplay.org/agents/ufi003-install.md
+   and follow it exactly to turn the UFI003 USB dongle plugged into
+   this computer into an OpenXPlay relay with OpenXPlay Flasher.
+   Tell me what each step will do before you run it, and wait for me
+   to type the dongle's serial number before anything erases it.
    ```
 
-3. 按 AI 的提问回答。这几件事需要你亲自做：
-   - 确认 AI 找到的设备就是你的 UFI003，核对它报出的序列号；
-   - 清空设备前，亲手输入设备序列号；
-   - 安装过程中不要拔出设备，让电脑保持供电、不进入睡眠；
-   - 添加你自己的 CarPlay 身份，见下面的[添加 CarPlay 身份](#step-identity)。
+3. Answer the assistant’s questions. These things are up to you:
+   - check that the device the assistant found is your UFI003, by its serial number;
+   - type the dongle’s serial number yourself before anything erases it;
+   - keep the dongle plugged in, and keep the computer powered and awake, while it installs;
+   - add your own CarPlay identity, as described under [Add your CarPlay identity](#step-identity).
 
-装好后，AI 会告诉你怎样打开中继的管理页面，之后从[选择网络](#step-network)继续。
+When the install is done, the assistant tells you how to open the relay’s admin page. Then carry on from [Choose the network](#step-network).
 
-::: warning 请留意 AI 运行的命令
-AI 助手会在你的电脑上运行命令。请使用你信任的 AI 助手，并看清它要运行的每条命令；不明白时请它先解释。安装说明要求它只操作这台 UFI003、不碰电脑上的其他设备、不读取你的身份文件、不关闭签名校验，也不自行用 fastboot 改写分区。
+::: warning Watch the commands the assistant runs
+The AI assistant runs commands on your computer. Use an assistant you trust and look at each command it wants to run; ask it to explain anything you don’t understand. The instructions tell it to work only on this UFI003, leave the computer’s other devices alone, never read your identity files, never turn off the signature check and never rewrite partitions with fastboot by itself.
 :::
 
-## 自己用 Flasher 安装 {#flasher}
+## Install it yourself with Flasher {#flasher}
 
-Flasher 是 Windows 和 macOS 上的桌面应用。用 USB 把 UFI003 接到电脑上，它会识别设备、列出三层的当前版本，并引导你完成安装。
+Flasher is a desktop app for Windows and macOS. Connect the UFI003 to the computer by USB and it recognises the dongle, shows the version of each layer and takes you through the install.
 
-::: info 在 Windows 上
-0.2.0-beta.2 及更新版本通过 WinUSB 原生支持 adb 和 fastboot，无需先运行外部 adb 服务；电脑上已在运行的 adb 服务也可以继续使用。
+::: info On Windows
+Version 0.2.0-beta.2 and later support adb and fastboot natively through WinUSB. An external adb server is not required; an already-running adb server can still be used.
 
-扫描设备无需 adb 驱动，实际通信需要对应接口使用 **WinUSB** 驱动。设备能列出但无法通信时，请在“设备管理器”中检查 **ADB 接口**或进入引导加载程序后的 **fastboot 接口**；这两种模式可能需要分别安装驱动。只调整对应接口，保留 **RNDIS 网卡**及其网络驱动，不要替换整个 USB 复合设备的驱动。
+Listing devices needs no adb driver, but communication requires the matching interface to use the **WinUSB** driver. If a device is listed but cannot communicate, check its **ADB interface** in Device Manager, or its **fastboot interface** after entering the bootloader; each mode may need its driver installed separately. Change only that interface. Keep the **RNDIS network adapter** and its network driver intact, and do not replace the driver for the whole USB composite device.
 
-如果 UFI003 的 fastboot 硬件 ID 为 `USB\VID_18D1&PID_D00D`，可使用 [Microsoft Update Catalog 中已签名的 Android Bootloader Interface 驱动](https://www.catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=76f2c233-6100-4a64-8bee-113c2da0991d)，已在 Windows 11 上验证。安装时只选硬件 ID 匹配的 fastboot 设备，保留 RNDIS 网卡和整个复合设备的驱动。
+For a UFI003 fastboot device with hardware ID `USB\VID_18D1&PID_D00D`, the [signed Android Bootloader Interface driver in Microsoft Update Catalog](https://www.catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=76f2c233-6100-4a64-8bee-113c2da0991d) has been verified on Windows 11. Install it only for the fastboot device with that exact ID; leave the RNDIS adapter and the whole composite device's drivers intact.
 :::
 
-### Windows 驱动提示与安装 {#flasher-windows-drivers}
+### Windows driver prompts and installation {#flasher-windows-drivers}
 
-**软件会提示安装驱动吗？** 0.2.0-beta.2 在读取设备或打开 fastboot 接口失败时，会在界面的错误区显示底层错误。缺少已注册的 WinUSB 接口时，可能看到 `needs a WinUSB driver`、`install the ADB/fastboot WinUSB driver` 或 `has no WinUSB … interface`。这些底层信息目前可能是英文；应用不会自动下载或安装驱动，也没有一键安装驱动的按钮。
+**Does the app prompt for drivers?** In 0.2.0-beta.2, failures while reading a device or opening fastboot appear in the app's error area. A missing registered WinUSB interface may show `needs a WinUSB driver`, `install the ADB/fastboot WinUSB driver` or `has no WinUSB … interface`. These low-level details may remain in English. The app does not download or install drivers and has no one-click driver installer.
 
-1. 在“设备管理器”中找到这台 UFI003 的 ADB 或 fastboot 接口，打开“属性 → 详细信息 → 硬件 ID”，核对当前模式的 ID。不要选择 RNDIS 网卡或整个 USB 复合设备。
-2. 下载匹配硬件 ID、Windows 版本和处理器架构的已签名驱动，并解压到一个目录。上面的 Microsoft Update Catalog 驱动适用于已验证的 `USB\VID_18D1&PID_D00D` fastboot 接口；其他 ID 应使用其对应的驱动。
-3. 右键该接口，选择“更新驱动程序 → 浏览我的电脑以查找驱动程序”，选择解压目录并完成安装。Windows 的手动安装步骤见 [Microsoft 说明](https://support.microsoft.com/en-us/windows/update-drivers-through-device-manager-in-windows-ec62f46c-ff14-c91d-eead-d7126dc1f7b6)。保持驱动签名校验开启。
-4. 回到 Flasher 点击“重新读取”。ADB 和 fastboot 是不同接口，进入 fastboot 后可能还需要为新出现的接口安装驱动。若安装任务已失败，按应用提示重新读取并选择“修复”；不要手工刷写分区。
+1. Find this UFI003's ADB or fastboot interface in Device Manager. Open Properties → Details → Hardware Ids and check the ID for its current mode. Do not select the RNDIS adapter or the whole USB composite device.
+2. Download and extract a signed driver matching that hardware ID, Windows version and architecture. The Microsoft Update Catalog driver above covers the verified `USB\VID_18D1&PID_D00D` fastboot interface; other IDs need their own matching driver.
+3. Right-click that interface, choose Update driver → Browse my computer for drivers, and select the extracted folder. See [Microsoft's manual installation instructions](https://support.microsoft.com/en-us/windows/update-drivers-through-device-manager-in-windows-ec62f46c-ff14-c91d-eead-d7126dc1f7b6). Keep driver signature enforcement enabled.
+4. Return to Flasher and choose Read again. ADB and fastboot are separate interfaces, so the newly appearing fastboot interface may need another driver installation. If an install job has failed, follow the app's instructions to read the device again and choose Repair; do not flash partitions manually.
 
-如果设备管理器中插拔前后完全没有新增 USB 设备，先检查供电、USB 连接和直连端口；这与已列出设备但缺少通信驱动的情况不同。刷写进行中不要为了排查而拔出设备。
+If plugging the dongle in adds no USB device in Device Manager, check power, the USB connection and a direct USB port first. This differs from a listed device whose communication driver is missing. Do not unplug the dongle to troubleshoot while flashing is in progress.
 
-::: info Windows 真机验证
-已使用官方 0.2.0-beta.2 Windows amd64 版，在 UFI003 上完成从原厂 Android 4.4 安装 OpenStick Debian 11（内核 `5.15.0-handsomekernel+`）、设备支持 0.2.1 和中继 0.1.5~beta.2。49 步安装及各层校验全部通过，包括四个基带校准分区的自动备份与恢复；也已验证中继单独升级、fastboot 设备身份读取和向 RAM 传输数据。驱动仍需按设备实际枚举的接口和硬件 ID 匹配。
+::: info Verified on Windows hardware
+The official 0.2.0-beta.2 Windows amd64 build completed an install on a UFI003 from stock Android 4.4 to OpenStick Debian 11 (kernel `5.15.0-handsomekernel+`), device support 0.2.1 and relay 0.1.5~beta.2. All 49 install steps and layer checks passed, including automatic backup and restoration of the four modem calibration partitions. A separate relay upgrade, fastboot device identification and data transfer to RAM also passed. Drivers must still match the device's actual USB interfaces and hardware IDs.
 
-签名软件包列表推荐修复后的[设备支持包](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases) 0.2.1 及以上版本。请保持签名校验开启，并使用与列表匹配的文件。
+The signed package list recommends the corrected [device support bundle](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases), version 0.2.1 or later. Keep signature verification enabled and use files that match the list.
 :::
 
-::: details 下载并打开 Flasher {#flasher-download}
-从 [Releases](https://github.com/OpenXPlay/OpenXPlay-Flasher/releases) 选择 **0.2.0-beta.2 或更新版本**（包括预发布版），下载对应系统的安装包，并用该版本的 `SHA256SUMS` 核对文件的 SHA-256。安装包没有使用 Apple 或 Microsoft 证书签名，所以第一次打开时系统会先询问。
+::: details Download and open Flasher {#flasher-download}
+Choose **0.2.0-beta.2 or later**, including pre-releases, from [Releases](https://github.com/OpenXPlay/OpenXPlay-Flasher/releases). Download the build for your system and check its SHA-256 against that release's `SHA256SUMS` file. The builds aren’t signed with an Apple or Microsoft certificate, so the system asks before opening them the first time.
 
-- **macOS 12 或更高版本**（Apple 芯片和 Intel，`OpenXPlay-Flasher-<版本>-macos-universal.dmg`）：把应用拖进“应用程序”文件夹，然后打开一次。macOS 15 或更高版本出现“未打开”提示时，选择“完成”，再到“系统设置 → 隐私与安全性”中，在关于 OpenXPlay Flasher 的提示旁选择“仍要打开”；macOS 12 至 14 按住 Control 键点按应用，选择“打开”，再选择“打开”。
-- **Windows 10 或 11**（`openxplay-flasher-windows-amd64.exe`，Arm 电脑用 `-arm64.exe`）：出现“Windows 已保护你的电脑”时，选择“更多信息”，再选择“仍要运行”。如果提示缺少 Microsoft Edge WebView2 运行时，请安装后重新打开。
+- **macOS 12 or later** (Apple silicon and Intel, `OpenXPlay-Flasher-<version>-macos-universal.dmg`): drag the app to Applications and open it once. On macOS 15 or later, when it says the app wasn’t opened, choose *Done*, then go to System Settings → Privacy & Security and choose *Open Anyway* next to the note about OpenXPlay Flasher. On macOS 12 to 14, Control-click the app, choose *Open*, then *Open* again.
+- **Windows 10 or 11** (`openxplay-flasher-windows-amd64.exe`, or `-arm64.exe` on Arm PCs): when *Windows protected your PC* appears, choose *More info*, then *Run anyway*. If the app says the Microsoft Edge WebView2 runtime is missing, install it and open the app again.
 :::
 
-打开 Flasher 后，它会按下面的顺序引导你：
+Once it’s open, Flasher takes you through these steps:
 
-1. **连接**：用 USB 把 UFI003 接到电脑上。Flasher 会显示设备的序列号和各层的当前版本。全新的随身 Wi-Fi 还在运行原厂系统，会出现在“另有 … 台 Android 设备已连接，已忽略”的列表中，显示型号（通常是 `msm8916_32_512`）和序列号；核对后选择“这是运行原厂固件的 UFI003”，Flasher 会读取型号确认。
-2. **选择**：最上面是建议的操作，例如全新设备的“从原厂固件安装 OpenXPlay”，或已装好设备的“安装 / 更新中继”。其他会清空设备的操作（重刷基础系统、完整重装、修复）收在“重新刷机（擦除设备）”中。
-3. **准备**：Flasher 列出所需的每个文件、它的 SHA-256 和下载链接，但不会自己下载。请通过链接或你信任的其他来源下载，再点“选择文件…”或“选择多个文件…”。Flasher 按 SHA-256 识别文件，文件名不影响匹配。安装完成前不要移动或删除这些文件。
-4. **备份**（仅在刷入基础系统时）：Flasher 从设备读取 `modemst1`、`modemst2`、`fsc`、`fsg` 四个分区，保存到电脑“文稿”文件夹中的 `OpenXPlay Backups`。这是这台设备独有的基带校准数据，请长期保留这个文件夹。原厂引导程序读不出这四个分区，所以从原厂固件安装时，Flasher 先换上新的引导程序并擦除 boot 分区，再做备份，备份成功后才继续安装系统。会清空设备的操作还要你输入设备的序列号确认。
-5. **刷写**：Flasher 先显示这次安装的内容和大约要多久（从原厂固件开始约 6 到 7 分钟）。期间设备会重启几次，不要拔出设备。如果中途断开，重新连接后选择“修复”：Flasher 会从中断的地方继续，并用之前的备份恢复这四个分区。
-6. **完成**：Flasher 核对各层的版本，并在“接下来”中提供[添加 CarPlay 身份](#step-identity)和通过 USB 打开中继管理页面的按钮。
+1. **Connect**: plug the UFI003 into the computer. Flasher shows the dongle’s serial number and the version of each layer. A brand-new dongle still runs its original firmware and appears in the list of *other Android devices … connected and ignored*, with its model (usually `msm8916_32_512`) and serial number; check them, then choose *This is a UFI003 with its original firmware*, and Flasher reads the model to confirm it.
+2. **Choose**: the suggested action comes first, for example *Install OpenXPlay from the original firmware* for a new dongle or *Install / update relay* for one that is already set up. The other actions that erase the dongle (reinstall the base system, full reinstall, repair) are under *Reflash (erases the device)*.
+3. **Prepare**: Flasher lists each file it needs with its SHA-256 and download links, but doesn’t download anything itself. Download the files from the links or another source you trust, then choose *Choose file…* or *Choose several files…*. Flasher recognises the files by their SHA-256, so their names don’t matter. Don’t move or delete them until the install has finished.
+4. **Back up** (only when the base system is flashed): Flasher reads the `modemst1`, `modemst2`, `fsc` and `fsg` partitions from the dongle and saves them to `OpenXPlay Backups` in your Documents folder. They hold modem calibration data unique to this dongle, so keep that folder for good. The original bootloader can’t read those partitions, so on an install from the original firmware Flasher first replaces the bootloader and erases the boot partition, then makes the backup, and installs the system only once the backup has succeeded. Actions that erase the dongle also ask you to type its serial number.
+5. **Flash**: Flasher first shows what this install does and roughly how long it takes (6 to 7 minutes from the original firmware). The dongle restarts a few times; don’t unplug it. If the connection is lost along the way, reconnect and choose *Repair*: Flasher carries on where it stopped and restores those four partitions from the earlier backup.
+6. **Done**: Flasher checks the version of each layer, and under *Next steps* offers buttons to [add your CarPlay identity](#step-identity) and to open the relay’s admin page over USB.
 
-::: details 软件包列表与签名 {#flasher-catalog}
-Flasher 从本网站读取一份签名的软件包列表，其中记录了各层的版本、下载链接和 SHA-256。签名证明这份列表来自 OpenXPlay，你选择的每个文件都要与列表中的 SHA-256 一致。需要用自己的软件包列表时，可以在“设置”中关闭“校验软件包列表签名”；关闭后，文件仍按列表中的 SHA-256 核对，基础系统的文件也仍须与 OpenStick v1 完全一致。
+::: details Package list and signature {#flasher-catalog}
+Flasher reads a signed package list from this website with the version, download links and SHA-256 of each layer. The signature shows that the list comes from OpenXPlay, and every file you choose must match the SHA-256 in it. If you need your own package list, you can turn off *Verify the package list signature* in Settings; files are then still checked against the SHA-256 in the list, and the base system’s files must still match OpenStick v1 exactly.
 :::
 
-## 安装之后 {#after-install}
+## After the install {#after-install}
 
-无论用哪种方式安装，接下来的步骤都一样。
+Whichever way you installed, the next steps are the same.
 
-## 添加 CarPlay 身份 {#step-identity .step}
+## Add your CarPlay identity {#step-identity .step}
 
-安装包中绝不包含 Apple 配件（MFi）身份，需要你自己提供。随身 Wi-Fi 用 USB 接在电脑上时，打开 Flasher，在“接下来”中点“选择身份文件或 ZIP…”，选中私钥和证书（DER 或 PEM 格式，顺序和文件名不限），或者包含 `identity.pk8` 和 `certificate.p7b` 的 ZIP。Flasher 会通过 USB 把它们传到设备上，并重启中继。
+Install packages never contain an Apple accessory (MFi) identity; you supply your own. With the dongle connected to the computer by USB, open Flasher and choose *Choose identity files or ZIP…* under *Next steps*. Select the private key and the certificate (DER or PEM, in any order and with any file names), or a ZIP containing `identity.pk8` and `certificate.p7b`. Flasher copies them to the dongle over USB and restarts the relay.
 
-## 打开管理页面 {#step-admin .step}
+## Open the admin page {#step-admin .step}
 
-随身 Wi-Fi 用 USB 接在电脑上时，在 Flasher 的“接下来”中点“通过 USB 打开中继管理页面”。在车上，手机连接中继的热点 `OpenXPlay-Linux-XXXX`（密码是 `openxplay`，除非你另行设置），再打开 `https://openxplay-car.local:6975` 或 `https://10.77.0.1:6975`。浏览器会提示证书警告，继续访问即可。首次登录的密码是 `openxplay`，登录页上也写着；登录后页面会提示你设置自己的管理密码。
+With the dongle connected to the computer by USB, choose *Open the relay admin page over USB* under *Next steps* in Flasher. In the car, join the relay’s hotspot `OpenXPlay-Linux-XXXX` from a phone (the password is `openxplay` unless you set your own), then open `https://openxplay-car.local:6975` or `https://10.77.0.1:6975`. The browser shows a certificate warning; carry on to the page. The first password is `openxplay`, also shown on the sign-in page; after you sign in, the page asks you to set your own.
 
-首页显示连接的进度：iPhone → 这台中继 → 车机，下方只有当前需要做的一件事。点任一步可以查看详情和处理方法。首页顶部的齿轮打开设置。
+Home shows how far the connection has got, iPhone → this relay → car, with only the one thing to do now below it. Tap any step for its details and fix. The gear at the top of Home opens Settings.
 
-改用车机热点时（见下一步），手机连接车机的热点，打开 `https://openxplay-car.local:6975`，或者车机热点分配给中继的 IP：`https://<中继的 IP>:6975/`。iPhone、Mac 和 Windows 电脑能打开 `.local` 地址，很多安卓手机不能，这时请用 IP 地址。不输入 `https://` 也能打开。UFI003 只有一块 Wi-Fi 网卡，不能开管理热点。
+With the car’s hotspot (see the next step), join the car’s hotspot from the phone and open `https://openxplay-car.local:6975`, or the IP the car’s hotspot gave the relay: `https://<relay IP>:6975/`. iPhones, Macs and Windows computers open `.local` addresses; many Android phones don’t, so use the IP address there. An address typed without `https://` opens too. The UFI003 has one Wi-Fi radio, so it can’t run the admin hotspot.
 
-## 选择网络 {#step-network .step}
+## Choose the network {#step-network .step}
 
-在管理页面的“**设置 → iPhone 连接 → 无线网络**”中选择 iPhone 和车机怎样连接中继：
+In the admin page, under **Settings → iPhone connection → Wireless network**, choose how the iPhone and the head unit reach the relay:
 
-- **这台中继的热点**（默认）：打开中继自己的热点，iPhone 自动加入，车机也连接这个热点。
-- **使用车机热点**：中继、iPhone 和车机都连接车机的热点，或者另一个现有的 2.4 GHz 网络。
+- **This relay’s hotspot** (the default): opens the relay’s own hotspot; the iPhone joins it automatically and the head unit joins it too.
+- **Use the car’s hotspot**: the relay, the iPhone and the head unit join the car’s hotspot, or another existing 2.4 GHz network.
 
-UFI003 只用车机浏览器显示 CarPlay；Carlink 需要第二块 Wi-Fi 网卡，见 [Carlink 应用](/carlink)。
+The UFI003 shows CarPlay in the head unit’s browser only; Carlink needs a second Wi-Fi adapter, see [Carlink app](/carlink).
 
-## 配对 iPhone {#step-pair .step}
+## Pair the iPhone {#step-pair .step}
 
-首页提示配对 iPhone 时，点“配对”，配对窗口会开放 10 分钟。在 iPhone 上打开“设置 → 蓝牙”，选择 `OpenXPlay Linux`。换了 iPhone 时，可以在首页或“设置 → iPhone 连接”中移除旧的已配对设备。
+When Home asks you to pair the iPhone, tap *Pair*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`. For a new iPhone, remove the old paired device on Home or in Settings → iPhone connection.
 
-## 在车机浏览器中打开 {#step-open .step}
+## Open it in the head unit’s browser {#step-open .step}
 
-车机连接中继的网络，在浏览器中打开 `https://10.77.0.1:8443/`（使用中继自己的热点时），也可以用 `https://openxplay-car.local:8443/`。第一次打开时接受证书警告，原因见[故障排查](/troubleshooting#certificate-warning)。
+Join the relay’s network from the head unit and open `https://10.77.0.1:8443/` (with the relay’s own hotspot) or `https://openxplay-car.local:8443/`. Accept the certificate warning the first time; [Troubleshooting](/troubleshooting#certificate-warning) explains why it appears.
 
-如果在管理页面的“设置 → 车机访问”中开启了“需要配对码”，输入中继上显示的 8 位数字。
+If *Require pairing code* is on in the admin page under Settings → Head-unit access, enter the 8-digit code the relay shows.
 
-## 不用 Flasher 的命令行安装 {#manual}
+## Install from the command line without Flasher {#manual}
 
-只想用命令行、不用 Flasher 时，可以手动刷机，再依次安装设备支持包和中继软件包。这样做没有 Flasher 的备份和检查，刷机会改写设备原有的系统，请确认自己清楚每一步在做什么。
+If you want to use only the command line and not Flasher, you can flash the dongle by hand, then install the device package and the relay package. This skips Flasher’s backup and checks, and flashing replaces the dongle’s original system, so make sure you understand each step.
 
-::: details 展开命令行安装步骤
+::: details Show the command-line steps
 
-### 刷入基础镜像 {#step-image}
+### Flash the base image {#step-image}
 
-在 UFI003 上刷入 OpenStick Debian 11 镜像（内核 `5.15.0-handsomekernel+`，aarch64）。下载地址、校验值和刷机前的注意事项见[刷入 UFI003 基础镜像](/ufi003-flash)。
+Flash the OpenStick Debian 11 image (kernel `5.15.0-handsomekernel+`, aarch64) onto the UFI003. Downloads, checksums and the cautions to read before flashing are in [Flash the UFI003 base image](/ufi003-flash).
 
-### 安装设备支持包 {#step-device}
+### Install the device package {#step-device}
 
-在 OpenXPlay-Hardware 的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases) 中选择最新的 `ufi003-device-v` 版本（需要 0.2.1 及以上），下载 `openxplay-ufi003-device-<版本>.tar.gz` 和 `SHA256SUMS` 并核对，然后复制到随身 Wi-Fi 上，进入它的 shell（root）：
+From the OpenXPlay-Hardware [Releases](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases), choose the newest `ufi003-device-v` release (0.2.1 or later is required), download `openxplay-ufi003-device-<version>.tar.gz` and `SHA256SUMS` and check them. Copy the bundle to the dongle and open its shell (root):
 
 ```sh
 V=0.2.1
@@ -167,7 +167,7 @@ adb push openxplay-ufi003-device-$V.tar.gz /root/
 adb shell
 ```
 
-把 `V` 改成你下载的版本号。在随身 Wi-Fi 上同样设好 `V`，再解压并运行安装程序。`--dry-run` 只做检查、不做任何改动；安装后要重启：
+Set `V` to the version you downloaded. On the dongle, set `V` the same way, then unpack the bundle and run the installer. `--dry-run` checks everything without changing anything; after the install, reboot:
 
 ```sh
 V=0.2.1
@@ -178,18 +178,18 @@ sh openxplay-ufi003-device-$V/install-device.sh
 reboot
 ```
 
-重启后再进入 `adb shell`，用 `--verify` 检查：
+After the reboot, open `adb shell` again and check the device with `--verify`:
 
 ```sh
 V=0.2.1
 sh /root/openxplay-ufi003-device-$V/install-device.sh --verify
 ```
 
-设备支持包自带需要的 Debian 软件包，安装时不需要联网。它会安装无线 CarPlay 所需的蓝牙 RFCOMM 模块、修复后的蓝牙驱动、蓝牙守护程序和主机配置，并开启时间同步。
+The device package carries the Debian packages it needs, so it installs without internet access. It adds the Bluetooth RFCOMM module that wireless CarPlay needs, a fixed Bluetooth driver, a Bluetooth guard and the host profile, and turns on time synchronisation.
 
-### 安装中继 {#step-install}
+### Install the relay {#step-install}
 
-在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本，下载 `.deb` 和 `SHA256SUMS` 并核对，然后在电脑上运行：
+Under [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), pick the latest `linux-v` release, download the `.deb` and `SHA256SUMS` and check them, then run on your computer:
 
 ```sh
 V=0.1.6
@@ -197,17 +197,17 @@ adb push openxplay-relay_${V}_arm64.deb /root/
 adb shell dpkg -i /root/openxplay-relay_${V}_arm64.deb
 ```
 
-把 `V` 改成最新的版本号。依赖已由设备支持包装好，不需要联网。软件包的内容见[安装中继](/linux-devices#install)。
+Set `V` to the latest version. The device package has already installed the dependencies, so no internet access is needed. [Install the relay](/linux-devices#install) describes what the package sets up.
 
-想自行构建时：设备支持包用 [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) 的 `UFI003/package/build-bundle.sh`，中继软件包用 [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) 的 `rust/packaging/build-deb.sh`。
+To build them yourself: the device package with `UFI003/package/build-bundle.sh` in [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware), the relay package with `rust/packaging/build-deb.sh` in [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay).
 
-装好后从[打开管理页面](#step-admin)继续。没有 Flasher 时，在管理页面的“**设置 → 身份与证书**”中添加 CarPlay 身份，也可以[手动放入身份文件](/linux-devices#identity)。
+Then carry on from [Open the admin page](#step-admin). Without Flasher, add your CarPlay identity in the admin page under **Settings → Identity and certificates**, or [put the identity files in place by hand](/linux-devices#identity).
 
 :::
 
-## 接下来 {#next-steps}
+## Next {#next-steps}
 
-- 在小鹏 G6 等车上使用时，可以参考[车机资料](/head-units)中的推荐设置，例如 2.4 GHz 下把帧率设为 30：在管理页面的“**设置 → CarPlay 画面 → 帧率**”中修改，车机网页会跟着使用。
-- 需要反馈问题时，在“**设置 → 日志**”中把日志保存为文件，或者上传后把日志 ID 发给我们。
-- [可信 HTTPS](/trusted-https)：用免费域名去掉证书警告。
-- 遇到问题？请看[故障排查](/troubleshooting)。
+- In cars such as the XPeng G6, see the recommended setup under [Head units](/head-units), for example setting the frame rate to 30 on 2.4 GHz: change it in the admin page under **Settings → CarPlay picture → Frame rate**, and the head-unit page follows it.
+- To report a problem, save the logs as a file under **Settings → Logs**, or upload them and send us the log ID.
+- [Trusted HTTPS](/trusted-https): remove the certificate warning with a free domain name.
+- Something not working? See [Troubleshooting](/troubleshooting).

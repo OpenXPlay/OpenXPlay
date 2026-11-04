@@ -4,9 +4,9 @@ SPDX-License-Identifier: MIT
 Created by riko chen on 2026-10-17
 -->
 <script setup lang="ts">
-// Offers the other language when the browser suggests it: English on a Chinese page (the default)
-// to visitors whose browser has no Chinese language, and Simplified Chinese on an English page to
-// visitors whose browser prefers any Chinese language. It renders only in the browser (never
+// Offers English on a Chinese page to visitors whose browser has no Chinese language, and
+// Simplified Chinese on an English page (the default) to visitors whose browser prefers any
+// Chinese language. It renders only in the browser (never
 // during the build), never redirects, and floats over the page so nothing moves when it appears.
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useData, useRoute, withBase } from 'vitepress'
@@ -34,11 +34,11 @@ interface Offer {
 }
 
 const OFFERS: Record<string, Offer> = {
-  root: {
+  zh: {
     pageLang: 'zh-Hans',
     forChinese: false,
     targetLang: 'en',
-    targetPrefix: 'en/',
+    targetPrefix: '',
     bannerLang: 'en',
     label: 'Language / 语言选择',
     headline: 'This site is also available in English.',
@@ -47,11 +47,11 @@ const OFFERS: Record<string, Offer> = {
     switchText: 'Switch to English',
     stayText: 'Stay in Chinese',
   },
-  en: {
+  root: {
     pageLang: 'en',
     forChinese: true,
     targetLang: 'zh-Hans',
-    targetPrefix: '',
+    targetPrefix: 'zh/',
     bannerLang: 'zh-Hans',
     label: '语言选择 / Language',
     headline: '本站提供简体中文版。',
@@ -106,7 +106,7 @@ const visible = computed(() => {
 })
 
 const targetHref = computed(() => {
-  const slug = page.value.relativePath.replace(/^en\//, '').replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
+  const slug = page.value.relativePath.replace(/^zh\//, '').replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
   return withBase(`/${offer.value.targetPrefix}${slug}`) + hash.value
 })
 

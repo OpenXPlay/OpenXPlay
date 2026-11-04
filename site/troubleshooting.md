@@ -2,98 +2,98 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
-title: 故障排查：证书警告、连接、画面和声音
-description: OpenXPlay 常见问题的解决办法：证书警告、车机只能连 2.4 GHz Wi-Fi、iPhone 蓝牙配对失败、CarPlay 连不上、浏览器不受支持、画面卡顿、没有声音、麦克风。
-breadcrumb: 故障排查
+title: 'Troubleshooting: certificate warnings, connection, picture and sound'
+description: Fixes for common OpenXPlay problems — the certificate warning, head units that only see 2.4 GHz Wi-Fi, iPhone Bluetooth pairing, CarPlay not connecting, unsupported browsers, stuttering video, no sound and the microphone.
+breadcrumb: Troubleshooting
 schema: faq
 ---
 
-# 故障排查
+# Troubleshooting
 
-大多数问题都和车机浏览器、Wi-Fi 频段或蓝牙配对有关。按现象找到你的问题；如果没有找到答案，可以到[交流群](/community)提问，并附上车机型号、系统版本、所选方案和问题现象。
+Most problems come down to the head unit’s browser, the Wi-Fi band or Bluetooth pairing. Find your problem by what you see; if it isn’t answered, ask the [community](/community) and include the head unit model, its system version, the route you used and what happened.
 
-## 证书 {#certificates}
+## Certificates {#certificates}
 
-### 浏览器为什么显示证书警告？ {#certificate-warning}
+### Why does the browser show a certificate warning? {#certificate-warning}
 
-浏览器只在安全页面中提供 WebCodecs 视频解码，所以中继通过 HTTPS 提供网页接收端。中继使用自己生成的证书，没有经过公共机构签发，因此浏览器第一次打开时会显示警告。
+The relay serves the receiver page over HTTPS because browsers allow WebCodecs video decoding only on secure pages. The relay creates its own certificate, which no public authority has signed, so the browser shows a warning the first time.
 
-- **安全吗？** 连接仍然是加密的。警告的意思是浏览器无法验证证书由谁签发。确认地址是你的中继后继续访问即可（选项通常在“高级”里）。
-- **为什么又出现了？** 中继生成了新证书。安卓中继在自身网络地址变化时会这样做；Linux 中继在替换设备时钟不准时生成的证书文件后也会这样做。
-- **能避免吗？** 可以用免费域名为中继申请受信任的证书，之后用域名打开网页就不会再警告，见[可信 HTTPS](/trusted-https)。安卓中继也可以在应用中导入你自己的证书（PKCS #12 格式的 `.p12` 文件）。
+- **Is it safe?** The connection is still encrypted. The warning means the browser can’t verify who issued the certificate. Check that the address is your relay’s, then continue (the option is often under *Advanced*).
+- **Why did it come back?** The relay made a new certificate. The Android relay does this when its network addresses change; the Linux relay does it when it replaces certificate files that were created while the device clock was wrong.
+- **Can I avoid it?** Yes, with a free domain name: the relay gets a trusted certificate for it, and the page opens by that name without a warning. See [Trusted HTTPS](/trusted-https). On the Android relay you can also import your own certificate (a PKCS #12 `.p12` file) in the app.
 
-## 连接 {#connection}
+## Connection {#connection}
 
-### 车机只能搜到 2.4 GHz 的 Wi-Fi {#only-2-4-ghz}
+### My head unit only sees 2.4 GHz Wi-Fi networks {#only-2-4-ghz}
 
-让车机连接 2.4 GHz 网络：
+Use a 2.4 GHz network for the head unit:
 
-- UFI003 的 Wi-Fi 没有 5 GHz 频段，它的热点始终是 2.4 GHz。
-- 安卓中继使用“此手机的热点”时，应用改不了系统的热点设置：在 Android 的热点设置中把频段改为 2.4 GHz，再在应用的“设置 → iPhone 连接方式 → 网络”中把“热点频段”也选为 2.4 GHz。
-- 使用“使用车机热点”时，这个网络必须提供 2.4 GHz。UFI003 本身也只能发现 2.4 GHz 网络。
+- The UFI003 dongle’s Wi-Fi has no 5 GHz band, so its hotspot is always 2.4 GHz.
+- With *This phone’s hotspot* on the Android relay, the app can’t change Android’s hotspot settings: set the band to 2.4 GHz in Android’s hotspot settings, then choose 2.4 GHz for *Hotspot band* under Settings → iPhone connection → Network in the app too.
+- With *Use the car’s hotspot*, the network must offer 2.4 GHz. The UFI003 only sees 2.4 GHz networks anyway.
 
-UFI003 只有一块 Wi-Fi 网卡，只提供车机浏览器方式，不能用于 [Carlink](/carlink)。
+The UFI003 has a single Wi-Fi radio, so it offers the head unit’s browser only, not [Carlink](/carlink).
 
-### iPhone 无法通过蓝牙配对 {#bluetooth-pairing}
+### The iPhone doesn’t pair over Bluetooth {#bluetooth-pairing}
 
-请在中继准备好配对时再操作：
+Pair only while the relay is ready for it:
 
-- 使用 Linux 中继时，在管理页面首页提示配对 iPhone 时点“配对”，配对窗口开放 10 分钟。在 iPhone 上打开“设置 → 蓝牙”，选择 `OpenXPlay Linux`。
-- 使用安卓中继时，为 OpenXPlay Relay 允许“附近的设备”权限；当中继手机请求对 iPhone 可见时，点“允许”。
-- 如果 iPhone 忘记了这台中继，或者换了一部新 iPhone，请在中继上重新开放配对。Linux 中继可以先在首页或“设置 → iPhone 连接”中移除旧的已配对设备。
-- 如果中继配对了多部手机，请在设置的“首选 iPhone”中选择你的 iPhone。
-- UFI003 上有蓝牙守护程序，控制器出错时会自动重启。如果管理页面提示蓝牙没有启动，请拔下随身 Wi-Fi 再重新插上。
+- On the Linux relay, tap *Pair* when the admin page’s Home asks you to pair the iPhone. Pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`.
+- On the Android relay, allow the “Nearby devices” permission for OpenXPlay Relay, and tap Allow on the relay phone when it asks to become visible to your iPhone.
+- If the iPhone forgot the relay, or this is a new iPhone, open pairing again on the relay. On the Linux relay, first remove the old paired device on Home or in Settings → iPhone connection.
+- If several phones are paired with the relay, choose your iPhone under Preferred iPhone in the settings.
+- On the UFI003, a Bluetooth guard restarts the Bluetooth controller when it fails. If the admin page says Bluetooth didn’t start, unplug the dongle and plug it back in.
 
-### iPhone 连不上 CarPlay {#iphone-not-connecting}
+### The iPhone doesn’t connect to CarPlay {#iphone-not-connecting}
 
-请按顺序检查：
+Check these in order:
 
-1. 让 iPhone 靠近中继，并保持蓝牙和 Wi-Fi 开启。
-2. 确认中继里有有效的 CarPlay 身份。没有身份时，安卓应用不会启动 CarPlay。
-3. iPhone 对中继的 Wi-Fi 开着“低数据模式”时可能连不上：在 iPhone 的“设置 → 无线局域网”中轻点这个 Wi-Fi 旁边的 ⓘ，关闭“低数据模式”。
-4. 使用“使用车机热点”时，iPhone、中继和车机必须在同一个网络中，并且路由器允许设备之间互相访问。
-5. 在应用或管理页面中查看中继状态：等待 iPhone、正在连接或已连接。
-6. 更改网络模式后，iPhone 会自动切换到新网络，CarPlay 大约 30 秒后重新连接。
-7. 如果仍然不行，在管理页面中点“重新连接”。
+1. Keep the iPhone near the relay with Bluetooth and Wi-Fi turned on.
+2. Make sure the relay has a valid CarPlay identity. The Android app doesn’t start CarPlay without one.
+3. With Low Data Mode on for the relay’s Wi-Fi, the iPhone may not connect: on the iPhone, open Settings → Wi-Fi, tap ⓘ next to this Wi-Fi and turn off Low Data Mode.
+4. With *Use the car’s hotspot*, the iPhone, the relay and the head unit must be on the same network, and the router must let devices reach each other.
+5. Look at the relay’s status in the app or admin page: waiting for iPhone, connecting or connected.
+6. After you change the network mode, the iPhone moves to the new network by itself and CarPlay reconnects in about 30 seconds.
+7. If it still fails, tap *Reconnect* in the admin page.
 
-### 用数据线连接时，中继找不到 iPhone {#usb-iphone-not-found}
+### The relay doesn’t find the iPhone over a cable {#usb-iphone-not-found}
 
-USB-C 接口的 iPhone 用两头都是 USB-C 的线连接时，常常由 iPhone 占用 USB 主控，中继手机被当成 USB 设备，因此看不到 iPhone。安卓应用 0.1.5 起，首页会说明这种情况。可以试试在中继手机上插一个 USB-C OTG 转接头（USB-C 转 USB-A），再用 USB-A 转 USB-C 线连接 iPhone；手机有 OTG 开关时请打开，然后重新插拔。Lightning 接口的 iPhone 用 USB-C 转 Lightning 线即可。更推荐使用无线连接。
+A USB-C iPhone on a USB-C to USB-C cable often takes control of the cable, so the relay phone becomes the USB device and can’t see the iPhone. From Android app 0.1.5, the home screen explains this. Try a USB-C OTG adapter (USB-C to USB-A) on the relay phone with a USB-A to USB-C cable to the iPhone; if the phone has an OTG switch, turn it on, then unplug and plug in again. A Lightning iPhone works with a USB-C to Lightning cable. Wireless is the better choice.
 
-### 使用 Carlink 时，车机停在 30% 左右 {#carlink-stuck}
+### With Carlink, the head unit stops at about 30 % {#carlink-stuck}
 
-中继手机的 Wi-Fi 没有打开。Carlink 要让中继手机以 Wi-Fi 客户端加入车机的网络，打开 Wi-Fi 后重新连接即可（不用连接任何网络）。有些手机打开个人热点后会自动关闭 Wi-Fi，这类手机无法同时用热点连接 iPhone。详见 [Carlink 应用](/carlink#stuck-30)。
+The relay phone’s Wi-Fi is off. Carlink has the relay phone join the car’s network as a Wi-Fi client; turn Wi-Fi on (it needn’t be connected to anything) and connect again. Some phones turn Wi-Fi off when their hotspot is on; they can’t also connect the iPhone through the hotspot. See [Carlink app](/carlink#stuck-30).
 
-### 页面提示“无法连接中继设备” {#relay-unreachable}
+### The page says “Relay unreachable” {#relay-unreachable}
 
-车机没有连接中继的网络，或者中继已经关闭。请保持中继开启，在车机上连接中继的热点（或共用的网络），再打开中继显示的地址。
+The head unit isn’t on the relay’s network, or the relay is off. Keep the relay on, join the relay’s hotspot (or the shared network) on the head unit, and open the address the relay shows.
 
-## 画面与声音 {#picture-and-sound}
+## Picture and sound {#picture-and-sound}
 
-### 车机浏览器提示“浏览器不受支持” {#video-not-supported}
+### The head unit’s browser says “Video not supported” {#video-not-supported}
 
-浏览器缺少 WebCodecs 视频解码，或者页面不是通过 HTTPS 打开的。请打开中继的 `https://` 地址；如果车机有其他浏览器，换一个试试，并运行[检测车机](/check)。如果所有浏览器都不行，可以试试 [Carlink 应用](/carlink)。
+The browser lacks WebCodecs video decoding, or the page wasn’t opened over HTTPS. Open the relay’s `https://` address, try another browser on the head unit if it has one, and run [Check your head unit](/check). If no browser works, try the [Carlink app](/carlink).
 
-### 画面卡顿 {#stutter}
+### Video stutters {#stutter}
 
-- 运行[检测车机](/check)。如果浏览器只能软件解码，画面可能卡顿。
-- 在网页接收端的设置中，试试降低帧率，或把播放模式改为“速度优先”。
-- 中继只有 2.4 GHz Wi-Fi 时（例如 UFI003），把帧率设为 30。
-- 安卓中继同时使用 Carlink 时，无线 CarPlay 请选“此手机的热点”，并保持中继手机的 Wi-Fi 打开。
+- Run [Check your head unit](/check). If the browser decodes only in software, video may stutter.
+- In the web receiver’s settings, try a lower frame rate or the *Speed* playback mode.
+- On a relay with only 2.4 GHz Wi-Fi, such as the UFI003, set the frame rate to 30.
+- On the Android relay with Carlink, use *This phone’s hotspot* for wireless CarPlay and keep the relay phone’s Wi-Fi on.
 
-### 没有声音 {#no-sound}
+### There is no sound {#no-sound}
 
-先看“设置 → 声音”中的“通过车辆蓝牙播放 CarPlay 音频（实验性）”，它默认开启：
+First check *CarPlay audio over the car’s Bluetooth (experimental)* under Settings → Sound (Settings → Audio on the Linux admin page). It is on by default:
 
-- **开启时**：声音不经过车机网页，由 iPhone 通过自己与车辆的蓝牙连接播放。请让 iPhone 与车辆保持蓝牙配对，并把车辆的音源切换到蓝牙。声音从 iPhone 发出时，关闭这个选项。
-- **关闭时**：声音由车机网页播放，关闭后要重新连接 CarPlay 才生效。浏览器在你触摸页面之前会阻止播放声音；网页接收端提示声音已暂停时，轻触一下屏幕即可。仍然没有声音时，请运行[检测车机](/check)：浏览器需要 AudioWorklet 才能播放 CarPlay 音频。
+- **On:** the sound doesn’t go through the head-unit page; the iPhone plays it over its own Bluetooth connection with the car. Keep the iPhone paired with the car and choose Bluetooth as the car’s audio source. If the sound plays on the iPhone, turn the option off.
+- **Off:** the head-unit page plays the sound; reconnect CarPlay after turning the option off. Browsers block sound until you touch the page; if the receiver says sound is paused, tap the screen once. If there is still no sound, run [Check your head unit](/check): the browser needs AudioWorklet to play CarPlay audio.
 
-### Siri 或通话听不到我说话 {#microphone}
+### Siri or calls can’t hear me {#microphone}
 
-“通过车辆蓝牙播放 CarPlay 音频”开启时（默认），Siri 和通话也走 iPhone 与车辆的蓝牙连接，不用浏览器的麦克风：请确认 iPhone 已连上车辆的蓝牙。
+While *CarPlay audio over the car’s Bluetooth* is on (the default), Siri and calls also go over the iPhone’s Bluetooth connection with the car and don’t use the browser’s microphone: check that the iPhone is connected to the car’s Bluetooth.
 
-关闭这个选项并重新连接后，CarPlay 第一次需要你的声音时，浏览器会请求麦克风权限，请选择“允许”。麦克风只能在 HTTPS 下使用。使用安卓中继时，还要允许应用的麦克风权限；默认使用车机的麦克风，要改用中继手机的麦克风，可以在“设置 → 开发者选项”中打开“麦克风来源”。
+With the option off and CarPlay reconnected, the browser asks for the microphone the first time CarPlay needs your voice; choose Allow. The microphone works only over HTTPS. On the Android relay, also allow the microphone permission; it uses the head unit’s microphone by default; to use the relay phone’s, turn on *Microphone source* under Settings → Developer options.
 
-## 还是没有解决？ {#still-stuck}
+## Still stuck? {#still-stuck}
 
-到[交流群](/community)提问，请尽量提供车机型号、系统版本、所选方案及问题现象。附上[检测车机](/check)生成的报告也很有帮助。
+Ask in the [community](/community), with the head unit model, its system version, the route you used and what happened. A report from [Check your head unit](/check) helps too.
