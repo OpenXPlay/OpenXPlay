@@ -6,7 +6,7 @@ name: openxplay-guide
 description: "Set up OpenXPlay: iPhone CarPlay on an Android head unit through a relay, with nothing installed on the head unit. Introduces the project and its website (openxplay.org), interviews the user about their car, iPhone, spare devices and computer, recommends a route (Android phone, UFI003 dongle or another arm64 Linux device as the relay; the head unit's browser, Carlink, CarLife, screen casting or Tesla browser to show it), judges whether an unlisted Linux device can be a relay, then guides the install and first connection one step at a time, running computer-side steps itself when it has a terminal and asking before anything risky. When something goes wrong it helps, pointing to community groups. Use it whenever someone asks what OpenXPlay is, wants to install, set up, troubleshoot, choose hardware for or get a first connection of OpenXPlay or OpenXPlay Relay, asks whether their car, phone, TV box or board can run it, or wants CarPlay on a car screen that cannot install apps, in any language, including Chinese."
 license: CC-BY-4.0
 metadata:
-  version: "0.6.2"
+  version: "0.6.3"
   minimum-version: "0.1.0"
   source: "https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-guide"
 ---
@@ -26,7 +26,7 @@ When someone asks what OpenXPlay is, or is still deciding whether it fits, intro
 - **What it is:** an open-source project that brings iPhone CarPlay to Android head units that cannot install apps. A relay, either a spare Android phone with the OpenXPlay Relay app or a small arm64 Linux device such as the UFI003 USB dongle, connects to the iPhone as a CarPlay receiver, and CarPlay shows on the car's own screen through its browser, a Carlink app, CarLife, a screen-casting receiver (DLNA, Miracast) or the Tesla browser. Nothing is installed on the head unit and its system is never changed.
 - **Who it is for:** drivers whose head unit cannot install third-party apps. If theirs can, DiPlay (an app installed on the head unit) is usually simpler.
 - **What it needs:** an iPhone with CarPlay, a relay, a head unit whose browser passes the check or that has a Carlink app, CarLife or a screen-casting receiver, and the user's own CarPlay identity (by default the files `identity.pk8` and `certificate.p7b`), which OpenXPlay does not supply.
-- **Where it stands:** the latest Android release is 0.2.5. Linux relay 0.1.6 (UFI003, Phicomm N1) is a release too, and the N1 device package is still a pre-release. Carlink is marked experimental up to Android 0.2.4 (0.2.5 drops the label); CarLife, wireless display (Android 0.2.5) and the Tesla browser are marked experimental. Say so plainly; [references/facts.md](references/facts.md) and the release notes have the details.
+- **Where it stands:** the latest Android release is 0.2.6. Linux relay 0.1.6 (UFI003, Phicomm N1) is a release too, and the N1 device package is still a pre-release. Carlink is marked experimental up to Android 0.2.4 (0.2.5 drops the label); CarLife, wireless display (Android 0.2.5) and the Tesla browser are marked experimental. Say so plainly; [references/facts.md](references/facts.md) and the release notes have the details.
 - **Website:** [openxplay.org](https://openxplay.org) in Simplified Chinese, [openxplay.org/en](https://openxplay.org/en/) in English. Good first pages: *Get started* (`quick-start`), *How it works* (`how-it-works`), *Check your head unit* (`check`), *FAQ* (`faq`) and *Community* (`community`).
 - **Code:** [github.com/OpenXPlay](https://github.com/OpenXPlay). OpenXPlay is an independent project, not affiliated with or endorsed by Apple or any car or head-unit maker.
 
@@ -132,7 +132,7 @@ Route notes:
 
 - Success looks like: the app says *CarPlay is live* (or the admin page shows the session), CarPlay shows on the head unit, touches work and sound plays. By default the sound comes over the iPhone's own Bluetooth link with the car (*CarPlay audio over the car's Bluetooth (experimental)*, on): the iPhone stays paired with the car and the car's audio source is Bluetooth. To play it through the head unit's page or Carlink app instead, they turn that option off and reconnect.
 - Suggest bookmarking the page, choosing the car in the app's settings, and [Trusted HTTPS](https://openxplay.org/en/trusted-https) to remove the certificate warning. Point to [Everyday use](https://openxplay.org/en/daily-use) for later drives.
-- If it does not work: go through [Troubleshooting](https://openxplay.org/en/troubleshooting) with them by symptom: the identity, whether all three devices are on the same network, iPhone pairing. If still stuck, they can export logs in the app (Settings → Logs) and ask in the [community groups](#community).
+- If it does not work: go through [Troubleshooting](https://openxplay.org/en/troubleshooting) with them by symptom: the identity, whether all three devices are on the same network, iPhone pairing, and Low Data Mode off on the iPhone for the relay's Wi-Fi. If still stuck, they can export logs in the app (Settings → Logs) and ask in the [community groups](#community).
 
 ## Community
 

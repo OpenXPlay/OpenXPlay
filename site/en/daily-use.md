@@ -38,6 +38,11 @@ With the Android relay, tap the OpenXPlay icon in CarPlay to open the page’s s
 
 The relay keeps the resolution, screen width, codec and frame rate, so the app shows the same choices under Settings → CarPlay picture.
 
+The app also takes manual values, which apply at the next CarPlay connection:
+
+- **Resolution:** choose *Manual* and enter width, height and density (dpi). Below them the app shows the size *Automatic* would use now; tap *Use* to start from it.
+- **CarPlay screen width:** choose *Custom* and enter 100–400 mm in steps of 5. The width *Automatic* declares now is shown below. The head-unit page offers only the four preset widths; choosing a different one there clears a custom width.
+
 ::: details Why does returning to full screen need a tap?
 Browsers allow full screen only after a tap, so the page can’t return to full screen by itself. This tap doesn’t reach CarPlay.
 :::
@@ -51,6 +56,8 @@ In Android app 0.2.4 and earlier and in Linux relay 0.1.6, a tap may not return 
 In the app’s Settings → Car and screen, choose the brand, the model and, if you know it, the year. The list has every XPeng model line sold in China, the Tesla models and ZEEKR; the XPeng G6 2023 comes with built-in screen data. If your car isn’t listed, choose *Other* and type its name. Until you choose a car, the home screen shows *Choose your car*.
 
 *CarPlay view areas*, in the same place, is on by default: when the head unit’s browser window changes (entering or leaving full screen, split screen), CarPlay re-lays out to fit without reconnecting (with exceptions on some browsers; see the [known issue](#fullscreen-known-issue)). The section also shows the head-unit screen data the relay has detected, which helps optimize the display at the next CarPlay start.
+
+*CarPlay view areas* can be *Automatic* or *Manual*. *Automatic* picks the most used window sizes the head unit’s browser has recorded; *Manual* uses only the fullscreen and/or windowed size you enter, with this head unit’s most used sizes shown for reference. View areas work only with an automatic resolution, and changes apply at the next connection.
 
 With a Tesla, set up the [Tesla browser](/en/tesla) as well.
 

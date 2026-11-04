@@ -50,10 +50,11 @@ Check these in order:
 
 1. Keep the iPhone near the relay with Bluetooth and Wi-Fi turned on.
 2. Make sure the relay has a valid CarPlay identity. The Android app doesn’t start CarPlay without one.
-3. With *Use the car’s hotspot*, the iPhone, the relay and the head unit must be on the same network, and the router must let devices reach each other.
-4. Look at the relay’s status in the app or admin page: waiting for iPhone, connecting or connected.
-5. After you change the network mode, the iPhone moves to the new network by itself and CarPlay reconnects in about 30 seconds.
-6. If it still fails, tap *Reconnect* in the admin page.
+3. With Low Data Mode on for the relay’s Wi-Fi, the iPhone may not connect: on the iPhone, open Settings → Wi-Fi, tap ⓘ next to this Wi-Fi and turn off Low Data Mode.
+4. With *Use the car’s hotspot*, the iPhone, the relay and the head unit must be on the same network, and the router must let devices reach each other.
+5. Look at the relay’s status in the app or admin page: waiting for iPhone, connecting or connected.
+6. After you change the network mode, the iPhone moves to the new network by itself and CarPlay reconnects in about 30 seconds.
+7. If it still fails, tap *Reconnect* in the admin page.
 
 ### The relay doesn’t find the iPhone over a cable {#usb-iphone-not-found}
 
