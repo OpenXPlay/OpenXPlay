@@ -38,6 +38,18 @@ iPhone 通过安卓或 Linux 中继，连接车机已有的浏览器、Carlink�
 - **根据现有条件组合方案**  
   整合 Android、Linux 和 iOS 端实现，围绕 USB、蓝牙、Wi-Fi 连接及浏览器、Carlink 等显示方式，提供不同的设备组合与接入路径。
 
+## 让 AI 助手带你安装
+
+[openxplay-guide](skills/openxplay-guide) 技能让 AI 助手带你完成安装：它先问清你的车、iPhone 和手头的设备，推荐一种方案，再一步步带你装好；凡是会改动电脑或设备的操作，都会先征得你同意。
+
+在 [Claude Code](https://claude.com/claude-code) 里发送这句话安装（[Codex](https://github.com/openai/codex) 请换成 `~/.agents/skills/openxplay-guide/`）：
+
+```text
+从 https://openxplay.org/agents/skills/index.json 安装 openxplay-guide 技能到 ~/.claude/skills/openxplay-guide/，并核对每个文件的 SHA-256。
+```
+
+然后新开一个对话，说“帮我安装 OpenXPlay”。其他能读网页的 AI 助手可以只用一次：让它阅读 <https://openxplay.org/agents/skills/openxplay-guide/SKILL.md> 并按说明操作。每个版本的变化见[更新记录](skills/openxplay-guide/CHANGELOG.md)，更多方式见[开始使用](https://openxplay.org/quick-start#ai-assistant)。
+
 ## 与 DiPlay 有什么区别？
 
 **DiPlay 面向能够在车机上安装应用的用户，OpenXPlay 主要面向无法在车机上安装软件的用户。**
