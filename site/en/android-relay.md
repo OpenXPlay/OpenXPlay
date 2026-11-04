@@ -19,7 +19,7 @@ next:
 
 # Android phone as the relay
 
-The recommended setup: an Android phone as the relay and the head unit’s own browser to show CarPlay. Nothing is installed on the head unit. The first setup takes about 10 minutes. This guide follows OpenXPlay Relay 0.2.5.
+The recommended setup: an Android phone as the relay and the head unit’s own browser to show CarPlay. Nothing is installed on the head unit. The first setup takes about 10 minutes. This guide follows OpenXPlay Relay 0.2.6.
 
 ::: tip Before you start
 - An iPhone with CarPlay
@@ -53,7 +53,7 @@ The iPhone connects straight to the relay phone. The head unit reaches the relay
 :::
 
 ::: details This phone’s hotspot: the head unit has no hotspot but can join a Wi-Fi network {#network-hotspot}
-The iPhone and the head unit both join the relay phone’s hotspot. The app can’t change Android’s hotspot settings, so the hotspot name and password must match on both sides. There are two ways:
+The iPhone and the head unit both join the relay phone’s hotspot. The app can’t change Android’s hotspot settings, so the hotspot name and password must match on both sides. Choose one way first; the guide preselects neither and moves on only after you choose:
 
 - **Copy to settings (recommended):** the app suggests a name (`OpenXPlay-A-…`) and a 16-character password. Tap *Copy name and open settings* and paste it as the hotspot name in Android’s hotspot settings; come back to the app, tap *Copy password and open settings* and paste it as the password. Choose the security and the band the app shows below, then save the settings and turn the hotspot on.
 - **Use my existing hotspot:** keep a hotspot you set up yourself, and enter its name and password in the app.
@@ -64,6 +64,8 @@ Choose 5 GHz for the band, both for *Hotspot band* in the app and in Android’s
 ::: details Use the car’s hotspot: everyone joins the head unit’s hotspot {#network-car-hotspot}
 The iPhone and the relay phone both join the car’s hotspot. Connect the relay phone to it first and save it in the app; the hotspot must let devices reach each other.
 :::
+
+When you tap *Next* after choosing the network, the app reminds you to check, once the iPhone has connected, that Low Data Mode is off for this Wi-Fi on the iPhone; tap *Got it* to continue. See [Start using it](#step-use).
 
 5. **Get ready:** the page lists only what is still missing; work through it. You do this once; the app remembers it.
    - **Permissions:** nearby devices (Bluetooth), nearby Wi-Fi devices, notifications and the microphone. CarPlay offers Siri and calls only when the microphone is allowed. USB and the Tesla setting also ask for Android VPN consent.
@@ -105,6 +107,10 @@ The connection is still encrypted. Browsers allow WebCodecs video decoding only 
 ## Start using it {#step-use .step}
 
 When the page asks for a tap, tap the screen once: the page goes full screen, and the tap doesn’t reach CarPlay. CarPlay then runs on the head unit’s screen and responds to your touches; the home screen says *CarPlay is live*.
+
+::: tip Turn off Low Data Mode on the iPhone
+With Low Data Mode on for the relay’s Wi-Fi, the iPhone may not connect to CarPlay. Once the iPhone has connected, open Settings → Wi-Fi on the iPhone, tap ⓘ next to this Wi-Fi and check that Low Data Mode is off.
+:::
 
 By default, CarPlay sound plays over the car’s Bluetooth: keep the iPhone paired with the car and choose Bluetooth as the car’s audio source. To play the sound on the head-unit page instead, see [There is no sound](/en/troubleshooting#no-sound).
 

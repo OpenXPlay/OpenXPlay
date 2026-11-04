@@ -8,6 +8,10 @@ Created by riko chen on 2026-10-29
 
 Every change to this skill raises `metadata.version` in `SKILL.md` and adds an entry here; the website build refuses a changed skill without both. MAJOR: older copies would give wrong or unsafe guidance (also raise `minimum-version`). MINOR: a new route, device or step. PATCH: wording and links.
 
+## 0.6.3 (2026-11-04)
+
+- Facts: Android 0.2.6 is the latest release; iPhone Low Data Mode check, explicit hotspot method in the setup guide, manual CarPlay size, custom screen width and manual view areas.
+
 ## 0.6.2 (2026-11-02)
 
 - Wording: features are described by what they do and need, without test-status caveats.

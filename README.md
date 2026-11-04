@@ -31,6 +31,18 @@ We want more drivers to have CarPlay, and to need fewer resources to get it. Wit
 - **No app on the head unit.** A phone or external device does the receiving and connecting, and CarPlay appears through entry points the head unit already has. The head unit's system is never modified.
 - **Built from what you already have.** Android, Linux and iOS implementations, USB, Bluetooth and Wi-Fi connections, and browser or Carlink display paths combine into different device setups.
 
+## Set up with an AI assistant
+
+The [openxplay-guide](skills/openxplay-guide) skill lets an AI assistant guide your setup. It asks about your car, iPhone and spare devices, recommends a route and walks you through installing it one step at a time, asking before anything that changes your computer or a device.
+
+Install it by sending this message in [Claude Code](https://claude.com/claude-code) (for [Codex](https://github.com/openai/codex), use `~/.agents/skills/openxplay-guide/`):
+
+```text
+Install the openxplay-guide skill from https://openxplay.org/agents/skills/index.json into ~/.claude/skills/openxplay-guide/ and check every file’s SHA-256.
+```
+
+Then start a new conversation and say “Help me set up OpenXPlay”. Other assistants that can read web pages can use it once: ask them to read <https://openxplay.org/agents/skills/openxplay-guide/SKILL.md> and follow it. Changes are in its [changelog](skills/openxplay-guide/CHANGELOG.md); more options are in [Get started](https://openxplay.org/en/quick-start#ai-assistant).
+
 ## OpenXPlay and DiPlay
 
 **DiPlay is for head units that can install apps; OpenXPlay is mainly for head units that can't.**
