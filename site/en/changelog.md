@@ -11,6 +11,31 @@ breadcrumb: Changelog
 
 What changed in each OpenXPlay Relay release, newest first. The Android app and the Linux relay are released separately; Linux releases say “Linux” in their heading. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup start at [Get started](/en/quick-start).
 
+## 0.2.6 {#v0-2-6}
+
+2026-11-04 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.6)
+
+Android app: manual CarPlay size, screen width and view areas, a reminder to check the iPhone’s Low Data Mode in the setup guide, and no more Trusted HTTPS certificate warnings on Android 10 and earlier.
+
+**New**
+
+- Android app: Settings → CarPlay picture → *Resolution* offers *Automatic* or *Manual*. Manual takes width, height and density, and shows the size Automatic would use now, ready to fill in.
+- Android app: CarPlay screen width has a *Custom* option for 100–400 mm in 5 mm steps and shows the width Automatic declares now.
+- Android app: Settings → Car → *CarPlay view areas* offers *Automatic* or *Manual*. Manual takes a fullscreen and/or windowed size and shows the most used sizes recorded for this head unit.
+
+**Changes**
+
+- Android app: in the setup guide, Next on the network page reminds you to check, once the iPhone has connected, that Low Data Mode is off for this Wi-Fi on the iPhone (Settings → Wi-Fi → ⓘ). The network page and the message shown when the iPhone does not join the Wi-Fi say the same.
+- Android app: with this phone’s hotspot, the setup guide asks you to choose *Copy to settings* or *Use my existing hotspot* before Next; neither is preselected.
+- Android app: [Trusted HTTPS](/en/trusted-https) no longer shows certificate warnings on Android 10 and earlier when a valid domain certificate is configured, and uses a certificate only within both the start and the end of its validity period.
+
+**Notes**
+
+- Includes everything in 0.2.6-beta.1 and 0.2.6-beta.2.
+- New size and width settings apply at the next CarPlay connection. View areas work with an automatic CarPlay size only.
+- The head-unit page still offers the four preset widths; choosing a different one there clears a custom width. Developer options → *Physical width (calibration)*, when turned on, takes priority over a custom width; it is off by default.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.6).
+
 ## 0.2.5 {#v0-2-5}
 
 2026-11-02 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5)

@@ -11,6 +11,31 @@ breadcrumb: 更新日志
 
 OpenXPlay Relay 每个版本的变化，最新的在最前面。安卓应用和 Linux 中继分别发布，Linux 版本的标题带“Linux”。安装包和校验值见 GitHub 上的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)；安装和设置见[开始使用](/quick-start)。
 
+## 0.2.6 {#v0-2-6}
+
+2026-11-04 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.6)
+
+安卓应用：CarPlay 尺寸、屏幕宽度和视图区域可以手动设置，设置向导提醒检查 iPhone 的低数据模式，Android 10 及更早版本的可信 HTTPS 不再出现证书警告。
+
+**新增**
+
+- 安卓应用：“设置 → CarPlay 画面 → 分辨率”可选“自动”或“手动”。手动可填写宽、高和密度，并显示自动当前会用的尺寸，可一键填入。
+- 安卓应用：CarPlay 屏幕宽度新增“自定义”，可填写 100–400 毫米（5 的倍数），并显示自动当前声明的宽度。
+- 安卓应用：“设置 → 车机 → CarPlay 视图区域”可选“自动”或“手动”。手动可填写全屏和/或窗口尺寸，并显示这台车机记录中最常用的尺寸。
+
+**变更**
+
+- 安卓应用：设置向导在网络页点“下一步”时会提醒你，iPhone 连接之后在 iPhone 的“设置 → 无线局域网 → ⓘ”中确认这个 Wi-Fi 的“低数据模式”已关闭。网络页和 iPhone 未能加入 Wi-Fi 时的提示也会说明这一点。
+- 安卓应用：设置向导使用本机热点时，需要先在“复制到系统”和“填写已有热点”中选一个才能继续，不再默认选中。
+- 安卓应用：[可信 HTTPS](/trusted-https) 在 Android 10 及更早版本配置了有效域名证书时，不再出现证书警告；只在证书有效期的起止时间之内使用证书。
+
+**说明**
+
+- 包含 0.2.6-beta.1 和 0.2.6-beta.2 的全部内容。
+- 新的尺寸和宽度设置在下次连接 CarPlay 时生效。视图区域只在 CarPlay 尺寸为自动时生效。
+- 车机页面仍只提供四个预设宽度；在车机页面选择其他宽度会清除自定义宽度。开发者选项里的“物理宽度（调试）”打开时优先于自定义宽度，默认关闭。
+- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.6)。
+
 ## 0.2.5 {#v0-2-5}
 
 2026-11-02 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5)
