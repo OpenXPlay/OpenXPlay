@@ -2,80 +2,80 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
-title: 日常使用与设置
-description: 设置好 OpenXPlay 之后：每次上车怎样连接，车机网页的画面、帧率、视频编码和全屏设置，选择车型，配置文件、日志、实验功能，以及更新应用。
-breadcrumb: 日常使用与设置
+title: Everyday use and settings
+description: After setting up OpenXPlay — how to connect on each drive, the head-unit page’s picture, frame rate, codec and full-screen settings, choosing your car, configuration files, logs, experimental options and updates.
+breadcrumb: Everyday use and settings
 ---
 
-# 日常使用与设置
+# Everyday use and settings
 
-第一次设置完成后，每次上车只需要打开中继、在车机浏览器中打开同一个地址。
+Once the first setup is done, every drive starts with the relay and the same address in the head unit’s browser.
 
-## 每次上车 {#daily}
+## Every drive {#daily}
 
-使用安卓手机作中继时：
+With an Android phone as the relay:
 
-1. 打开 OpenXPlay Relay。“自动连接”打开时（默认打开），“连接”按钮会倒数 5 秒，然后开始连接 CarPlay；点“暂不”可以暂停。打开“开机启动”（设置 → 启动）后，手机开机时中继会自动启动。
-2. 确认车机和中继手机已连上同一个网络。
-3. 在车机浏览器中打开书签里的地址，轻触一下屏幕。
+1. Open OpenXPlay Relay. With *Connect automatically* on (the default), the *Connect* button counts down five seconds, then CarPlay starts; *Not now* pauses it. With *Start on boot* on (Settings → Startup), the relay starts when the phone starts.
+2. Check that the head unit and the relay phone are on the same network.
+3. Open the bookmarked address in the head unit’s browser and tap the screen once.
 
-使用 UFI003 或其他 Linux 设备时，中继作为系统服务运行，通电后自动启动；车机连上中继的网络后，打开书签里的地址即可。
+With a UFI003 or another Linux device, the relay runs as a system service and starts by itself when the device is powered; once the head unit is on the relay’s network, open the bookmarked address.
 
-## 车机网页的设置 {#web-settings}
+## Head-unit page settings {#web-settings}
 
-使用安卓中继时，在 CarPlay 里点 OpenXPlay 图标打开网页的设置；CarPlay 画面出来之前，状态卡片上有设置按钮。设置从侧边滑出，上方是声音、全屏和填满的快捷开关，下面是画面、声音与麦克风、插件和关于。更改分辨率、屏幕宽度、视频编码或帧率后，CarPlay 会在几秒后重新连接。
+With the Android relay, tap the OpenXPlay icon in CarPlay to open the page’s settings; before CarPlay plays, the status card has a settings button. The settings slide in from the side, with quick tiles for sound, full screen and fill, and menus for the picture, sound and microphone, plugins and about. After you change the resolution, the screen width, the codec or the frame rate, CarPlay reconnects in a few seconds.
 
-| 设置 | 作用 |
+| Setting | What it does |
 | --- | --- |
-| 画面适配 | “适应”显示完整画面，“填满”铺满网页。 |
-| 全屏 | 让网页占满车机屏幕。 |
-| 分辨率 | 自动、原画、1080p、720p、整屏。“原画”按车机屏幕的原始像素显示，画面最清晰，但需要更多 Wi-Fi 带宽；车机浏览器解码不了时会自动降低。 |
-| CarPlay 屏幕宽度 | 125、200、250、300 mm。这是告诉 iPhone 的屏幕尺寸，数值越大，一页显示的图标越多，默认 200 mm。 |
-| 视频编码 | “自动（推荐）”：浏览器能硬件解码 H.265 时使用 H.265，出问题时自动改用 H.264。“强制 H.265”和“强制 H.264”用于测试。 |
-| 帧率 | 自动（跟随与车机协商的刷新率，在 30 到 60 帧之间），或 30、35、40、45、50、55、60 帧。用 2.4 GHz Wi-Fi 时，30 帧更流畅。 |
-| 播放模式 | “智能”根据网络自动平衡流畅度和延迟，“质量优先”画面最流畅、延迟略高，“速度优先”延迟最低、可能跳过部分画面。 |
-| 轻触恢复全屏 | 倒车影像等界面会让浏览器退出全屏。回到网页后，页面会提示“轻触屏幕恢复全屏”，轻触一下恢复全屏（见[已知问题](#fullscreen-known-issue)）。关闭后，页面保持窗口，CarPlay 画面会适配窗口。 |
+| Picture fit | *Fit* shows the whole picture; *Fill* fills the page. |
+| Full screen | Makes the page fill the head unit’s screen. |
+| Resolution | Automatic, Native, 1080p, 720p, Whole screen. Native uses the head unit’s own screen pixels: the sharpest picture, but it needs more Wi-Fi bandwidth, and the relay lowers it when the browser can’t decode it. |
+| CarPlay screen width | 125, 200, 250 or 300 mm. It is the size reported to the iPhone: larger values show more icons on one page; the default is 200 mm. |
+| Video codec | *Automatic (recommended)* uses H.265 when the browser decodes it in hardware and falls back to H.264 if it fails. *Force H.265* and *Force H.264* are for testing. |
+| Frame rate | Automatic (follows the refresh rate negotiated with the head unit, within 30–60 fps), or 30, 35, 40, 45, 50, 55 or 60 fps. Over 2.4 GHz Wi-Fi, 30 is smoother. |
+| Playback | *Smart* balances smoothness and delay for your network, *Quality* gives the smoothest motion with a little more delay, *Speed* the lowest delay but may skip frames. |
+| Tap to return to full screen | A reverse camera or another screen can make the browser leave full screen. Back on the page, it shows *Tap to return to full screen*; one tap returns to full screen (see the [known issue](#fullscreen-known-issue)). With this off, the page stays a window and CarPlay fits it. |
 
-分辨率、屏幕宽度、视频编码和帧率保存在中继上，应用的“设置 → CarPlay 画面”中显示的是同一组设置。
+The relay keeps the resolution, screen width, codec and frame rate, so the app shows the same choices under Settings → CarPlay picture.
 
-应用里还可以手动设置，下次连接 CarPlay 时生效：
+The app also takes manual values, which apply at the next CarPlay connection:
 
-- **分辨率**：选“手动”，填写宽、高和密度（dpi）。下方显示“自动”当前会用的尺寸，点“填入”可以直接用它作起点。
-- **CarPlay 屏幕宽度**：选“自定义”，填写 100–400 毫米（5 的倍数）。下方同样显示“自动”当前声明的宽度。车机网页只提供四个预设宽度，在车机网页上换成其他宽度会清除自定义宽度。
+- **Resolution:** choose *Manual* and enter width, height and density (dpi). Below them the app shows the size *Automatic* would use now; tap *Use* to start from it.
+- **CarPlay screen width:** choose *Custom* and enter 100–400 mm in steps of 5. The width *Automatic* declares now is shown below. The head-unit page offers only the four preset widths; choosing a different one there clears a custom width.
 
-::: details 为什么恢复全屏要轻触一下？
-浏览器规定进入全屏必须由一次点击触发，所以网页不能自己恢复全屏。这一下轻触不会点到 CarPlay。
+::: details Why does returning to full screen need a tap?
+Browsers allow full screen only after a tap, so the page can’t return to full screen by itself. This tap doesn’t reach CarPlay.
 :::
 
-::: info 已知问题 {#fullscreen-known-issue}
-在安卓应用 0.2.4 及更早版本和 Linux 中继 0.1.6 中，轻触可能不能恢复全屏，在部分浏览器上进出全屏还可能让 CarPlay 重新连接。安卓应用 0.2.5 已修复，Linux 中继的修复会随下一个版本发布。
+::: info Known issue {#fullscreen-known-issue}
+In Android app 0.2.4 and earlier and in Linux relay 0.1.6, a tap may not return to full screen, and on some browsers entering or leaving full screen can make CarPlay reconnect. Android app 0.2.5 fixes this; the Linux relay’s fix comes with its next release.
 :::
 
-## 选择车型 {#car-model}
+## Choose your car {#car-model}
 
-在应用的“设置 → 车型与屏幕”中选择品牌、车型，知道的话再选年款。列表包括国内在售的全部小鹏车系、特斯拉各车型和极氪；小鹏 G6 2023 款内置了屏幕数据。列表里没有你的车时，选“其他”并填写名称。还没选车型时，首页会提示“选择你的车型”。
+In the app’s Settings → Car and screen, choose the brand, the model and, if you know it, the year. The list has every XPeng model line sold in China, the Tesla models and ZEEKR; the XPeng G6 2023 comes with built-in screen data. If your car isn’t listed, choose *Other* and type its name. Until you choose a car, the home screen shows *Choose your car*.
 
-同一处的“CarPlay 显示区域”默认开启：车机浏览器窗口变化时（进入或退出全屏、分屏），CarPlay 画面随之调整，不用重新连接（部分浏览器例外，见[已知问题](#fullscreen-known-issue)）。这里还会显示中继检测到的车机屏幕数据，下次启动 CarPlay 时会用这些数据优化显示。
+*CarPlay view areas*, in the same place, is on by default: when the head unit’s browser window changes (entering or leaving full screen, split screen), CarPlay re-lays out to fit without reconnecting (with exceptions on some browsers; see the [known issue](#fullscreen-known-issue)). The section also shows the head-unit screen data the relay has detected, which helps optimize the display at the next CarPlay start.
 
-“CarPlay 显示区域”可选“自动”或“手动”。“自动”按车机浏览器记录到的窗口尺寸，选最常用的几种；“手动”只用你填写的全屏和/或窗口尺寸，下方显示这台车机最常用的尺寸供参考。显示区域只在分辨率为“自动”时生效，更改在下次连接时生效。
+*CarPlay view areas* can be *Automatic* or *Manual*. *Automatic* picks the most used window sizes the head unit’s browser has recorded; *Manual* uses only the fullscreen and/or windowed size you enter, with this head unit’s most used sizes shown for reference. View areas work only with an automatic resolution, and changes apply at the next connection.
 
-特斯拉还需要设置[特斯拉浏览器适配](/tesla)。
+With a Tesla, set up the [Tesla browser](/tesla) as well.
 
-::: tip 帮更多车型用上
-如果你的车型不在列表里，欢迎点“点击该按钮复制我的车机屏幕数据”，到[交流群](/community)发给开发者，之后的版本就会自带你的车型数据。
+::: tip Help more cars work out of the box
+If your car isn’t listed, tap *Copy my head-unit screen data* and send it to the developers in the [community](/community), so a later release can include your car.
 :::
 
-## 更多设置 {#more-settings}
+## More settings {#more-settings}
 
-| 应用设置 | 用途 |
+| In the app’s settings | What it is for |
 | --- | --- |
-| 配置文件 | 导出和导入“用户配置”（连接、输出、画面等设置）和“隐私配置”（可信 HTTPS 域名及其证书和密钥，请妥善保管）。换手机或重装时使用。iPhone 配对、Carlink 车机信任和 CarPlay 身份不会随配置文件迁移。 |
-| 日志 | 应用在手机上保留最近约 24 小时的日志，密码、密钥、电话号码、姓名、消息和精确位置在保存前已替换。可以导出最近 10 分钟、30 分钟或 24 小时的 ZIP，然后“保存到本机文件”，或“联网上传并显示二维码”用于报告问题。只有同意隐私说明后才会上传到 logs.openxplay.org；回执可以查看 48 小时，日志最多保留 72 小时后删除。 |
-| 声音 | “通过车辆蓝牙播放 CarPlay 音频（实验性）”默认开启。如果 CarPlay 的声音从 iPhone 而不是车里发出，请关闭它，或者让 iPhone 保持与车辆的蓝牙配对，并把车辆的音源切换到蓝牙。 |
-| 实验功能 | 用于改善连接问题的选项，默认开启，按加入的版本分组。更改在下一次连接时生效。如果更新后 CarPlay 或 Carlink 连接变差，请关闭“使用实验功能”，你的选择会保留。 |
+| Configuration files | Export and import a *User configuration* (connection, outputs, picture and the other settings) and a *Privacy configuration* (the Trusted HTTPS name, its certificate and keys; keep it private). Use them to move to another phone or to reinstall. iPhone pairing, Carlink car trust and the CarPlay identity are not carried over. |
+| Logs | The app keeps about the last 24 hours of its own logs on the phone, with passwords, keys, phone numbers, names, messages and precise location replaced. Export the past 10 minutes, 30 minutes or 24 hours as a ZIP, then *Save to a file on this phone* or *Upload online and show QR code* for a bug report. An upload goes to logs.openxplay.org only after you agree to the privacy notice; the receipt can be viewed for 48 hours and the logs are deleted within 72 hours. |
+| Sound | *CarPlay audio over the car’s Bluetooth (experimental)* is on by default. If CarPlay sound plays from the iPhone instead of the car, turn it off, or keep the iPhone paired with the car and choose Bluetooth as the car’s audio source. |
+| Experimental | Options for connection problems, on by default and grouped by the release that added them. Changes apply to the next connection. If CarPlay or Carlink connects worse after an update, turn off *Use experimental options*; your choices are kept. |
 
-## 更新 {#updates}
+## Updates {#updates}
 
-在应用的“设置 → 关于 → 检查更新”中可以查看最新版本及其更新说明，并在浏览器中下载 APK；这里也可以选择“稳定版”或“测试版”渠道。只有点检查更新时，应用才会访问 GitHub。所有版本也发布在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)，每个版本的变化见[更新日志](/changelog)。安卓应用更新后，车机网页会自动刷新一次，换成新版本。
+In the app, Settings → About → *Check for updates* shows the newest version with its release notes and downloads the APK in the browser; choose the *Stable* or *Beta* channel there. The app contacts GitHub only when you tap it. All releases are also on [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), and what changed in each is in the [changelog](/changelog). After an Android app update, the head-unit page reloads itself once to the new version.
 
-Linux 中继：UFI003 用 OpenXPlay Flasher 的“安装 / 更新中继”更新；斐讯 N1 和其他 Linux 设备用 `openxplay-relay-update` 命令更新，新版本起不来时会自动装回上一个版本，见[更新中继](/linux-devices#update)。
+The Linux relay: on the UFI003, update it with OpenXPlay Flasher; on the Phicomm N1 and other Linux devices, use the `openxplay-relay-update` command, which puts the previous version back if the new one doesn’t come up; see [Update the relay](/linux-devices#update).

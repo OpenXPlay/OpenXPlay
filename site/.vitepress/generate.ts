@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MIT
 // Created by riko chen on 2026-10-17
 
-// Files written into the build output after the pages: robots.txt, llms.txt, llms-full.txt, the
-// agent skills mirror (agents/skills/) and CNAME. They are generated from the page sources, the
-// repository's skills/ and the site URL, so they stay in sync.
+// Files written into the build output after the pages: robots.txt, llms.txt, llms-full.txt, old
+// English URL redirects, the agent skills mirror (agents/skills/) and CNAME. They use the page
+// sources, the repository's skills/ and the site URL, so they stay in sync.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -12,7 +12,7 @@ import type { PageData, SiteConfig } from 'vitepress'
 import { readSkills, writeSkills, SKILLS_PATH, type SkillEntry } from './agent-skills'
 import { llmsMarkdown } from './markdown-text'
 import {
-  GITHUB_ORG, LOCALES, PAGE_SLUGS, SITE_HOST, SITE_NAME, SITE_ROOT, SUPPORT_EMAIL,
+  BASE, GITHUB_ORG, LOCALES, PAGE_SLUGS, SITE_HOST, SITE_NAME, SITE_ROOT, SUPPORT_EMAIL,
   pageRoute, pageUrl, type LocaleKey,
 } from './site'
 
@@ -39,7 +39,7 @@ const SUMMARY = 'OpenXPlay shows iPhone CarPlay on Android head units that canno
 
 const NOTES = [
   'Terminology: a "head unit" (Chinese: 车机) is the car’s built-in Android infotainment screen; a "relay" (Chinese: 中继) is the device between the iPhone and the head unit.',
-  'The site is available in Simplified Chinese (the default, at the root) and in English; every English page has the same path under /en/.',
+  'The site is available in English (the default, at the root) and in Simplified Chinese; every Chinese page has the same path under /zh/.',
 ]
 
 const REPOSITORIES: [string, string][] = [
@@ -52,13 +52,13 @@ const REPOSITORIES: [string, string][] = [
 ]
 
 const COMPONENT_TEXT: Record<LocaleKey, Record<string, string>> = {
-  root: {
+  zh: {
     HeadUnitCheck: '［交互式检测：在车机浏览器中打开本页即可运行，检查浏览器是否提供网页接收端用到的功能，全部在浏览器本地完成；不能代替在车上实际测试。］',
-    RouteChooser: '［方案选择：安卓手机 + 车机浏览器（推荐），见[安卓手机作中继](/android-relay)；UFI003 随身 Wi-Fi + 车机浏览器，见[UFI003 作中继](/ufi003-relay)；斐讯 N1 电视盒子（进阶），见[斐讯 N1 作中继](/phicomm-n1)；安卓手机或接上第二块 USB Wi-Fi 网卡的斐讯 N1 + Carlink 应用，见[Carlink 应用](/carlink)；安卓手机 + CarLife（实验性），见[CarLife](/carlife)；安卓手机 + 无线投屏（DLNA、Miracast，实验性），见[无线投屏](/wireless-display)；UFI003 只有一块 Wi-Fi 网卡，只能用车机浏览器。］',
+    RouteChooser: '［方案选择：安卓手机 + 车机浏览器（推荐），见[安卓手机作中继](/zh/android-relay)；UFI003 随身 Wi-Fi + 车机浏览器，见[UFI003 作中继](/zh/ufi003-relay)；斐讯 N1 电视盒子（进阶），见[斐讯 N1 作中继](/zh/phicomm-n1)；安卓手机或接上第二块 USB Wi-Fi 网卡的斐讯 N1 + Carlink 应用，见[Carlink 应用](/zh/carlink)；安卓手机 + CarLife（实验性），见[CarLife](/zh/carlife)；安卓手机 + 无线投屏（DLNA、Miracast，实验性），见[无线投屏](/zh/wireless-display)；UFI003 只有一块 Wi-Fi 网卡，只能用车机浏览器。］',
   },
-  en: {
+  root: {
     HeadUnitCheck: '[Interactive check: open this page in the head unit’s browser to run it. It checks whether the browser has the features the web receiver uses, entirely in the browser; it doesn’t replace a test in the car.]',
-    RouteChooser: '[Setup chooser: Android phone + head-unit browser (recommended), see [Android phone as the relay](/en/android-relay); UFI003 USB dongle + head-unit browser, see [UFI003 as the relay](/en/ufi003-relay); Phicomm N1 TV box (advanced), see [Phicomm N1 as the relay](/en/phicomm-n1); Android phone, or Phicomm N1 with a second USB Wi-Fi adapter, + Carlink app, see [Carlink app](/en/carlink); Android phone + CarLife (experimental), see [CarLife](/en/carlife); Android phone + wireless display (DLNA, Miracast, experimental), see [Wireless display](/en/wireless-display); the UFI003 has a single Wi-Fi adapter, so it offers the head-unit browser only.]',
+    RouteChooser: '[Setup chooser: Android phone + head-unit browser (recommended), see [Android phone as the relay](/android-relay); UFI003 USB dongle + head-unit browser, see [UFI003 as the relay](/ufi003-relay); Phicomm N1 TV box (advanced), see [Phicomm N1 as the relay](/phicomm-n1); Android phone, or Phicomm N1 with a second USB Wi-Fi adapter, + Carlink app, see [Carlink app](/carlink); Android phone + CarLife (experimental), see [CarLife](/carlife); Android phone + wireless display (DLNA, Miracast, experimental), see [Wireless display](/wireless-display); the UFI003 has a single Wi-Fi adapter, so it offers the head-unit browser only.]',
   },
 }
 
@@ -147,7 +147,7 @@ function llmsFullTxt(list: PageSummary[], srcDir: string): string {
     '',
     `> ${SUMMARY}`,
     '',
-    'Every page of the site in Simplified Chinese and English, generated from the page sources at build time.',
+    'Every page of the site in English and Simplified Chinese, generated from the page sources at build time.',
   ]
   for (const page of list) {
     const { locale } = pageRoute(page.relativePath)
@@ -169,6 +169,32 @@ function llmsFullTxt(list: PageSummary[], srcDir: string): string {
   return parts.join('\n') + '\n'
 }
 
+/** GitHub Pages cannot send HTTP redirects; preserve old English URLs and their query/hash. */
+function writeEnglishRedirects(out: string): void {
+  const directory = path.join(out, 'en')
+  fs.mkdirSync(directory, { recursive: true })
+  const escapeHtml = (value: string) => value.replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  })[char]!)
+  for (const slug of PAGE_SLUGS) {
+    const target = BASE + slug
+    const title = pages.get(`${slug || 'index'}.md`)?.title || 'Moved'
+    const scriptTarget = JSON.stringify(target).replace(/</g, '\\u003c')
+    fs.writeFileSync(path.join(directory, `${slug || 'index'}.html`), `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>${escapeHtml(title)}</title>
+<link rel="canonical" href="${escapeHtml(pageUrl('root', slug))}">
+<script>location.replace(${scriptTarget} + location.search + location.hash)</script>
+<meta http-equiv="refresh" content="0; url=${escapeHtml(target)}">
+</head>
+<body><p>This page has moved to <a href="${escapeHtml(target)}">${escapeHtml(target)}</a>.</p></body>
+</html>
+`)
+  }
+}
+
 /** Called from buildEnd. */
 export function writeGeneratedFiles(siteConfig: SiteConfig): void {
   const out = siteConfig.outDir
@@ -178,6 +204,7 @@ export function writeGeneratedFiles(siteConfig: SiteConfig): void {
   fs.writeFileSync(path.join(out, 'robots.txt'), robotsTxt())
   fs.writeFileSync(path.join(out, 'llms.txt'), llmsTxt(list, skills))
   fs.writeFileSync(path.join(out, 'llms-full.txt'), llmsFullTxt(list, siteConfig.srcDir))
+  writeEnglishRedirects(out)
 
   // GitHub Pages: a custom domain needs CNAME; a *.github.io address must not have one.
   const cname = path.join(out, 'CNAME')

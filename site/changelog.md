@@ -2,363 +2,363 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-19
-title: 更新日志：OpenXPlay Relay 各版本的变化
-description: OpenXPlay Relay（安卓应用和 Linux 中继）每个版本新增、变更和修复的内容，以及下载链接。
-breadcrumb: 更新日志
+title: 'Changelog: what changed in each OpenXPlay Relay release'
+description: What each OpenXPlay Relay release (the Android app and the Linux relay) added, changed and fixed, with download links.
+breadcrumb: Changelog
 ---
 
-# 更新日志
+# Changelog
 
-OpenXPlay Relay 每个版本的变化，最新的在最前面。安卓应用和 Linux 中继分别发布，Linux 版本的标题带“Linux”。安装包和校验值见 GitHub 上的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)；安装和设置见[开始使用](/quick-start)。
+What changed in each OpenXPlay Relay release, newest first. The Android app and the Linux relay are released separately; Linux releases say “Linux” in their heading. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup start at [Get started](/quick-start).
 
 ## 0.2.6 {#v0-2-6}
 
-2026-11-04 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.6)
+2026-11-04 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.6)
 
-安卓应用：CarPlay 尺寸、屏幕宽度和视图区域可以手动设置，设置向导提醒检查 iPhone 的低数据模式，Android 10 及更早版本的可信 HTTPS 不再出现证书警告。
+Android app: manual CarPlay size, screen width and view areas, a reminder to check the iPhone’s Low Data Mode in the setup guide, and no more Trusted HTTPS certificate warnings on Android 10 and earlier.
 
-**新增**
+**New**
 
-- 安卓应用：“设置 → CarPlay 画面 → 分辨率”可选“自动”或“手动”。手动可填写宽、高和密度，并显示自动当前会用的尺寸，可一键填入。
-- 安卓应用：CarPlay 屏幕宽度新增“自定义”，可填写 100–400 毫米（5 的倍数），并显示自动当前声明的宽度。
-- 安卓应用：“设置 → 车机 → CarPlay 显示区域”可选“自动”或“手动”。手动可填写全屏和/或窗口尺寸，并显示这台车机记录中最常用的尺寸。
+- Android app: Settings → CarPlay picture → *Resolution* offers *Automatic* or *Manual*. Manual takes width, height and density, and shows the size Automatic would use now, ready to fill in.
+- Android app: CarPlay screen width has a *Custom* option for 100–400 mm in 5 mm steps and shows the width Automatic declares now.
+- Android app: Settings → Car → *CarPlay view areas* offers *Automatic* or *Manual*. Manual takes a fullscreen and/or windowed size and shows the most used sizes recorded for this head unit.
 
-**变更**
+**Changes**
 
-- 安卓应用：设置向导在网络页点“下一步”时会提醒你，iPhone 连接之后在 iPhone 的“设置 → 无线局域网 → ⓘ”中确认这个 Wi-Fi 的“低数据模式”已关闭。网络页和 iPhone 未能加入 Wi-Fi 时的提示也会说明这一点。
-- 安卓应用：设置向导使用本机热点时，需要先在“复制到系统”和“填写已有热点”中选一个才能继续，不再默认选中。
-- 安卓应用：[可信 HTTPS](/trusted-https) 在 Android 10 及更早版本配置了有效域名证书时，不再出现证书警告；只在证书有效期的起止时间之内使用证书。
+- Android app: in the setup guide, Next on the network page reminds you to check, once the iPhone has connected, that Low Data Mode is off for this Wi-Fi on the iPhone (Settings → Wi-Fi → ⓘ). The network page and the message shown when the iPhone does not join the Wi-Fi say the same.
+- Android app: with this phone’s hotspot, the setup guide asks you to choose *Copy to settings* or *Use my existing hotspot* before Next; neither is preselected.
+- Android app: [Trusted HTTPS](/trusted-https) no longer shows certificate warnings on Android 10 and earlier when a valid domain certificate is configured, and uses a certificate only within both the start and the end of its validity period.
 
-**说明**
+**Notes**
 
-- 包含 0.2.6-beta.1 和 0.2.6-beta.2 的全部内容。
-- 新的尺寸和宽度设置在下次连接 CarPlay 时生效。视图区域只在 CarPlay 尺寸为自动时生效。
-- 车机页面仍只提供四个预设宽度；在车机页面选择其他宽度会清除自定义宽度。开发者选项里的“物理宽度（调试）”打开时优先于自定义宽度，默认关闭。
-- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.6)。
+- Includes everything in 0.2.6-beta.1 and 0.2.6-beta.2.
+- New size and width settings apply at the next CarPlay connection. View areas work with an automatic CarPlay size only.
+- The head-unit page still offers the four preset widths; choosing a different one there clears a custom width. Developer options → *Physical width (calibration)*, when turned on, takes priority over a custom width; it is off by default.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.6).
 
 ## 0.2.5 {#v0-2-5}
 
-2026-11-02 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5)
+2026-11-02 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5)
 
-安卓应用：新增 CarLife 输出，无线投屏可以作为输出选择并在手机上操作，更新到 DiPlay 0.2.22。
+Android app: a CarLife output, wireless display as an output operated on the phone, and DiPlay 0.2.22.
 
-**新增**
+**New**
 
-- 安卓应用：[CarLife](/carlife) 输出（实验性）。CarPlay 的画面和触控通过同一 Wi-Fi、本机热点或 USB 附件连接发送到车机的 CarLife；声音仍通过 iPhone 蓝牙直连车机。在设置向导或“设置 → 输出”中选择；车机 IP 地址可选。
-- 安卓应用：[无线投屏](/wireless-display)（DLNA、Miracast）可以在设置向导和“设置 → 输出”中选择，标记为“实验性”。车机只显示画面；只使用无线投屏时，本机显示 CarPlay 并可触控，带返回按钮，连接期间首页提供“显示 CarPlay”。
-- 安卓应用：系统日志丢失记录时，日志仍保留连接时间线；导出的日志会注明采集是否完整。
+- Android app: a [CarLife](/carlife) output (experimental). CarPlay’s picture and touch go to the car’s CarLife over the same Wi-Fi, this phone’s hotspot or a USB accessory connection; sound stays on the iPhone’s Bluetooth link to the car. Choose it in the setup guide or in Settings → Output; the car’s IP address is optional.
+- Android app: [Wireless display](/wireless-display) (DLNA, Miracast) can be chosen in the setup guide and in Settings → Output, marked *Experimental*. The car shows the picture only; with wireless display only, this phone shows CarPlay and takes touch, with a back button, and Home offers *Show CarPlay* while connected.
+- Android app: logs keep a connection timeline even when the system log drops records, and an export says when its capture is incomplete.
 
-**变更**
+**Changes**
 
-- 安卓应用：Carlink 应用输出在设置向导和“设置 → 输出”中不再标记为实验性。
-- 安卓应用：关闭车机蓝牙音频时，DLNA 无线投屏传输 CarPlay 的全部声音（提示音、Siri、通话），不再只有音乐。
-- 安卓应用：无线投屏遵循“CarPlay 画面 → 分辨率”；DLNA 直接声明车机屏幕尺寸。
-- 安卓应用：DLNA 滑动后车机不再停在旧画面，新连接的播放器从最新画面开始。
-- 安卓应用：车机网页上轻触可再次恢复全屏，进入或退出全屏不再重启 CarPlay（三星浏览器），短时间内连续到达的帧会显示而不是丢弃。
-- 安卓应用：Carlink 给响应慢的车机 4 秒回应 MTU 请求（小鹏 G9 需要 1.8 秒），连接不再卡在服务发现。感谢 hellowalker。
-- 安卓应用：Android 10 或 11 的小米手机上，Carlink 的 Wi-Fi 扫描预热每 2 分钟最多一次，把扫描次数留给系统 Wi-Fi 对话框，加入车机 Wi-Fi 更少失败。感谢 hellowalker。
-- 安卓应用：更新到 DiPlay 0.2.22。重新插线后有线 CarPlay 第一次就能连上；蓝牙打开后立即重试无线启动；在热点上广播 CarPlay 不再等待约 20 秒；无线音乐保持 iPhone 的速度（不再卡顿）；USB 麦克风能录到语音而不是静音；多指手势更稳定；对连接和收到的数据检查更严格。
-- 安卓应用：[可信 HTTPS](/trusted-https) 的证书机构频率限制按域名、账户或环境分别记录，45 天和 64 天证书按时续期。
+- Android app: the Carlink app output is no longer marked *Experimental* in the setup guide and in Settings → Output.
+- Android app: DLNA wireless display carries every CarPlay sound (alerts, Siri, calls), not only music, when car Bluetooth audio is off.
+- Android app: wireless display follows Settings → CarPlay picture → *Resolution*; DLNA declares the car screen itself.
+- Android app: with DLNA, the car no longer stays on an old frame after a swipe, and a renderer that connects starts at a fresh picture.
+- Android app: on the head-unit page, tapping restores full screen again, entering or leaving full screen no longer restarts CarPlay (Samsung Internet), and frames that arrive in a burst are shown instead of dropped.
+- Android app: Carlink gives slow head units 4 s to answer the MTU request (the XPeng G9 takes 1.8 s), so the connection no longer fails at service discovery. Thanks, hellowalker.
+- Android app: on Xiaomi phones with Android 10 or 11, Carlink’s Wi-Fi scan priming runs at most once every 2 minutes, leaving scans for the system Wi-Fi dialog, so joining the car’s Wi-Fi fails less often. Thanks, hellowalker.
+- Android app: DiPlay 0.2.22. Wired CarPlay connects on the first attempt after a replug; a wireless start retries as soon as Bluetooth turns on; announcing CarPlay on the hotspot no longer waits about 20 s; wireless music keeps the iPhone’s speed (no stutter); the USB microphone records speech instead of silence; multi-finger gestures are steadier; connections and received data are checked more strictly.
+- Android app: [Trusted HTTPS](/trusted-https) keeps rate limits from the certificate authority per name, account or environment, and 45- and 64-day certificates renew on time.
 
-**说明**
+**Notes**
 
-- 包含 0.2.5-beta.1 和 0.2.5-beta.2 的全部内容。
-- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5)。
+- Includes everything in 0.2.5-beta.1 and 0.2.5-beta.2.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.5).
 
 ## Linux 0.1.6 {#linux-v0-1-6}
 
-2026-11-01 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6)
+2026-11-01 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6)
 
-Linux 中继：0.1.3 之后的第一个正式版。管理页改用与安卓应用一致、以手机为主的设计，CarPlay 画面贴合车机浏览器，Carlink 使用第二块 Wi-Fi 网卡，新增有线 CarPlay 和可信 HTTPS，并可用 OpenXPlay Flasher 安装和更新。
+Linux relay: the first release since 0.1.3. The admin page takes the Android app’s phone-first design, CarPlay fits the head-unit browser, Carlink runs on a second Wi-Fi adapter, wired CarPlay and Trusted HTTPS arrive, and OpenXPlay Flasher installs and updates the relay.
 
-**新增**
+**New**
 
-- 管理页改用安卓应用以手机为主的设计，支持浅色和深色。首页把连接显示为一条路径（iPhone → 这台中继 → 车机），每一步都能打开详情和处理方法；首页顶部的齿轮打开设置，菜单与安卓应用相同。用默认密码登录后，会提示你设置自己的密码（可以跳过）。
-- 配对 iPhone 时，页面写明 iPhone 上显示的中继名称 OpenXPlay Linux。首页和“设置 → iPhone 连接”中可以移除已配对的设备。
-- 有线 CarPlay：“设置 → iPhone 连接 → USB 数据线”，iPhone 用 USB-A 转 Lightning 或 USB-A 转 USB-C 数据线插在中继的 USB-A 接口上，车机仍通过 Wi-Fi 连接中继。默认仍是无线。
-- CarPlay 显示区域，默认开启：车机浏览器进入或退出全屏时，CarPlay 画面随之调整，不用重新连接，也没有黑边。
-- “设置 → CarPlay 画面”：分辨率、CarPlay 屏幕宽度、视频编码和帧率，车机网页的设置中也能调整。车机网页因倒车影像等原因退出全屏后，轻触一下即可恢复。
-- “设置 → 车型与屏幕”：按品牌、车型和年款从安卓应用的车型目录选车（含极氪），屏幕参数按车保存。
-- “设置 → 声音 → 通过车辆蓝牙播放 CarPlay 音频（实验性）”，默认开启：音乐、导航和通话改由 iPhone 与车辆的蓝牙连接播放。声音改从 iPhone 播放时，请关闭此选项。
-- “网卡与网络角色”：中继列出所有有线和 Wi-Fi 网卡及其能力，自动决定 iPhone、车机浏览器和 Carlink 各用哪一块，也可以逐项指定。热点频段和信道按 Wi-Fi 硬件选择，可以设置 Wi-Fi 国家或地区和热点安全方式（默认 WPA2）。
-- Carlink 使用第二块 Wi-Fi 网卡，连接车机时 CarPlay 热点保持开启。Carlink 会记住每辆车的连接方式，持续扫描直到找到车机，并把方向盘媒体按键传给 iPhone。
-- 管理热点（默认关闭，需要第二块 Wi-Fi 网卡）：开启后用 `https://10.79.0.1:6975` 打开管理页；Carlink 占用这块网卡时暂停。
-- [可信 HTTPS](/trusted-https)和[特斯拉浏览器适配](/tesla)，与安卓应用相同，默认关闭。
-- 日志、配置文件和检查更新，与安卓应用相同：日志可以保存为 ZIP，也可以上传到 logs.openxplay.org；只有点“检查更新”时才会连接 GitHub。
-- 身份与证书：导入或移除 Apple 配件身份（文件或 ZIP），也可以使用远程 MFi 服务器，或通过 I2C、CH341 连接的认证芯片。
-- 实验性功能，默认全部打开，包括三个用于连接后一直没有画面的 iPhone（如 iOS 16）的开关和“卡顿监测”。如果连接比以前差，请关闭“使用实验功能”。
-- 每个版本都附带 Debian 安装包和安装清单，[OpenXPlay Flasher](/ufi003-relay#install) 用它们安装和更新中继。其他主机可以用主机配置文件 `/etc/openxplay/host.json` 适配，见[其他 Linux 设备](/linux-devices)。
+- The admin page has the Android app’s phone-first design, in light and dark. Home shows the connection as one path, iPhone → this relay → car, and each step opens its details and fix; the gear at the top of Home opens Settings, with the Android app’s menus. After you sign in with the default password, the page asks you to set your own (you can skip).
+- iPhone pairing names the relay as the iPhone lists it, OpenXPlay Linux. Paired devices can be removed on Home and in Settings → iPhone connection.
+- Wired CarPlay: Settings → iPhone connection → USB cable, with the iPhone plugged into a USB-A port on the relay through a USB-A to Lightning or USB-A to USB-C cable; the head unit still reaches the relay over Wi-Fi. Wireless stays the default.
+- CarPlay view areas, on by default: when the head-unit browser enters or leaves full screen, CarPlay re-lays out to fit, without reconnecting and without black bars.
+- Settings → CarPlay picture: Resolution, CarPlay screen width, Video codec and Frame rate, also in the head-unit page’s settings. After the head-unit browser leaves full screen, for example for the reverse camera, one tap brings it back.
+- Settings → Car and screen: choose the car by brand, model and year from the Android app’s catalog (with ZEEKR), with screens saved per car.
+- Settings → Audio → CarPlay audio over the car’s Bluetooth (experimental), on by default: music, navigation and calls play over the iPhone’s own Bluetooth connection with the car. If the sound plays on the iPhone instead, turn it off.
+- Interfaces and network roles: the relay lists every Ethernet and Wi-Fi interface with what it can do and picks the one for the iPhone, the head-unit browser and Carlink; you can also choose each. The hotspot band and channel follow the Wi-Fi hardware, with Wi-Fi country and Hotspot security settings (WPA2 by default).
+- Carlink runs on a second Wi-Fi adapter, so the CarPlay hotspot stays up while it joins the car. Carlink remembers how each car hands off, keeps scanning until the car appears and passes the steering-wheel media keys to the iPhone.
+- Admin hotspot (off by default, needs a second Wi-Fi adapter): once turned on, it serves the admin page at `https://10.79.0.1:6975`, paused while Carlink uses that adapter.
+- [Trusted HTTPS](/trusted-https) and the [Tesla browser adaptation](/tesla), as on Android, off by default.
+- Logs, Configuration files and Check for updates, as on Android: save the logs as a ZIP or upload them to logs.openxplay.org; the relay contacts GitHub only when you tap Check for updates.
+- Identity and certificates: import or remove the Apple accessory identity (files or a ZIP), or use a remote MFi server or an authentication chip over I2C or a CH341 adapter.
+- Experimental, all on by default, including three switches for iPhones, for example on iOS 16, that connect but never show a picture, and Watch for stalls. If connections get worse, turn off Use experimental options.
+- Each release includes the Debian package and install manifest that [OpenXPlay Flasher](/ufi003-relay#install) uses to install and update the relay. Other hosts can be described in a host profile, `/etc/openxplay/host.json`; see [Other Linux devices](/linux-devices).
 
-**变更**
+**Changes**
 
-- 只有一块 Wi-Fi 网卡时（例如 UFI003），中继只提供浏览器输出；Carlink 需要第二块 Wi-Fi 网卡。出现第二块网卡后，无需重启即可使用 Carlink。
-- 管理页按网络使用不同的名称：iPhone 所在的网络上是 `openxplay-car.local`，其他网络（例如有线网络或管理热点）上是 `openxplay-admin.local`；`openxplay-linux.local` 仍可使用。不输入 `https://` 也能打开管理页。
-- CarPlay 热点和管理热点的密码默认是 `openxplay`，可以在管理页修改。旧版本自动生成的热点密码会在更新后改为 `openxplay`，热点名称不变，车机需要重新输入一次密码。
-- 中继运行期间 CarPlay 热点一直开启，启动失败或点“停止”后也不关闭，在车上仍能打开管理页。
-- “自动连接”在一切就绪后倒数五秒再连接，点“暂不”可以取消；“开机启动”是单独的设置。
-- 连上 iPhone 后启动失败会重试五次，然后停止并给出报告；蓝牙、Wi-Fi、Carlink 或 iPhone 恢复时会再试一次。
-- Carlink 在蓝牙连接和会话中使用相同的身份，因此更新后车机会要求输入一次 Carlink 配对码。
-- 中继显示真实的版本号（0.1.3 显示的是 0.1.2）。缺少 Wi-Fi 网卡时中继不再退出，管理页仍可通过有线网络访问。
+- With one Wi-Fi radio, as on the UFI003, the relay offers only the browser output; Carlink needs a second Wi-Fi adapter. Once a second adapter appears, Carlink works without a restart.
+- The admin page has a name per network: `openxplay-car.local` on the iPhone’s network and `openxplay-admin.local` on the others, such as Ethernet or the admin hotspot; `openxplay-linux.local` still works. An address typed without `https://` still opens the page.
+- The CarPlay hotspot and the admin hotspot use the password `openxplay` unless you set your own on the admin page. A hotspot password generated by an earlier version changes to `openxplay` when you update and the name stays, so the head unit needs the new password once.
+- The CarPlay hotspot stays up as long as the relay runs, also after a failed start or Stop, so the admin page stays reachable in the car.
+- Connect automatically starts once everything is ready, after a five-second countdown that Not now cancels; Start on device boot is a separate setting.
+- After reaching the iPhone, a failing start retries five times, then stops with a report and tries once more when Bluetooth, Wi-Fi, Carlink or the iPhone comes back.
+- Carlink uses the same identity in the Bluetooth handoff and in the session, so after updating the car asks for the Carlink code once.
+- The relay reports its real version (0.1.3 reported 0.1.2). A missing Wi-Fi interface no longer stops it; the admin page stays reachable over Ethernet.
 
-**说明**
+**Notes**
 
-- 包含 Linux 0.1.5 和 0.1.6 各测试版的全部内容。
-- 从 0.1.3 更新后，请手动刷新一次车机网页；以后更新会自动刷新。
-- 回退到 0.1.3 前，请先放回更新前备份的 `/var/lib/openxplay/settings.json`，或删除这个文件，否则 0.1.3 无法启动。
-- 已知问题：在部分车机浏览器上，网页显示的帧数少于收到的帧数，正在排查；“实验性功能 → 提示可用的连接方式”在 Linux 上暂时没有作用。
-- GitHub 上标为 Latest 的始终是安卓应用；Linux 版本的标签以 `linux-v` 开头。
-- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6)。
+- Includes everything in the Linux 0.1.5 and 0.1.6 betas.
+- Refresh the head-unit page once after updating from 0.1.3; later updates reload it automatically.
+- Before going back to 0.1.3, put back a copy of `/var/lib/openxplay/settings.json` from before the update, or delete it; 0.1.3 does not start with the settings this version writes.
+- Known issues: on some head-unit browsers the page shows fewer frames than it receives, which is being investigated; Experimental → Suggest working modes does nothing on Linux yet.
+- On GitHub, the release marked Latest is always the Android app; Linux release tags start with `linux-v`.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/linux-v0.1.6).
 
 ## 0.2.4 {#v0-2-4}
 
-2026-11-01 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.4)
+2026-11-01 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.4)
 
-安卓应用：界面更流畅，首页按钮第一次轻触就响应，热点名称和密码可以复制到系统设置，修复部分 Android 12 MIUI 手机的蓝牙连接。
+Android app: smoother screens, a Home button that answers the first tap, hotspot details to copy into the phone’s settings, and a Bluetooth fix for some MIUI phones on Android 12.
 
-**新增**
+**New**
 
-- 安卓应用：iPhone 通过这台手机的热点连接时，“设置 → 网络”提供两种热点设置方式。“复制到系统（推荐）”给出建议的名称（OpenXPlay-A-…）和 16 位密码，每个按钮复制其中一项并打开手机的热点设置；“填写已有热点”保留你自己设置的热点，在这里填写它的名称和密码。设置向导提供同样的选择，已保存的热点名称和密码保持不变。
+- Android app: when the iPhone connects through this phone’s hotspot, Settings → Network offers two ways to set the hotspot up. *Copy to settings (recommended)* suggests a name (OpenXPlay-A-…) and a 16-character password; each button copies one of them and opens the phone’s hotspot settings. *Use my existing hotspot* keeps a hotspot you set up yourself: enter its name and password there. The setup guide offers the same choice, and hotspot details you already saved stay as they are.
 
-**变更**
+**Changes**
 
-- 安卓应用：界面更流畅。以下数字在 Redmi 14C（HyperOS）上停在首页、未连接车机时测得，其他手机会有差异：
-  - 寻找车机时，“记录所有蓝牙广播”（实验功能）不再占用绘制界面的线程。这个线程空闲时的 CPU 占用从每秒 64–119 ms 降到 25–27 ms，减少 60–77%。
-  - 首页的按钮第一次轻触就响应。以前按钮出现后 0.5 秒内的轻触会被忽略（例如刚从设置返回时）；现在这样的轻触 4 次全部生效。
-  - 车机的 Carlink 会话就绪之前，两个 Carlink 输出线程每 50 ms 醒一次，不再是每 5 ms；每个线程每秒占用的 CPU 从 24–27 ms 降到 5 ms，减少约 80%。
-  - 应用自己的界面在安装时预先编译，头几次打开页面稍快：打开设置时最长的一帧从 99.6 ms 降到 80–96 ms。
-  - 应用空闲时总的 CPU 占用从每秒 245–336 ms 降到 220–234 ms，减少 10–30%。
-- 安卓应用：在 Android 12 及以上版本也保留旧版蓝牙权限。部分 Android 12 的 MIUI 手机在 iPhone 通过蓝牙连接时仍会检查这些权限，以前连接会立即失败。
+- Android app: smoother screens. Measured on a Redmi 14C (HyperOS) with Home open and no car connected; other phones will differ:
+  - While the relay looks for the car, *Record all Bluetooth advertisements* (Experimental) no longer works on the thread that draws the screens. That thread’s idle CPU time drops from 64–119 ms to 25–27 ms per second, 60–77% less.
+  - The button on Home acts on the first tap. Before, a tap within 0.5 s of the button appearing, for example right after returning from Settings, was ignored; now 4 of 4 such taps act.
+  - Until the car’s Carlink session is ready, the two Carlink output threads wake every 50 ms instead of every 5 ms and use 5 ms of CPU per second each instead of 24–27, about 80% less.
+  - The app’s own screens are compiled ahead of time when it is installed, so pages open a little faster the first few times: the longest frame when opening Settings is 80–96 ms instead of 99.6 ms.
+  - In total, the idle app uses 220–234 ms of CPU per second instead of 245–336, 10–30% less.
+- Android app: keeps Android’s older Bluetooth permissions on Android 12 and later. Some MIUI phones on Android 12 still check them when the iPhone connects over Bluetooth, and the connection failed straight away.
 
-**说明**
+**Notes**
 
-- 已知问题：打开设置时仍会停顿一帧，约 80–96 ms（60 fps 下约 5 帧），之后页面才滑入。
-- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.4)。
+- Known issue: opening Settings still holds one frame for 80–96 ms (about five frames at 60 fps) before the page slides in.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.4).
 
 ## 0.2.3 {#v0-2-3}
 
-2026-10-30 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.3)
+2026-10-30 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.3)
 
-安卓应用：线缆式首页、高性能模式、后台运行权限、记录卡顿和连接中断原因的日志，以及 iOS 16 无线连接实验。
+Android app: a Home drawn as cables, high performance mode, background access, logs that explain stalls and interruptions, and iOS 16 wireless experiments.
 
-**新增**
+**New**
 
-- 安卓应用：首页从上到下展示连接：iPhone、这台手机和车机之间用线缆相连，随步骤完成逐段填满，每条线缆上显示已完成的步骤数；这台手机自身的步骤显示为图标外的圆环。只有需要你处理（!）或失败（x）的步骤带角标，步骤抽屉的把手显示“上滑查看全部步骤”和总进度。
-- 安卓应用：“设置 → 显示”中的高性能模式，默认打开：CarPlay 连接成功 20 秒后，屏幕调暗、停止所有动画，只显示“CarPlay 已连接”。轻点屏幕恢复首页。
-- 安卓应用：“设置 → 后台运行”显示 OpenXPlay Relay 能否在后台不受限制地运行，一键向系统申请，并在有对应页面时打开手机厂商的自启动和省电设置。首页的后台运行步骤和设置向导的最后一页都会打开这个页面。
-- 安卓应用：提示可用的连接方式。应用会识别这台手机打开热点时是否关闭 Wi-Fi；当前方式需要两者同时打开时，会建议可用的方式（Carlink 或 Miracast 改用车机浏览器或 USB；iPhone 连接改用此手机热点、车机热点或 USB），选择后打开对应的设置页面并改好设置。
-- 安卓应用：卡顿监测。导出的日志记录进程暂停、线程卡住（含调用栈）、长时间不动的连接步骤和电源状态，为下次启动保留心跳，并重启停止输出的日志记录。
-- 安卓应用：“设置 → 实验功能”新增三项，用于无线连接后一直没有画面的 iPhone（如 iOS 16）：仅在 iPhone 提出时开启 iAP2 Wi-Fi 通道、按 iPhone 请求释放蓝牙、等待 iPhone 自行重连。最后一项还会防止上一次会话排队的重建结束新的会话。
-- 安卓应用：“设置 → 声音”：打开“通过车辆蓝牙播放 CarPlay 音频”时，下方提示声音从手机播放时的处理方法：在车辆中控屏打开蓝牙设置，找到 iPhone，把它右侧的图标从静音改为播放。
+- Android app: Home draws the connection top to bottom: the iPhone, this phone and the car joined by cables that fill as steps finish, with the steps done on each cable; this phone’s own steps fill a ring around it. Only steps that need you (!) or failed (x) carry a badge, and the step drawer’s handle says *Swipe up for all steps* with the overall count.
+- Android app: high performance mode in Settings → Display, on by default: 20 s after CarPlay connects, the screen dims and every animation stops; only *CarPlay connected* stays. Tap the screen to bring Home back.
+- Android app: Settings → Background shows whether OpenXPlay Relay may run unrestricted in the background, asks the system for it with one tap, and opens the phone maker’s autostart and battery saver pages where they exist. The Background step on Home and the last page of the setup guide open it.
+- Android app: suggested working modes. The relay learns whether this phone turns Wi-Fi off while its hotspot is on; when the chosen setup needs both, it suggests modes that work (the car browser or USB for Carlink or Miracast; this phone’s hotspot, the car’s hotspot or USB for the iPhone connection), and a choice opens its settings page with the change made.
+- Android app: stall watch. The exported log records process pauses, blocked threads with their stacks, connection steps that stop moving and the power state; it keeps a heartbeat for the next start and restarts a log recorder that went silent.
+- Android app: three options in Settings → Experimental for iPhones, for example on iOS 16, that connect wirelessly but never show a picture: open the iAP2 Wi-Fi channel only when the iPhone offers it, release Bluetooth when the iPhone asks, and wait for the iPhone to reconnect. The last one also stops a restart queued by an earlier session from ending a newer one.
+- Android app: Settings → Sound: while *CarPlay audio over the car’s Bluetooth* is on, a tip says what to do when the sound plays on the phone: open the Bluetooth settings on the car’s centre screen, find the iPhone and switch the icon on its right from muted to play.
 
-**变更**
+**Changes**
 
-- 安卓应用：导出的日志记录连接中每一段链路怎样结束：哪一段、进行到哪一步、由谁结束（对方、中继、超时或系统）以及原因。每次中断的 iPhone 连接有一条汇总，记录中继接下来的处理，以及手机的 Wi-Fi、热点、蓝牙、屏幕和电源状态。车机网页会上报上一次连接的结束方式。
-- 安卓应用：导出的日志记录每一次启动等待（网络、Carlink、车机屏幕、重建）和每一次被拒绝的启动及原因，并记录日志记录器结束、停止输出或中断的时间；info.txt 增加 Wi-Fi 和热点情况、电源状态、上一次进程和最近的退出原因。
-- 安卓应用：实验功能页面按版本分组，最新的在前。
-- 安卓应用：浏览器里的管理页面在配对步骤中使用中继实际的蓝牙名称；同一时间只显示一个对话框或面板，Carlink 配对码等有时限的提示优先；确认删除等操作时“取消”是主按钮；设置向导会标出停下的步骤并说明原因。
+- Android app: the exported log records how every link of the connection ended: which link, how far it had got, who ended it (the other side, the relay, a timeout or the system) and why. Each interrupted iPhone attempt gets one summary with what the relay did next and the phone’s Wi-Fi, hotspot, Bluetooth, screen and power state. The car’s browser page reports how its previous connection ended.
+- Android app: the exported log records every start wait (network, Carlink, car screen, restart) and every refused start with its reason, and notes when the log recorder ended, went silent or left a gap; info.txt adds the Wi-Fi and hotspot facts, the power state, the previous process and recent exit reasons.
+- Android app: the Experimental page lists its options under one header per release, newest first.
+- Android app: the admin page in the browser uses the relay’s real Bluetooth name in the pairing steps, shows one dialog or sheet at a time with time-limited prompts such as the Carlink PIN first, makes Cancel the main button when confirming something destructive, and keeps the setup step that stopped marked with the reason.
 
-**说明**
+**Notes**
 
-- 高性能模式默认打开，可以在“设置 → 显示”中关闭。
-- “设置 → 实验功能”中的五项新功能默认打开，可以分别关闭，总开关可以全部关闭。
-- 已知问题：如果更新后 iPhone 不出画面，请先关闭两项 iOS 16 功能（iAP2 Wi-Fi 通道和释放蓝牙）。
-- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.3)。
+- High performance mode is on by default; turn it off in Settings → Display.
+- The five new options in Settings → Experimental are on by default. Each can be turned off there; the master switch turns them all off.
+- Known issues: if an iPhone stops showing a picture after this update, turn off the two iOS 16 options (the iAP2 Wi-Fi channel and releasing Bluetooth) first.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.3).
 
 ## 0.2.2 {#v0-2-2}
 
-2026-10-28 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.2)
+2026-10-28 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.2)
 
-安卓应用：iPhone 重新连接时 CarPlay 画面更稳定，车型列表加入极氪，特斯拉浏览器适配有了单独的设置页，应用只有一个首页。
+Android app: a steadier CarPlay picture when the iPhone reconnects, ZEEKR in the car list, a Settings page of its own for the Tesla browser adaptation and a single Home.
 
-**新增**
+**New**
 
-- 安卓应用：“设置 → 实验功能”新增三个选项，默认打开，用于把 CarPlay 画面从旧的 iPhone 连接交接给新的连接：“隔离新旧连接画面”“重连时重置画面状态”和“同步画面交接”。
-- 安卓应用：车型列表加入极氪。选择极氪后，“设置 → 车型与屏幕”和设置向导会建议设置[可信 HTTPS](/trusted-https)，并提供设置按钮。
-- 安卓应用：[特斯拉浏览器适配](/tesla)改为单独的设置页面“设置 → 特斯拉浏览器适配”，始终排在“车型与屏幕”之后；TeslaMirror 方式的地址排在首位并标为推荐。已保存的选择不变。
-- 安卓应用：导出的日志会记录 DLNA 和 Miracast 的运行情况（状态、失败原因和每 10 秒的统计，不含网址），用于通过开发者选项测试无线投屏。
+- Android app: three options under Settings → Experimental, on by default, for handing the CarPlay picture over from an old iPhone connection to a new one: *Isolate screen sessions*, *Reset screen state on reconnect* and *Synchronize screen handoff*.
+- Android app: ZEEKR in the car list. With a ZEEKR chosen, Settings → Car and screen and the setup guide suggest [Trusted HTTPS](/trusted-https) and offer a button to set it up.
+- Android app: the [Tesla browser adaptation](/tesla) moves to its own page, Settings → Tesla browser, always listed after Car and screen; the TeslaMirror-style address comes first and is marked as recommended. Saved choices stay as they were.
+- Android app: exported logs record what DLNA and Miracast did (state, failures and statistics every 10 seconds, without web addresses), for testing wireless display through developer options.
 
-**变更**
+**Changes**
 
-- 安卓应用：iPhone 在旧连接尚未关闭时打开新连接，新的 CarPlay 画面会留在屏幕上，旧连接迟到的画面和它的断开不再使画面停止。
-- 安卓应用：DLNA 投屏（目前仍只能通过开发者选项使用）直接接收 iPhone 的 H.264 或 H.265。去掉了 H.265 转 H.264 的转码（转码失败时接收端黑屏），小米 hyperDLNA 接收端可以持续播放 H.265。
-- 安卓应用：只有一个首页。通知、开机启动、配对和 CarPlay 浮层不再打开第二个首页；返回时每个页面最多经过一次；同一时间只显示一个对话框或面板。
-- 安卓应用：浏览器里的管理页面与应用设计一致：首页显示同样的连接视图，设置沿用应用的菜单结构，支持浅色和深色。
+- Android app: when the iPhone opens a new connection while the old one is still closing, the new CarPlay picture stays on screen; late frames from the old connection and its closing no longer stop it.
+- Android app: DLNA casting, still reachable only through developer options, receives the iPhone’s H.264 or H.265 directly. The transcoding from H.265 to H.264 is gone (when it failed, the receiver stayed blank), and Xiaomi hyperDLNA receivers keep playing H.265.
+- Android app: a single Home. Notifications, starting at boot, pairing and the CarPlay overlay no longer open a second Home; Back passes each page at most once, and only one dialog or sheet shows at a time.
+- Android app: the admin page in the browser looks like the app: Home shows the same connection view, Settings uses the app’s menus, and it comes in light and dark.
 
-**说明**
+**Notes**
 
-- 三个新选项仍是实验功能，可以在“设置 → 实验功能”中分别关闭；更改在下一次连接时生效。
-- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.2)。
+- The three new options are experimental, and each can be turned off in Settings → Experimental; changes apply to the next connection.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.2).
 
 ## 0.2.1 {#v0-2-1}
 
-2026-10-27 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.1)
+2026-10-27 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.1)
 
-安卓应用：改进连接的启动过程，车机网页会说明正在等待什么。
+Android app: improvements to how a connection starts, and a head-unit page that says what it is waiting for.
 
-**新增**
+**New**
 
-- 安卓应用：“设置 → 实验功能”新增五个改进连接启动的选项，默认打开：车机浏览器真正显示画面后，才认为 CarPlay 已开始播放；连接已经恢复时，取消排队中的重试；车机网页显示连接进度；把直到第一帧画面的各个启动阶段记入日志；同一次连接尝试中不再重复系统不支持的网络检查。
+- Android app: five options under Settings → Experimental for starting a connection, on by default. CarPlay counts as playing only once the head-unit browser shows its picture; a queued retry is cancelled when the connection has already recovered; the head-unit page shows connection progress; each stage up to the first picture is recorded in the log; and network checks the phone does not support are not repeated within one attempt.
 
-**变更**
+**Changes**
 
-- 安卓应用：[0.2.0](#v0-2-0) 的六项实验功能转为固定启用的正常功能，不再有开关；“发送本机蓝牙地址”仍需你手动打开。
-- 安卓应用：升级后新选项会打开，其他设置保持不变；之前填写但没有打开的蓝牙地址仍保持关闭。
-- 车机网页（安卓中继）：CarPlay 启动时，网页会说明是在等待 iPhone，还是在等待 CarPlay 画面。
+- Android app: six Experimental options from [0.2.0](#v0-2-0) are now standard behaviour, always on and without switches. *Send this phone’s Bluetooth address* still stays off until you turn it on.
+- Android app: upgrading turns the new options on and keeps your other settings; a Bluetooth address you entered but left off stays off.
+- Head-unit page (Android relay): while CarPlay starts, the page shows whether it is waiting for the iPhone or for its CarPlay picture.
 
-**说明**
+**Notes**
 
-- 五个新选项仍是实验功能，可以在“设置 → 实验功能”中分别关闭。
-- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.1)。
+- The five new options are experimental, and each can be turned off in Settings → Experimental.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.1).
 
 ## 0.2.0 {#v0-2-0}
 
-2026-10-26 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.0)
+2026-10-26 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.0)
 
-安卓应用：重新设计的界面逐步检查连接，按车型和年款选车，新增帧率和 Carlink 画面尺寸设置，在 CarPlay 里点 OpenXPlay 图标打开车机网页设置，可以导出日志和检查更新。
+Android app: a redesigned app that checks the connection step by step, car selection by model and year, frame-rate and Carlink picture-size settings, head-unit page settings from CarPlay’s OpenXPlay icon, log export and update checks.
 
-**新增**
+**New**
 
-- 安卓应用：重新设计的界面把连接显示为一条路径（iPhone → 中继手机 → 车机），并实时检查每一步。首页有三个图块、一句标题和最多一个操作：“连接”、当前步骤的处理方法、“重试”或“现在开始”。轻触图块或上拉下方的抽屉，可以看到全部步骤、每一步为什么需要以及该怎么做，例如打开蓝牙、配对 iPhone 或输入 Carlink 配对码。出错时会说明出了什么问题、该怎么做，并附上错误代码和时间。运行页面的显示方式相同。
-- 安卓应用：浅色和深色外观，跟随系统设置。
-- 安卓应用：“设置 → 车型与屏幕”可以按品牌、车型和年款选车：包含小鹏在国内销售的所有车型及其年款，以及特斯拉车型。内置屏幕数据仍然只有小鹏 G6 2023 款。设置向导现在从“你的车”开始，需要选好品牌和车型，年款可以保持“不确定”。之前的选择会保留；没有选车的现有设置照常使用，首页会显示“选择你的车型”，直到你选好为止。
-- 安卓应用：[特斯拉浏览器适配](/tesla)。特斯拉的浏览器不能打开局域网地址，所以选择特斯拉车型后，“设置 → 车型与屏幕 → 特斯拉浏览器适配”会通过本地 VPN 在中继手机上加一个地址（默认 169.254.88.1，数据不会离开手机）。有四种访问方式：在这个链路本地地址上使用可信域名或直接地址，或者 TeslaMirror 方式、TeslaAndroid 方式的地址；使用可信域名的方式需要先设置[可信 HTTPS](/trusted-https)，打开时不会出现证书警告。需要无线 CarPlay、“车载浏览器”输出，以及中继手机的热点或 Wi-Fi 直连；切换方式时 CarPlay 不会中断。
-- 安卓应用：“设置 → CarPlay 画面 → 帧率”：“自动”（按车机屏幕刷新率选择 30 或 60 fps），或 30–60 fps，每档 5 fps。车机网页显示并修改同一个设置。更改后，运行中的会话会重启一次。它取代了开发者选项里的帧率覆盖，已打开的覆盖值会沿用。
-- 安卓应用：“设置 → CarPlay 画面 → Carlink 画面尺寸”：“自动”（与之前一样按车机的 Carlink 窗口），六个预设尺寸（1280×720、1920×1080、1280×800、1920×720、1024×600 和 1024×768），以及最多五个自定义尺寸。带星标的尺寸用于每次连接；选择其他尺寸只在本次连接中试用，Carlink 正在运行时会重启 CarPlay。
-- 车机网页（安卓中继）：在 CarPlay 里轻触 OpenXPlay 图标会打开网页的设置，不再跳到中继手机的桌面。设置从右侧滑出，有声音、全屏、填满三个快捷按钮，以及画面、声音与麦克风、插件、关于等菜单，下拉列表改为选项页。悬浮的齿轮按钮已去掉；CarPlay 开始播放前，状态卡片上有设置按钮。
-- 安卓应用：“设置 → 日志”。应用在中继手机上保存自己最近约 24 小时的日志；密码、密钥、电话号码、姓名、消息和精确位置在存储前就会被替换。“导出日志”可选择过去 10 分钟、30 分钟或 24 小时，打包成 ZIP，然后选择“保存到本机文件”（不联网）或“联网上传并显示二维码”。只有你同意隐私说明后才会上传到 logs.openxplay.org，上传后会给出日志 ID 和二维码，方便附在问题反馈里；回执在 48 小时内可以查看，日志在 72 小时内删除。
-- 安卓应用：“设置 → 配置文件”可以导出和导入“用户配置”（连接方式、输出、画面等设置，包括开发者选项和实验功能）和“隐私配置”（可信 HTTPS 域名、证书和密钥，以及已保存的域名服务商设置；请妥善保管此文件），用于换手机或重装。导入用户配置后，设置向导也会视为完成。iPhone 配对、Carlink 车机信任和 Apple 配件身份不会随之迁移。
-- 安卓应用：“设置 → 关于 → 检查更新”，可选“稳定版”或“测试版”：显示最新版本及界面语言的更新内容，并在浏览器中下载 APK。只有在你轻触“检查更新”时，应用才会连接 GitHub。
-- 安卓应用：“设置 → 实验功能”，用于排查连接问题：“检查并恢复 iPhone 的 Wi-Fi 连接”（Wi-Fi 已连接却无法进入 CarPlay 时使用）、“隔离 Carlink 网络”、“先连接 Carlink，再连接 iPhone”、“记住蓝牙订阅方式”（对小鹏 G6 等车跳过 2 秒等待）、“持续扫描车机”、“记录所有蓝牙广播”（需打开“Carlink 调试”）和“发送本机蓝牙地址”。“使用实验功能”和除最后一项以外的所有选项默认打开；更改在下一次连接时生效。
+- Android app: a redesigned app that shows the connection as one path, iPhone → relay phone → car, and checks each step live. Home has three tiles, one headline and at most one action: *Connect*, the fix for the current step, *Retry* or *Start now*. Tap a tile or pull up the drawer below to see every step, why it matters and what to do, such as turning on Bluetooth, pairing the iPhone or entering the Carlink code. A failure says what went wrong and what to do, with its code and time. The running page looks the same.
+- Android app: light and dark appearance, following the system.
+- Android app: Settings → Car and screen chooses the car by brand, model and year: every XPeng model sold in China with its model years, and the Tesla models. Built-in screen data is still only for the XPeng G6 2023. The setup guide now starts with *Your car* and needs a brand and a model; the year can stay *Not sure*. Earlier choices carry over, and setups without a car keep working, with *Choose your car* on Home until you pick one.
+- Android app: the [Tesla browser adaptation](/tesla). The Tesla browser does not open local-network addresses, so with a Tesla chosen, Settings → Car and screen → *Tesla browser* adds an address on the relay phone through a local VPN (169.254.88.1 by default; nothing leaves the phone). There are four ways to reach the page: a trusted name or a direct address on that link-local address, or a TeslaMirror-style or TeslaAndroid-style address; the trusted-name ways need [Trusted HTTPS](/trusted-https) and open without a certificate warning. It needs wireless CarPlay, the *Car browser* output and the relay phone’s hotspot or Wi-Fi Direct; switching between the ways keeps CarPlay running.
+- Android app: Settings → CarPlay picture → *Frame rate*: *Auto* (30 or 60 fps, from the head unit’s refresh rate) or 30–60 fps in steps of 5. The head-unit page shows and changes the same setting. A change restarts a running session once. It replaces the frame-rate override in developer options; an override that was on carries over.
+- Android app: Settings → CarPlay picture → *Carlink picture size*: *Automatic* (the car’s Carlink window, as before), six presets (1280×720, 1920×1080, 1280×800, 1920×720, 1024×600 and 1024×768) and up to five sizes of your own. The starred size is used for every connection; choosing another tries it for this connection only, restarting CarPlay if Carlink is running.
+- Head-unit page (Android relay): tapping the OpenXPlay icon in CarPlay opens the page’s settings instead of the relay phone’s home screen. They slide in from the right, with quick tiles for sound, full screen and fill, menus for picture, sound and microphone, plugins and about, and choice pages instead of drop-down lists. The floating gear is gone; before CarPlay plays, the status card has a settings button.
+- Android app: Settings → Logs. The app keeps about the last 24 hours of its own logs on the relay phone; passwords, keys, phone numbers, names, messages and precise location are replaced before anything is stored. *Export logs* for the past 10 minutes, 30 minutes or 24 hours as a ZIP, then choose *Save to a file on this phone* (no network use) or *Upload online and show QR code*. An upload goes to logs.openxplay.org only after you agree to the privacy notice and gives a log ID and QR code for your bug report; the receipt can be viewed for 48 hours, and the logs are deleted within 72 hours.
+- Android app: Settings → Configuration files exports and imports a *User configuration* (connection, outputs, picture and the other settings, including developer and experimental options) and a *Privacy configuration* (the trusted HTTPS name, its certificate and keys, and saved DNS provider setups; keep this file private), to move to another phone or reinstall. Importing a user configuration also completes the setup guide. iPhone pairing, Carlink car trust and the Apple accessory identity do not carry over.
+- Android app: Settings → About → *Check for updates*, with a *Stable* or *Beta* channel, shows the newest version and its release notes in the app’s language and downloads the APK in the browser. The app contacts GitHub only when you tap *Check for updates*.
+- Android app: Settings → Experimental, for connection problems: *Check and recover the iPhone Wi-Fi connection* (when Wi-Fi connects but CarPlay does not start), *Isolate the Carlink network*, *Wait for Carlink before connecting the iPhone*, *Remember the Bluetooth subscription method* (skips a 2-second wait on cars such as the XPeng G6), *Keep scanning for the car*, *Record all Bluetooth advertisements* (only with Carlink debug on) and *Send this phone’s Bluetooth address*. *Use experimental options* and every option except the last are on by default; changes apply to the next connection.
 
-**变更**
+**Changes**
 
-- 安卓应用：搭载 MIUI 的小米手机（Android 10 和 11）使用 Carlink 时，加入车机 Wi-Fi 不会再因为一个无法响应的系统确认框而在 12 秒后失败。感谢 @hellowalker。
-- 安卓应用：打开任一输出时，中继会带着一个低优先级的“OpenXPlay Relay”通知运行，切到后台或熄屏后 Carlink 和车机网页都能继续工作。之前 HyperOS 会在应用离开屏幕几秒后将其冻结，Carlink 因此找不到车机。
-- 安卓应用：启动时会检查蓝牙（无线 CarPlay 和 Carlink 需要）和 Wi-Fi（Wi-Fi 直连、Carlink 和使用车机热点时需要）。还有没打开的，点“连接”和自动启动都会等它们打开后再开始，不再弹出对话框或直接失败。因蓝牙、Wi-Fi 或热点关闭而停止的会话，在它们恢复后会重新启动一次。
-- 安卓应用：还不知道车机屏幕尺寸时，CarPlay 最多等待 20 秒让车机报告尺寸，收到尺寸后不再重启；“现在开始”可跳过等待。
-- 安卓应用：iPhone 正在连接时，首页不再显示“等待 iPhone”。首页和运行页面显示同样的阶段：正在通过蓝牙连接、正在通过蓝牙或 USB 启动 CarPlay、等待画面或正在重新连接。
-- 安卓应用：去掉了启动页，打开应用直接进入首页。打开“自动连接”时，“连接”按钮会倒数五秒，点“暂不”可暂停。
-- 安卓应用：更简洁的设置向导：有进度条；选项更紧凑，只有选中的一项才展开；网络页只为所选网络画一张示意图；准备页只列出尚未完成的步骤。
-- 安卓应用：空闲时 CPU 和电量消耗大幅降低，打开设置再返回更流畅。
-- 安卓应用：较长的文字会换行显示，不再被截断，调大字号时也一样。
-- 安卓应用：网络方式“共用 Wi-Fi”改名为“使用车机热点”（“设置 → iPhone 连接方式 → 网络”）：iPhone 和中继手机都连接车机热点。示意图把车机画为热点，等待步骤会写出中继手机所连的车机热点名称，频段一项改为“热点频段”。管理页面仍显示“共用 Wi-Fi”。
-- 安卓应用：“开发者选项 → 同时使用多种输出”取代“同时使用两种输出”：任意输出都可以同时运行，至少保留一个。原有选择会保留。
+- Android app: Carlink on Xiaomi phones with MIUI on Android 10 and 11 no longer fails to join the head unit’s Wi-Fi after 12 seconds on a system confirmation that cannot be answered. Thanks to @hellowalker.
+- Android app: while an output is on, the relay runs with a low-priority “OpenXPlay Relay” notification, so Carlink and the head-unit page keep working in the background and with the screen off. Before, HyperOS froze the app seconds after it left the screen, and Carlink could not find the car.
+- Android app: starting checks Bluetooth for wireless CarPlay and Carlink, and Wi-Fi for Wi-Fi Direct, Carlink and the car’s hotspot. If something is still off, *Connect* and an automatic start wait and begin once it is on, instead of showing a dialog or failing. A session stopped because Bluetooth, Wi-Fi or the hotspot went off restarts once when it comes back.
+- Android app: when the car’s screen is not known yet, CarPlay waits up to 20 seconds for the car to report it, so it no longer restarts once the size arrives; *Start now* skips the wait.
+- Android app: Home no longer says “Waiting for iPhone” while the iPhone is connecting. Home and the running page show the same stage: connecting over Bluetooth, starting CarPlay over Bluetooth or USB, waiting for the picture or reconnecting.
+- Android app: the launch page is gone, and the app opens on Home. With *Connect automatically* on, the *Connect* button counts down five seconds; *Not now* pauses it.
+- Android app: a calmer setup guide, with a progress bar, compact choices that expand only when selected, one network diagram for the chosen network and a preparation page that lists only the steps still open.
+- Android app: far less CPU and battery use while idle, and smoother when opening Settings and going back.
+- Android app: long labels wrap instead of being cut off, also with larger text.
+- Android app: the *Shared Wi-Fi* network mode is now *Use the car’s hotspot* (Settings → iPhone connection → Network): the iPhone and the relay phone both join the car’s hotspot. The diagram shows the car as the hotspot, the waiting step names the car hotspot the relay phone is on, and the band field is now *Hotspot band*. The admin page still says *Shared Wi-Fi*.
+- Android app: Developer options → *Combine outputs* replaces *Both outputs at once*: any outputs can run together, and at least one stays on. Existing choices carry over.
 
-**说明**
+**Notes**
 
-- 本版只包含安卓应用，Linux 中继单独发布。
-- 无线投屏（DLNA、Miracast）在设置向导和“设置 → 输出”中显示为“待开放”，暂时不能选择。
-- 实验功能默认打开，升级后也一样。如果 Carlink 或无线 CarPlay 比之前更难连上，请关闭“设置 → 实验功能 → 使用实验功能”，你的各项选择会保留。
-- 0.2.0 导出的配置文件如果选了车型，无法导入旧版本；旧版本的配置文件可以导入 0.2.0。
-- 如果 CarPlay 声音从 iPhone 播放而不是从车里播放，请关闭“设置 → 声音 → 通过车辆蓝牙播放 CarPlay 音频”，或保持 iPhone 与车辆配对，并把车辆音源设为蓝牙。
-- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.0)。
-- 已知问题：会话中切换 Carlink 显示区域时，小鹏 G6 不会把新尺寸告诉手机；USB-C 接口的 iPhone 用两头都是 USB-C 的线做有线 CarPlay，通常连不上（请改用 OTG 转接头或无线连接）；有些手机打开热点后会关闭 Wi-Fi，而 Carlink 需要两者都打开；Carlink 上的导航播报和铃声可能没有声音；在需要 H.264 的 Carlink 车机上，手机转码在时间戳跳变后可能停止，随后改为发送原始画面；在车机网页上，为恢复全屏而轻触屏幕时，可能既没有恢复全屏，也没有传到 CarPlay；在 Android 13 及更高版本上，发往 169.254 以外特斯拉地址的连接可能会被丢弃（应用会提示）。
+- This release contains only the Android app; the Linux relay is released separately.
+- Wireless display (DLNA, Miracast) shows as *Coming soon* in the setup guide and in Settings → Output, and cannot be chosen yet.
+- The Experimental options start on, also after upgrading. If Carlink or wireless CarPlay connects worse than before, turn off Settings → Experimental → *Use experimental options*; your choices are kept.
+- A configuration file exported by 0.2.0 with a car chosen does not import into older versions; older files import into 0.2.0.
+- If CarPlay sound plays from the iPhone instead of the car, turn off Settings → Sound → *CarPlay audio over the car’s Bluetooth*, or keep the iPhone paired with the car and choose Bluetooth as the car’s audio source.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.2.0).
+- Known issues: the XPeng G6 does not tell the phone its new size when you switch its Carlink area during a session; wired CarPlay with a USB-C iPhone on a USB-C to USB-C cable usually does not work (use an OTG adapter or wireless); some phones turn Wi-Fi off when their hotspot is on, and Carlink needs both; navigation prompts and ringtones over Carlink may be silent; on Carlink head units that need H.264, transcoding on the phone can stop after a timestamp jump, and the original stream is sent instead; on the head-unit page, a tap meant to return to full screen may neither restore it nor reach CarPlay; on Android 13 and later, connections to a Tesla address outside 169.254 may be dropped (the app warns).
 
 ## 0.1.5 {#v0-1-5}
 
-2026-10-22 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5)
+2026-10-22 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5)
 
-安卓应用：H.265，Carlink 按车机窗口比例显示且触控准确，用免费域名实现可信 HTTPS，设置重新整理，连接提示更清楚。
+Android app: H.265, Carlink in the car’s window shape with correct touch, trusted HTTPS with a free domain name, reorganised settings and clearer connection hints.
 
-**新增**
+**New**
 
-- 安卓应用：支持 H.265 视频。“设置 → CarPlay 画面 → 视频编码”可选自动、强制 H.265 或强制 H.264，与车机网页共用。
-- 安卓应用：车机声明支持 H.265 时，Carlink 直接发送 iPhone 的 H.265 画面，手机不再转码，画面更流畅，延迟更低。
-- 安卓应用：Carlink 画面按车机 Carlink 窗口的比例显示，不再被压成 1280×720（例如小鹏 G6 为 1532×1013）；CarPlay 显示区域也支持 Carlink。
-- 安卓应用：新增“设置 → 输出 → 窗口尺寸变化时重新连接”（默认关闭）。车机切换 Carlink 显示区域后，第一次触摸屏幕时会重新连接，让画面适配新尺寸。
-- 安卓应用：新增[可信 HTTPS](/trusted-https)。在“设置 → 车机访问 → 可信 HTTPS”中使用 DuckDNS 或 dynv6 的免费域名，车机浏览器打开网页时不再出现证书警告。
-- 安卓应用：新增“设置 → 声音 → 通过车辆蓝牙播放 CarPlay 音频（实验性）”，默认打开。
-- 安卓应用：首页可以显示视频统计，在“设置 → CarPlay 画面 → 视频统计”中打开。
-- 安卓应用：手动开启时会检查中继手机的 Wi-Fi 和热点，没有打开时会提示，并可以直接打开对应的设置；Carlink 因为 Wi-Fi 没打开而连不上时，首页会马上说明原因。
-- 安卓应用：用数据线连接时，如果中继手机被 iPhone 当成了 USB 设备，首页会说明原因，并建议改用 OTG 转接头。
-- 安卓应用：首页列出所有连接问题，可以展开查看详情。
-- 安卓应用：设置按菜单分组；开发者选项有总开关，每个选项也有单独的开关。
+- Android app: H.265 video. Settings → CarPlay picture → *Video codec*: Automatic, Force H.265 or Force H.264, shared with the head-unit page.
+- Android app: when the head unit reports H.265 support, Carlink gets the iPhone’s H.265 picture unchanged: no transcoding on the phone, smoother motion and lower latency.
+- Android app: the Carlink picture takes the shape of the car’s Carlink window instead of a squeezed 1280×720 (1532×1013 on the XPeng G6, for example), and CarPlay view areas work with Carlink too.
+- Android app: Settings → Output → *Reconnect when the window size changes* (off by default). After the car switches its Carlink area, the first touch reconnects so the picture can follow the new size.
+- Android app: [Trusted HTTPS](/trusted-https). Settings → Head-unit access → Trusted HTTPS uses a free name from DuckDNS or dynv6, so the head-unit browser opens the page without a certificate warning.
+- Android app: Settings → Sound → *CarPlay audio over the car’s Bluetooth (experimental)*, on by default.
+- Android app: video statistics on the home screen, under Settings → CarPlay picture → *Video statistics*.
+- Android app: a manual start checks the relay phone’s Wi-Fi and hotspot, says what is off and opens the right settings; when Carlink fails because Wi-Fi is off, the home screen says so at once.
+- Android app: when a wired session finds the relay phone attached as a USB device, the home screen explains why and suggests an OTG adapter.
+- Android app: the home screen lists every connection problem, with details you can expand.
+- Android app: settings are grouped into menus, and developer options get a master switch and a switch per option.
 
-**变更**
+**Changes**
 
-- 安卓应用：Carlink 画面不是 1280×720 时，触控也能点在正确的位置。
-- 安卓应用：修复部分车机（例如小鹏 G6）的 Carlink 有声音但画面全黑的问题；倒车影像后画面能恢复；车机配对密钥变化后，会重新要求输入配对码，不用重装应用。感谢 @PicoHug。
-- 安卓应用：“USB 数据线”标为“不推荐”，切换到数据线时会先提醒；使用 Carlink 时，设置向导推荐“此手机的热点”。
-- 安卓应用：手机网络变化时不再重启网页服务，车机网页也不会断开。
-- 车机网页（安卓中继）：中继统一的“视频编码”设置取代了每个浏览器单独的“只用 H.264”选项。
-- 安卓应用：新的启动动画，所有页面使用统一的切换动画。
+- Android app: Carlink touches land where you tap when the picture is not 1280×720.
+- Android app: fixes a black Carlink picture with sound on some head units, such as the XPeng G6; the picture comes back after the reverse camera; a changed head-unit pairing key asks for the pairing code again instead of needing a reinstall. Thanks to @PicoHug.
+- Android app: *USB cable* is marked “Not recommended” and switching to it asks first; with Carlink, the setup guide recommends *This phone’s hotspot*.
+- Android app: a change of the phone’s network no longer restarts the web receiver or drops the head-unit page.
+- Head-unit page (Android relay): the relay-wide *Video codec* setting replaces the per-browser “H.264 only” option.
+- Android app: a new animated splash screen and one page transition for every page.
 
-**说明**
+**Notes**
 
-- 本版只包含安卓应用，Linux 中继单独发布。0.1.4 的候选版本已撤下，内容都包含在本版中。
-- 完整的更新说明见 [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5)。
-- 已知问题：会话中切换 Carlink 显示区域时，小鹏 G6 不会把新尺寸告诉手机；USB-C 接口的 iPhone 用两头都是 USB-C 的线做有线 CarPlay，通常连不上。
+- This release contains only the Android app; the Linux relay is released separately. The 0.1.4 release candidates were withdrawn, and everything in them is in this release.
+- Full release notes: [GitHub Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/android-v0.1.5).
+- Known issues: the XPeng G6 does not tell the phone its new size when you switch its Carlink area during a session; wired CarPlay with a USB-C iPhone on a USB-C to USB-C cable usually does not work.
 
 ## 0.1.3 {#v0-1-3}
 
-2026-10-19 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/v0.1.3)
+2026-10-19 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/v0.1.3)
 
-CarPlay 画面贴合车机浏览器窗口且无需重新连接，新增车型、原画分辨率和 CarPlay 屏幕宽度设置。
+CarPlay fits the head-unit browser window without reconnecting, with car models, a Native resolution and a CarPlay screen width setting.
 
-**新增**
+**New**
 
-- 安卓应用：新增“CarPlay 显示区域”，默认开启。车机浏览器进入或退出全屏、分屏，或倒车后变成窗口时，CarPlay 画面随之调整，不用重新连接；网页只显示当前区域，没有黑边。
-- 安卓应用：新增“设置 → 车型与屏幕”。可以选择车的品牌和型号（内置小鹏 G6 2023 款，也可以选“其他”）。中继检测到的屏幕尺寸会显示在这里，并在下次启动时使用；车型不在列表里的车主可以复制屏幕数据，发给开发者。
-- 安卓应用：记住上次车机的屏幕信息，即使 CarPlay 先于车机网页启动，画面也能准确贴合。
-- 车机网页（安卓中继）：新增“分辨率”（自动、原画、1080p、720p、整屏）和“CarPlay 屏幕宽度”（125、200、250、300 mm，默认 200）设置，手机应用的设置中也可以调整。车机浏览器解码得了时，“原画”按车机屏幕的原始像素显示；屏幕宽度越大，一屏显示的图标越多。
-- 车机网页（安卓中继）：浏览器因倒车影像等原因退出全屏后，轻触一下即可恢复全屏，这一下不会点到 CarPlay；可以在设置中关闭。
-- 车机网页（安卓中继）：显示网页版本（含提交号）和应用版本；应用更新后，网页会自动刷新一次。
-- 安卓应用：导入配件身份时，可以一次选中两个文件，顺序不限，也可以选择包含它们的 ZIP。
-- 安卓应用：开发者页新增 Carlink 调试记录（实时日志、保存文件、视频抓包）。
+- Android app: CarPlay view areas, on by default. When the head-unit browser enters or leaves full screen, goes split screen or comes back as a window after the reverse camera, CarPlay re-lays out to fit without reconnecting, and the page shows only that area, without black bars.
+- Android app: Settings → Car and screen. Choose the car’s brand and model (XPeng G6 2023 built in, or Other). The screen sizes the relay detects are shown there and used at the next start; owners of unlisted cars can copy their screen data and send it to the developers.
+- Android app: the last head unit’s screen is remembered, so CarPlay fits correctly even when it starts before the head-unit page opens.
+- Head-unit page (Android relay): Resolution (Automatic, Native, 1080p, 720p, Whole screen) and CarPlay screen width (125, 200, 250 or 300 mm, default 200) settings, also in the app’s settings. Native uses the head unit’s own pixels when its browser can decode them; a larger screen width shows more icons on one page.
+- Head-unit page (Android relay): after the browser leaves full screen, for example for the reverse camera, one tap returns to full screen without reaching CarPlay; a setting turns this off.
+- Head-unit page (Android relay): shows the page version with its commit and the app version, and reloads itself once after the app is updated.
+- Android app: the accessory identity import takes both files at once, in any order, or a ZIP that contains them.
+- Android app: a Carlink debug trace in the developer screen (live log, saved files, video capture).
 
-**变更**
+**Changes**
 
-- 安卓应用：取消配对码，车机打开地址即可连接。请给中继的热点设置密码。
-- 安卓应用：首页显示完整的 `https://` 地址，提醒是 https 而不是 http，并且只列出车机能访问的地址。
-- 安卓应用：选择热点时建议使用 5 GHz 频段；设置向导会自动滚动到还没填写的地方。
-- 安卓应用：Carlink 输出标注为实验性功能，有可能连接失败。
-- 安卓应用：只保留英文和简体中文，移除了其他只翻译了一部分的语言。
+- Android app: no pairing code any more; opening the address connects. Give the relay’s hotspot a password.
+- Android app: the home screen shows the full `https://` address, notes that it is https and not http, and lists only addresses the head unit can reach.
+- Android app: the hotspot choice recommends the 5 GHz band, and the setup guide scrolls to the fields still to fill in.
+- Android app: the Carlink output is marked as experimental and possibly failing.
+- Android app: English and Simplified Chinese only; the partial translations into other languages were removed.
 
-**说明**
+**Notes**
 
-- 更新到 0.1.3 后，请手动刷新一次车机网页；之后再更新会自动刷新。
-- Carlink 输出：在部分车机上（例如小鹏 G6）画面一直是黑的，正在排查。
-- Linux 中继本版没有功能变化。
+- Refresh the head-unit page once after updating to 0.1.3; later updates reload it automatically.
+- Carlink output: on some head units, such as the XPeng G6, the screen stays black; this is being investigated.
+- The Linux relay has no functional changes in this release.
 
 ## 0.1.2 {#v0-1-2}
 
-2026-10-18 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/v0.1.2)
+2026-10-18 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/v0.1.2)
 
-安卓应用稳定性更新，车机网页新增视频编码设置。
+A stability release for the Android app, with a video codec setting on the head-unit page.
 
-**新增**
+**New**
 
-- 车机网页：新增“视频编码”设置（自动或只用 H.264），由这台车机的浏览器记住；设置中还会显示当前使用的编码。
-- 车机网页：如实报告浏览器能解码的更高 H.264 档位，能力足够的浏览器直接接收 iPhone 的视频，不再经过更慢的重新编码。
+- Head-unit page: a Video codec setting (Automatic or H.264 only), remembered by that head unit’s browser. The settings also show the codec in use.
+- Head-unit page: reports the higher H.264 levels the browser can decode, so a capable browser receives the iPhone’s video directly instead of a slower re-encoded copy.
 
-**修复**
+**Fixes**
 
-- 安卓应用：修复一个死锁，它会导致画面冻结、无法触控，甚至应用无响应。
-- 安卓应用：可以正确接收 iPhone 的 H.265 配置。目前安卓应用先让 iPhone 使用 H.264。
-- Linux 中继：设备时钟不准或跳变时（UFI003 没有时钟电池），管理页登录、蓝牙配对窗口和 Carlink 配对码仍能正常工作。
+- Android app: fixed a deadlock that could freeze the picture, stop touch input and make the app stop responding.
+- Android app: accepts the iPhone’s H.265 configuration. For now the Android app asks the iPhone for H.264.
+- Linux relay: admin sign-in, the Bluetooth pairing window and the Carlink pairing code keep working when the device clock is wrong or jumps (the UFI003 has no clock battery).
 
-**说明**
+**Notes**
 
-- Linux 中继：设备每次重启后，需要重新登录管理页。
+- On the Linux relay, sign in to the admin page again after each restart of the device.
 
 ## 0.1.1 {#v0-1-1}
 
-2026-10-18 · [下载](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/v0.1.1)
+2026-10-18 · [Download](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/tag/v0.1.1)
 
-首个提供现成安装包的版本。
+The first release with ready-made packages.
 
-**新增**
+**New**
 
-- 安卓应用：设置向导带你一步步选择车机显示方式（车载浏览器或 Carlink 应用）、iPhone 连接方式（无线或 USB 数据线），选无线时再选网络；随后检查权限、配件身份和 iPhone 配对，最后开启 CarPlay。
-- 安卓应用：每次打开应用时，可以选择用上次的配置开启，或者重新设置；开启自动连接时，5 秒后会自动用上次的配置开启。
-- 安卓应用：首页显示当前模式（车机显示方式、iPhone 连接方式、无线网络），点任一行即进入设置向导的对应步骤；另有本机网络卡片，显示 Wi-Fi 和 IP 地址。
-- 由 GitHub Actions 构建的已签名安卓应用，以及适用于 UFI003 等设备的 aarch64 Linux 中继安装包，均附 SHA-256 校验值。
+- Android app: a setup guide walks you through how the car shows CarPlay (car browser or Carlink app), how the iPhone connects (wireless or USB cable) and, for wireless, which network to use. It then checks permissions, the accessory identity and iPhone pairing, and starts CarPlay.
+- Android app: each time you open the app with a saved setup, you can start with the last setup or set it up again. With automatic start on, the last setup starts by itself after 5 seconds.
+- Android app: Home shows the current mode (car display, iPhone connection, network), each line opening the guide at that step, and this phone’s network (Wi-Fi and IP addresses).
+- Signed Android app and an aarch64 Linux relay package (for devices such as the UFI003), built by GitHub Actions, with SHA-256 checksums.
 
-**修复**
+**Fixes**
 
-- 从 Carlink 改回车载浏览器时，不再要求填写热点名称；从未填写名称的热点会退回 Wi-Fi 直连。
-- 安卓隐藏 Wi-Fi 名称时，首页显示“已连接”，不再显示“不可用”。
+- Choosing the car browser after Carlink no longer asks for a hotspot name; a hotspot that was never named goes back to Wi-Fi Direct.
+- Home shows “Connected” instead of “Unavailable” when Android hides the Wi-Fi name.
 
 ---
 
-安卓应用的包名为 `org.openxplay.relay`。需要自行提供 Apple 配件（MFi）身份，任何构建都不包含该身份。
+The Android package name is `org.openxplay.relay`. You supply your own Apple accessory (MFi) identity; no build contains one.

@@ -103,7 +103,7 @@ export function useAnchorFixes(): void {
   function check(): void {
     const id = currentHash()
     const path = window.location.pathname.slice(withBase('/').length - 1)
-    const locale = path.startsWith('/en/') || path === '/en' ? 'en/' : ''
+    const locale = path.startsWith('/zh/') || path === '/zh' ? 'zh/' : ''
     const slug = path.slice(locale.length + 1).replace(/(^|\/)index(\.html)?$/, '').replace(/\.html$/, '')
     const moved = id ? MOVED[slug]?.[id] : undefined
     if (moved) {

@@ -2,46 +2,46 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
-title: 工作原理：iPhone、中继和车机怎样连起来
-description: OpenXPlay 的中继连接路线：iPhone 连接安卓或 Linux 中继，中继充当 CarPlay 接收端，再把视频、音频和触控转给车机的浏览器、Carlink、CarLife 或投屏接收功能。
-breadcrumb: 工作原理
+title: 'How it works: the iPhone, the relay and the head unit'
+description: The OpenXPlay relay route. An iPhone connects to an Android or Linux relay, which acts as the CarPlay receiver and passes video, audio and touch on to the head unit’s browser, Carlink, CarLife or screen-casting receiver.
+breadcrumb: How it works
 ---
 
-# 工作原理
+# How it works
 
-iPhone 连接到一台中继：运行 OpenXPlay Relay 应用的安卓手机，或 UFI003 USB 随身 Wi-Fi 这类小型 Linux 设备。中继充当 CarPlay 接收端，再把视频、音频和触控转给车机。车机上不需要安装任何东西，也不会修改车机系统。
+An iPhone connects to a relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle. The relay acts as the CarPlay receiver and passes video, audio and touch on to the head unit. Nothing is installed on the head unit and its system is never modified.
 
 <figure class="oxp-figure">
-  <img src="../assets/openxplay-relay-animated-zh.svg" width="1800" height="1120" loading="lazy" decoding="async" alt="OpenXPlay 中继连接路线：iPhone 通过 Wi-Fi 或 USB 连接安卓中继或 Linux 中继，再经车机的浏览器、Carlink、无线投屏或有线投屏入口显示在车机屏幕上。">
-  <figcaption>OpenXPlay 的一条中继路线，仅涵盖项目的部分方案组合。蓝色和紫色光点分别表示安卓和 Linux 中继的数据流。</figcaption>
+  <img src="../assets/openxplay-relay-animated.svg" width="1800" height="1120" loading="lazy" decoding="async" alt="OpenXPlay relay route: an iPhone connects over Wi-Fi or USB to an Android relay or a Linux relay, which reaches the car’s screen through its browser, Carlink, wireless display or wired display.">
+  <figcaption>One route within OpenXPlay. It covers only part of the project’s possible solutions. Blue and purple dots show the data flows of the Android and Linux relays.</figcaption>
 </figure>
 
-## 车机入口 {#entries}
+## Head-unit entry points {#entries}
 
-目前，中继可以把 CarPlay 送到这些车机入口：
+Today the relay delivers CarPlay to these head-unit entry points:
 
-| 车机入口 | 工作方式 | 触控 | 状态 |
+| Entry point | How it works | Touch | Status |
 | --- | --- | --- | --- |
-| 浏览器（网页接收端） | H.264 或 H.265 视频经安全 WebSocket 传输，由 WebCodecs 解码 | 支持 | 开发中 |
-| Carlink 应用 | [经 Wi-Fi 连接](/carlink) | 支持 | 开发中 |
-| CarLife | [经 Wi-Fi 或 USB 连接](/carlife) | 支持 | 实验性（安卓） |
-| 投屏接收端（DLNA、Miracast） | [无线投屏](/wireless-display)，在中继手机上操作 | 不支持 | 实验性（安卓） |
-| 特斯拉浏览器 | [网页接收端](/tesla)，使用特斯拉浏览器能打开的地址 | 支持 | 实验性 |
+| Browser (web receiver) | H.264 or H.265 video over a secure WebSocket, decoded with WebCodecs | Yes | In development |
+| Carlink app | [Over Wi-Fi](/carlink) | Yes | In development |
+| CarLife | [Over Wi-Fi or USB](/carlife) | Yes | Experimental (Android) |
+| Screen-casting receivers (DLNA, Miracast) | [Wireless display](/wireless-display), operated on the relay phone | No | Experimental (Android) |
+| Tesla browser | The [web receiver](/tesla) at an address the Tesla browser can open | Yes | Experimental |
 
-## 最多 28 种组合 {#combinations}
+## Up to 28 combinations {#combinations}
 
-你可以把 OpenXPlay 理解为一套可自由组合的 CarPlay 接入方案：Android、Linux 和 iOS 端实现，USB、蓝牙和 Wi-Fi 连接，以及浏览器、Carlink 等显示方式。它涵盖部分市售 CarPlay 盒子的能力，同时提供更多连接与显示路径。**本项目提供的技术通过不同组合，最多可形成 28 种解决方案**，你可以根据车机条件和手头设备选择适合自己的组合。
+Think of OpenXPlay as a set of CarPlay building blocks that you combine freely: Android, Linux and iOS implementations; USB, Bluetooth and Wi-Fi connections; and browser or Carlink display paths. It covers what some commercial CarPlay boxes do and adds more ways to connect and display. **Combined, the technologies in this project make up to 28 solutions**, so you can pick the one that fits your head unit and the devices you already have.
 
-## 极致精简，成本低廉 {#lean}
+## Lean and low-cost {#lean}
 
-| 指标 | 占用／成本 |
+| Metric | Usage / cost |
 | --- | --- |
-| 常驻内存 | 约 2.9 MB（中继）＋ 1.5 MB（输出进程） |
-| 磁盘占用 | 约 5 MB |
-| 硬件成本 | 低至 15 元人民币／3 美元，不含 MFi 部分 |
+| Resident memory | About 2.9 MB (relay) + 1.5 MB (output process) |
+| Disk space | About 5 MB |
+| Hardware cost | From CNY 15 / USD 3, excluding the MFi part |
 
-内存和磁盘是 2026 年 10 月 15 日在 UFI003 上测得的历史数据：Rust 版 Linux 中继的第一个开发构建，空闲、没有 CarPlay 会话。以上数据对应特定方案与运行配置，实际资源占用和成本随所选方案、设备及环境而变化。
+The memory and disk figures are a historical measurement from 2026-10-15 on a UFI003: the first development build of the Rust Linux relay, idle with no CarPlay session. These figures are for a specific solution and configuration. Actual usage and cost depend on the solution, the devices and the environment.
 
-## 开源 {#open-source}
+## Open source {#open-source}
 
-OpenXPlay 的中继和输出以 AGPL-3.0 开源，组件之间只通过一个共享的会话模型交互。架构、仓库和构建方法见[开发者](/developers)，许可证与商业豁免见[许可证](/licensing)。
+OpenXPlay’s relays and outputs are open source under AGPL-3.0, and their components talk to each other only through one shared session model. The architecture, repositories and build steps are under [Developers](/developers); licences and commercial exemptions are under [Licensing](/licensing).

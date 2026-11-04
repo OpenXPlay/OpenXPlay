@@ -12,7 +12,7 @@ import { computed } from 'vue'
 import { useData } from 'vitepress'
 
 const TEXT = {
-  root: {
+  zh: {
     label: 'iPhone 把 CarPlay 交给中继（安卓手机或随身 Wi-Fi），中继再送到车机自带的浏览器中显示，触控传回 iPhone。',
     phone: 'iPhone',
     phoneSub: '无线或 USB 连接',
@@ -21,7 +21,7 @@ const TEXT = {
     screen: '车机',
     screenSub: '用自带的浏览器显示',
   },
-  en: {
+  root: {
     label: 'The iPhone hands CarPlay to a relay (an Android phone or a USB dongle), which passes it to the head unit’s own browser; touch goes back to the iPhone.',
     phone: 'iPhone',
     phoneSub: 'Wireless or USB',

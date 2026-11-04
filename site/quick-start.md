@@ -2,54 +2,54 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
-title: 开始使用：让 AI 助手带你安装
-description: 第一次使用 OpenXPlay：推荐装上 openxplay-guide 技能，让电脑上的 AI 助手问清你的车和设备、推荐方案，再一步步带你安装；也可以自己选择中继（安卓手机、UFI003 随身 Wi-Fi 或斐讯 N1）和车机显示方式，按对应的教程设置。
-breadcrumb: 开始使用
+title: 'Get started: let an AI assistant guide you'
+description: First time with OpenXPlay? Install the openxplay-guide skill and an AI assistant on your computer asks about your car and devices, recommends a setup and guides you through it step by step. Or choose a relay (an Android phone, a UFI003 USB dongle or a Phicomm N1) and how the head unit shows CarPlay yourself, and follow the matching guide.
+breadcrumb: Get started
 ---
 
 <script setup>
 import RouteChooser from './.vitepress/theme/components/RouteChooser.vue'
 </script>
 
-# 开始使用
+# Get started
 
-OpenXPlay 用一台中继把 iPhone 的 CarPlay 送到车机上。
+OpenXPlay uses a relay to bring your iPhone’s CarPlay to the head unit.
 
 <div class="oxp-recommended">
 
-## 让 AI 助手带你安装 <Badge type="tip" text="推荐" /> {#ai-assistant}
+## Let an AI assistant guide you <Badge type="tip" text="Recommended" /> {#ai-assistant}
 
-AI 助手会先问清你的车、iPhone 和手头的设备，推荐一种方案（包括判断其他 Linux 设备能不能作中继），再一步步带你装好，要下载的文件也由它下载并核对。凡是会改动电脑或设备的操作，它都会先征得你同意；它不会向你索要 CarPlay 身份文件或任何密码。
+The assistant asks about your car, iPhone and spare devices, recommends a setup (including whether another Linux device can be the relay) and guides you through it one step at a time, downloading and checking the files itself. It asks before anything that changes your computer or a device, and never asks for your CarPlay identity files or passwords.
 
-1. 在 [Claude Code](https://claude.com/claude-code) 或 [Codex](https://github.com/openai/codex) 里发送这句话，装上 openxplay-guide 技能：
+1. Send this message in [Claude Code](https://claude.com/claude-code) or [Codex](https://github.com/openai/codex) to install the openxplay-guide skill:
 
    ::: code-group
    ```text [Claude Code]
-   从 https://openxplay.org/agents/skills/index.json 安装 openxplay-guide 技能到 ~/.claude/skills/openxplay-guide/，并核对每个文件的 SHA-256。
+   Install the openxplay-guide skill from https://openxplay.org/agents/skills/index.json into ~/.claude/skills/openxplay-guide/ and check every file’s SHA-256.
    ```
 
    ```text [Codex]
-   从 https://openxplay.org/agents/skills/index.json 安装 openxplay-guide 技能到 ~/.agents/skills/openxplay-guide/，并核对每个文件的 SHA-256。
+   Install the openxplay-guide skill from https://openxplay.org/agents/skills/index.json into ~/.agents/skills/openxplay-guide/ and check every file’s SHA-256.
    ```
    :::
 
-2. 新开一个对话，说“帮我安装 OpenXPlay”。
+2. Start a new conversation and say “Help me set up OpenXPlay”.
 
-技能每次对话开始时会检查有没有新版本，只有你同意后才会更新；每个版本改了什么，见它的[更新记录](https://github.com/OpenXPlay/OpenXPlay/blob/main/skills/openxplay-guide/CHANGELOG.md)。
+At the start of each conversation the skill checks for a newer version, and it updates only after you agree; what changed in each version is in its [changelog](https://github.com/OpenXPlay/OpenXPlay/blob/main/skills/openxplay-guide/CHANGELOG.md).
 
-::: details 其他 AI 助手：只用一次，不安装技能 {#ai-prompt}
-能读网页的 AI 助手都可以。把下面这段话发给它：
+::: details Other assistants: use it once, without installing {#ai-prompt}
+Any assistant that can read web pages works. Send it this message:
 
 ```text
-请阅读 https://openxplay.org/agents/skills/openxplay-guide/SKILL.md
-并按照它的说明，帮我安装 OpenXPlay。
+Read https://openxplay.org/agents/skills/openxplay-guide/SKILL.md
+and follow it to help me set up OpenXPlay.
 ```
 :::
 
-::: details 手动复制技能文件夹 {#ai-skill}
-把 [skills/openxplay-guide](https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-guide) 文件夹复制到 AI 助手的技能文件夹，再新开一个对话：
+::: details Copy the skill folder by hand {#ai-skill}
+Copy the folder [skills/openxplay-guide](https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-guide) into your assistant’s skills folder, then start a new conversation:
 
-| AI 助手 | 技能文件夹 |
+| Assistant | Skills folder |
 | --- | --- |
 | Claude Code | `~/.claude/skills/openxplay-guide/` |
 | Codex | `~/.agents/skills/openxplay-guide/` |
@@ -57,37 +57,37 @@ AI 助手会先问清你的车、iPhone 和手头的设备，推荐一种方案�
 
 </div>
 
-## 自己动手安装 {#manual}
+## Set it up yourself {#manual}
 
 <RouteChooser />
 
-### 开始前需要准备 {#requirements}
+### What you need {#requirements}
 
-| 需要准备 | 说明 |
+| You need | Details |
 | --- | --- |
-| 支持 CarPlay 的 iPhone | 通过无线（蓝牙和 Wi-Fi）或 USB 线连接中继。 |
-| 一台中继 | Android 8.0 及以上的安卓手机，安装 OpenXPlay Relay 应用；或者一个 UFI003 USB 随身 Wi-Fi，外加一台电脑用来刷机和安装；或者一台斐讯 N1 电视盒子，见[用斐讯 N1 作中继](/phicomm-n1)。其他 arm64 Linux 设备可以手动安装，见[其他 Linux 设备](/linux-devices)。 |
-| Apple 配件（MFi）身份 | 通常是 `identity.pk8` 和 `certificate.p7b` 两个文件，需要由你自行提供，见下方说明。 |
-| 车机浏览器 | 需要支持 WebCodecs 视频解码。在车机浏览器中打开[检测车机](/check)就能知道。特斯拉见[特斯拉](/tesla)。 |
+| An iPhone with CarPlay | It connects to the relay wirelessly (Bluetooth and Wi-Fi) or by USB cable. |
+| A relay | An Android phone with Android 8.0 or later and the OpenXPlay Relay app; or a UFI003 USB dongle, plus a computer to flash and install it; or a Phicomm N1 TV box: see [Phicomm N1 as the relay](/phicomm-n1). Other arm64 Linux devices can be installed by hand: see [Other Linux devices](/linux-devices). |
+| An Apple accessory (MFi) identity | Usually the two files `identity.pk8` and `certificate.p7b`, which you supply yourself; see below. |
+| The head unit’s browser | It must decode video with WebCodecs. Open [Check your head unit](/check) in the head unit’s browser to find out. In a Tesla, see [Tesla](/tesla). |
 
-::: details 什么是 Apple 配件（MFi）身份？ {#mfi-identity}
-中继要用这个身份向 iPhone 完成配件认证，CarPlay 才会启动；没有身份时，安卓应用不会启动 CarPlay。本网站的教程按最常见的方式编写：身份由 `identity.pk8` 和 `certificate.p7b` 两个文件组成。各仓库及其构建产物都不包含该身份，需要由你自行提供。
+::: details What is an Apple accessory (MFi) identity? {#mfi-identity}
+The relay uses this identity to authenticate with the iPhone as an accessory, and only then does CarPlay start; without an identity, the Android app doesn’t start CarPlay. The guides on this site use the most common form: the two files `identity.pk8` and `certificate.p7b`. The repositories and their builds contain none; you supply your own.
 
-没有这两个文件、但有其他认证来源时，可以在中继的“设置 → 身份与证书 → MFi 认证设备”中改用远程 MFi 服务器，或通过 I2C、CH341 转接器连接的认证芯片。这些方式同样需要你自己的认证来源；本网站的教程不介绍它们。
+Without these two files but with another authentication source, choose a remote MFi server, or an authentication chip over I2C or a CH341 adapter, under Settings → Identity and certificates → MFi target on the relay. These also need your own authentication source; the guides on this site don’t cover them.
 :::
 
-### 中继怎么选 {#choose-relay}
+### Which relay to choose {#choose-relay}
 
-| | 安卓手机（推荐） | UFI003 随身 Wi-Fi | 斐讯 N1 电视盒子（进阶） |
+| | Android phone (recommended) | UFI003 USB dongle | Phicomm N1 TV box (advanced) |
 | --- | --- | --- | --- |
-| 需要准备 | Android 8.0 及以上的手机 | UFI003 随身 Wi-Fi 和一台电脑 | 斐讯 N1、U 盘、网线和一台电脑 |
-| 怎样安装 | 安装应用，按设置向导操作，第一次大约 10 分钟 | 推荐让电脑上的 AI 助手读安装说明，用 OpenXPlay Flasher 安装；也可以自己用 Flasher 应用安装。第一次安装需要 Mac 或 Windows 电脑 | 把 Armbian 写入 U 盘并装进 eMMC，再通过 SSH 安装设备支持包和中继，需要熟悉命令行 |
-| Wi-Fi 频段 | 可以用 5 GHz 热点，画面不容易卡顿 | 只有 2.4 GHz | 可以用 5 GHz 热点 |
-| 怎样设置 | 在应用中设置 | 在网页管理页面中设置 | 在网页管理页面中设置 |
-| 供电与启动 | 每次上车打开应用 | 作为系统服务运行，通电后自动启动 | 作为系统服务运行，接通 12 V 电源后自动启动 |
+| What you need | A phone with Android 8.0 or later | A UFI003 USB dongle and a computer | A Phicomm N1, a USB drive, a network cable and a computer |
+| How you install it | Install the app and follow the setup guide; the first setup takes about 10 minutes | Preferably let an AI assistant on your computer read the install instructions and install it with OpenXPlay Flasher; or install it yourself in the Flasher app. The first install needs a Mac or a Windows PC | Write Armbian to a USB drive and install it to the eMMC, then install the device package and the relay over SSH; needs the command line |
+| Wi-Fi band | Can use a 5 GHz hotspot, so the picture stutters less | 2.4 GHz only | Can use a 5 GHz hotspot |
+| Where you set it up | In the app | In a web admin page | In a web admin page |
+| Power and start | Open the app on each drive | Runs as a system service and starts by itself when powered | Runs as a system service and starts by itself on 12 V power |
 
-## 设置完成以后 {#after-setup}
+## After setup {#after-setup}
 
-- [日常使用与设置](/daily-use)：每次上车怎么连接，车机网页的分辨率、全屏等设置。
-- [可信 HTTPS](/trusted-https)：用免费域名去掉车机浏览器的证书警告。
-- [故障排查](/troubleshooting)：连接、画面或声音出了问题时。
+- [Everyday use and settings](/daily-use): connecting on each drive, and the head-unit page’s resolution, full-screen and other settings.
+- [Trusted HTTPS](/trusted-https): remove the head-unit browser’s certificate warning with a free domain name.
+- [Troubleshooting](/troubleshooting): when the connection, the picture or the sound goes wrong.

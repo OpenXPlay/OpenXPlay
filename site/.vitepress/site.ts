@@ -33,7 +33,7 @@ export const GITHUB_ORG = 'https://github.com/OpenXPlay'
 export const SUPPORT_EMAIL = 'support@openxplay.org'
 export const DISCORD_URL = 'https://discord.gg/j3cKd5Tax'
 
-export type LocaleKey = 'root' | 'en'
+export type LocaleKey = 'root' | 'zh'
 
 export interface LocaleInfo {
   /** BCP 47 tag for <html lang> and hreflang. */
@@ -48,14 +48,14 @@ export interface LocaleInfo {
   docsHeading: string
 }
 
-// Simplified Chinese is the default language, at the root; English is under en/.
+// English is the default language, at the root; Simplified Chinese is under zh/.
 export const LOCALES: Record<LocaleKey, LocaleInfo> = {
-  root: { lang: 'zh-Hans', ogLocale: 'zh_CN', prefix: '', home: '首页', docsHeading: '文档（简体中文）' },
-  en: { lang: 'en', ogLocale: 'en_US', prefix: 'en/', home: 'Home', docsHeading: 'Docs (English)' },
+  root: { lang: 'en', ogLocale: 'en_US', prefix: '', home: 'Home', docsHeading: 'Docs (English)' },
+  zh: { lang: 'zh-Hans', ogLocale: 'zh_CN', prefix: 'zh/', home: '首页', docsHeading: '文档（简体中文）' },
 }
 
 /** The locale for visitors whose language matches no locale (hreflang x-default). */
-export const FALLBACK_LOCALE: LocaleKey = 'en'
+export const FALLBACK_LOCALE: LocaleKey = 'root'
 
 /** The pages every locale has, in reading order. '' is the home page. */
 export const PAGE_SLUGS = [
@@ -64,12 +64,12 @@ export const PAGE_SLUGS = [
   'licensing',
 ] as const
 
-/** Splits a source path such as 'en/quick-start.md' into its locale and slug ('' for a home page). */
+/** Splits a source path such as 'zh/quick-start.md' into its locale and slug ('' for a home page). */
 export function pageRoute(relativePath: string): { locale: LocaleKey; slug: string } {
-  const en = relativePath.startsWith('en/')
-  const rest = en ? relativePath.slice(3) : relativePath
+  const zh = relativePath.startsWith('zh/')
+  const rest = zh ? relativePath.slice(3) : relativePath
   const slug = rest.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
-  return { locale: en ? 'en' : 'root', slug }
+  return { locale: zh ? 'zh' : 'root', slug }
 }
 
 /** Absolute, clean URL of a page. */

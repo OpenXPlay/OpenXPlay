@@ -2,132 +2,132 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-30
-title: 用斐讯 N1 电视盒子作中继（Linux 中继）
-description: 把斐讯 N1 设为 OpenXPlay Linux 中继：把 Armbian 写入 U 盘并装进 eMMC，通过 SSH 安装 N1 设备支持包和中继，设置 Wi-Fi 国家或地区，添加 CarPlay 身份、配对 iPhone，在车机浏览器中打开 CarPlay。
-breadcrumb: 斐讯 N1 作中继
+title: Phicomm N1 TV box as the relay (Linux relay)
+description: Set up a Phicomm N1 as the OpenXPlay Linux relay. Write Armbian to a USB drive and install it to the eMMC, install the N1 device package and the relay over SSH, set the Wi-Fi country, add your CarPlay identity, pair your iPhone and open CarPlay in the head unit’s browser.
+breadcrumb: Phicomm N1 as the relay
 schema: howto
-howtoName: 用斐讯 N1 电视盒子作 Linux 中继，在车机浏览器中显示 iPhone CarPlay
+howtoName: Use a Phicomm N1 TV box as the Linux relay and show iPhone CarPlay in the head unit’s browser
 howtoTools:
-  - 支持 CarPlay 的 iPhone
-  - 斐讯 N1 电视盒子及其 12 V 电源
-  - 8 GB 或更大的 U 盘
-  - 能用 SSH 的电脑，以及给 N1 接网线的路由器
-  - 你自行提供的 Apple 配件（MFi）身份
-  - 浏览器支持 WebCodecs 的安卓车机
+  - iPhone with CarPlay
+  - Phicomm N1 TV box with its 12 V power supply
+  - USB drive of 8 GB or more
+  - Computer with SSH, and a router for the N1’s network cable
+  - Apple accessory (MFi) identity that you supply
+  - Android head unit with a browser that supports WebCodecs
 next:
-  text: 日常使用与设置
+  text: Everyday use and settings
   link: /daily-use
 ---
 
-# 用斐讯 N1 作中继 <Badge type="info" text="进阶" />
+# Phicomm N1 as the relay <Badge type="info" text="Advanced" />
 
-斐讯 N1 是一款采用晶晨 S905D 的电视盒子。装上 Armbian 后，它可以运行 OpenXPlay 的 Linux 中继：通电后自动启动，热点可以用 5 GHz，车机用自带的浏览器显示 CarPlay；再接一块 USB Wi-Fi 网卡，也可以用车机的 Carlink 应用。[OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) 提供了 N1 的设备支持包。
+The Phicomm N1 is a TV box with an Amlogic S905D. With Armbian installed, it runs the OpenXPlay Linux relay: the relay starts whenever the box is powered, its hotspot can use 5 GHz, and the head unit shows CarPlay in its own browser; add a USB Wi-Fi adapter and the head unit’s Carlink app works too. [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/PhicommN1) provides the N1’s device package.
 
-整个安装都在电脑上通过 SSH 完成，适合熟悉命令行的用户。本教程推荐手动安装；OpenXPlay Flasher 也支持安装 N1，见[OpenXPlay Flasher](#flasher)。
+You install everything from a computer over SSH, so this guide is for people who are comfortable with the command line. This guide recommends installing by hand; OpenXPlay Flasher can also install the N1, see [OpenXPlay Flasher](#flasher).
 
-::: warning 风险自负
-- 把 Armbian 写入 eMMC 会清除 N1 原有的系统。
-- 请到[交流群](/community)反馈结果，并附上中继和设备支持包的版本。
+::: warning At your own risk
+- Writing Armbian to the eMMC erases the N1’s current system.
+- Tell the [community](/community) how it went, with the relay and device package versions.
 :::
 
-| N1 的硬件 | 对中继的意义 |
+| N1 hardware | What it means for the relay |
 | --- | --- |
-| BCM43455 Wi-Fi，2.4 GHz 和 5 GHz | 中继的热点可以用 5 GHz，画面不容易卡顿 |
-| BCM4345C0 蓝牙，经典蓝牙和低功耗蓝牙 | 无线 CarPlay 和 Carlink 都能用 |
-| 千兆网口 | 安装和管理时接路由器 |
-| 两个 USB 2.0 接口 | 再接一块 USB Wi-Fi 网卡就能用 Carlink，见[一块网卡，还是两块](#adapters) |
-| 12 V 直流供电 | 在车上也需要能稳定提供 12 V 的电源 |
+| BCM43455 Wi-Fi, 2.4 GHz and 5 GHz | The relay’s hotspot can use 5 GHz, so the picture stutters less |
+| BCM4345C0 Bluetooth, Classic and Low Energy | Both wireless CarPlay and Carlink work |
+| Gigabit Ethernet | Connects to a router while you install and manage it |
+| Two USB 2.0 ports | A USB Wi-Fi adapter here enables Carlink; see [One adapter or two](#adapters) |
+| 12 V DC power | In the car, too, it needs a supply that delivers a steady 12 V |
 
-## 一块网卡，还是两块 {#adapters}
+## One adapter or two {#adapters}
 
-N1 自带一块 Wi-Fi 网卡，只用车机浏览器时就够了。要用车机的 Carlink 应用，需要在 USB 接口上再接一块 Wi-Fi 网卡（例如 RTL8822BU）。
+The N1’s built-in Wi-Fi adapter is enough for the head unit’s browser. For the head unit’s Carlink app, add a second Wi-Fi adapter on a USB port (for example an RTL8822BU).
 
-| | 一块网卡（N1 自带） | 两块网卡（再接一块 USB Wi-Fi 网卡） |
+| | One adapter (built in) | Two adapters (plus a USB Wi-Fi adapter) |
 | --- | --- | --- |
-| 车机显示 | 车机浏览器 | 车机浏览器、Carlink 应用，或两者 |
-| 自带网卡 | 开中继的热点，iPhone 和车机都连接它 | 开中继的热点，给 iPhone 和车机浏览器用 |
-| USB 网卡 | | 连接车机的 Carlink Wi-Fi；Carlink 没在连接时，可以开管理热点 |
-| 在车上打开管理页面 | 手机连接中继的热点 | 手机连接中继的热点，或者连接管理热点 |
+| Head unit shows CarPlay in | Its browser | Its browser, its Carlink app, or both |
+| Built-in adapter | Runs the relay’s hotspot; the iPhone and the head unit both join it | Runs the relay’s hotspot for the iPhone and the head unit’s browser |
+| USB adapter | | Joins the head unit’s Carlink Wi-Fi; runs the admin hotspot while Carlink isn’t connected |
+| Admin page in the car | Phone joins the relay’s hotspot | Phone joins the relay’s hotspot or the admin hotspot |
 
-只有一块网卡时，设置向导中的“Carlink 应用”和“两者”不能选。拔掉 USB 网卡后 Carlink 会暂停，插回去就恢复。这些规则需要 Linux 中继 0.1.6 及以上版本。
+With one adapter, the setup guide doesn’t offer *Carlink app* or *Both*. Unplug the USB adapter and Carlink pauses; plug it back in and Carlink resumes. These rules need Linux relay 0.1.6 or later.
 
-每种情况下怎么连接，见[在车上使用](#in-car)。
+[Using it in the car](#in-car) shows how to connect in each case.
 
-## 需要准备 {#requirements}
+## What you need {#requirements}
 
-| 需要准备 | 说明 |
+| You need | Notes |
 | --- | --- |
-| 斐讯 N1 | 连同它的 12 V 电源 |
-| U 盘 | 8 GB 或更大，里面的数据会被清空。装好后可以留作救援盘 |
-| 网线和路由器 | 安装时 N1 用网线接路由器，电脑连接同一个路由器 |
-| 电脑 | Windows、macOS 或 Linux，能写入 U 盘，能运行 `ssh` 命令（Windows 10 和 11 已自带） |
-| Apple 配件（MFi）身份 | `identity.pk8` 和 `certificate.p7b`，由你自行提供，见[什么是 Apple 配件（MFi）身份](/quick-start#mfi-identity) |
-| USB Wi-Fi 网卡（可选） | 只在使用 Carlink 时需要，见[一块网卡，还是两块](#adapters) |
+| A Phicomm N1 | With its 12 V power supply |
+| A USB drive | 8 GB or more; everything on it is erased. Keep it afterwards as a rescue drive |
+| A network cable and a router | The N1 is wired to the router while you install; the computer joins the same router |
+| A computer | Windows, macOS or Linux that can write a USB drive and run `ssh` (built into Windows 10 and 11) |
+| An Apple accessory (MFi) identity | `identity.pk8` and `certificate.p7b`, supplied by you; see [What is an Apple accessory (MFi) identity?](/quick-start#mfi-identity) |
+| A USB Wi-Fi adapter (optional) | Only for Carlink; see [One adapter or two](#adapters) |
 
-## 把 Armbian 写入 U 盘 {#usb .step}
+## Write Armbian to a USB drive {#usb .step}
 
-我们用 ophub 的 [amlogic-s9xxx-armbian](https://github.com/ophub/amlogic-s9xxx-armbian) 测试：从版本 [`Armbian_trixie_arm64_server_2026.10`](https://github.com/ophub/amlogic-s9xxx-armbian/releases/tag/Armbian_trixie_arm64_server_2026.10) 下载 `Armbian_26.11.0_amlogic_s905d_trixie_6.12.112_server_2026.10.15.img.gz`（Debian 13，内核 6.12）。它的 SHA-256 应为：
+We test with ophub’s [amlogic-s9xxx-armbian](https://github.com/ophub/amlogic-s9xxx-armbian): from the release [`Armbian_trixie_arm64_server_2026.10`](https://github.com/ophub/amlogic-s9xxx-armbian/releases/tag/Armbian_trixie_arm64_server_2026.10), download `Armbian_26.11.0_amlogic_s905d_trixie_6.12.112_server_2026.10.15.img.gz` (Debian 13, kernel 6.12). Its SHA-256 should be:
 
 ```text
 2a5838ff490db59065f9ab29c6762ea459b08e7ff6802ef22fa1329bfaf37fff
 ```
 
-在 Windows 上用 `certutil -hashfile <文件> SHA256`、在 macOS 上用 `shasum -a 256 <文件>`、在 Linux 上用 `sha256sum <文件>` 核对。然后解压得到 `.img` 文件，用 [balenaEtcher](https://etcher.balena.io/) 或 [Rufus](https://rufus.ie/)（Windows）把它写入 U 盘。
+Check it with `certutil -hashfile <file> SHA256` on Windows, `shasum -a 256 <file>` on macOS or `sha256sum <file>` on Linux. Then unpack the `.img` file and write it to the USB drive with [balenaEtcher](https://etcher.balena.io/) or [Rufus](https://rufus.ie/) (Windows).
 
-设备支持包要求 Debian 13（trixie）。ophub 其他 Debian 13 的 N1 镜像，例如 6.18 内核的，应该也能用。
+The device package needs Debian 13 (trixie). ophub’s other Debian 13 images for the N1, such as the one with kernel 6.18, should work too.
 
-## 从 U 盘启动 N1 {#boot .step}
+## Boot the N1 from the USB drive {#boot .step}
 
-1. 用网线把 N1 接到路由器，插上 U 盘，再接通电源。
-2. 大约 2 分钟后，在路由器的设备列表中找到名为 Armbian 的设备，记下它的 IP 地址。
+1. Connect the N1 to the router with a network cable, plug in the USB drive, then plug in the power.
+2. After about 2 minutes, find the device named Armbian in the router’s device list and note its IP address.
 
-::: details N1 没有从 U 盘启动？ {#boot-usb}
-- 刷过 Armbian、OpenWrt 等第三方系统的 N1，插着 U 盘通电通常就会从 U 盘启动。
-- 还在运行斐讯原厂系统的 N1，要先在原厂系统中开启 ADB 调试，再在电脑上运行下面两条命令，N1 会重启并从 U 盘启动。部分原厂系统版本不能直接开启 ADB，需要先降级，请参考 N1 社区的教程。
+::: details The N1 didn’t boot from the USB drive? {#boot-usb}
+- An N1 that has run a third-party system such as Armbian or OpenWrt usually boots from the USB drive as soon as it is powered with the drive in.
+- An N1 that still runs Phicomm’s original system needs ADB debugging turned on in that system first. Then run these two commands on the computer, and the N1 restarts from the USB drive. Some versions of the original system can’t turn on ADB until they are downgraded; follow an N1 community guide for that.
 
   ```sh
-  adb connect <N1 的 IP>
+  adb connect <N1 IP>
   adb shell reboot update
   ```
 
-- 换另一个 USB 接口再试一次。
+- Try the other USB port.
 
-详见 ophub 文档中的[设置盒子从 USB/TF/SD 中启动](https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/documents/README.cn.md#124-设置盒子从-usbtfsd-中启动)。
+ophub’s documentation covers this in [Setting the box to boot from USB/TF/SD](https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/documents/README.md#124-setting-the-box-to-boot-from-usbtfsd).
 :::
 
-## 把系统装进 eMMC {#emmc .step}
+## Install the system to the eMMC {#emmc .step}
 
-在电脑上登录 N1。默认用户是 `root`，密码是 `1234`：
+Sign in to the N1 from the computer. The default user is `root` with the password `1234`:
 
 ```sh
-ssh root@<N1 的 IP>
+ssh root@<N1 IP>
 ```
 
-第一次登录时，Armbian 会让你修改 root 密码并创建一个普通用户，按提示完成，以后就用这个用户登录。然后把系统写入 eMMC：
+On the first sign-in, Armbian asks you to change the root password and to create a user; follow the prompts, and sign in as that user from then on. Then write the system to the eMMC:
 
 ```sh
 armbian-install
 ```
 
-依次输入 `101`（Phicomm-N1）和 `1`（ext4），等它完成。然后关机：
+Enter `101` (Phicomm-N1), then `1` (ext4), and wait for it to finish. Then shut down:
 
 ```sh
 poweroff
 ```
 
-约 30 秒后拔掉电源和 U 盘，再重新接通电源：插着 U 盘时，N1 会优先从 U 盘启动。N1 从 eMMC 启动后，用你创建的用户登录。IP 地址通常不变；变了就到路由器中再查一次。
+After about 30 seconds, unplug the power and the USB drive, then plug the power back in: while the USB drive is in, the N1 boots from it first. Once the N1 has booted from the eMMC, sign in as the user you created. The IP address usually stays the same; if it changed, look it up in the router again.
 
 ```sh
-ssh <用户名>@<N1 的 IP>
+ssh <user>@<N1 IP>
 ```
 
-::: details 想保留原来的系统？ {#backup}
-写入 eMMC 之前，在 U 盘上的 Armbian 中运行 `armbian-ddbr`，输入 `b`，原系统会备份到 U 盘的 `/ddbr/BACKUP-arm-64-emmc.img.gz`，请复制到电脑上保存。以后想换回原系统时，从 U 盘启动，运行同一个命令并输入 `r`。详见 ophub 文档中的[使用 armbian-ddbr 备份恢复](https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/documents/README.cn.md#1231-使用-armbian-ddbr-备份恢复)。
+::: details Want to keep the original system? {#backup}
+Before writing to the eMMC, run `armbian-ddbr` in Armbian on the USB drive and enter `b`. It backs up the original system to `/ddbr/BACKUP-arm-64-emmc.img.gz` on the USB drive; copy that file to your computer. To go back later, boot from the USB drive, run the same command and enter `r`. ophub’s documentation covers this in [Backup and Restore Using Armbian-ddbr](https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/documents/README.md#1231-backup-and-restore-using-armbian-ddbr).
 :::
 
-## 安装设备支持包 {#device .step}
+## Install the device package {#device .step}
 
-在 OpenXPlay-Hardware 的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases) 中选择最新的 `phicomm-n1-device-v` 版本（目前都是预发布版，需要 0.1.1-beta.1 及以上），在 N1 上下载、核对 SHA-256，解压后运行安装程序。把 `V` 改成最新的版本号；`--dry-run` 只做检查、不做任何改动：
+From the OpenXPlay-Hardware [Releases](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases), choose the newest `phicomm-n1-device-v` release (all are pre-releases so far; 0.1.1-beta.1 or later is required). On the N1, download it, check its SHA-256, unpack it and run its installer. Set `V` to the newest version; `--dry-run` checks everything without changing anything:
 
 ```sh
 V=0.1.1-beta.1
@@ -141,41 +141,41 @@ sudo sh "$D/install-device.sh"
 sudo reboot
 ```
 
-解压出的文件夹名中，预发布版本号的 `-` 写作 `~`（例如 `0.1.1~beta.1`），`D` 就是这个文件夹。重启后重新登录，检查安装结果：
+The unpacked folder writes a pre-release version with `~` in place of `-` (such as `0.1.1~beta.1`); `D` is that folder. After the reboot, sign in again and check the install:
 
 ```sh
 V=0.1.1-beta.1
 sudo sh "openxplay-phicomm-n1-device-$(echo "$V" | sed 's/-/~/')/install-device.sh" --verify
 ```
 
-| 命令 | 最后一行应为 |
+| Command | Its last line should be |
 | --- | --- |
-| `--dry-run` | `OXP-STAGE device preflight-ok version=<版本>` |
-| 安装 | `OXP-STAGE device ok version=<版本> reboot=required` |
-| `--verify` | `OXP-STAGE device verified version=<版本>` |
+| `--dry-run` | `OXP-STAGE device preflight-ok version=<version>` |
+| Install | `OXP-STAGE device ok version=<version> reboot=required` |
+| `--verify` | `OXP-STAGE device verified version=<version>` |
 
-`<版本>` 与文件夹名中的写法相同。
+`<version>` is written as in the folder name.
 
-设备支持包自带中继需要、而 Armbian 缺少的 Debian 软件包（例如 BlueZ），安装时不需要联网。它会：
+The device package brings the Debian packages the relay needs that Armbian lacks, such as BlueZ, so it installs offline. It:
 
-- 安装主机配置 `/etc/openxplay/host.json`；
-- 根据以太网 MAC 地址为 Wi-Fi 和蓝牙生成各自的地址；不这样做的话，每台 N1 的这两个地址都相同；
-- 在开机时修正以太网 PHY，用 `armbian-update` 更新内核后也会再次修正；
-- 安装较新的 Cypress Wi-Fi 固件，让 5 GHz 的 36 至 48 信道在 CN 国家代码下可用。原厂固件只允许 149 至 165 信道；52 至 144 信道仍不可用。
+- installs the host profile `/etc/openxplay/host.json`;
+- gives Wi-Fi and Bluetooth their own addresses, derived from the Ethernet MAC address; otherwise every N1 shares the same ones;
+- fixes the Ethernet PHY at boot, and again after a kernel update with `armbian-update`;
+- installs newer Cypress Wi-Fi firmware, so 5 GHz channels 36 to 48 work under the CN country code. The stock firmware allows only 149 to 165; 52 to 144 stay disabled.
 
-::: details N1 连不上 GitHub？ {#offline}
-在电脑上下载这两个文件并核对 SHA-256，再复制到 N1 上，然后在 N1 上设好 `V`，从 `tar` 那一行继续：
+::: details The N1 can’t reach GitHub? {#offline}
+Download both files on the computer, check the SHA-256 there, copy them to the N1, set `V` there, and carry on from the `tar` line:
 
 ```sh
-scp openxplay-phicomm-n1-device-<版本>.tar.gz SHA256SUMS <用户名>@<N1 的 IP>:
+scp openxplay-phicomm-n1-device-<version>.tar.gz SHA256SUMS <user>@<N1 IP>:
 ```
 
-下一步的中继软件包也可以这样复制。
+Copy the relay package in the next step the same way.
 :::
 
-## 安装中继 {#relay .step}
+## Install the relay {#relay .step}
 
-在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本，现在是 `linux-v0.1.6`：
+Take the newest `linux-v` release from [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); it is `linux-v0.1.6` now:
 
 ```sh
 V=0.1.6
@@ -185,81 +185,81 @@ sha256sum --ignore-missing -c SHA256SUMS
 sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 ```
 
-把 `V` 改成最新的版本号。依赖已由设备支持包装好，这一步不需要联网。中继作为系统服务运行，开机后自动启动；软件包会装哪些东西，见[安装中继](/linux-devices#install)。
+Set `V` to the newest version. The device package already installed the dependencies, so this step works offline. The relay runs as a system service and starts at boot; [Install the relay](/linux-devices#install) lists what the package installs.
 
-## 打开管理页面 {#admin .step}
+## Open the admin page {#admin .step}
 
-在同一个局域网中的手机或电脑上打开 `https://<N1 的 IP>:6975`；iPhone、Mac 和 Windows 电脑也可以打开 `https://openxplay-admin.local:6975`。浏览器会提示证书不受信任，继续访问即可。首次登录的密码是 `openxplay`，登录后请立即修改。忘记密码时，见[忘记了管理密码？](/linux-devices#reset-password)
+On a phone or computer on the same network, open `https://<N1 IP>:6975`; an iPhone, a Mac or a Windows computer can also open `https://openxplay-admin.local:6975`. The browser warns that the certificate isn’t trusted; continue to the page. The first password is `openxplay`: sign in, then change it. If you forget it, see [Forgot the admin password?](/linux-devices#reset-password)
 
-## 设置 Wi-Fi 国家或地区 {#country .step}
+## Set the Wi-Fi country {#country .step}
 
-在管理页面中打开“**iPhone 连接 → 无线网络**”，把“**Wi-Fi 国家或地区**”设为你所在的国家或地区，例如中国选 `CN`。
+In the admin page, open **iPhone connection → Wireless network** and set **Wi-Fi country** to where you are, for example `CN` in mainland China.
 
-保持“系统设置”时，N1 通常使用全球通用的规则（`00`）：5 GHz 信道都不能开热点，中继只能在 2.4 GHz 的 6 信道开热点。设为 `CN` 后，装好设备支持包的 N1 可以在 5 GHz 的 36 至 48 和 149 至 165 信道开热点。
+Left at *System setting*, the N1 usually follows the worldwide rules (`00`): no 5 GHz channel may host a hotspot, so the relay opens its hotspot on 2.4 GHz channel 6. With `CN` and the device package installed, the N1 can host its hotspot on 5 GHz channels 36 to 48 and 149 to 165.
 
-## 添加 CarPlay 身份 {#identity .step}
+## Add your CarPlay identity {#identity .step}
 
-在管理页面中打开“**设置 → 身份与证书**”，选择 `identity.pk8` 和 `certificate.p7b`，或者包含这两个文件的 ZIP。也可以[手动放入身份文件](/linux-devices#identity)。
+In the admin page, open **Settings → Identity and certificates** and choose `identity.pk8` and `certificate.p7b`, or a ZIP that contains both. You can also [put the files in place by hand](/linux-devices#identity).
 
-## 完成设置向导 {#setup .step}
+## Answer the setup guide {#setup .step}
 
-按管理页面的设置向导，依次选择你的车、输出（车机浏览器、Carlink 应用或两者；只有一块网卡时只能选车机浏览器）和网络，再完成它列出的准备事项。中继自己的热点名为 `OpenXPlay-Linux-XXXX`，密码为 `openxplay`，除非你另行设置。各选项的说明见[完成设置向导](/linux-devices#setup)。
+Work through the admin page’s setup guide: your car, the output (the head unit’s browser, its Carlink app, or both; with one adapter only the browser) and the network, then what it lists under getting ready. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay`, unless you set your own. [Answer the setup guide](/linux-devices#setup) explains each choice.
 
-## 配对 iPhone {#pair .step}
+## Pair the iPhone {#pair .step}
 
-首页提示配对 iPhone 时，点“配对”，配对窗口会开放 10 分钟。在 iPhone 上打开“设置 → 蓝牙”，选择 `OpenXPlay Linux`。
+When Home asks you to pair the iPhone, tap *Pair*; pairing stays open for 10 minutes. On the iPhone, open Settings → Bluetooth and choose `OpenXPlay Linux`.
 
-## 在车机上打开 CarPlay {#head-unit .step}
+## Open CarPlay on the head unit {#head-unit .step}
 
-车机连接中继的热点，在浏览器中打开 `https://10.77.0.1:8443/`；管理页面会列出车机要打开的地址。第一次打开时接受证书警告，原因见[故障排查](/troubleshooting#certificate-warning)。使用 Carlink 应用时，见 [Carlink 应用](/carlink)。
+Join the relay’s hotspot from the head unit and open `https://10.77.0.1:8443/` in its browser; the admin page lists the head-unit address. Accept the certificate warning the first time; [Troubleshooting](/troubleshooting#certificate-warning) explains why it appears. For the Carlink app, see [Carlink app](/carlink).
 
-装好后，N1 就可以放到车上了：接通 12 V 电源，中继就会自动启动。在车上怎么连接，见[在车上使用](#in-car)。
+The N1 is now ready for the car: give it 12 V and the relay starts by itself. [Using it in the car](#in-car) shows how to connect.
 
-## 在车上使用 {#in-car}
+## Using it in the car {#in-car}
 
-### 一块网卡 {#in-car-one}
+### One adapter {#in-car-one}
 
-1. iPhone 自动连接中继的热点 `OpenXPlay-Linux-XXXX`，开始无线 CarPlay。
-2. 车机连接同一个热点，在浏览器中打开 `https://10.77.0.1:8443/`。
-3. 打开管理页面：手机连接中继的热点，打开 `https://openxplay-car.local:6975` 或 `https://10.77.0.1:6975`。
+1. The iPhone joins the relay’s hotspot `OpenXPlay-Linux-XXXX` by itself and wireless CarPlay starts.
+2. The head unit joins the same hotspot and opens `https://10.77.0.1:8443/` in its browser.
+3. Admin page: join the relay’s hotspot from your phone and open `https://openxplay-car.local:6975` or `https://10.77.0.1:6975`.
 
-### 两块网卡 {#in-car-two}
+### Two adapters {#in-car-two}
 
-1. iPhone 自动连接中继的热点 `OpenXPlay-Linux-XXXX`，开始无线 CarPlay。
-2. 打开车机上的 Carlink 应用，中继用 USB 网卡自动连接车机的 Carlink Wi-Fi，见 [Carlink 应用](/carlink)。同时使用车机浏览器时，车机连接中继的热点，和一块网卡时相同。
-3. 打开管理页面：手机连接中继的热点，打开 `https://openxplay-car.local:6975` 或 `https://10.77.0.1:6975`。Carlink 没在连接时，也可以连接管理热点 `OpenXPlay-Admin`，打开 `https://openxplay-admin.local:6975` 或 `https://10.79.0.1:6975`。管理热点默认关闭，在“**iPhone 连接 → 无线网络 → 网卡与网络角色**”中开启。
+1. The iPhone joins the relay’s hotspot `OpenXPlay-Linux-XXXX` by itself and wireless CarPlay starts.
+2. Start the head unit’s Carlink app; the relay joins the head unit’s Carlink Wi-Fi with the USB adapter by itself, see [Carlink app](/carlink). For the head unit’s browser as well, the head unit joins the relay’s hotspot, as with one adapter.
+3. Admin page: join the relay’s hotspot from your phone and open `https://openxplay-car.local:6975` or `https://10.77.0.1:6975`. While Carlink isn’t connected, you can also join the admin hotspot `OpenXPlay-Admin` and open `https://openxplay-admin.local:6975` or `https://10.79.0.1:6975`. The admin hotspot is off by default; turn it on under **iPhone connection → Wireless network → Interfaces and network roles**.
 
-`openxplay-car.local` 用在 iPhone 所在的网络上：中继的热点，或者你选择的车机热点；`openxplay-admin.local` 用在其他网络上，例如管理热点和家里的局域网。iPhone、Mac 和 Windows 电脑能打开这类 `.local` 地址，很多安卓手机不能，这时请用 IP 地址。第一次打开后把页面加入书签或添加到主屏幕，以后就不用再输入地址。
+`openxplay-car.local` works on the iPhone’s network: the relay’s hotspot, or the car’s hotspot if you chose it; `openxplay-admin.local` works on the other networks, such as the admin hotspot and your home network. iPhones, Macs and Windows computers open these `.local` addresses; many Android phones can’t, so use the IP address there. Bookmark the page or add it to the Home Screen the first time, and you won’t need to type the address again.
 
-## 网络与 Wi-Fi {#wifi}
+## Network and Wi-Fi {#wifi}
 
-- N1 的热点和 Wi-Fi 客户端连接只能共用同一个信道同时运行。
-- 插上 USB Wi-Fi 网卡后，中继会自动让它负责 Carlink；也可以在管理页面的“**iPhone 连接 → 无线网络 → 网卡与网络角色**”中手动指定，或者让它开管理热点。
-- 网线可以一直接着：在家时打开 `https://openxplay-admin.local:6975` 或路由器分配给 N1 的地址，也可以用 SSH 登录。
+- The N1 can run its hotspot and a Wi-Fi station connection together only on one shared channel.
+- Plug in a USB Wi-Fi adapter and the relay gives it Carlink by itself; you can also assign it by hand, or give it the admin hotspot, under **iPhone connection → Wireless network → Interfaces and network roles** in the admin page.
+- The network cable can stay plugged in: at home, open `https://openxplay-admin.local:6975` or the address the router gave the N1, or sign in over SSH.
 
-## 更新 {#updates}
+## Updates {#updates}
 
-- **中继**：下载新版本的 `.deb` 并核对后，运行 `sudo openxplay-relay-update openxplay-relay_<版本>_arm64.deb`。新版本起不来时，它会自动装回上一个版本，见[更新中继](/linux-devices#update)。
-- **设备支持包**：用新版本的整合包，按[安装设备支持包](#device)的步骤再装一次，然后重启。安装程序不会把已装的软件包降级。
-- **Armbian 内核**：`armbian-update` 更新内核后，设备支持包会自动再次修正以太网 PHY。
+- **Relay:** download and check the new `.deb`, then run `sudo openxplay-relay-update openxplay-relay_<version>_arm64.deb`. If the new version doesn’t come up, it puts the previous one back; see [Update the relay](/linux-devices#update).
+- **Device package:** install the newer bundle as in [Install the device package](#device), then reboot. The installer never downgrades installed packages.
+- **Armbian kernel:** after `armbian-update` installs a new kernel, the device package fixes the Ethernet PHY again by itself.
 
 ## OpenXPlay Flasher {#flasher}
 
-OpenXPlay Flasher 已有 N1 的设备配置，通过网络 SSH 安装设备支持包和中继，签名的软件包列表也已列出 N1 的这两个软件包。推荐按本页手动安装。Flasher 不会安装 Armbian。
+OpenXPlay Flasher has an N1 profile that installs the device package and the relay over SSH on the network, and its signed package list lists both N1 packages. Installing by hand with this guide is recommended. Flasher doesn’t install Armbian.
 
-## 卸载 {#uninstall}
+## Uninstall {#uninstall}
 
 ```sh
 sudo apt-get purge openxplay-relay
 sudo apt-get purge openxplay-phicomm-n1
 ```
 
-第一条命令卸载中继，`/var/lib/openxplay` 中的设置、配对和身份文件会保留；不再需要时，用 `sudo rm -rf /var/lib/openxplay` 删除。第二条命令卸载设备支持包，并把启动设备树还原为原来的版本。想换回原来的系统，见[想保留原来的系统？](#backup)
+The first command removes the relay and keeps the settings, pairings and identity in `/var/lib/openxplay`; delete them with `sudo rm -rf /var/lib/openxplay` once you no longer need them. The second removes the device package and puts the original boot device tree back. To go back to the original system, see [Want to keep the original system?](#backup)
 
-设备支持包采用 OpenXPlay-Hardware 许可证：开源，禁止商用，详见[许可证](/licensing#licenses)。
+The device package uses the OpenXPlay-Hardware licence: open source, no commercial use; see [Licensing](/licensing#licenses).
 
-## 接下来 {#next-steps}
+## Next {#next-steps}
 
-- [日常使用与设置](/daily-use)：每次上车怎么连接，以及车机网页的各项设置。
-- [可信 HTTPS](/trusted-https)：用免费域名去掉证书警告。
-- 遇到问题？请看[故障排查](/troubleshooting)，也欢迎到[交流群](/community)分享你的 N1 运行情况。
+- [Everyday use and settings](/daily-use): connecting on each drive, and the head-unit page’s settings.
+- [Trusted HTTPS](/trusted-https): remove the certificate warning with a free domain name.
+- Something not working? See [Troubleshooting](/troubleshooting), and tell the [community](/community) how your N1 did.

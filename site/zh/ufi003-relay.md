@@ -1,0 +1,213 @@
+---
+# SPDX-FileCopyrightText: 2026 OpenXPlay.org
+# SPDX-License-Identifier: CC-BY-4.0
+# Created by riko chen on 2026-10-21
+title: 用 UFI003 随身 Wi-Fi 作中继（Linux 中继）
+description: 把 UFI003 USB 随身 Wi-Fi 设为 OpenXPlay Linux 中继：推荐让电脑上的 AI 助手读安装说明、用 OpenXPlay Flasher 安装，也可以自己用 Flasher 图形界面安装；装好后添加 CarPlay 身份、配对 iPhone，在车机浏览器中打开 CarPlay。
+breadcrumb: UFI003 作中继
+schema: howto
+howtoName: 用 UFI003 随身 Wi-Fi 作 Linux 中继，在车机浏览器中显示 iPhone CarPlay
+howtoTools:
+  - 支持 CarPlay 的 iPhone
+  - UFI003 USB 随身 Wi-Fi
+  - Windows 10 / 11 或 macOS 12 及以上的电脑
+  - 你自行提供的 Apple 配件（MFi）身份
+  - 浏览器支持 WebCodecs 的安卓车机
+next:
+  text: 日常使用与设置
+  link: /zh/daily-use
+---
+
+# 用 UFI003 随身 Wi-Fi 作中继
+
+UFI003 是一款 msm8916 4G USB 随身 Wi-Fi。刷入 OpenStick Debian 11 系统后，它可以运行 OpenXPlay 的 Linux 中继：通电后自动启动，车机用自带的浏览器显示 CarPlay。[OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware/tree/main/UFI003) 提供了所需的支持文件。
+
+UFI003 的 Wi-Fi 没有 5 GHz 频段，热点工作在 2.4 GHz。
+
+## 两种安装方式 {#install}
+
+安装由电脑上的 [OpenXPlay Flasher](https://github.com/OpenXPlay/OpenXPlay-Flasher)（应用中显示为“OpenXPlay 刷机工具”）完成。它会把三层装到随身 Wi-Fi 上：基础系统（OpenStick Debian 11）、设备支持和 OpenXPlay 中继。以后中继出新版本时，通常只需要更新中继这一层，不用重新刷机。
+
+| | 让 AI 帮你安装（推荐） | 自己用 Flasher 安装 |
+| --- | --- | --- |
+| 怎样操作 | 把一段话发给电脑上的 AI 助手，在关键处确认 | 打开 Flasher 应用，按提示一步步操作 |
+| 下载和核对文件 | AI 按签名的软件包列表下载并核对 | 你按 Flasher 给出的链接下载，Flasher 核对 |
+| 适合 | 已经在用 Claude Code、Codex 等能运行命令的 AI 助手 | 想自己掌握每一步，或者没有这类 AI 助手 |
+
+两种方式用的是同一个 Flasher 和同一份签名的软件包列表，基带分区的备份和各项安全检查也完全相同。Windows 从 0.2.0-beta.2 起原生支持 adb 和 fastboot；所需驱动及真机验证结果见下文。
+
+## 让 AI 帮你安装（推荐） {#ai}
+
+我们为 AI 助手写了一份[安装说明](https://openxplay.org/agents/ufi003-install.md)。AI 助手读了它，就会在你的电脑上下载 Flasher 和所需文件、核对 SHA-256，再用 Flasher 的命令行完成安装；遇到报错时，它能按电脑的实际情况处理。你需要一个能在电脑上运行命令的 AI 助手，例如 [Claude Code](https://claude.com/claude-code) 或 [OpenAI Codex](https://github.com/openai/codex)。
+
+1. 用 USB 把 UFI003 直接插到电脑上，不要经过无独立供电的集线器。其他手机最好先拔掉。
+2. 打开 AI 助手，把下面这段话发给它：
+
+   ```text
+   请阅读 https://openxplay.org/agents/ufi003-install.md
+   严格按照其中的说明，用 OpenXPlay Flasher 把我插在这台电脑上的
+   UFI003 随身 Wi-Fi 装成 OpenXPlay 中继。
+   每一步先告诉我要做什么；清空设备之前，等我输入设备序列号确认。
+   请用中文和我交流。
+   ```
+
+3. 按 AI 的提问回答。这几件事需要你亲自做：
+   - 确认 AI 找到的设备就是你的 UFI003，核对它报出的序列号；
+   - 清空设备前，亲手输入设备序列号；
+   - 安装过程中不要拔出设备，让电脑保持供电、不进入睡眠；
+   - 添加你自己的 CarPlay 身份，见下面的[添加 CarPlay 身份](#step-identity)。
+
+装好后，AI 会告诉你怎样打开中继的管理页面，之后从[选择网络](#step-network)继续。
+
+::: warning 请留意 AI 运行的命令
+AI 助手会在你的电脑上运行命令。请使用你信任的 AI 助手，并看清它要运行的每条命令；不明白时请它先解释。安装说明要求它只操作这台 UFI003、不碰电脑上的其他设备、不读取你的身份文件、不关闭签名校验，也不自行用 fastboot 改写分区。
+:::
+
+## 自己用 Flasher 安装 {#flasher}
+
+Flasher 是 Windows 和 macOS 上的桌面应用。用 USB 把 UFI003 接到电脑上，它会识别设备、列出三层的当前版本，并引导你完成安装。
+
+::: info 在 Windows 上
+0.2.0-beta.2 及更新版本通过 WinUSB 原生支持 adb 和 fastboot，无需先运行外部 adb 服务；电脑上已在运行的 adb 服务也可以继续使用。
+
+扫描设备无需 adb 驱动，实际通信需要对应接口使用 **WinUSB** 驱动。设备能列出但无法通信时，请在“设备管理器”中检查 **ADB 接口**或进入引导加载程序后的 **fastboot 接口**；这两种模式可能需要分别安装驱动。只调整对应接口，保留 **RNDIS 网卡**及其网络驱动，不要替换整个 USB 复合设备的驱动。
+
+如果 UFI003 的 fastboot 硬件 ID 为 `USB\VID_18D1&PID_D00D`，可使用 [Microsoft Update Catalog 中已签名的 Android Bootloader Interface 驱动](https://www.catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=76f2c233-6100-4a64-8bee-113c2da0991d)，已在 Windows 11 上验证。安装时只选硬件 ID 匹配的 fastboot 设备，保留 RNDIS 网卡和整个复合设备的驱动。
+:::
+
+### Windows 驱动提示与安装 {#flasher-windows-drivers}
+
+**软件会提示安装驱动吗？** 0.2.0-beta.2 在读取设备或打开 fastboot 接口失败时，会在界面的错误区显示底层错误。缺少已注册的 WinUSB 接口时，可能看到 `needs a WinUSB driver`、`install the ADB/fastboot WinUSB driver` 或 `has no WinUSB … interface`。这些底层信息目前可能是英文；应用不会自动下载或安装驱动，也没有一键安装驱动的按钮。
+
+1. 在“设备管理器”中找到这台 UFI003 的 ADB 或 fastboot 接口，打开“属性 → 详细信息 → 硬件 ID”，核对当前模式的 ID。不要选择 RNDIS 网卡或整个 USB 复合设备。
+2. 下载匹配硬件 ID、Windows 版本和处理器架构的已签名驱动，并解压到一个目录。上面的 Microsoft Update Catalog 驱动适用于已验证的 `USB\VID_18D1&PID_D00D` fastboot 接口；其他 ID 应使用其对应的驱动。
+3. 右键该接口，选择“更新驱动程序 → 浏览我的电脑以查找驱动程序”，选择解压目录并完成安装。Windows 的手动安装步骤见 [Microsoft 说明](https://support.microsoft.com/en-us/windows/update-drivers-through-device-manager-in-windows-ec62f46c-ff14-c91d-eead-d7126dc1f7b6)。保持驱动签名校验开启。
+4. 回到 Flasher 点击“重新读取”。ADB 和 fastboot 是不同接口，进入 fastboot 后可能还需要为新出现的接口安装驱动。若安装任务已失败，按应用提示重新读取并选择“修复”；不要手工刷写分区。
+
+如果设备管理器中插拔前后完全没有新增 USB 设备，先检查供电、USB 连接和直连端口；这与已列出设备但缺少通信驱动的情况不同。刷写进行中不要为了排查而拔出设备。
+
+::: info Windows 真机验证
+已使用官方 0.2.0-beta.2 Windows amd64 版，在 UFI003 上完成从原厂 Android 4.4 安装 OpenStick Debian 11（内核 `5.15.0-handsomekernel+`）、设备支持 0.2.1 和中继 0.1.5~beta.2。49 步安装及各层校验全部通过，包括四个基带校准分区的自动备份与恢复；也已验证中继单独升级、fastboot 设备身份读取和向 RAM 传输数据。驱动仍需按设备实际枚举的接口和硬件 ID 匹配。
+
+签名软件包列表推荐修复后的[设备支持包](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases) 0.2.1 及以上版本。请保持签名校验开启，并使用与列表匹配的文件。
+:::
+
+::: details 下载并打开 Flasher {#flasher-download}
+从 [Releases](https://github.com/OpenXPlay/OpenXPlay-Flasher/releases) 选择 **0.2.0-beta.2 或更新版本**（包括预发布版），下载对应系统的安装包，并用该版本的 `SHA256SUMS` 核对文件的 SHA-256。安装包没有使用 Apple 或 Microsoft 证书签名，所以第一次打开时系统会先询问。
+
+- **macOS 12 或更高版本**（Apple 芯片和 Intel，`OpenXPlay-Flasher-<版本>-macos-universal.dmg`）：把应用拖进“应用程序”文件夹，然后打开一次。macOS 15 或更高版本出现“未打开”提示时，选择“完成”，再到“系统设置 → 隐私与安全性”中，在关于 OpenXPlay Flasher 的提示旁选择“仍要打开”；macOS 12 至 14 按住 Control 键点按应用，选择“打开”，再选择“打开”。
+- **Windows 10 或 11**（`openxplay-flasher-windows-amd64.exe`，Arm 电脑用 `-arm64.exe`）：出现“Windows 已保护你的电脑”时，选择“更多信息”，再选择“仍要运行”。如果提示缺少 Microsoft Edge WebView2 运行时，请安装后重新打开。
+:::
+
+打开 Flasher 后，它会按下面的顺序引导你：
+
+1. **连接**：用 USB 把 UFI003 接到电脑上。Flasher 会显示设备的序列号和各层的当前版本。全新的随身 Wi-Fi 还在运行原厂系统，会出现在“另有 … 台 Android 设备已连接，已忽略”的列表中，显示型号（通常是 `msm8916_32_512`）和序列号；核对后选择“这是运行原厂固件的 UFI003”，Flasher 会读取型号确认。
+2. **选择**：最上面是建议的操作，例如全新设备的“从原厂固件安装 OpenXPlay”，或已装好设备的“安装 / 更新中继”。其他会清空设备的操作（重刷基础系统、完整重装、修复）收在“重新刷机（擦除设备）”中。
+3. **准备**：Flasher 列出所需的每个文件、它的 SHA-256 和下载链接，但不会自己下载。请通过链接或你信任的其他来源下载，再点“选择文件…”或“选择多个文件…”。Flasher 按 SHA-256 识别文件，文件名不影响匹配。安装完成前不要移动或删除这些文件。
+4. **备份**（仅在刷入基础系统时）：Flasher 从设备读取 `modemst1`、`modemst2`、`fsc`、`fsg` 四个分区，保存到电脑“文稿”文件夹中的 `OpenXPlay Backups`。这是这台设备独有的基带校准数据，请长期保留这个文件夹。原厂引导程序读不出这四个分区，所以从原厂固件安装时，Flasher 先换上新的引导程序并擦除 boot 分区，再做备份，备份成功后才继续安装系统。会清空设备的操作还要你输入设备的序列号确认。
+5. **刷写**：Flasher 先显示这次安装的内容和大约要多久（从原厂固件开始约 6 到 7 分钟）。期间设备会重启几次，不要拔出设备。如果中途断开，重新连接后选择“修复”：Flasher 会从中断的地方继续，并用之前的备份恢复这四个分区。
+6. **完成**：Flasher 核对各层的版本，并在“接下来”中提供[添加 CarPlay 身份](#step-identity)和通过 USB 打开中继管理页面的按钮。
+
+::: details 软件包列表与签名 {#flasher-catalog}
+Flasher 从本网站读取一份签名的软件包列表，其中记录了各层的版本、下载链接和 SHA-256。签名证明这份列表来自 OpenXPlay，你选择的每个文件都要与列表中的 SHA-256 一致。需要用自己的软件包列表时，可以在“设置”中关闭“校验软件包列表签名”；关闭后，文件仍按列表中的 SHA-256 核对，基础系统的文件也仍须与 OpenStick v1 完全一致。
+:::
+
+## 安装之后 {#after-install}
+
+无论用哪种方式安装，接下来的步骤都一样。
+
+## 添加 CarPlay 身份 {#step-identity .step}
+
+安装包中绝不包含 Apple 配件（MFi）身份，需要你自己提供。随身 Wi-Fi 用 USB 接在电脑上时，打开 Flasher，在“接下来”中点“选择身份文件或 ZIP…”，选中私钥和证书（DER 或 PEM 格式，顺序和文件名不限），或者包含 `identity.pk8` 和 `certificate.p7b` 的 ZIP。Flasher 会通过 USB 把它们传到设备上，并重启中继。
+
+## 打开管理页面 {#step-admin .step}
+
+随身 Wi-Fi 用 USB 接在电脑上时，在 Flasher 的“接下来”中点“通过 USB 打开中继管理页面”。在车上，手机连接中继的热点 `OpenXPlay-Linux-XXXX`（密码是 `openxplay`，除非你另行设置），再打开 `https://openxplay-car.local:6975` 或 `https://10.77.0.1:6975`。浏览器会提示证书警告，继续访问即可。首次登录的密码是 `openxplay`，登录页上也写着；登录后页面会提示你设置自己的管理密码。
+
+首页显示连接的进度：iPhone → 这台中继 → 车机，下方只有当前需要做的一件事。点任一步可以查看详情和处理方法。首页顶部的齿轮打开设置。
+
+改用车机热点时（见下一步），手机连接车机的热点，打开 `https://openxplay-car.local:6975`，或者车机热点分配给中继的 IP：`https://<中继的 IP>:6975/`。iPhone、Mac 和 Windows 电脑能打开 `.local` 地址，很多安卓手机不能，这时请用 IP 地址。不输入 `https://` 也能打开。UFI003 只有一块 Wi-Fi 网卡，不能开管理热点。
+
+## 选择网络 {#step-network .step}
+
+在管理页面的“**设置 → iPhone 连接 → 无线网络**”中选择 iPhone 和车机怎样连接中继：
+
+- **这台中继的热点**（默认）：打开中继自己的热点，iPhone 自动加入，车机也连接这个热点。
+- **使用车机热点**：中继、iPhone 和车机都连接车机的热点，或者另一个现有的 2.4 GHz 网络。
+
+UFI003 只用车机浏览器显示 CarPlay；Carlink 需要第二块 Wi-Fi 网卡，见 [Carlink 应用](/zh/carlink)。
+
+## 配对 iPhone {#step-pair .step}
+
+首页提示配对 iPhone 时，点“配对”，配对窗口会开放 10 分钟。在 iPhone 上打开“设置 → 蓝牙”，选择 `OpenXPlay Linux`。换了 iPhone 时，可以在首页或“设置 → iPhone 连接”中移除旧的已配对设备。
+
+## 在车机浏览器中打开 {#step-open .step}
+
+车机连接中继的网络，在浏览器中打开 `https://10.77.0.1:8443/`（使用中继自己的热点时），也可以用 `https://openxplay-car.local:8443/`。第一次打开时接受证书警告，原因见[故障排查](/zh/troubleshooting#certificate-warning)。
+
+如果在管理页面的“设置 → 车机访问”中开启了“需要配对码”，输入中继上显示的 8 位数字。
+
+## 不用 Flasher 的命令行安装 {#manual}
+
+只想用命令行、不用 Flasher 时，可以手动刷机，再依次安装设备支持包和中继软件包。这样做没有 Flasher 的备份和检查，刷机会改写设备原有的系统，请确认自己清楚每一步在做什么。
+
+::: details 展开命令行安装步骤
+
+### 刷入基础镜像 {#step-image}
+
+在 UFI003 上刷入 OpenStick Debian 11 镜像（内核 `5.15.0-handsomekernel+`，aarch64）。下载地址、校验值和刷机前的注意事项见[刷入 UFI003 基础镜像](/zh/ufi003-flash)。
+
+### 安装设备支持包 {#step-device}
+
+在 OpenXPlay-Hardware 的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Hardware/releases) 中选择最新的 `ufi003-device-v` 版本（需要 0.2.1 及以上），下载 `openxplay-ufi003-device-<版本>.tar.gz` 和 `SHA256SUMS` 并核对，然后复制到随身 Wi-Fi 上，进入它的 shell（root）：
+
+```sh
+V=0.2.1
+adb push openxplay-ufi003-device-$V.tar.gz /root/
+adb shell
+```
+
+把 `V` 改成你下载的版本号。在随身 Wi-Fi 上同样设好 `V`，再解压并运行安装程序。`--dry-run` 只做检查、不做任何改动；安装后要重启：
+
+```sh
+V=0.2.1
+cd /root
+tar -xzf openxplay-ufi003-device-$V.tar.gz
+sh openxplay-ufi003-device-$V/install-device.sh --dry-run
+sh openxplay-ufi003-device-$V/install-device.sh
+reboot
+```
+
+重启后再进入 `adb shell`，用 `--verify` 检查：
+
+```sh
+V=0.2.1
+sh /root/openxplay-ufi003-device-$V/install-device.sh --verify
+```
+
+设备支持包自带需要的 Debian 软件包，安装时不需要联网。它会安装无线 CarPlay 所需的蓝牙 RFCOMM 模块、修复后的蓝牙驱动、蓝牙守护程序和主机配置，并开启时间同步。
+
+### 安装中继 {#step-install}
+
+在 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases) 中选择最新的 `linux-v` 版本，下载 `.deb` 和 `SHA256SUMS` 并核对，然后在电脑上运行：
+
+```sh
+V=0.1.6
+adb push openxplay-relay_${V}_arm64.deb /root/
+adb shell dpkg -i /root/openxplay-relay_${V}_arm64.deb
+```
+
+把 `V` 改成最新的版本号。依赖已由设备支持包装好，不需要联网。软件包的内容见[安装中继](/zh/linux-devices#install)。
+
+想自行构建时：设备支持包用 [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware) 的 `UFI003/package/build-bundle.sh`，中继软件包用 [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) 的 `rust/packaging/build-deb.sh`。
+
+装好后从[打开管理页面](#step-admin)继续。没有 Flasher 时，在管理页面的“**设置 → 身份与证书**”中添加 CarPlay 身份，也可以[手动放入身份文件](/zh/linux-devices#identity)。
+
+:::
+
+## 接下来 {#next-steps}
+
+- 在小鹏 G6 等车上使用时，可以参考[车机资料](/zh/head-units)中的推荐设置，例如 2.4 GHz 下把帧率设为 30：在管理页面的“**设置 → CarPlay 画面 → 帧率**”中修改，车机网页会跟着使用。
+- 需要反馈问题时，在“**设置 → 日志**”中把日志保存为文件，或者上传后把日志 ID 发给我们。
+- [可信 HTTPS](/zh/trusted-https)：用免费域名去掉证书警告。
+- 遇到问题？请看[故障排查](/zh/troubleshooting)。
