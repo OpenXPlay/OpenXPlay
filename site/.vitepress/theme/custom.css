@@ -22,6 +22,9 @@ Created by riko chen on 2026-10-17
   --oxp-linux: #8e5cf7;
   --oxp-linux-strong: #6b3fd9;
   --oxp-linux-soft: rgba(142, 92, 247, 0.09);
+  --oxp-direct: #14a38a;
+  --oxp-direct-strong: #0b7a67;
+  --oxp-direct-soft: rgba(20, 163, 138, 0.28);
 
   interpolate-size: allow-keywords;
 }
@@ -37,6 +40,9 @@ Created by riko chen on 2026-10-17
   --oxp-linux: #a07cff;
   --oxp-linux-strong: #7a4fe6;
   --oxp-linux-soft: rgba(160, 124, 255, 0.14);
+  --oxp-direct: #2ec4a5;
+  --oxp-direct-strong: #5fd6bd;
+  --oxp-direct-soft: rgba(46, 196, 165, 0.3);
 }
 
 /* ---------------------------------------------------------------- Home */

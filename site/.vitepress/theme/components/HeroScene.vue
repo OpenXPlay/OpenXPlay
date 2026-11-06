@@ -4,16 +4,18 @@ SPDX-License-Identifier: MIT
 Created by riko chen on 2026-10-21
 -->
 <script setup lang="ts">
-// The home page's one animated moment: an iPhone hands CarPlay to a relay (an Android phone or a
-// USB dongle), the relay passes it on, and the head unit's screen lights up. Afterwards the links
-// keep a quiet flow of video, and now and then a tap on the screen travels back to the iPhone,
-// because touch is returned. Pure CSS animation; with reduced motion the final picture is shown.
+// The home page's one animated moment: an iPhone reaches the head unit two ways, directly with the
+// iPhone app (the upper lane) or through a relay (an Android phone or a USB dongle), and the head
+// unit's screen lights up. Afterwards the links keep a quiet flow of video, and now and then a tap
+// on the screen travels back to the iPhone over both lanes, because touch is returned. Pure CSS
+// animation; with reduced motion the final picture is shown.
 import { computed } from 'vue'
 import { useData } from 'vitepress'
 
 const TEXT = {
   zh: {
-    label: 'iPhone 把 CarPlay 交给中继（安卓手机或随身 Wi-Fi），中继再送到车机自带的浏览器中显示，触控传回 iPhone。',
+    label: 'iPhone 用 OpenXPlay App 直接连到车机，或把 CarPlay 交给中继（安卓手机或随身 Wi-Fi）再送到车机，在车机自带的浏览器中显示，触控传回 iPhone。',
+    direct: 'iPhone 直连',
     phone: 'iPhone',
     phoneSub: '无线或 USB 连接',
     relay: '中继',
@@ -22,7 +24,8 @@ const TEXT = {
     screenSub: '用自带的浏览器显示',
   },
   root: {
-    label: 'The iPhone hands CarPlay to a relay (an Android phone or a USB dongle), which passes it to the head unit’s own browser; touch goes back to the iPhone.',
+    label: 'The iPhone reaches the head unit directly with the OpenXPlay app, or hands CarPlay to a relay (an Android phone or a USB dongle) that passes it on; it shows in the head unit’s own browser, and touch goes back to the iPhone.',
+    direct: 'iPhone direct',
     phone: 'iPhone',
     phoneSub: 'Wireless or USB',
     relay: 'Relay',
@@ -52,6 +55,14 @@ const t = computed(() => TEXT[localeIndex.value as keyof typeof TEXT] ?? TEXT.ro
         </g>
         <rect class="flash" x="7" y="7" width="66" height="146" rx="10.5" />
       </svg>
+
+      <div class="oxp-scene__direct" aria-hidden="true">
+        <span class="oxp-scene__direct-label">{{ t.direct }}</span>
+        <div class="oxp-scene__link is-direct">
+          <span class="flow" />
+          <span class="touch" />
+        </div>
+      </div>
 
       <div class="oxp-scene__link is-first" aria-hidden="true">
         <span class="flow" />
@@ -165,6 +176,7 @@ const t = computed(() => TEXT[localeIndex.value as keyof typeof TEXT] ?? TEXT.ro
 .oxp-scene__stage {
   display: grid;
   grid-template-columns: auto minmax(16px, 1fr) auto minmax(16px, 1fr) auto;
+  grid-template-rows: auto auto auto;
   align-items: center;
   column-gap: clamp(6px, 1.2vw, 16px);
   row-gap: 14px;
@@ -174,13 +186,14 @@ const t = computed(() => TEXT[localeIndex.value as keyof typeof TEXT] ?? TEXT.ro
 
 .oxp-scene__device {
   display: block;
-  grid-row: 1;
+  grid-row: 2;
   height: auto;
   overflow: visible;
 }
 
 .oxp-scene__device.is-phone {
   grid-column: 1;
+  grid-row: 1 / 3;
   width: clamp(40px, 7vw, 84px);
 }
 
@@ -191,6 +204,7 @@ const t = computed(() => TEXT[localeIndex.value as keyof typeof TEXT] ?? TEXT.ro
 
 .oxp-scene__device.is-screen {
   grid-column: 5;
+  grid-row: 1 / 3;
   width: clamp(156px, 44vw, 520px);
 }
 
@@ -359,11 +373,37 @@ const t = computed(() => TEXT[localeIndex.value as keyof typeof TEXT] ?? TEXT.ro
   transform-origin: center;
 }
 
-/* Links between the devices */
+/* Links between the devices: the direct lane above, the relay lane below */
 .oxp-scene__link {
   position: relative;
-  grid-row: 1;
+  grid-row: 2;
   height: 2px;
+}
+
+.oxp-scene__direct {
+  grid-row: 1;
+  grid-column: 2 / 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.oxp-scene__direct-label {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  white-space: nowrap;
+  color: var(--oxp-direct-strong);
+}
+
+.oxp-scene__link.is-direct {
+  align-self: stretch;
+  --scene-flow: var(--oxp-direct);
+}
+
+.oxp-scene__link.is-direct::before {
+  background: var(--oxp-direct-soft);
 }
 
 .oxp-scene__link.is-first {
@@ -409,7 +449,7 @@ const t = computed(() => TEXT[localeIndex.value as keyof typeof TEXT] ?? TEXT.ro
 
 /* Captions, centred under each device without widening its column */
 .oxp-scene__caption {
-  grid-row: 2;
+  grid-row: 3;
   justify-self: center;
   width: 0;
   margin: 0;
@@ -464,6 +504,14 @@ const t = computed(() => TEXT[localeIndex.value as keyof typeof TEXT] ?? TEXT.ro
   .oxp-scene__device.is-phone,
   .oxp-scene__caption.is-phone {
     animation: oxp-scene-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s both;
+  }
+
+  .oxp-scene__link.is-direct::before {
+    animation: oxp-scene-draw 0.9s ease-out 0.45s both;
+  }
+
+  .oxp-scene__direct-label {
+    animation: oxp-scene-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s both;
   }
 
   .oxp-scene__link.is-first::before {
@@ -534,6 +582,10 @@ const t = computed(() => TEXT[localeIndex.value as keyof typeof TEXT] ?? TEXT.ro
 
   .oxp-scene__link.is-first .touch {
     animation: oxp-scene-touch-first 6s linear 3.6s infinite;
+  }
+
+  .oxp-scene__link.is-direct .touch {
+    animation: oxp-scene-touch-direct 6s linear 3.6s infinite;
   }
 
   .is-phone .flash {
@@ -637,6 +689,27 @@ const t = computed(() => TEXT[localeIndex.value as keyof typeof TEXT] ?? TEXT.ro
     opacity: 0;
   }
   24% {
+    left: 100%;
+    opacity: 1;
+  }
+  35% {
+    left: 0;
+    opacity: 1;
+  }
+  36%,
+  100% {
+    left: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes oxp-scene-touch-direct {
+  0%,
+  8% {
+    left: 100%;
+    opacity: 0;
+  }
+  10% {
     left: 100%;
     opacity: 1;
   }
