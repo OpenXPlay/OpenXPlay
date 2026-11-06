@@ -9,7 +9,13 @@ breadcrumb: 更新日志
 
 # 更新日志
 
-OpenXPlay Relay 每个版本的变化，最新的在最前面。安卓应用和 Linux 中继分别发布，Linux 版本的标题带“Linux”。安装包和校验值见 GitHub 上的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)；安装和设置见[开始使用](/zh/quick-start)。
+OpenXPlay Relay 每个版本的变化，最新的在最前面。安卓应用和 Linux 中继分别发布，Linux 版本的标题带“Linux”，iPhone App 的条目标题带“iPhone App”。安装包和校验值见 GitHub 上的 [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases)；安装和设置见[开始使用](/zh/quick-start)。
+
+## iPhone App 公开测试 {#iphone-beta}
+
+2026-11-05 · [通过 TestFlight 加入](https://testflight.apple.com/join/WbKejMWS)
+
+OpenXPlay iPhone App 让 iPhone 直接连接车机，不需要中继。和中继一样，它通过车机的浏览器、Carlink、CarLife 或投屏接收功能显示 CarPlay。可以用 [TestFlight 邀请链接](https://testflight.apple.com/join/WbKejMWS)或[首页](/zh/#iphone-app)上的二维码加入公开测试。
 
 ## 0.2.6 {#v0-2-6}
 

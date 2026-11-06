@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
 title: FAQ
-description: Common questions about OpenXPlay — what it is, whether anything is installed on the head unit, which head units work, how it differs from DiPlay, whether it is free, delay, power cuts and privacy.
+description: Common questions about OpenXPlay — what it is, whether you need a relay, whether anything is installed on the head unit, which head units work, how it differs from DiPlay, whether it is free, delay, power cuts and privacy.
 breadcrumb: FAQ
 schema: faq
 ---
@@ -18,11 +18,15 @@ For certificate warnings, Wi-Fi, Bluetooth pairing, picture or sound problems, s
 
 ### What is OpenXPlay? {#what-is-openxplay}
 
-OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps. A relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle — connects to the iPhone and passes CarPlay to software the head unit already has, such as its browser, Carlink, CarLife or screen-casting receiver. See [How it works](/how-it-works).
+OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps, in one of two ways: the OpenXPlay iPhone app connects the iPhone to the head unit directly, or a relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle — connects to the iPhone and passes CarPlay on. Either way, CarPlay appears in software the head unit already has, such as its browser, Carlink, CarLife or screen-casting receiver. See [How it works](/how-it-works).
+
+### Do I need a relay? {#need-relay}
+
+No. The OpenXPlay iPhone app connects to the head unit directly; it is in public beta, and you can [join on TestFlight](/#iphone-app). A relay is the other way, and the guides on this site set one up: see [Get started](/quick-start).
 
 ### Do I need to install anything on the head unit? {#install-on-head-unit}
 
-No. The relay does the receiving and connecting, and the head unit uses what it already has: its browser, Carlink, CarLife or screen-casting receiver. The head unit’s system is never modified.
+No. The iPhone app or the relay does the receiving and connecting, and the head unit uses what it already has: its browser, Carlink, CarLife or screen-casting receiver. The head unit’s system is never modified.
 
 ### Which head units work? {#which-head-units}
 
@@ -30,7 +34,7 @@ The head units OpenXPlay has tested are listed under [Head units](/head-units), 
 
 ### How is OpenXPlay different from DiPlay? {#diplay}
 
-DiPlay is for head units that can install apps: you install it on a compatible Android head unit, which receives and shows CarPlay itself. OpenXPlay is mainly for head units that can’t install apps: a phone or external device does the work, and CarPlay appears through the head unit’s existing browser, Carlink app or similar entry points.
+DiPlay is for head units that can install apps: you install it on a compatible Android head unit, which receives and shows CarPlay itself. OpenXPlay is mainly for head units that can’t install apps: the iPhone app or a relay does the work, and CarPlay appears through the head unit’s existing browser, Carlink app or similar entry points.
 
 ### Is OpenXPlay free? {#free}
 
@@ -53,7 +57,7 @@ The relay starts again when power comes back:
 
 ### Does OpenXPlay send my data anywhere? {#data}
 
-OpenXPlay works over local connections. The relay serves the receiver page and its admin page itself; video, audio and touch travel between the iPhone, the relay and the head unit over Bluetooth, Wi-Fi or USB, and the Linux relay starts without waiting for Internet access. Plugins are off by default and run offline in the head-unit browser. Vehicle information from Carlink is collected only when you turn it on and stays on the relay device. This website has no analytics, and its check page runs only in your browser.
+OpenXPlay works over local connections. The relay serves the receiver page and its admin page itself; video, audio and touch travel between the iPhone, the relay and the head unit over Bluetooth, Wi-Fi or USB, and the Linux relay starts without waiting for Internet access. Plugins are off by default and run offline in the head-unit browser. Vehicle information from Carlink is collected only when you turn it on and stays on the relay device. For the iPhone app, see the [privacy policy](/privacy). This website has no analytics, and its check page runs only in your browser.
 
 ### Is the relay’s admin page protected? {#admin-password}
 

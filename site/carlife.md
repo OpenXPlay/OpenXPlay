@@ -11,6 +11,8 @@ breadcrumb: CarLife
 
 If the head unit has CarLife (Baidu CarLife), try this route: the relay sends CarPlay’s picture and touch to the head unit’s CarLife, and sound stays on the iPhone’s Bluetooth link to the car. CarLife uses H.264; when the iPhone sends H.265, the relay phone converts it to H.264 with its hardware codecs.
 
+This page covers the relay. The [OpenXPlay iPhone app](/#iphone-app) can also connect to the head unit’s CarLife directly, without a relay.
+
 ::: warning Experimental feature
 It needs Android app 0.2.5 or later; [download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk). The Linux relay has no CarLife output.
 :::

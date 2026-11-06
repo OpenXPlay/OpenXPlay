@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
 title: 开始使用：让 AI 助手带你安装
-description: 第一次使用 OpenXPlay：推荐装上 openxplay-guide 技能，让电脑上的 AI 助手问清你的车和设备、推荐方案，再一步步带你安装；也可以自己选择中继（安卓手机、UFI003 随身 Wi-Fi 或斐讯 N1）和车机显示方式，按对应的教程设置。
+description: 第一次使用 OpenXPlay：可以用 OpenXPlay iPhone App 直接连接车机（公测中），也可以设置一台中继。设置中继时，推荐装上 openxplay-guide 技能，让电脑上的 AI 助手问清你的车和设备、推荐方案，再一步步带你安装；也可以自己选择中继（安卓手机、UFI003 随身 Wi-Fi 或斐讯 N1）和车机显示方式，按对应的教程设置。
 breadcrumb: 开始使用
 ---
 
@@ -13,7 +13,14 @@ import RouteChooser from '../.vitepress/theme/components/RouteChooser.vue'
 
 # 开始使用
 
-OpenXPlay 用一台中继把 iPhone 的 CarPlay 送到车机上。
+OpenXPlay 有两种方式把 iPhone 的 CarPlay 送到车机上：
+
+- **iPhone 直连**：OpenXPlay iPhone App 让 iPhone 直接连接车机，不需要中继。
+- **中继**：由一部安卓手机或一台 Linux 设备连接 iPhone 和车机。本页其余部分介绍怎样设置中继。
+
+## iPhone 直连 <Badge type="warning" text="公测" /> {#iphone-direct}
+
+iPhone App 在 iPhone 上完成中继的工作；车机和使用中继时一样，用浏览器、Carlink、CarLife 或投屏接收功能显示 CarPlay。目前正在公开测试：在 iPhone 上打开 [TestFlight 邀请链接](https://testflight.apple.com/join/WbKejMWS)，或扫描[首页](/zh/#iphone-app)上的二维码。和使用中继时一样，CarPlay 需要你自备 [Apple 配件（MFi）身份](#mfi-identity)。
 
 <div class="oxp-recommended">
 
@@ -71,7 +78,7 @@ AI 助手会先问清你的车、iPhone 和手头的设备，推荐一种方案�
 | 车机浏览器 | 需要支持 WebCodecs 视频解码。在车机浏览器中打开[检测车机](/zh/check)就能知道。特斯拉见[特斯拉](/zh/tesla)。 |
 
 ::: details 什么是 Apple 配件（MFi）身份？ {#mfi-identity}
-中继要用这个身份向 iPhone 完成配件认证，CarPlay 才会启动；没有身份时，安卓应用不会启动 CarPlay。本网站的教程按最常见的方式编写：身份由 `identity.pk8` 和 `certificate.p7b` 两个文件组成。各仓库及其构建产物都不包含该身份，需要由你自行提供。
+OpenXPlay 要用这个身份向 iPhone 完成配件认证，CarPlay 才会启动；没有身份时，安卓应用不会启动 CarPlay。本网站的教程按最常见的方式编写：身份由 `identity.pk8` 和 `certificate.p7b` 两个文件组成。各仓库及其构建产物都不包含该身份，需要由你自行提供。
 
 没有这两个文件、但有其他认证来源时，可以在中继的“设置 → 身份与证书 → MFi 认证设备”中改用远程 MFi 服务器，或通过 I2C、CH341 转接器连接的认证芯片。这些方式同样需要你自己的认证来源；本网站的教程不介绍它们。
 :::

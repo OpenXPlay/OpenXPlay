@@ -8,6 +8,10 @@ Created by riko chen on 2026-10-29
 
 Every change to this skill raises `metadata.version` in `SKILL.md` and adds an entry here; the website build refuses a changed skill without both. MAJOR: older copies would give wrong or unsafe guidance (also raise `minimum-version`). MINOR: a new route, device or step. PATCH: wording and links.
 
+## 0.8.0 (2026-11-05)
+
+- New setup: iPhone direct, the OpenXPlay iPhone app in public beta on TestFlight, connects without a relay. The guide now picks between iPhone direct and a relay first.
+
 ## 0.7.0 (2026-11-04)
 
 - Website: English pages now live at the root and Simplified Chinese pages under `/zh/`; update all page links. Older copies still work through the old English URL redirects.

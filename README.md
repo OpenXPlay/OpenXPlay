@@ -4,15 +4,22 @@
 
 **CarPlay for head units that can't install apps.**
 
-OpenXPlay is for drivers who want CarPlay but cannot install third-party apps on their Android head unit. A phone or a small external device connects to the iPhone and shows CarPlay on the original screen through entry points the head unit already has, such as its browser or a Carlink app.
+OpenXPlay is for drivers who want CarPlay but cannot install third-party apps on their Android head unit. CarPlay shows on the original screen through entry points the head unit already has, such as its browser or a Carlink app.
 
 Think of it as a set of CarPlay building blocks that you combine freely. It covers what some commercial CarPlay boxes do and adds more ways to connect and display, so you can pick the combination that fits your head unit and the devices you have. **Combined, the technologies in this project make up to 28 solutions.**
 
-## Relay-based connection route
+## Two ways to connect
 
-An iPhone connects through an Android or Linux relay to the head unit's browser, Carlink, wireless display or wired display. This diagram shows one route within OpenXPlay; it covers only part of the project's possible solutions.
+| | How it works |
+| --- | --- |
+| **iPhone direct** (beta) | The OpenXPlay iPhone app connects the iPhone to the head unit directly, without a relay. [Join the TestFlight beta](https://testflight.apple.com/join/WbKejMWS) |
+| **Relay** | An Android phone or a small Linux device such as a UFI003 dongle connects to the iPhone and passes CarPlay on to the head unit. |
 
-![OpenXPlay relay-based connection route](assets/openxplay-relay-animated.svg)
+## Connection routes
+
+The diagram shows some of OpenXPlay's connection relationships, with iPhone direct connections emphasized and relay routes shown as alternatives. Whichever display option is selected, the head unit shows the CarPlay interface.
+
+![OpenXPlay relay and iPhone direct connection routes](assets/openxplay-relay-animated.svg)
 
 ## Lean and low-cost
 
@@ -24,11 +31,11 @@ We want more drivers to have CarPlay, and to need fewer resources to get it. Wit
 | Disk space | **5 MB** |
 | Hardware cost | **From CNY 15 / USD 3**, excluding the MFi part |
 
-*These figures are for a specific solution and configuration. Actual usage and cost depend on the solution, devices and environment.*
+*These figures are for a specific relay solution and configuration. Actual usage and cost depend on the solution, devices and environment. iPhone direct needs no extra hardware.*
 
 ## Highlights
 
-- **No app on the head unit.** A phone or external device does the receiving and connecting, and CarPlay appears through entry points the head unit already has. The head unit's system is never modified.
+- **No app on the head unit.** The iPhone app or a relay does the receiving and connecting, and CarPlay appears through entry points the head unit already has. The head unit's system is never modified.
 - **Built from what you already have.** Android, Linux and iOS implementations, USB, Bluetooth and Wi-Fi connections, and browser or Carlink display paths combine into different device setups.
 
 ## Set up with an AI assistant
@@ -50,7 +57,7 @@ Then start a new conversation and say “Help me set up OpenXPlay”. Other assi
 | Project | How it is used |
 | --- | --- |
 | **DiPlay** | Install the app on a compatible Android head unit, which receives and shows CarPlay itself |
-| **OpenXPlay** | A phone or external device does the work, and CarPlay appears through the head unit's existing browser, Carlink app or similar entry points |
+| **OpenXPlay** | The iPhone app or a relay does the work, and CarPlay appears through the head unit's existing browser, Carlink app or similar entry points |
 
 The two have different focuses. OpenXPlay gives head units that can't install apps more options, so drivers can find a way in with the devices they already have.
 

@@ -11,6 +11,8 @@ breadcrumb: 无线投屏
 
 车机没有可用的浏览器、Carlink 或 CarLife，但能接收投屏（DLNA 或 Miracast）时，可以用这条路线：车机只显示 CarPlay 的画面，不能在车机上触控；CarPlay 在中继手机上操作。
 
+本页介绍中继方案。[OpenXPlay iPhone App](/zh/#iphone-app) 也可以不经中继，直接投屏到车机。
+
 ::: warning 实验性功能
 需要安卓应用 0.2.5 及以上版本，请[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)。Linux 中继没有无线投屏输出。
 :::

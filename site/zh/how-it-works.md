@@ -2,23 +2,26 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
-title: 工作原理：iPhone、中继和车机怎样连起来
-description: OpenXPlay 的中继连接路线：iPhone 连接安卓或 Linux 中继，中继充当 CarPlay 接收端，再把视频、音频和触控转给车机的浏览器、Carlink、CarLife 或投屏接收功能。
+title: 工作原理：iPhone 直连或经中继连接
+description: OpenXPlay 连接车机的两种方式：OpenXPlay iPhone App 让 iPhone 直接连接车机，或由安卓、Linux 中继充当 CarPlay 接收端。两种方式都通过车机的浏览器、Carlink、CarLife 或投屏接收功能显示 CarPlay。
 breadcrumb: 工作原理
 ---
 
 # 工作原理
 
-iPhone 连接到一台中继：运行 OpenXPlay Relay 应用的安卓手机，或 UFI003 USB 随身 Wi-Fi 这类小型 Linux 设备。中继充当 CarPlay 接收端，再把视频、音频和触控转给车机。车机上不需要安装任何东西，也不会修改车机系统。
+OpenXPlay 有两种方式把 iPhone 的 CarPlay 送到车机上。无论哪种方式，车机上都不需要安装任何东西，也不会修改车机系统。
+
+- **iPhone 直连**：OpenXPlay iPhone App 在 iPhone 上完成中继的工作，直接连接车机。目前正在公开测试，可[通过 TestFlight 加入](/zh/#iphone-app)。
+- **中继**：iPhone 连接到一台中继：运行 OpenXPlay Relay 应用的安卓手机，或 UFI003 USB 随身 Wi-Fi 这类小型 Linux 设备。中继充当 CarPlay 接收端，再把视频、音频和触控转给车机。
 
 <figure class="oxp-figure">
-  <img src="../../assets/openxplay-relay-animated-zh.svg" width="1800" height="1120" loading="lazy" decoding="async" alt="OpenXPlay 中继连接路线：iPhone 通过 Wi-Fi 或 USB 连接安卓中继或 Linux 中继，再经车机的浏览器、Carlink、无线投屏或有线投屏入口显示在车机屏幕上。">
-  <figcaption>OpenXPlay 的一条中继路线，仅涵盖项目的部分方案组合。蓝色和紫色光点分别表示安卓和 Linux 中继的数据流。</figcaption>
+  <img src="../../assets/openxplay-relay-animated-zh.svg" width="1800" height="1000" loading="lazy" decoding="async" alt="OpenXPlay 连接路线：iPhone 直接连接车机的浏览器、Carlink、无线投屏或 CarLife，或经安卓中继、Linux 中继连接。">
+  <figcaption>OpenXPlay 的部分连接路线：iPhone 直连，或经安卓、Linux 中继连接。仅涵盖项目的部分方案组合。</figcaption>
 </figure>
 
 ## 车机入口 {#entries}
 
-目前，中继可以把 CarPlay 送到这些车机入口：
+目前，OpenXPlay 可以把 CarPlay 送到这些车机入口。中继支持下表全部入口；iPhone App 支持浏览器、Carlink、CarLife 和投屏接收端。表中链接指向中继的教程。
 
 | 车机入口 | 工作方式 | 触控 | 状态 |
 | --- | --- | --- | --- |
