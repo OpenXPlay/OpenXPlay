@@ -33,6 +33,14 @@ features:
     linkText: Read the guide
 ---
 
+## iPhone direct connection (beta) {#iphone-app}
+
+The OpenXPlay iPhone app connects your iPhone to the head unit directly, without a relay. It is in public beta: scan the QR code with your iPhone’s camera, or open the [TestFlight invitation](https://testflight.apple.com/join/WbKejMWS) on your iPhone.
+
+<figure class="oxp-figure is-qr">
+  <a href="https://testflight.apple.com/join/WbKejMWS"><img src="/iphone-app-qr.svg" width="37" height="37" loading="lazy" decoding="async" alt="QR code for joining the OpenXPlay iPhone app beta on TestFlight"></a>
+</figure>
+
 ## What you need {#requirements}
 
 <div class="oxp-checklist">

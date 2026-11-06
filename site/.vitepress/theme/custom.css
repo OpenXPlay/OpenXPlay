@@ -520,6 +520,15 @@ Created by riko chen on 2026-10-17
   max-width: 540px;
 }
 
+/* QR codes stay small enough to scan from a screen, and pixel-sharp. */
+.vp-doc .oxp-figure.is-qr {
+  max-width: 200px;
+}
+
+.vp-doc .oxp-figure.is-qr img {
+  image-rendering: pixelated;
+}
+
 /* Reference pages (pageClass: oxp-reference): keep short Chinese labels in table headers and
    first columns whole instead of breaking them one character per line on narrow screens. */
 .oxp-reference .vp-doc th,
