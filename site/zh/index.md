@@ -5,11 +5,11 @@
 layout: home
 title: OpenXPlay：车机装不了软件，也能用 CarPlay
 titleTemplate: false
-description: OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone CarPlay：由安卓手机或小型 Linux 设备作为中继，通过车机自带的浏览器、Carlink、CarLife 或投屏接收功能显示。开源项目。
+description: OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone CarPlay，通过车机自带的浏览器、Carlink、CarLife 或投屏接收功能显示。可以用 OpenXPlay iPhone App 直连，也可以由安卓手机或小型 Linux 设备作中继。开源项目。
 hero:
   name: OpenXPlay
   text: 车机装不了软件，也能用 CarPlay
-  tagline: 用一部安卓手机或一个 UFI003 随身 Wi-Fi 作中继，iPhone 的 CarPlay 就能显示在车机自带的浏览器里。车机上什么都不用装。
+  tagline: 用 OpenXPlay iPhone App 直连，或用一部安卓手机、一个 UFI003 随身 Wi-Fi 作中继，iPhone 的 CarPlay 就能显示在车机自带的浏览器里。车机上什么都不用装。
   actions:
     - theme: brand
       text: 开始使用
@@ -23,13 +23,13 @@ features:
     details: 在车机浏览器中打开 openxplay.org/zh/check，看看它能否显示 CarPlay。
     link: /zh/check
     linkText: 开始检测
-  - title: 准备中继
-    details: 在安卓手机上安装 OpenXPlay Relay 应用，或者把 UFI003 随身 Wi-Fi 刷成中继。
+  - title: 选择方案
+    details: 用 OpenXPlay iPhone App 直连，或者在安卓手机、UFI003 随身 Wi-Fi 上准备中继。
     link: /zh/quick-start
     linkText: 选择方案
   - title: 上车连接
-    details: iPhone 连上中继后，在车机浏览器中打开中继显示的地址，轻触一下屏幕即可开始。
-    link: /zh/android-relay
+    details: 在车机浏览器中打开 iPhone App 或中继显示的地址，轻触一下屏幕即可开始。
+    link: /zh/quick-start
     linkText: 查看教程
 ---
 
@@ -45,8 +45,8 @@ OpenXPlay iPhone App 让 iPhone 直接连接车机，不需要中继。目前正
 
 <div class="oxp-checklist">
 
-- **支持 CarPlay 的 iPhone**：通过无线或 USB 线连接中继。
-- **一台中继**：Android 8.0 及以上的安卓手机，或 UFI003 随身 Wi-Fi。
+- **支持 CarPlay 的 iPhone**。
+- **iPhone App 或一台中继**：[OpenXPlay iPhone App](#iphone-app) 直连；中继可以是 Android 8.0 及以上的安卓手机，或 UFI003 随身 Wi-Fi。
 - **Apple 配件（MFi）身份**：通常是两个文件，需要由你自行提供，项目不附带。[了解更多](/zh/quick-start#mfi-identity)
 - **车机浏览器**：需要支持 WebCodecs 视频解码，可以[先检测](/zh/check)。
 
@@ -54,11 +54,11 @@ OpenXPlay iPhone App 让 iPhone 直接连接车机，不需要中继。目前正
 
 ## 适合谁 {#who-it-is-for}
 
-OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使用 CarPlay 的车主**。它不会修改车机系统：接收和连接由手机或外部设备完成，CarPlay 通过车机已有的入口显示。
+OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使用 CarPlay 的车主**。它不会修改车机系统：接收和连接由 iPhone App 或中继完成，CarPlay 通过车机已有的入口显示。
 
 | 你的车机 | 适合的方案 |
 | --- | --- |
-| 无法安装应用 | **OpenXPlay**：由手机或外部设备承接相关能力，借助车机已有的浏览器、Carlink、CarLife 或投屏接收功能显示 CarPlay。 |
+| 无法安装应用 | **OpenXPlay**：由 iPhone App 或中继承接相关能力，借助车机已有的浏览器、Carlink、CarLife 或投屏接收功能显示 CarPlay。 |
 | 可以安装应用 | **[DiPlay](https://github.com/shihabal3amri/DiPlay)**：在兼容的安卓车机上安装应用，由车机直接接收并显示 CarPlay。 |
 
 想知道它具体怎样工作、支持哪些车机入口，请看[工作原理](/zh/how-it-works)。
@@ -66,7 +66,7 @@ OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使�
 ## 常见疑问 {#questions}
 
 ::: details 车机上需要安装什么吗？
-不需要。接收和连接都由中继完成，车机只用它已有的浏览器、Carlink、CarLife 或投屏接收功能，也不会修改车机系统。
+不需要。接收和连接都由 iPhone App 或中继完成，车机只用它已有的浏览器、Carlink、CarLife 或投屏接收功能，也不会修改车机系统。
 :::
 
 ::: details 免费吗？
@@ -78,7 +78,7 @@ OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使�
 :::
 
 ::: details 会把我的数据发到别处吗？
-OpenXPlay 通过本地连接工作：视频、音频和触控经蓝牙、Wi-Fi 或 USB 在 iPhone、中继和车机之间传输，网页接收端和管理页面都由中继自己提供。详见[常见问题](/zh/faq#data)。
+OpenXPlay 通过本地连接工作：视频、音频和触控经蓝牙、Wi-Fi 或 USB 在 iPhone、中继（如果使用）和车机之间传输，网页接收端由 iPhone App 或中继自己提供。详见[常见问题](/zh/faq#data)。
 :::
 
 更多问题见[常见问题](/zh/faq)；遇到连接、画面或声音的问题，请看[故障排查](/zh/troubleshooting)。

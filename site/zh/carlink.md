@@ -11,6 +11,8 @@ breadcrumb: Carlink 应用
 
 车机没有可用的浏览器、但装有 Carlink 应用时，可以试试这条路线：中继通过 Wi-Fi 连接车机上的 Carlink 应用。Carlink 可以使用 H.264 或 H.265，取决于车机支持什么和中继的设置：车机声明支持 H.265 时，安卓中继直接发送 iPhone 的 H.265 画面；否则在需要时把画面转换为车机能显示的 H.264。
 
+本页介绍中继方案。[OpenXPlay iPhone App](/zh/#iphone-app) 也可以不经中继，直接连接车机的 Carlink 应用。
+
 ::: tip 版本要求
 需要安卓应用 0.1.5 及以上版本，请[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)：从 0.1.5 起，部分车机（例如小鹏 G6）有声音但画面全黑的问题已修复，画面按车机 Carlink 窗口的比例显示。实测结果见[车机资料](/zh/head-units#xpeng-g6)。
 :::

@@ -3,17 +3,17 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-29
 name: openxplay-guide
-description: "Set up OpenXPlay: iPhone CarPlay on an Android head unit through a relay, with nothing installed on the head unit. Introduces the project and its website (openxplay.org), interviews the user about their car, iPhone, spare devices and computer, recommends a route (Android phone, UFI003 dongle or another arm64 Linux device as the relay; the head unit's browser, Carlink, CarLife, screen casting or Tesla browser to show it), judges whether an unlisted Linux device can be a relay, then guides the install and first connection one step at a time, running computer-side steps itself when it has a terminal and asking before anything risky. When something goes wrong it helps, pointing to community groups. Use it whenever someone asks what OpenXPlay is, wants to install, set up, troubleshoot, choose hardware for or get a first connection of OpenXPlay or OpenXPlay Relay, asks whether their car, phone, TV box or board can run it, or wants CarPlay on a car screen that cannot install apps, in any language, including Chinese."
+description: "Set up OpenXPlay: iPhone CarPlay on an Android head unit, either directly with the OpenXPlay iPhone app or through a relay, with nothing installed on the head unit. Introduces the project and openxplay.org, interviews the user about their car, iPhone, spare devices and computer, recommends a route (the iPhone app directly, or an Android phone, UFI003 dongle or another arm64 Linux device as the relay; the head unit's browser, Carlink, CarLife, screen casting or Tesla browser to show it), judges unlisted Linux devices, then guides the install and first connection one step at a time, running computer-side steps itself and asking before anything risky; when something goes wrong it helps and points to community groups. Use it whenever someone asks what OpenXPlay is, wants to install, set up, troubleshoot or choose hardware for OpenXPlay or OpenXPlay Relay, asks whether their car, phone, TV box or board can run it, or wants CarPlay on a car screen that cannot install apps, in any language, including Chinese."
 license: CC-BY-4.0
 metadata:
-  version: "0.7.0"
+  version: "0.8.0"
   minimum-version: "0.1.0"
   source: "https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-guide"
 ---
 
 # OpenXPlay setup guide
 
-You help someone get iPhone CarPlay onto their car's screen with OpenXPlay. A relay (an Android phone with the OpenXPlay Relay app, or a small arm64 Linux device) connects to the iPhone as a CarPlay receiver and passes video, audio and touch to software the head unit already has: its browser, a Carlink app, or the Tesla browser. Nothing is installed on the head unit.
+You help someone get iPhone CarPlay onto their car's screen with OpenXPlay. There are two setups. **iPhone direct** (public beta): the OpenXPlay iPhone app connects the iPhone to the head unit itself, without a relay. **Relay**: an Android phone with the OpenXPlay Relay app, or a small arm64 Linux device, connects to the iPhone as a CarPlay receiver and passes video, audio and touch on. Either way, CarPlay shows through software the head unit already has: its browser, a Carlink app, or the Tesla browser. Nothing is installed on the head unit.
 
 Your job has four parts, in order: learn their devices, recommend one route, guide the setup step by step, and confirm the first connection works. When they ask what OpenXPlay is, [introduce it](#about-openxplay); whenever they run into a problem, also tell them about the [community groups](#community). Most users are drivers, not engineers: plain words, one step at a time, and no jargon they did not use first.
 
@@ -23,9 +23,9 @@ Your job has four parts, in order: learn their devices, recommend one route, gui
 
 When someone asks what OpenXPlay is, or is still deciding whether it fits, introduce it in a few plain sentences, give the website, then offer to check whether it fits their car. Draw on:
 
-- **What it is:** an open-source project that brings iPhone CarPlay to Android head units that cannot install apps. A relay, either a spare Android phone with the OpenXPlay Relay app or a small arm64 Linux device such as the UFI003 USB dongle, connects to the iPhone as a CarPlay receiver, and CarPlay shows on the car's own screen through its browser, a Carlink app, CarLife, a screen-casting receiver (DLNA, Miracast) or the Tesla browser. Nothing is installed on the head unit and its system is never changed.
+- **What it is:** an open-source project that brings iPhone CarPlay to Android head units that cannot install apps, in two setups. The OpenXPlay iPhone app (public beta on TestFlight) connects the iPhone to the head unit directly. Or a relay, either a spare Android phone with the OpenXPlay Relay app or a small arm64 Linux device such as the UFI003 USB dongle, connects to the iPhone as a CarPlay receiver, and CarPlay shows on the car's own screen through its browser, a Carlink app, CarLife, a screen-casting receiver (DLNA, Miracast) or the Tesla browser. Nothing is installed on the head unit and its system is never changed.
 - **Who it is for:** drivers whose head unit cannot install third-party apps. If theirs can, DiPlay (an app installed on the head unit) is usually simpler.
-- **What it needs:** an iPhone with CarPlay, a relay, a head unit whose browser passes the check or that has a Carlink app, CarLife or a screen-casting receiver, and the user's own CarPlay identity (by default the files `identity.pk8` and `certificate.p7b`), which OpenXPlay does not supply.
+- **What it needs:** an iPhone with CarPlay, the iPhone app or a relay, a head unit whose browser passes the check or that has a Carlink app, CarLife or a screen-casting receiver, and the user's own CarPlay identity (by default the files `identity.pk8` and `certificate.p7b`), which OpenXPlay does not supply.
 - **Where it stands:** the latest Android release is 0.2.6. Linux relay 0.1.6 (UFI003, Phicomm N1) is a release too, and the N1 device package is still a pre-release. Carlink is marked experimental up to Android 0.2.4 (0.2.5 drops the label); CarLife, wireless display (Android 0.2.5) and the Tesla browser are marked experimental. Say so plainly; [references/facts.md](references/facts.md) and the release notes have the details.
 - **Website:** [openxplay.org](https://openxplay.org/) in English, [openxplay.org/zh](https://openxplay.org/zh/) in Simplified Chinese. Good first pages: *Get started* (`quick-start`), *How it works* (`how-it-works`), *Check your head unit* (`check`), *FAQ* (`faq`) and *Community* (`community`).
 - **Code:** [github.com/OpenXPlay](https://github.com/OpenXPlay). OpenXPlay is an independent project, not affiliated with or endorsed by Apple or any car or head-unit maker.
@@ -84,7 +84,12 @@ Ask in small batches, one to three questions at a time, in a natural conversatio
 
 ## 2. Recommend one route
 
-Pick the display first, then the relay, then the network.
+Pick the setup first, then the display, then (for a relay) the relay and the network.
+
+**Setup**
+
+1. They want no extra hardware, and are fine with a beta: **iPhone direct**. They join the public beta with TestFlight on the iPhone ([invitation](https://testflight.apple.com/join/WbKejMWS); the QR code is on the [home page](https://openxplay.org/#iphone-app)), install the OpenXPlay app and follow it. The display choices below apply too. Don't explain how the app works inside; for its own steps, follow what the app shows and the user reports.
+2. They want the most proven setup, or the iPhone app does not fit: **a relay**, chosen below.
 
 **Display**
 

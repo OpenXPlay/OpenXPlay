@@ -9,7 +9,7 @@ breadcrumb: Everyday use and settings
 
 # Everyday use and settings
 
-Once the first setup is done, every drive starts with the relay and the same address in the head unit’s browser.
+This page covers the relay. Once the first setup is done, every drive starts with the relay and the same address in the head unit’s browser.
 
 ## Every drive {#daily}
 

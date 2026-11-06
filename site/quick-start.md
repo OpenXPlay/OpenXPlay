@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
 title: 'Get started: let an AI assistant guide you'
-description: First time with OpenXPlay? Install the openxplay-guide skill and an AI assistant on your computer asks about your car and devices, recommends a setup and guides you through it step by step. Or choose a relay (an Android phone, a UFI003 USB dongle or a Phicomm N1) and how the head unit shows CarPlay yourself, and follow the matching guide.
+description: First time with OpenXPlay? Use the OpenXPlay iPhone app, which connects to the head unit directly (public beta), or set up a relay. For a relay, install the openxplay-guide skill and an AI assistant on your computer asks about your car and devices, recommends a setup and guides you through it step by step. Or choose a relay (an Android phone, a UFI003 USB dongle or a Phicomm N1) and how the head unit shows CarPlay yourself, and follow the matching guide.
 breadcrumb: Get started
 ---
 
@@ -13,7 +13,14 @@ import RouteChooser from './.vitepress/theme/components/RouteChooser.vue'
 
 # Get started
 
-OpenXPlay uses a relay to bring your iPhone’s CarPlay to the head unit.
+OpenXPlay brings your iPhone’s CarPlay to the head unit in one of two ways:
+
+- **iPhone direct**: the OpenXPlay iPhone app connects the iPhone to the head unit directly, without a relay.
+- **Relay**: an Android phone or a Linux device connects the iPhone to the head unit. The rest of this page sets up a relay.
+
+## iPhone direct connection <Badge type="warning" text="Beta" /> {#iphone-direct}
+
+The iPhone app does the relay’s job on the iPhone itself; the head unit shows CarPlay in its browser, Carlink, CarLife or screen-casting receiver, as with a relay. It is in public beta: open the [TestFlight invitation](https://testflight.apple.com/join/WbKejMWS) on your iPhone, or scan the QR code on the [home page](/#iphone-app). CarPlay needs an [Apple accessory (MFi) identity](#mfi-identity) that you supply, as with a relay.
 
 <div class="oxp-recommended">
 
@@ -71,7 +78,7 @@ Copy the folder [skills/openxplay-guide](https://github.com/OpenXPlay/OpenXPlay/
 | The head unit’s browser | It must decode video with WebCodecs. Open [Check your head unit](/check) in the head unit’s browser to find out. In a Tesla, see [Tesla](/tesla). |
 
 ::: details What is an Apple accessory (MFi) identity? {#mfi-identity}
-The relay uses this identity to authenticate with the iPhone as an accessory, and only then does CarPlay start; without an identity, the Android app doesn’t start CarPlay. The guides on this site use the most common form: the two files `identity.pk8` and `certificate.p7b`. The repositories and their builds contain none; you supply your own.
+OpenXPlay uses this identity to authenticate with the iPhone as an accessory, and only then does CarPlay start; without an identity, the Android app doesn’t start CarPlay. The guides on this site use the most common form: the two files `identity.pk8` and `certificate.p7b`. The repositories and their builds contain none; you supply your own.
 
 Without these two files but with another authentication source, choose a remote MFi server, or an authentication chip over I2C or a CH341 adapter, under Settings → Identity and certificates → MFi target on the relay. These also need your own authentication source; the guides on this site don’t cover them.
 :::

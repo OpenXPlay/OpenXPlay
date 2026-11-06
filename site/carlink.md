@@ -11,6 +11,8 @@ breadcrumb: Carlink app
 
 If the head unit has no usable browser but does have a Carlink app, try this route: the relay connects to the head unit’s Carlink app over Wi-Fi. Carlink can use H.264 or H.265, depending on what the head unit supports and on the relay’s settings: when the head unit reports H.265 support, the Android relay sends the iPhone’s H.265 picture as it is; otherwise it converts the picture, when needed, to an H.264 format the head unit can show.
 
+This page covers the relay. The [OpenXPlay iPhone app](/#iphone-app) can also connect to the head unit’s Carlink app directly, without a relay.
+
 ::: tip Version
 It needs Android app 0.1.5 or later; [download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk). From 0.1.5, the black screen with sound on some head units, such as the XPeng G6, is fixed, and the picture takes the shape of the car’s Carlink window. Results from cars are under [Head units](/head-units#xpeng-g6).
 :::

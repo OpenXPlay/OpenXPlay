@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
 title: 常见问题
-description: 关于 OpenXPlay 的常见问题：它是什么、车机上要不要装软件、哪些车机能用、和 DiPlay 的区别、是否免费、延迟、断电和隐私。
+description: 关于 OpenXPlay 的常见问题：它是什么、需不需要中继、车机上要不要装软件、哪些车机能用、和 DiPlay 的区别、是否免费、延迟、断电和隐私。
 breadcrumb: 常见问题
 schema: faq
 ---
@@ -18,11 +18,15 @@ schema: faq
 
 ### OpenXPlay 是什么？ {#what-is-openxplay}
 
-OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone CarPlay。由一台中继（运行 OpenXPlay Relay 应用的安卓手机，或 UFI003 USB 随身 Wi-Fi 这类小型 Linux 设备）连接 iPhone，再把 CarPlay 交给车机上已有的软件显示，例如车机浏览器、Carlink、CarLife 或投屏接收功能。详见[工作原理](/zh/how-it-works)。
+OpenXPlay 让无法安装应用的安卓车机也能显示 iPhone CarPlay，有两种方式：OpenXPlay iPhone App 让 iPhone 直接连接车机；或者由一台中继（运行 OpenXPlay Relay 应用的安卓手机，或 UFI003 USB 随身 Wi-Fi 这类小型 Linux 设备）连接 iPhone，再把 CarPlay 转给车机。无论哪种方式，CarPlay 都由车机上已有的软件显示，例如车机浏览器、Carlink、CarLife 或投屏接收功能。详见[工作原理](/zh/how-it-works)。
+
+### 一定需要中继吗？ {#need-relay}
+
+不需要。OpenXPlay iPhone App 可以直接连接车机，目前正在公开测试，可[通过 TestFlight 加入](/zh/#iphone-app)。中继是另一种方式，本网站的教程介绍的就是怎样设置中继，见[开始使用](/zh/quick-start)。
 
 ### 车机上需要安装什么吗？ {#install-on-head-unit}
 
-不需要。接收和连接都由中继完成，车机只用它已有的浏览器、Carlink、CarLife 或投屏接收功能，也不会修改车机系统。
+不需要。接收和连接都由 iPhone App 或中继完成，车机只用它已有的浏览器、Carlink、CarLife 或投屏接收功能，也不会修改车机系统。
 
 ### 哪些车机可以用？ {#which-head-units}
 
@@ -30,7 +34,7 @@ OpenXPlay 实测过的车机列在[车机资料](/zh/head-units)中，目前收�
 
 ### OpenXPlay 和 DiPlay 有什么区别？ {#diplay}
 
-DiPlay 面向能够安装应用的车机：在兼容的安卓车机上安装后，由车机直接接收并显示 CarPlay。OpenXPlay 主要面向无法安装应用的车机：由手机或外部设备承接相关能力，借助车机已有的浏览器、Carlink 应用等入口显示 CarPlay。
+DiPlay 面向能够安装应用的车机：在兼容的安卓车机上安装后，由车机直接接收并显示 CarPlay。OpenXPlay 主要面向无法安装应用的车机：由 iPhone App 或中继承接相关能力，借助车机已有的浏览器、Carlink 应用等入口显示 CarPlay。
 
 ### OpenXPlay 免费吗？ {#free}
 
@@ -53,7 +57,7 @@ DiPlay 面向能够安装应用的车机：在兼容的安卓车机上安装后�
 
 ### OpenXPlay 会把我的数据发到别处吗？ {#data}
 
-OpenXPlay 通过本地连接工作。网页接收端和管理页面都由中继自己提供；视频、音频和触控经蓝牙、Wi-Fi 或 USB 在 iPhone、中继和车机之间传输，Linux 中继启动时也不等待互联网连接。插件默认关闭，在车机浏览器中离线运行。来自 Carlink 的车辆信息只在你开启后才会收集，并且只保存在中继设备上。本网站没有任何统计分析，检测页也只在你的浏览器中运行。
+OpenXPlay 通过本地连接工作。网页接收端和管理页面都由中继自己提供；视频、音频和触控经蓝牙、Wi-Fi 或 USB 在 iPhone、中继和车机之间传输，Linux 中继启动时也不等待互联网连接。插件默认关闭，在车机浏览器中离线运行。来自 Carlink 的车辆信息只在你开启后才会收集，并且只保存在中继设备上。iPhone App 的情况见[隐私政策](/zh/privacy)。本网站没有任何统计分析，检测页也只在你的浏览器中运行。
 
 ### 中继的管理页面有保护吗？ {#admin-password}
 

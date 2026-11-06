@@ -9,7 +9,13 @@ breadcrumb: Changelog
 
 # Changelog
 
-What changed in each OpenXPlay Relay release, newest first. The Android app and the Linux relay are released separately; Linux releases say “Linux” in their heading. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup start at [Get started](/quick-start).
+What changed in each OpenXPlay Relay release, newest first. The Android app and the Linux relay are released separately; Linux releases say “Linux” in their heading, and the iPhone app’s entries say “iPhone app”. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup start at [Get started](/quick-start).
+
+## iPhone app public beta {#iphone-beta}
+
+2026-11-05 · [Join on TestFlight](https://testflight.apple.com/join/WbKejMWS)
+
+The OpenXPlay iPhone app connects the iPhone to the head unit directly, without a relay. Like the relay, it shows CarPlay in the head unit’s browser, Carlink, CarLife or screen-casting receiver. Join the public beta with the [TestFlight invitation](https://testflight.apple.com/join/WbKejMWS) or the QR code on the [home page](/#iphone-app).
 
 ## 0.2.6 {#v0-2-6}
 

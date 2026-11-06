@@ -4,17 +4,24 @@
 
 **车机装不了软件，也有 CarPlay 的解法。**
 
-OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使用 CarPlay 的车主**。通过手机或外部设备，利用车机已有的浏览器、Carlink 等入口，让 CarPlay 显示在原有车机屏幕上。
+OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使用 CarPlay 的车主**。利用车机已有的浏览器、Carlink 等入口，让 CarPlay 显示在原有车机屏幕上。
 
 你可以把它理解为一套可自由组合的 CarPlay 接入方案：涵盖部分市售 CarPlay 盒子的能力，同时提供更多连接与显示路径，根据车机条件和手头设备选择适合自己的组合。
 
 **本项目提供的技术通过不同组合，最多可形成 28 种解决方案。**
 
-## 中继连接路线
+## 两套方案
 
-iPhone 通过安卓或 Linux 中继，连接车机已有的浏览器、Carlink、无线投屏或有线投屏入口。下图展示 OpenXPlay 的一条中继路线，仅涵盖项目的部分方案组合。
+| | 使用方式 |
+| --- | --- |
+| **iPhone 直连**（公测） | OpenXPlay iPhone App 让 iPhone 直接连接车机，不需要中继。[加入 TestFlight 公测](https://testflight.apple.com/join/WbKejMWS) |
+| **中继** | 由一部安卓手机或 UFI003 随身 Wi-Fi 等小型 Linux 设备连接 iPhone，再把 CarPlay 转给车机。 |
 
-![OpenXPlay 中继连接路线](assets/openxplay-relay-animated-zh.svg)
+## 连接路线
+
+下图展示 OpenXPlay 的部分连接关系，以 iPhone 直连为主，中继路线为补充。无论选择哪一种显示方式，车机最终显示的都是 CarPlay 画面。
+
+![OpenXPlay 中继与 iPhone 直连路线](assets/openxplay-relay-animated-zh.svg)
 
 ## 追求极致，也追求低成本
 
@@ -28,12 +35,12 @@ iPhone 通过安卓或 Linux 中继，连接车机已有的浏览器、Carlink�
 | 磁盘占用 | **5 MB** |
 | 硬件成本 | **低至 15 元人民币／3 美元**，不含 MFi 部分 |
 
-*以上数据对应特定方案与运行配置，实际资源占用和成本随所选方案、设备及环境而变化。*
+*以上数据对应特定的中继方案与运行配置，实际资源占用和成本随所选方案、设备及环境而变化。iPhone 直连不需要额外硬件。*
 
 ## 核心特色
 
 - **车机无需安装额外应用**  
-  将接收与连接能力交给手机或外部设备，利用车机已有入口显示 CarPlay，无需为了安装接收端应用而修改车机系统。
+  将接收与连接能力交给 iPhone App 或中继，利用车机已有入口显示 CarPlay，无需为了安装接收端应用而修改车机系统。
 
 - **根据现有条件组合方案**  
   整合 Android、Linux 和 iOS 端实现，围绕 USB、蓝牙、Wi-Fi 连接及浏览器、Carlink 等显示方式，提供不同的设备组合与接入路径。
@@ -57,7 +64,7 @@ iPhone 通过安卓或 Linux 中继，连接车机已有的浏览器、Carlink�
 | 项目 | 主要使用方式 |
 | --- | --- |
 | **DiPlay** | 在兼容的 Android 车机上安装应用，由车机直接接收并显示 CarPlay |
-| **OpenXPlay** | 通过手机或外部设备承接相关能力，借助车机已有的浏览器、Carlink 等入口显示 CarPlay |
+| **OpenXPlay** | 由 iPhone App 或中继承接相关能力，借助车机已有的浏览器、Carlink 等入口显示 CarPlay |
 
 两者的侧重点不同。OpenXPlay 希望为无法安装应用的车机提供更多选择，让车主能够利用现有设备找到合适的接入方式。
 

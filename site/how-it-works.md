@@ -2,23 +2,26 @@
 # SPDX-FileCopyrightText: 2026 OpenXPlay.org
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-21
-title: 'How it works: the iPhone, the relay and the head unit'
-description: The OpenXPlay relay route. An iPhone connects to an Android or Linux relay, which acts as the CarPlay receiver and passes video, audio and touch on to the head unit’s browser, Carlink, CarLife or screen-casting receiver.
+title: 'How it works: iPhone direct or through a relay'
+description: OpenXPlay’s two ways to the head unit. The OpenXPlay iPhone app connects the iPhone to the head unit directly, or an Android or Linux relay acts as the CarPlay receiver. Either way, CarPlay appears in the head unit’s browser, Carlink, CarLife or screen-casting receiver.
 breadcrumb: How it works
 ---
 
 # How it works
 
-An iPhone connects to a relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle. The relay acts as the CarPlay receiver and passes video, audio and touch on to the head unit. Nothing is installed on the head unit and its system is never modified.
+OpenXPlay brings an iPhone’s CarPlay to the head unit in one of two ways. Either way, nothing is installed on the head unit and its system is never modified.
+
+- **iPhone direct**: the OpenXPlay iPhone app does the relay’s job on the iPhone itself and connects to the head unit directly. It is in public beta; [join on TestFlight](/#iphone-app).
+- **Relay**: the iPhone connects to a relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle. The relay acts as the CarPlay receiver and passes video, audio and touch on to the head unit.
 
 <figure class="oxp-figure">
-  <img src="../assets/openxplay-relay-animated.svg" width="1800" height="1120" loading="lazy" decoding="async" alt="OpenXPlay relay route: an iPhone connects over Wi-Fi or USB to an Android relay or a Linux relay, which reaches the car’s screen through its browser, Carlink, wireless display or wired display.">
-  <figcaption>One route within OpenXPlay. It covers only part of the project’s possible solutions. Blue and purple dots show the data flows of the Android and Linux relays.</figcaption>
+  <img src="../assets/openxplay-relay-animated.svg" width="1800" height="1000" loading="lazy" decoding="async" alt="OpenXPlay connection routes: the iPhone connects to the head unit’s browser, Carlink, wireless display or CarLife directly, or through an Android relay or a Linux relay.">
+  <figcaption>Some of OpenXPlay’s connection routes: iPhone direct, or through an Android or Linux relay. It covers only part of the project’s possible solutions.</figcaption>
 </figure>
 
 ## Head-unit entry points {#entries}
 
-Today the relay delivers CarPlay to these head-unit entry points:
+Today OpenXPlay delivers CarPlay to these head-unit entry points. The relay reaches all of them; the iPhone app reaches the browser, Carlink, CarLife and screen-casting receivers. The links lead to the relay guides.
 
 | Entry point | How it works | Touch | Status |
 | --- | --- | --- | --- |
