@@ -6,7 +6,7 @@ name: openxplay-guide
 description: "Set up OpenXPlay: iPhone CarPlay on an Android head unit, either directly with the OpenXPlay iPhone app or through a relay, with nothing installed on the head unit. Introduces the project and openxplay.org, interviews the user about their car, iPhone, spare devices and computer, recommends a route (the iPhone app directly, or an Android phone, UFI003 dongle or another arm64 Linux device as the relay; the head unit's browser, Carlink, CarLife, screen casting or Tesla browser to show it), judges unlisted Linux devices, then guides the install and first connection one step at a time, running computer-side steps itself and asking before anything risky; when something goes wrong it helps and points to community groups. Use it whenever someone asks what OpenXPlay is, wants to install, set up, troubleshoot or choose hardware for OpenXPlay or OpenXPlay Relay, asks whether their car, phone, TV box or board can run it, or wants CarPlay on a car screen that cannot install apps, in any language, including Chinese."
 license: CC-BY-4.0
 metadata:
-  version: "0.8.0"
+  version: "0.8.1"
   minimum-version: "0.1.0"
   source: "https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-guide"
 ---
