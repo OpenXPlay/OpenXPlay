@@ -75,9 +75,14 @@ Share how OpenXPlay works with your head unit, swap experiences, report problems
 
 - **Discord:** <https://discord.gg/j3cKd5Tax>
 - **QQ group:** 1015739350
-- **WeChat group:** scan the QR code below
+- **WeChat group 2:** scan the QR code below
 
-<p><img src="Group/Wechat_QQ_Group.jpg" alt="QR codes for the OpenXPlay QQ and WeChat groups" width="540"></p>
+<p><strong>WeChat group 2</strong><br><img src="Group/Wechat_Group_2.jpg" alt="QR code for joining OpenXPlay WeChat group 2" width="270"></p>
+
+<table>
+  <tr><th width="270">QQ group</th><th width="270">WeChat group 1 (full)</th></tr>
+  <tr><td colspan="2"><img src="Group/Wechat_QQ_Group.jpg" alt="OpenXPlay QQ group and WeChat group 1 QR codes (WeChat group 1 is full)" width="540"></td></tr>
+</table>
 
 When you report a compatibility problem, please include the head unit model, system version, the solution you used and what happened.
 
