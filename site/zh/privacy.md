@@ -3,19 +3,19 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-11-05
 title: 隐私政策
-description: OpenXPlay iPhone App 如何处理你的数据：无需账号、不做跟踪；投屏画面只发送到你选择的车机或电视；日志只有在你主动上传时才离开 iPhone，并在 72 小时内删除。
+description: OpenXPlay iPhone App 如何处理你的数据：无需账号、不做跟踪；投屏画面只发送到你选择的车机或电视；日志只有在你主动上传时才离开 iPhone，并在 30 天内删除。
 breadcrumb: 隐私
 ---
 
 # 隐私政策
 
-本政策适用于 OpenXPlay.org 发布的 iPhone 版 OpenXPlay App。最近更新：2026 年 11 月 5 日。
+本政策适用于 OpenXPlay.org 发布的 iPhone 版 OpenXPlay App。最近更新：2026 年 11 月 8 日。
 
 ## 概要 {#summary}
 
 - OpenXPlay 没有账号，没有广告，不做统计分析，也不跟踪你。
 - 投屏内容直接从你的 iPhone 发送到你在本地网络中选择的车机或电视，不经过我们的服务器。
-- 日志保存在你的 iPhone 上，只有你主动上传时才会发送；上传的日志在 72 小时内删除。
+- 日志保存在你的 iPhone 上，只有你主动上传时才会发送；上传的日志在 30 天内删除。
 
 ## 留在 iPhone 上的数据 {#on-device}
 
@@ -28,7 +28,7 @@ breadcrumb: 隐私
 
 只有以下情况，并且都由你主动发起：
 
-- **上传日志。** 在「设置 › 日志」中同意页面上的说明后，可以上传日志。日志会发送到 OpenXPlay.org 运营的 `logs.openxplay.org`，仅用于诊断你反馈的问题。上传经过 Cloudflare 转发（不存储），服务器可能位于美国的 AWS 数据中心。同一 App 的上传通过一个随机 ID 关联，这个 ID 与你的 iPhone 或车辆无关。回执可在 48 小时内查看，日志最多 72 小时后永久删除。如果介意，也可以只保存文件，再通过邮件发送到 [support@openxplay.org](mailto:support@openxplay.org)。
+- **上传日志。** 在「设置 › 日志」中同意页面上的说明后，可以上传日志。日志和你填写的问题描述会发送到 OpenXPlay.org 运营的 `logs.openxplay.org`，仅用于诊断你反馈的问题。上传经过 Cloudflare 转发（不存储），服务器可能位于美国的 AWS 数据中心。同一 App 的上传通过一个随机 ID 关联，这个 ID 与你的 iPhone 或车辆无关。回执可在 48 小时内查看，日志最多 30 天后永久删除。如果介意，也可以只保存文件，再通过邮件发送到 [support@openxplay.org](mailto:support@openxplay.org)。
 - **可信 HTTPS。** 如果你为车机浏览器设置了可信地址，OpenXPlay 会用你填写的令牌，把 iPhone 当前的 IP 地址发送给你选择的动态域名服务（DuckDNS 或 dynv6），并向 Let's Encrypt 申请该域名的证书。这些服务适用它们各自的隐私政策。这些数据都不会发送给我们。
 - **链接。** App 中的链接会在浏览器中打开 openxplay.org、交流群页面或 GitHub。
 
