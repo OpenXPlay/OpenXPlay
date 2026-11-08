@@ -3,19 +3,19 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-11-05
 title: Privacy policy
-description: What the OpenXPlay iPhone app does with your data — no account, no tracking; your screen goes only to the head unit or TV you choose; logs leave the iPhone only when you upload them, and are deleted within 72 hours.
+description: What the OpenXPlay iPhone app does with your data — no account, no tracking; your screen goes only to the head unit or TV you choose; logs leave the iPhone only when you upload them, and are deleted within 30 days.
 breadcrumb: Privacy
 ---
 
 # Privacy policy
 
-This policy covers the OpenXPlay app for iPhone, published by OpenXPlay.org. Last updated: 5 November 2026.
+This policy covers the OpenXPlay app for iPhone, published by OpenXPlay.org. Last updated: 8 November 2026.
 
 ## In short {#summary}
 
 - OpenXPlay has no account, no advertising, no analytics and no tracking.
 - What you cast goes straight from your iPhone to the head unit or TV you pick on your local network. It never passes through our servers.
-- Logs stay on your iPhone unless you choose to upload them. Uploaded logs are deleted within 72 hours.
+- Logs stay on your iPhone unless you choose to upload them. Uploaded logs are deleted within 30 days.
 
 ## What stays on your iPhone {#on-device}
 
@@ -28,7 +28,7 @@ This policy covers the OpenXPlay app for iPhone, published by OpenXPlay.org. Las
 
 Only in these cases, and only when you start them:
 
-- **Uploading logs.** In Settings › Logs you can upload a log after agreeing to the terms shown there. It goes to `logs.openxplay.org`, run by OpenXPlay.org, and is used only to diagnose the problem you report. Uploads pass through Cloudflare, which forwards them without storing them, to a server that may be in an AWS data center in the United States. Uploads from your app are linked by a random ID that is not derived from your iPhone or car. You can view the receipt for 48 hours, and the log is permanently deleted after at most 72 hours. If you prefer, save the file instead and email it to [support@openxplay.org](mailto:support@openxplay.org).
+- **Uploading logs.** In Settings › Logs you can upload a log after agreeing to the terms shown there. The log and any problem description you add go to `logs.openxplay.org`, run by OpenXPlay.org, and are used only to diagnose the problem you report. Uploads pass through Cloudflare, which forwards them without storing them, to a server that may be in an AWS data center in the United States. Uploads from your app are linked by a random ID that is not derived from your iPhone or car. You can view the receipt for 48 hours, and the log is permanently deleted after at most 30 days. If you prefer, save the file instead and email it to [support@openxplay.org](mailto:support@openxplay.org).
 - **Trusted HTTPS.** If you set up a trusted address for head-unit browsers, OpenXPlay sends your iPhone's current IP address to the dynamic DNS provider you chose (DuckDNS or dynv6), using the token you entered, and requests a certificate for that name from Let's Encrypt. Their own privacy policies apply. Nothing of this is sent to us.
 - **Links.** Links in the app open openxplay.org, our community pages or GitHub in your browser.
 
