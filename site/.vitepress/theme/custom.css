@@ -526,6 +526,63 @@ Created by riko chen on 2026-10-17
   max-width: 540px;
 }
 
+.vp-doc .oxp-community-qr {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 16px;
+  max-width: 640px;
+  margin: 24px 0;
+}
+
+.vp-doc .oxp-community-qr .oxp-figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.vp-doc .oxp-community-qr figcaption {
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.vp-doc .oxp-community-full {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: calc((100% - 16px) / 2);
+}
+
+/* Show each half of the original card without changing its QR pixels. */
+.vp-doc .oxp-community-crop {
+  aspect-ratio: 543 / 814;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+}
+
+.vp-doc .oxp-community-crop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left;
+  border: 0;
+  border-radius: 0;
+}
+
+.vp-doc .oxp-community-crop.is-wechat img {
+  object-position: right;
+}
+
+@media (max-width: 600px) {
+  .vp-doc .oxp-community-qr {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 320px;
+    margin-inline: auto;
+  }
+
+  .vp-doc .oxp-community-full {
+    width: 100%;
+  }
+}
+
 /* QR codes stay small enough to scan from a screen, and pixel-sharp. */
 .vp-doc .oxp-figure.is-qr {
   max-width: 200px;
