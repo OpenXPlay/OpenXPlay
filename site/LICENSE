@@ -17,7 +17,7 @@ Each source file states its licence in an SPDX header.
 
 Material from elsewhere keeps its own terms and is not covered by either
 licence: the pages show assets/openxplay-relay-animated.svg,
-assets/openxplay-relay-animated-zh.svg and Group/Wechat_QQ_Group.jpg; the
+assets/openxplay-relay-animated-zh.svg and the QR code images in Group/; the
 diagrams use MiSans (https://hyperos.mi.com/font/), and public/og-image-en.png
 and public/og-image-zh.png are rendered from those diagrams. The icons in public/
 (logo.png, icon-192.png, favicon-32.png, apple-touch-icon.png) are rendered from

@@ -81,14 +81,17 @@ OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使�
 欢迎分享车机适配情况、交流使用体验、反馈问题，参与项目测试与开发。
 
 - **Discord：** <https://discord.gg/j3cKd5Tax>
-- **QQ 群：** 1015739350
+- **QQ 二群：** 167458222
 - **微信二群：** 扫描下方二维码
 
-<p><strong>微信二群</strong><br><img src="Group/Wechat_Group_2.jpg" alt="OpenXPlay 微信二群的入群二维码" width="270"></p>
+<table>
+  <tr><th width="270">QQ 二群 · 167458222</th><th width="270">微信二群</th></tr>
+  <tr><td valign="top"><img src="Group/QQ_Group_2.jpg" alt="OpenXPlay QQ 二群 167458222 的入群二维码" width="270"></td><td valign="top"><img src="Group/Wechat_Group_2.jpg" alt="OpenXPlay 微信二群的入群二维码" width="270"></td></tr>
+</table>
 
 <table>
-  <tr><th width="270">QQ 群</th><th width="270">微信一群（人数已满）</th></tr>
-  <tr><td colspan="2"><img src="Group/Wechat_QQ_Group.jpg" alt="OpenXPlay QQ 群和微信一群二维码（微信一群人数已满）" width="540"></td></tr>
+  <tr><th width="270">QQ 一群 · 1015739350</th><th width="270">微信一群</th></tr>
+  <tr><td colspan="2"><img src="Group/Wechat_QQ_Group.jpg" alt="OpenXPlay QQ 一群和微信一群的入群二维码" width="540"></td></tr>
 </table>
 
 反馈兼容性问题时，请尽量提供车机型号、系统版本、所选方案及问题现象，方便交流与定位。
