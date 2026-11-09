@@ -75,12 +75,14 @@ Share how OpenXPlay works with your head unit, swap experiences, report problems
 
 - **Discord:** <https://discord.gg/j3cKd5Tax>
 - **QQ group 2:** 167458222
-- **WeChat group 2:** scan the QR code below
+- **WeChat group 3:** scan the QR code below
 
 <table>
-  <tr><th width="270">QQ group 2 · 167458222</th><th width="270">WeChat group 2</th></tr>
-  <tr><td valign="top"><img src="Group/QQ_Group_2.jpg" alt="QR code for joining OpenXPlay QQ group 2, 167458222" width="270"></td><td valign="top"><img src="Group/Wechat_Group_2.jpg" alt="QR code for joining OpenXPlay WeChat group 2" width="270"></td></tr>
+  <tr><th width="270">QQ group 2 · 167458222</th><th width="270">WeChat group 3</th></tr>
+  <tr><td valign="top"><img src="Group/QQ_Group_2.jpg" alt="QR code for joining OpenXPlay QQ group 2, 167458222" width="270"></td><td valign="top"><img src="Group/Wechat_Group_3.png" alt="QR code for joining OpenXPlay WeChat group 3" width="270"></td></tr>
 </table>
+
+<p><strong>WeChat group 2</strong><br><img src="Group/Wechat_Group_2.jpg" alt="OpenXPlay WeChat group 2 QR code" width="270"></p>
 
 <table>
   <tr><th width="270">QQ group 1 · 1015739350</th><th width="270">WeChat group 1</th></tr>

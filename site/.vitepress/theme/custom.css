@@ -544,6 +544,10 @@ Created by riko chen on 2026-10-17
   text-align: center;
 }
 
+.vp-doc .oxp-community-qr > .is-wechat {
+  grid-column: 2;
+}
+
 /* Show each half of the original card without changing its QR pixels. */
 .vp-doc .oxp-community-crop {
   aspect-ratio: 543 / 814;
@@ -570,6 +574,10 @@ Created by riko chen on 2026-10-17
     grid-template-columns: minmax(0, 1fr);
     max-width: 320px;
     margin-inline: auto;
+  }
+
+  .vp-doc .oxp-community-qr > .is-wechat {
+    grid-column: auto;
   }
 }
 
