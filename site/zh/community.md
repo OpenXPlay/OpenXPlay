@@ -16,7 +16,7 @@ breadcrumb: 交流群
 | 渠道 | 加入方式 |
 | --- | --- |
 | QQ 二群 | 167458222，或扫描下方二维码 |
-| 微信三群 | 扫描下方二维码 |
+| 微信四群 | 扫描下方二维码 |
 | Discord | [discord.gg/j3cKd5Tax](https://discord.gg/j3cKd5Tax) |
 
 <div class="oxp-community-qr">
@@ -25,28 +25,19 @@ breadcrumb: 交流群
     <img src="../../Group/QQ_Group_2.jpg" width="1284" height="2289" loading="lazy" decoding="async" alt="OpenXPlay QQ 二群 167458222 的入群二维码">
   </figure>
   <figure class="oxp-figure is-wechat">
-    <figcaption>微信三群</figcaption>
-    <img src="../../Group/Wechat_Group_3.png" width="720" height="1094" loading="lazy" decoding="async" alt="OpenXPlay 微信三群的入群二维码">
-  </figure>
-  <figure class="oxp-figure">
-    <figcaption>QQ 一群 · 1015739350</figcaption>
-    <div class="oxp-community-crop">
-      <img src="../../Group/Wechat_QQ_Group.jpg" width="1086" height="814" loading="lazy" decoding="async" alt="OpenXPlay QQ 一群 1015739350 的入群二维码">
-    </div>
-  </figure>
-  <figure class="oxp-figure is-wechat">
-    <figcaption>微信二群</figcaption>
-    <img src="../../Group/Wechat_Group_2.jpg" width="834" height="1280" loading="lazy" decoding="async" alt="OpenXPlay 微信二群二维码">
-  </figure>
-  <figure class="oxp-figure is-wechat">
-    <figcaption>微信一群</figcaption>
-    <div class="oxp-community-crop is-wechat">
-      <img src="../../Group/Wechat_QQ_Group.jpg" width="1086" height="814" loading="lazy" decoding="async" alt="OpenXPlay 微信一群二维码">
-    </div>
+    <figcaption>微信四群</figcaption>
+    <img src="../../Group/Wechat_Group_4.webp" width="720" height="1094" loading="lazy" decoding="async" alt="OpenXPlay 微信四群的入群二维码">
   </figure>
 </div>
 
-微信群二维码会定期过期，二维码更新后图片也会随之更新。如果三群二维码已经过期，可以先加入 QQ 群或 Discord，请大家帮忙邀请。
+::: details 其他交流群
+
+- **QQ 一群：** 已满。
+- **微信一至三群：** 仅限已在群内的群友邀请。
+
+:::
+
+微信群二维码会定期过期，二维码更新后图片也会随之更新。如果四群二维码已经过期，可以先加入 QQ 群或 Discord，请大家帮忙邀请。
 
 ## 反馈问题 {#feedback}
 
