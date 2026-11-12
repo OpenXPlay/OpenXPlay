@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: 2026 OpenXPlay.org
+# SPDX-License-Identifier: CC-BY-4.0
+# Created by riko chen on 2026-11-12
+# Fields: see the Car interface in site/.vitepress/cars.ts.
+
+brand: xpeng
+model: p7-plus
+name: {en: XPeng P7+, zh: 小鹏 P7+}
+summary:
+  en: >-
+    On 2026-10-31 an owner connected Carlink with Android app 0.2.3 on an Android 15 phone, and no CarPlay
+    picture appeared: the car and the relay set up the Carlink connection, but the iPhone never started
+    sending its picture to the relay. The same phone showed the same problem with *This phone’s hotspot*, so
+    the cause isn’t necessarily the car; it is still being investigated. The model year, the head-unit system
+    and the Carlink version weren’t recorded.
+  zh: >-
+    2026-10-31，一位车主用安卓应用 0.2.3（Android 15 手机）连接 Carlink，没有出现 CarPlay 画面：车机和中继建立了 Carlink 连接，但 iPhone 一直没有开始向中继发送画面。同一部手机用“此手机的热点”时也出现过同样的问题，所以原因不一定在车上，还在调查。年款、车机系统和 Carlink 版本没有记录。
+
+tests:
+  - route: carlink
+    relay: {en: 'Android phone, 0.2.3', zh: 安卓手机，0.2.3}
+    date: 2026-10-31
+    result:
+      en: No picture; the cause is still being investigated (owner’s log)
+      zh: 没有画面，原因还在调查（车主的日志）

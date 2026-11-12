@@ -10,6 +10,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import type { PageData, SiteConfig } from 'vitepress'
 import { readSkills, writeSkills, SKILLS_PATH, type SkillEntry } from './agent-skills'
+import { expandCars } from './cars'
 import { llmsMarkdown } from './markdown-text'
 import {
   BASE, GITHUB_ORG, LOCALES, PAGE_SLUGS, SITE_HOST, SITE_NAME, SITE_ROOT, SUPPORT_EMAIL,
@@ -151,7 +152,7 @@ function llmsFullTxt(list: PageSummary[], srcDir: string): string {
   ]
   for (const page of list) {
     const { locale } = pageRoute(page.relativePath)
-    const source = fs.readFileSync(path.join(srcDir, page.relativePath), 'utf8')
+    const source = expandCars(fs.readFileSync(path.join(srcDir, page.relativePath), 'utf8'), page.relativePath)
     const body = llmsMarkdown(source, page.frontmatter, absolute, COMPONENT_TEXT[locale])
     const intro = page.frontmatter.layout === 'home' ? `${homeIntro(page)}\n\n` : ''
     parts.push(

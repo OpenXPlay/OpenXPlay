@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 OpenXPlay.org
+# SPDX-License-Identifier: CC-BY-4.0
+# Created by riko chen on 2026-11-12
+# Fields: see the Car interface in site/.vitepress/cars.ts.
+
+brand: nio
+model: et5t
+name: {en: NIO ET5T, zh: 蔚来 ET5T}
+summary:
+  en: >-
+    On 2026-11-12 an owner used the OpenXPlay iPhone App with the car’s browser. The picture and touch
+    worked, but there was no CarPlay sound in the browser: the browser says it can play AAC, yet fails on
+    every AAC packet, and plays only PCM. The model year and the car’s system version weren’t recorded.
+  zh: >-
+    2026-11-12，一位车主用 OpenXPlay iPhone App 连接车机浏览器。画面和触控正常，但浏览器里没有 CarPlay 声音：浏览器声明支持 AAC，实际每个 AAC 数据包都解码失败，只能播放 PCM。年款和整车系统版本没有记录。
+
+tests:
+  - software: {en: Chrome 114 (Android), zh: Chrome 114（Android）}
+    route: browser
+    relay: {en: 'OpenXPlay iPhone App 0.4.0 (412), no relay', zh: OpenXPlay iPhone App 0.4.0（412），不用中继}
+    date: 2026-11-12
+    result:
+      en: Picture and touch work; no sound in the browser, because the browser declares AAC but can’t decode it (owner’s log)
+      zh: 画面和触控正常；浏览器里没有声音，因为浏览器声明支持 AAC 却无法解码（车主的日志）
+
+results:
+  - item: picture
+    browser:
+      status: pass
+      text: {en: H.264 (11-12), zh: H.264（11-12）}
+  - item: touch
+    browser:
+      status: pass
+      text: {en: 113 touches reached CarPlay in one session (11-12), zh: 一次连接中 113 次触控传到了 CarPlay（11-12）}
+  - item: sound
+    browser:
+      status: fail
+      text:
+        en: the browser declares AAC but can’t decode it; PCM plays (11-12). A fix is in progress
+        zh: 浏览器声明支持 AAC 却无法解码，PCM 可以播放（11-12）。修复正在进行
+  - item: fullscreen
+    browser:
+      status: note
+      text:
+        en: When the browser left full screen, the page usually returned by itself; twice the browser didn’t allow it (11-12)
+        zh: 浏览器退出全屏后，网页通常能自动恢复；有两次浏览器不允许（11-12）
+
+setup:
+  - label: {en: Sound, zh: 声音}
+    text:
+      en: Until the fix ships, set **Sound → Browser** to **Car Bluetooth** in the iPhone App (it applies from the next connection) and choose Bluetooth as the car’s audio source. With the fix, the iPhone converts the music to PCM for this browser by itself.
+      zh: 修复发布之前，在 iPhone App 中把“**声音 → 浏览器**”设为“**车机蓝牙**”（下次连接时生效），并在车机上把音源切到蓝牙。修复后，iPhone 会自动把音乐转为 PCM 发给这台车的浏览器。
+
+browser:
+  intro:
+    en: >-
+      The NIO ET5T’s browser is Chrome 114 for Android. It reports H.264 (Baseline, Main and High) at 720p and
+      1080p as hardware decoding and 5 touch points. The screen is 1152×1259 CSS pixels at device pixel ratio
+      1.5 (1728×1889 physical pixels), 60 Hz; outside full screen the page gets 1728×1505 physical pixels.
+    zh: >-
+      蔚来 ET5T 的浏览器是安卓版 Chrome 114。它报告 H.264（Baseline、Main、High）在 720p 和 1080p 下为硬件解码，支持 5 点触控。屏幕为 1152×1259 CSS 像素，设备像素比 1.5（1728×1889 物理像素），60 Hz；不全屏时网页可用 1728×1505 物理像素。
+  audio:
+    date: 2026-11-12
+    declared: [AAC_LC, PCM_S16LE]
+    works: [PCM_S16LE]
+    broken:
+      - codec: AAC_LC
+        symptom:
+          en: WebCodecs reports AAC as supported, but every AAC packet fails to decode, so music stays silent
+          zh: WebCodecs 报告支持 AAC，但每个 AAC 数据包都解码失败，音乐一直没有声音
+        workaround:
+          en: until the iPhone App update that converts music to PCM for this browser, set **Sound → Browser** to **Car Bluetooth** in the iPhone App.
+          zh: 在 iPhone App 更新为这台车的浏览器把音乐转为 PCM 之前，把“**声音 → 浏览器**”设为“**车机蓝牙**”。

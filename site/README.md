@@ -19,6 +19,10 @@ npm run build     # static site in .vitepress/dist
 npm run preview   # serve the built site
 ```
 
+## Car database
+
+The Head units pages (`head-units.md`, `zh/head-units.md`) are generated from `data/`: one YAML file per car in `data/cars/<brand>/<model>.yaml`, named by the apps' car catalog IDs, and the tests outside a car in `data/bench.yaml`. `.vitepress/cars.ts` describes the fields and how to add a car; the build stops on a file with a missing field, an unknown key or a bad date.
+
 ## Change the site URL
 
 The public address comes from two environment variables, read at build time by `.vitepress/site.ts`:
