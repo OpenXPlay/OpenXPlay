@@ -82,11 +82,11 @@ OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使�
 
 - **Discord：** <https://discord.gg/j3cKd5Tax>
 - **QQ 三群：** 912159209
-- **微信四群：** 扫描下方二维码
+- **微信群：** 扫描下方二维码
 
 <table>
-  <tr><th width="270">QQ 三群 · 912159209</th><th width="270">微信四群</th></tr>
-  <tr><td valign="top"><img src="Group/QQ_Group_3.webp" alt="OpenXPlay QQ 三群 912159209 的入群二维码" width="270"></td><td valign="top"><img src="Group/Wechat_Group_4.webp" alt="OpenXPlay 微信四群的入群二维码" width="270"></td></tr>
+  <tr><th width="270">QQ 三群 · 912159209</th><th width="270">微信群</th></tr>
+  <tr><td valign="top"><img src="Group/QQ_Group_3.webp" alt="OpenXPlay QQ 三群 912159209 的入群二维码" width="270"></td><td valign="top"><img src="Group/Wechat_Group.webp" alt="OpenXPlay 微信交流群的入群二维码" width="270"></td></tr>
 </table>
 
 反馈兼容性问题时，请尽量提供车机型号、系统版本、所选方案及问题现象，方便交流与定位。
