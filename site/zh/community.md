@@ -15,27 +15,20 @@ breadcrumb: 交流群
 
 | 渠道 | 加入方式 |
 | --- | --- |
-| QQ 二群 | 167458222，或扫描下方二维码 |
+| QQ 三群 | 912159209，或扫描下方二维码 |
 | 微信四群 | 扫描下方二维码 |
 | Discord | [discord.gg/j3cKd5Tax](https://discord.gg/j3cKd5Tax) |
 
 <div class="oxp-community-qr">
   <figure class="oxp-figure">
-    <figcaption>QQ 二群 · 167458222</figcaption>
-    <img src="../../Group/QQ_Group_2.jpg" width="1284" height="2289" loading="lazy" decoding="async" alt="OpenXPlay QQ 二群 167458222 的入群二维码">
+    <figcaption>QQ 三群 · 912159209</figcaption>
+    <img src="../../Group/QQ_Group_3.webp" width="720" height="1284" loading="lazy" decoding="async" alt="OpenXPlay QQ 三群 912159209 的入群二维码">
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>微信四群</figcaption>
     <img src="../../Group/Wechat_Group_4.webp" width="720" height="1094" loading="lazy" decoding="async" alt="OpenXPlay 微信四群的入群二维码">
   </figure>
 </div>
-
-::: details 其他交流群
-
-- **QQ 一群：** 已满。
-- **微信一至三群：** 仅限已在群内的群友邀请。
-
-:::
 
 微信群二维码会定期过期，二维码更新后图片也会随之更新。如果四群二维码已经过期，可以先加入 QQ 群或 Discord，请大家帮忙邀请。
 

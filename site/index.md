@@ -85,4 +85,4 @@ More answers are in the [FAQ](/faq); for problems with the connection, the pictu
 
 ## Join the community {#join}
 
-Share how OpenXPlay works with your head unit, report problems, or help test and develop the project: [Discord](https://discord.gg/j3cKd5Tax), QQ group 2 **167458222** and a WeChat group. The QR codes are on the [Community](/community) page.
+Share how OpenXPlay works with your head unit, report problems, or help test and develop the project: [Discord](https://discord.gg/j3cKd5Tax), QQ group 3 **912159209** and a WeChat group. The QR codes are on the [Community](/community) page.
