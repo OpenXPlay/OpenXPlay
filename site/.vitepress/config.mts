@@ -4,6 +4,7 @@
 
 import { fileURLToPath } from 'node:url'
 import { defineConfig, type DefaultTheme } from 'vitepress'
+import { carNames, carsPlugin } from './cars'
 import { rememberPage, writeGeneratedFiles } from './generate'
 import { seoHead } from './seo'
 import {
@@ -242,6 +243,11 @@ export default defineConfig({
       // The short address a driver types into the head unit's browser.
       pageData.frontmatter.checkAddress = `${SITE_HOST}${BASE}${LOCALES[locale].prefix}check`
     }
+    // A description may list the cars in the car database with {cars}.
+    if (pageData.description.includes('{cars}')) {
+      pageData.description = pageData.description.replace('{cars}', carNames(locale))
+      pageData.frontmatter.description = pageData.description
+    }
     rememberPage(pageData)
   },
 
@@ -250,6 +256,8 @@ export default defineConfig({
   buildEnd: writeGeneratedFiles,
 
   vite: {
+    // The Head units pages are generated from the car database in data/.
+    plugins: [carsPlugin(fileURLToPath(new URL('..', import.meta.url)))],
     // The How it works and Community pages show the diagrams and the group QR codes from the
     // repository's assets/ and Group/, which the development server serves only when allowed.
     server: { fs: { allow: [fileURLToPath(new URL('../..', import.meta.url))] } },
