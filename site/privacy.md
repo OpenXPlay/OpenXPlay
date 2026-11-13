@@ -3,36 +3,47 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-11-05
 title: Privacy policy
-description: What the OpenXPlay iPhone app does with your data — no account, no tracking; your screen goes only to the head unit or TV you choose; logs leave the iPhone only when you upload them, and are deleted within 30 days.
+description: Privacy and security of the OpenXPlay relay — no account, no tracking; CarPlay travels only between your iPhone, the relay and the head unit; the Android app's logs leave the phone only when you upload them. For the iPhone app, see openxplay.com.
 breadcrumb: Privacy
 ---
 
 # Privacy policy
 
-This policy covers the OpenXPlay app for iPhone, published by OpenXPlay.org. Last updated: 8 November 2026.
+This policy covers the relay solution published by OpenXPlay.org: the OpenXPlay Relay Android app, the Linux relay and this website. Last updated: 13 November 2026.
+
+::: tip iPhone direct connection
+The OpenXPlay iPhone app, which connects to the head unit without a relay, has its own [privacy policy on openxplay.com](https://openxplay.com/privacy).
+:::
 
 ## In short {#summary}
 
 - OpenXPlay has no account, no advertising, no analytics and no tracking.
-- What you cast goes straight from your iPhone to the head unit or TV you pick on your local network. It never passes through our servers.
-- Logs stay on your iPhone unless you choose to upload them. Uploaded logs are deleted within 30 days.
+- CarPlay's video, audio and touch travel only between your iPhone, the relay and the head unit. They never pass through our servers.
+- The Android app's logs stay on the relay phone unless you choose to upload them. Uploaded logs are deleted within 30 days.
 
-## What stays on your iPhone {#on-device}
+## What stays on the relay {#on-device}
 
-- **Your screen.** While you broadcast, the picture and sound of your iPhone's screen are sent only to the receiver you chose: a head unit's browser, a CarLink or CarLife head unit, an AirPlay receiver or a DLNA TV, over the local Wi-Fi or Personal Hotspot.
-- **Settings.** Your choices, the head units you used and the names of their Wi-Fi networks are stored on your iPhone. Settings › Reset OpenXPlay removes them.
-- **Local network and Bluetooth.** OpenXPlay searches the local network for head units and TVs, and uses Bluetooth to find CarLink head units and learn how to join their Wi-Fi. This happens only on your devices and is not sent to us.
-- **Logs.** OpenXPlay keeps a diagnostic log on the iPhone. Before anything is written, passwords, keys, PINs, phone numbers, names and precise location are replaced. The log keeps the phone model, iOS version, battery and temperature state, IP addresses and Wi-Fi names, because they are needed to find connection problems.
+- **CarPlay.** The relay serves the receiver page and its admin page itself. Video, audio and touch travel between the iPhone, the relay and the head unit over Bluetooth, Wi-Fi or USB.
+- **Settings.** Your settings, the iPhone pairing and the head units the relay trusts are stored on the relay.
+- **Vehicle information.** Information Carlink head units report about the car is collected only when you turn it on, and stays on the relay.
+- **Plugins.** Plugins are off by default and run offline in the head-unit browser.
+- **Logs.** The Android app keeps about the last 24 hours of its own logs on the phone. Before anything is stored, passwords, keys, phone numbers, names, messages and precise location are replaced. Technical details such as the phone model, system version, Bluetooth and Wi-Fi addresses, IP addresses and Wi-Fi names are kept, because they are needed to find connection problems.
 
-## When data leaves your iPhone {#sent}
+## When data leaves the relay {#sent}
 
-Only in these cases, and only when you start them:
+- **Uploading logs (Android app).** An upload happens only after you agree to the notice in Settings › Logs. The log goes to `logs.openxplay.org`, run by OpenXPlay.org, and is used only to diagnose problems. Uploads pass through Cloudflare, which forwards them without storing them, to a server that may be in an AWS data center in the United States. Uploads from one app are linked by a random ID that is not derived from your iPhone, car or phone hardware. Uploaded logs cannot be downloaded publicly and are permanently deleted after at most 30 days; to have one deleted sooner, send its log ID to [support@openxplay.org](mailto:support@openxplay.org). If you prefer, save the file instead and send it privately.
+- **Trusted HTTPS.** If you set up a trusted name for head-unit browsers, the relay sends its address to the dynamic DNS provider you chose (DuckDNS or dynv6), using your token, and requests a certificate from Let's Encrypt. The name and the private address it points to become public; see [Trusted HTTPS › Privacy](/trusted-https#privacy). These services' own privacy policies apply.
+- **Checking for updates.** The relay asks GitHub for the list of OpenXPlay Relay releases. GitHub sees the public address of the relay's internet connection.
 
-- **Uploading logs.** In Settings › Logs you can upload a log after agreeing to the terms shown there. The log and any problem description you add go to `logs.openxplay.org`, run by OpenXPlay.org, and are used only to diagnose the problem you report. Uploads pass through Cloudflare, which forwards them without storing them, to a server that may be in an AWS data center in the United States. Uploads from your app are linked by a random ID that is not derived from your iPhone or car. You can view the receipt for 48 hours, and the log is permanently deleted after at most 30 days. If you prefer, save the file instead and email it to [support@openxplay.org](mailto:support@openxplay.org).
-- **Trusted HTTPS.** If you set up a trusted address for head-unit browsers, OpenXPlay sends your iPhone's current IP address to the dynamic DNS provider you chose (DuckDNS or dynv6), using the token you entered, and requests a certificate for that name from Let's Encrypt. Their own privacy policies apply. Nothing of this is sent to us.
-- **Links.** Links in the app open openxplay.org, our community pages or GitHub in your browser.
+We do not sell or share data with anyone.
 
-We do not sell or share data with anyone, and the app contains no third-party SDKs that collect data.
+## Security {#security}
+
+The admin page uses HTTPS and needs the admin password. The login page shows the first-use password; change it after you sign in. The admin page reminds you while the default password is still in use.
+
+## This website {#website}
+
+openxplay.org has no analytics, and its [check page](/check) runs only in your browser.
 
 ## Children {#children}
 
