@@ -14,7 +14,7 @@ howtoTools:
   - Android head unit with a browser that supports WebCodecs
 next:
   text: Everyday use and settings
-  link: /daily-use
+  link: /en/daily-use
 ---
 
 # Android phone as the relay
@@ -23,29 +23,29 @@ The recommended setup: an Android phone as the relay and the head unit’s own b
 
 ::: tip Before you start
 - An iPhone with CarPlay
-- An Android phone with Android 8.0 or later (Android 10 or later for [Carlink](/carlink))
-- An Apple accessory (MFi) identity: `identity.pk8` and `certificate.p7b`, which you [supply yourself](/quick-start#mfi-identity)
+- An Android phone with Android 8.0 or later (Android 10 or later for [Carlink](/en/carlink))
+- An Apple accessory (MFi) identity: `identity.pk8` and `certificate.p7b`, which you [supply yourself](/en/quick-start#mfi-identity)
 :::
 
 ## Check the head unit’s browser {#step-check .step}
 
-In the head unit’s browser, open [openxplay.org/check](/check). The page tests whether the browser can decode CarPlay’s video; continue once it says the browser works. If it doesn’t, try the [Carlink app](/carlink), [CarLife](/carlife) or [Wireless display](/wireless-display) instead. In a Tesla, see [Tesla](/tesla).
+In the head unit’s browser, open [openxplay.org/check](/en/check). The page tests whether the browser can decode CarPlay’s video; continue once it says the browser works. If it doesn’t, try the [Carlink app](/en/carlink), [CarLife](/en/carlife) or [Wireless display](/en/wireless-display) instead. In a Tesla, see [Tesla](/en/tesla).
 
 ## Install OpenXPlay Relay {#step-install .step}
 
 On the relay phone, download and install [openxplay-relay.apk](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk) (the latest release). If Android asks, allow installing apps from your browser or file manager.
 
 ::: details Need an earlier version, or want to build it yourself?
-Earlier versions are on [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), and what changed in each is in the [changelog](/changelog). You can also build the app yourself as the [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) README describes.
+Earlier versions are on [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), and what changed in each is in the [changelog](/en/changelog). You can also build the app yourself as the [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay) README describes.
 :::
 
 ## Answer the setup guide {#step-guide .step}
 
 The first time you open the app, a setup guide takes you through a few pages; a bar at the top shows how far you are.
 
-1. **Your car:** choose the brand and the model; the year can stay *Not sure*. The list has XPeng, Tesla and ZEEKR; if your car isn’t listed, choose *Other* and type its name. Different cars get different settings: the XPeng G6 2023 comes with its screen data, a Tesla needs the [Tesla browser](/tesla) setting, and for a ZEEKR the guide suggests [Trusted HTTPS](/trusted-https).
-2. **Car display:** choose *Car browser*. If the head unit has no usable browser, see [Carlink app](/carlink), and the experimental [Wireless display](/wireless-display) (DLNA, Miracast) and [CarLife](/carlife).
-3. **iPhone connection:** choose *Wireless*: in the car, the iPhone connects by itself over Bluetooth and Wi-Fi. *USB cable* is not recommended: the relay phone has to power the iPhone through the cable, and only some cables work; a USB-C iPhone on a USB-C to USB-C cable usually isn’t found (see [Troubleshooting](/troubleshooting#usb-iphone-not-found)). The app asks you to confirm when you choose it.
+1. **Your car:** choose the brand and the model; the year can stay *Not sure*. The list has XPeng, Tesla and ZEEKR; if your car isn’t listed, choose *Other* and type its name. Different cars get different settings: the XPeng G6 2023 comes with its screen data, a Tesla needs the [Tesla browser](/en/tesla) setting, and for a ZEEKR the guide suggests [Trusted HTTPS](/en/trusted-https).
+2. **Car display:** choose *Car browser*. If the head unit has no usable browser, see [Carlink app](/en/carlink), and the experimental [Wireless display](/en/wireless-display) (DLNA, Miracast) and [CarLife](/en/carlife).
+3. **iPhone connection:** choose *Wireless*: in the car, the iPhone connects by itself over Bluetooth and Wi-Fi. *USB cable* is not recommended: the relay phone has to power the iPhone through the cable, and only some cables work; a USB-C iPhone on a USB-C to USB-C cable usually isn’t found (see [Troubleshooting](/en/troubleshooting#usb-iphone-not-found)). The app asks you to confirm when you choose it.
 4. **Wireless network:** the iPhone, the relay phone and the head unit must reach each other. Choose one for your car; open it for details:
 
 ::: details Wi-Fi Direct (recommended): the relay phone joins the head unit’s hotspot or another Wi-Fi {#network-wifi-direct}
@@ -101,7 +101,7 @@ When no car screen is known yet, CarPlay waits up to 20 seconds for the head uni
 3. Bookmark the page so you can open it directly next time.
 
 ::: details Why the certificate warning, and is it safe?
-The connection is still encrypted. Browsers allow WebCodecs video decoding only on secure pages, so the relay serves the page over HTTPS; the relay creates its own certificate, which no public authority has signed, so the browser can’t verify it and warns. Check that the address is your relay’s, then continue. See [Troubleshooting](/troubleshooting#certificate-warning); to remove the warning for good, see [Trusted HTTPS](/trusted-https).
+The connection is still encrypted. Browsers allow WebCodecs video decoding only on secure pages, so the relay serves the page over HTTPS; the relay creates its own certificate, which no public authority has signed, so the browser can’t verify it and warns. Check that the address is your relay’s, then continue. See [Troubleshooting](/en/troubleshooting#certificate-warning); to remove the warning for good, see [Trusted HTTPS](/en/trusted-https).
 :::
 
 ## Start using it {#step-use .step}
@@ -112,12 +112,12 @@ When the page asks for a tap, tap the screen once: the page goes full screen, an
 With Low Data Mode on for the relay’s Wi-Fi, the iPhone may not connect to CarPlay. Once the iPhone has connected, open Settings → Wi-Fi on the iPhone, tap ⓘ next to this Wi-Fi and check that Low Data Mode is off.
 :::
 
-By default, CarPlay sound plays over the car’s Bluetooth: keep the iPhone paired with the car and choose Bluetooth as the car’s audio source. To play the sound on the head-unit page instead, see [There is no sound](/troubleshooting#no-sound).
+By default, CarPlay sound plays over the car’s Bluetooth: keep the iPhone paired with the car and choose Bluetooth as the car’s audio source. To play the sound on the head-unit page instead, see [There is no sound](/en/troubleshooting#no-sound).
 
-To change the picture, the sound or full screen, tap the OpenXPlay icon in CarPlay: the page’s settings slide in. See [Head-unit page settings](/daily-use#web-settings).
+To change the picture, the sound or full screen, tap the OpenXPlay icon in CarPlay: the page’s settings slide in. See [Head-unit page settings](/en/daily-use#web-settings).
 
 ## Next {#next-steps}
 
-- [Everyday use and settings](/daily-use): how to connect on every drive after this, and the app’s settings.
-- [Trusted HTTPS](/trusted-https): remove the certificate warning with a free domain name.
-- Something not working? See [Troubleshooting](/troubleshooting).
+- [Everyday use and settings](/en/daily-use): how to connect on every drive after this, and the app’s settings.
+- [Trusted HTTPS](/en/trusted-https): remove the certificate warning with a free domain name.
+- Something not working? See [Troubleshooting](/en/troubleshooting).

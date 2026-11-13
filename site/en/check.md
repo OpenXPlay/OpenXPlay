@@ -8,7 +8,7 @@ breadcrumb: Check your head unit
 ---
 
 <script setup>
-import HeadUnitCheck from './.vitepress/theme/components/HeadUnitCheck.vue'
+import HeadUnitCheck from '../.vitepress/theme/components/HeadUnitCheck.vue'
 </script>
 
 # Check your head unit
@@ -28,9 +28,9 @@ On the head unit, type <code>{{ $frontmatter.checkAddress }}</code> into the bro
 | Checks passed, with H.265 | The browser reports the video, sound and microphone features the web receiver uses, and suggests it can decode H.265 (HEVC) in hardware, so the relay can use H.265. |
 | Checks passed, H.264 only | The browser reports these features but doesn’t suggest hardware H.265 decoding. The relay uses H.264 for any screen that can’t decode H.265 in hardware. |
 | Picture checks passed; some features are missing | Everything needed for the picture is there, but sound (AudioWorklet) or the microphone API is missing: CarPlay shows, but sound, Siri or calls may not work through the browser. |
-| Not supported: needs a browser with WebCodecs | A required feature is missing, most often WebCodecs video decoding. Try another browser on the head unit, if it has one, or use the [Carlink app](/carlink). |
+| Not supported: needs a browser with WebCodecs | A required feature is missing, most often WebCodecs video decoding. Try another browser on the head unit, if it has one, or use the [Carlink app](/en/carlink). |
 
-The check only asks the browser what it supports: it doesn’t play video, connect to a relay, record sound or send touches. So a passing result can’t promise smooth playback, which also depends on the head unit’s hardware and the Wi-Fi connection. Results from cars are under [Head units](/head-units).
+The check only asks the browser what it supports: it doesn’t play video, connect to a relay, record sound or send touches. So a passing result can’t promise smooth playback, which also depends on the head unit’s hardware and the Wi-Fi connection. Results from cars are under [Head units](/en/head-units).
 
 ## What is checked {#what-is-checked}
 
@@ -52,4 +52,4 @@ The check only asks the browser what it supports: it doesn’t play video, conne
 
 ## Share your result {#share}
 
-Copy the report and post it in the [community](/community) together with the head unit model and its system version. Reports help other drivers with the same head unit.
+Copy the report and post it in the [community](/en/community) together with the head unit model and its system version. Reports help other drivers with the same head unit.

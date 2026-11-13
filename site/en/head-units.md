@@ -24,6 +24,6 @@ The table shows the relay and version used at the time.
 
 <!-- @cars bench -->
 
-Your car isn’t listed? Open [Check your head unit](/check) in its browser and post the report in the [community](/community), with the car model, the head-unit system version and the relay version.
+Your car isn’t listed? Open [Check your head unit](/en/check) in its browser and post the report in the [community](/en/community), with the car model, the head-unit system version and the relay version.
 
 <!-- @cars cars -->

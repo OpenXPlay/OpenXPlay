@@ -7,15 +7,15 @@ description: The OpenStick v1 base image the UFI003 needs to run the OpenXPlay L
 breadcrumb: Flash the UFI003 base image
 prev:
   text: UFI003 as the relay
-  link: /ufi003-relay
+  link: /en/ufi003-relay
 next:
   text: 'Continue: install the device package'
-  link: /ufi003-relay#step-device
+  link: /en/ufi003-relay#step-device
 ---
 
 # Flash the UFI003 base image
 
-The UFI003 runs OpenStick [release v1](https://github.com/OpenStick/OpenStick/releases/tag/v1) (published 2022-02-08), a Debian 11 system. This page is the first step of the [command-line install without Flasher](/ufi003-relay#manual); once the dongle is flashed, go back to [UFI003 as the relay](/ufi003-relay#step-device) to install the device package and the relay. The recommended ways are to [let an AI assistant install it](/ufi003-relay#ai) or to [install it yourself with Flasher](/ufi003-relay#flasher): OpenXPlay Flasher does the steps on this page and backs up the four modem partitions automatically. The original bootloader can’t read those partitions, so on a first install from the stock system Flasher first replaces the bootloader and erases the boot partition, then makes the backup, and installs the system only once the backup has succeeded.
+The UFI003 runs OpenStick [release v1](https://github.com/OpenStick/OpenStick/releases/tag/v1) (published 2022-02-08), a Debian 11 system. This page is the first step of the [command-line install without Flasher](/en/ufi003-relay#manual); once the dongle is flashed, go back to [UFI003 as the relay](/en/ufi003-relay#step-device) to install the device package and the relay. The recommended ways are to [let an AI assistant install it](/en/ufi003-relay#ai) or to [install it yourself with Flasher](/en/ufi003-relay#flasher): OpenXPlay Flasher does the steps on this page and backs up the four modem partitions automatically. The original bootloader can’t read those partitions, so on a first install from the stock system Flasher first replaces the bootloader and erases the boot partition, then makes the backup, and installs the system only once the backup has succeeded.
 
 ::: danger Before you flash
 - The flash package replaces the partition table and the bootloader. The stock Android system won’t run afterwards, and OpenStick offers no way back.

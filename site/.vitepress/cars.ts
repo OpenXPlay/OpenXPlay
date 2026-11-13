@@ -14,7 +14,7 @@
 //   2. Start the file with the SPDX header (CC-BY-4.0, like every page) and fill in the fields
 //      described by the Car interface below; copy an existing car as a template.
 //   3. Text fields take Markdown. A plain string is shown in both languages; use `{en: …, zh: …}`
-//      when the wording differs, with /zh/ links in the Chinese text.
+//      when the wording differs, with /en/ links in the English text and /zh/ links in the Chinese text.
 //   4. `npm run build`: a missing field, an unknown key, a bad date or a wrong value stops the build
 //      with the file and the field at fault.
 
@@ -23,7 +23,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { Plugin } from 'vite'
 import { parse } from 'yaml'
-import { LOCALES, type LocaleKey } from './site'
+import { pageRoute, type LocaleKey } from './site'
 
 const DATA_DIR = fileURLToPath(new URL('../data', import.meta.url))
 const CARS_DIR = path.join(DATA_DIR, 'cars')
@@ -379,7 +379,7 @@ interface Words {
 }
 
 const WORDS: Record<LocaleKey, Words> = {
-  root: {
+  en: {
     notRecorded: 'Not recorded',
     status: { pass: 'Pass', fail: 'Fail', fixed: 'Fixed' },
     route: { browser: 'Browser', carlink: 'Carlink', carlife: 'CarLife', dlna: 'Wireless display (DLNA)', airplay: 'AirPlay' },
@@ -398,7 +398,7 @@ const WORDS: Record<LocaleKey, Words> = {
     paren: value => ` (${value})`,
     listJoin: ', ',
     browserDetails: 'Browser details',
-    browserDetailsIntro: day => `What OpenXPlay read from the car’s browser on ${day}. [Check your head unit](/check) reports the same kinds of items, so you can compare.`,
+    browserDetailsIntro: day => `What OpenXPlay read from the car’s browser on ${day}. [Check your head unit](/en/check) reports the same kinds of items, so you can compare.`,
     report: { browser: 'Browser', gpu: 'GPU', cpu: 'CPU', memory: 'Memory', screen: 'Screen', window: 'Browser window', touch: 'Touch', apis: 'Web APIs', audio: 'Audio' },
     reportHead: ['Item', 'Result'],
     video: 'Video decoding',
@@ -657,7 +657,7 @@ const BLOCKS: Record<string, (db: Database, locale: LocaleKey) => string> = {
 }
 
 function localeOf(relativePath: string): LocaleKey {
-  return relativePath.startsWith(LOCALES.zh.prefix) ? 'zh' : 'root'
+  return pageRoute(relativePath).locale
 }
 
 /** Replaces every `<!-- @cars <block> -->` marker in a page source with Markdown generated from the database. */

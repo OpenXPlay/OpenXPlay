@@ -11,18 +11,18 @@ schema: faq
 # FAQ
 
 ::: tip Something not working?
-For certificate warnings, Wi-Fi, Bluetooth pairing, picture or sound problems, see [Troubleshooting](/troubleshooting).
+For certificate warnings, Wi-Fi, Bluetooth pairing, picture or sound problems, see [Troubleshooting](/en/troubleshooting).
 :::
 
 ## About OpenXPlay {#about}
 
 ### What is OpenXPlay? {#what-is-openxplay}
 
-OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps, in one of two ways: the OpenXPlay iPhone app connects the iPhone to the head unit directly, or a relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle — connects to the iPhone and passes CarPlay on. Either way, CarPlay appears in software the head unit already has, such as its browser, Carlink, CarLife or screen-casting receiver. See [How it works](/how-it-works).
+OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps, in one of two ways: the OpenXPlay iPhone app connects the iPhone to the head unit directly, or a relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle — connects to the iPhone and passes CarPlay on. Either way, CarPlay appears in software the head unit already has, such as its browser, Carlink, CarLife or screen-casting receiver. See [How it works](/en/how-it-works).
 
 ### Do I need a relay? {#need-relay}
 
-No. The OpenXPlay iPhone app connects to the head unit directly; it is in public beta, and you can [join on TestFlight](/#iphone-app). A relay is the other way, and the guides on this site set one up: see [Get started](/quick-start).
+No. The OpenXPlay iPhone app connects to the head unit directly; it is in public beta, and you can [join on TestFlight](/en/#iphone-app). A relay is the other way, and the guides on this site set one up: see [Get started](/en/quick-start).
 
 ### Do I need to install anything on the head unit? {#install-on-head-unit}
 
@@ -30,7 +30,7 @@ No. The iPhone app or the relay does the receiving and connecting, and the head 
 
 ### Which head units work? {#which-head-units}
 
-The head units OpenXPlay has tested are listed under [Head units](/head-units), starting with the XPeng G6. For the web receiver, what matters is the head unit’s browser: it needs WebCodecs H.264 decoding. If your head unit isn’t listed, open [Check your head unit](/check) in its browser to test it, and share the result with the [community](/community).
+The head units OpenXPlay has tested are listed under [Head units](/en/head-units), starting with the XPeng G6. For the web receiver, what matters is the head unit’s browser: it needs WebCodecs H.264 decoding. If your head unit isn’t listed, open [Check your head unit](/en/check) in its browser to test it, and share the result with the [community](/en/community).
 
 ### How is OpenXPlay different from DiPlay? {#diplay}
 
@@ -38,7 +38,7 @@ DiPlay is for head units that can install apps: you install it on a compatible A
 
 ### Is OpenXPlay free? {#free}
 
-Yes. The software is open source under AGPL-3.0 and free to use. A working setup also needs an Apple accessory (MFi) identity that you supply; the repositories and their builds contain none. Organisations that can’t use AGPL-3.0 can ask for an exemption at [support@openxplay.org](mailto:support@openxplay.org). The device support files for devices such as the UFI003 (OpenXPlay-Hardware) follow OpenStick’s terms: free for personal use, no commercial use and no exemptions. See [Licensing](/licensing).
+Yes. The software is open source under AGPL-3.0 and free to use. A working setup also needs an Apple accessory (MFi) identity that you supply; the repositories and their builds contain none. Organisations that can’t use AGPL-3.0 can ask for an exemption at [support@openxplay.org](mailto:support@openxplay.org). The device support files for devices such as the UFI003 (OpenXPlay-Hardware) follow OpenStick’s terms: free for personal use, no commercial use and no exemptions. See [Licensing](/en/licensing).
 
 ## Using it {#usage}
 
@@ -59,7 +59,7 @@ These answers are about the relay. For the iPhone direct connection, see the [pr
 
 ### Does OpenXPlay send my data anywhere? {#data}
 
-OpenXPlay works over local connections. The relay serves the receiver page and its admin page itself; video, audio and touch travel between the iPhone, the relay and the head unit over Bluetooth, Wi-Fi or USB, and the Linux relay starts without waiting for Internet access. Plugins are off by default and run offline in the head-unit browser. Vehicle information from Carlink is collected only when you turn it on and stays on the relay device. See the [privacy policy](/privacy). This website has no analytics, and its check page runs only in your browser.
+OpenXPlay works over local connections. The relay serves the receiver page and its admin page itself; video, audio and touch travel between the iPhone, the relay and the head unit over Bluetooth, Wi-Fi or USB, and the Linux relay starts without waiting for Internet access. Plugins are off by default and run offline in the head-unit browser. Vehicle information from Carlink is collected only when you turn it on and stays on the relay device. See the [privacy policy](/en/privacy). This website has no analytics, and its check page runs only in your browser.
 
 ### Is the relay’s admin page protected? {#admin-password}
 

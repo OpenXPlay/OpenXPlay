@@ -10,7 +10,7 @@ schema: faq
 
 # Troubleshooting
 
-Most problems come down to the head unit’s browser, the Wi-Fi band or Bluetooth pairing. Find your problem by what you see; if it isn’t answered, ask the [community](/community) and include the head unit model, its system version, the route you used and what happened.
+Most problems come down to the head unit’s browser, the Wi-Fi band or Bluetooth pairing. Find your problem by what you see; if it isn’t answered, ask the [community](/en/community) and include the head unit model, its system version, the route you used and what happened.
 
 ## Certificates {#certificates}
 
@@ -20,7 +20,7 @@ The relay serves the receiver page over HTTPS because browsers allow WebCodecs v
 
 - **Is it safe?** The connection is still encrypted. The warning means the browser can’t verify who issued the certificate. Check that the address is your relay’s, then continue (the option is often under *Advanced*).
 - **Why did it come back?** The relay made a new certificate. The Android relay does this when its network addresses change; the Linux relay does it when it replaces certificate files that were created while the device clock was wrong.
-- **Can I avoid it?** Yes, with a free domain name: the relay gets a trusted certificate for it, and the page opens by that name without a warning. See [Trusted HTTPS](/trusted-https). On the Android relay you can also import your own certificate (a PKCS #12 `.p12` file) in the app.
+- **Can I avoid it?** Yes, with a free domain name: the relay gets a trusted certificate for it, and the page opens by that name without a warning. See [Trusted HTTPS](/en/trusted-https). On the Android relay you can also import your own certificate (a PKCS #12 `.p12` file) in the app.
 
 ## Connection {#connection}
 
@@ -32,7 +32,7 @@ Use a 2.4 GHz network for the head unit:
 - With *This phone’s hotspot* on the Android relay, the app can’t change Android’s hotspot settings: set the band to 2.4 GHz in Android’s hotspot settings, then choose 2.4 GHz for *Hotspot band* under Settings → iPhone connection → Network in the app too.
 - With *Use the car’s hotspot*, the network must offer 2.4 GHz. The UFI003 only sees 2.4 GHz networks anyway.
 
-The UFI003 has a single Wi-Fi radio, so it offers the head unit’s browser only, not [Carlink](/carlink).
+The UFI003 has a single Wi-Fi radio, so it offers the head unit’s browser only, not [Carlink](/en/carlink).
 
 ### The iPhone doesn’t pair over Bluetooth {#bluetooth-pairing}
 
@@ -62,7 +62,7 @@ A USB-C iPhone on a USB-C to USB-C cable often takes control of the cable, so th
 
 ### With Carlink, the head unit stops at about 30 % {#carlink-stuck}
 
-The relay phone’s Wi-Fi is off. Carlink has the relay phone join the car’s network as a Wi-Fi client; turn Wi-Fi on (it needn’t be connected to anything) and connect again. Some phones turn Wi-Fi off when their hotspot is on; they can’t also connect the iPhone through the hotspot. See [Carlink app](/carlink#stuck-30).
+The relay phone’s Wi-Fi is off. Carlink has the relay phone join the car’s network as a Wi-Fi client; turn Wi-Fi on (it needn’t be connected to anything) and connect again. Some phones turn Wi-Fi off when their hotspot is on; they can’t also connect the iPhone through the hotspot. See [Carlink app](/en/carlink#stuck-30).
 
 ### The page says “Relay unreachable” {#relay-unreachable}
 
@@ -72,11 +72,11 @@ The head unit isn’t on the relay’s network, or the relay is off. Keep the re
 
 ### The head unit’s browser says “Video not supported” {#video-not-supported}
 
-The browser lacks WebCodecs video decoding, or the page wasn’t opened over HTTPS. Open the relay’s `https://` address, try another browser on the head unit if it has one, and run [Check your head unit](/check). If no browser works, try the [Carlink app](/carlink).
+The browser lacks WebCodecs video decoding, or the page wasn’t opened over HTTPS. Open the relay’s `https://` address, try another browser on the head unit if it has one, and run [Check your head unit](/en/check). If no browser works, try the [Carlink app](/en/carlink).
 
 ### Video stutters {#stutter}
 
-- Run [Check your head unit](/check). If the browser decodes only in software, video may stutter.
+- Run [Check your head unit](/en/check). If the browser decodes only in software, video may stutter.
 - In the web receiver’s settings, try a lower frame rate or the *Speed* playback mode.
 - On a relay with only 2.4 GHz Wi-Fi, such as the UFI003, set the frame rate to 30.
 - On the Android relay with Carlink, use *This phone’s hotspot* for wireless CarPlay and keep the relay phone’s Wi-Fi on.
@@ -86,7 +86,7 @@ The browser lacks WebCodecs video decoding, or the page wasn’t opened over HTT
 First check *CarPlay audio over the car’s Bluetooth (experimental)* under Settings → Sound (Settings → Audio on the Linux admin page). It is on by default:
 
 - **On:** the sound doesn’t go through the head-unit page; the iPhone plays it over its own Bluetooth connection with the car. Keep the iPhone paired with the car and choose Bluetooth as the car’s audio source. If the sound plays on the iPhone, turn the option off.
-- **Off:** the head-unit page plays the sound; reconnect CarPlay after turning the option off. Browsers block sound until you touch the page; if the receiver says sound is paused, tap the screen once. If there is still no sound, run [Check your head unit](/check): the browser needs AudioWorklet to play CarPlay audio.
+- **Off:** the head-unit page plays the sound; reconnect CarPlay after turning the option off. Browsers block sound until you touch the page; if the receiver says sound is paused, tap the screen once. If there is still no sound, run [Check your head unit](/en/check): the browser needs AudioWorklet to play CarPlay audio.
 
 ### Siri or calls can’t hear me {#microphone}
 
@@ -96,4 +96,4 @@ With the option off and CarPlay reconnected, the browser asks for the microphone
 
 ## Still stuck? {#still-stuck}
 
-Ask in the [community](/community), with the head unit model, its system version, the route you used and what happened. A report from [Check your head unit](/check) helps too.
+Ask in the [community](/en/community), with the head unit model, its system version, the route you used and what happened. A report from [Check your head unit](/en/check) helps too.

@@ -23,7 +23,7 @@ const TEXT = {
     screen: '车机',
     screenSub: '用自带的浏览器显示',
   },
-  root: {
+  en: {
     label: 'The iPhone reaches the head unit directly with the OpenXPlay app, or hands CarPlay to a relay (an Android phone or a USB dongle) that passes it on; it shows in the head unit’s own browser, and touch goes back to the iPhone.',
     direct: 'iPhone direct',
     phone: 'iPhone',
@@ -36,7 +36,7 @@ const TEXT = {
 } as const
 
 const { localeIndex } = useData()
-const t = computed(() => TEXT[localeIndex.value as keyof typeof TEXT] ?? TEXT.root)
+const t = computed(() => TEXT[localeIndex.value as keyof typeof TEXT] ?? TEXT.en)
 </script>
 
 <template>

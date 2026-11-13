@@ -32,7 +32,7 @@ The OpenXPlay iPhone app, which connects to the head unit without a relay, has i
 ## When data leaves the relay {#sent}
 
 - **Uploading logs (Android app).** An upload happens only after you agree to the notice in Settings › Logs. The log goes to `logs.openxplay.org`, run by OpenXPlay.org, and is used only to diagnose problems. Uploads pass through Cloudflare, which forwards them without storing them, to a server that may be in an AWS data center in the United States. Uploads from one app are linked by a random ID that is not derived from your iPhone, car or phone hardware. Uploaded logs cannot be downloaded publicly and are permanently deleted after at most 30 days; to have one deleted sooner, send its log ID to [support@openxplay.org](mailto:support@openxplay.org). If you prefer, save the file instead and send it privately.
-- **Trusted HTTPS.** If you set up a trusted name for head-unit browsers, the relay sends its address to the dynamic DNS provider you chose (DuckDNS or dynv6), using your token, and requests a certificate from Let's Encrypt. The name and the private address it points to become public; see [Trusted HTTPS › Privacy](/trusted-https#privacy). These services' own privacy policies apply.
+- **Trusted HTTPS.** If you set up a trusted name for head-unit browsers, the relay sends its address to the dynamic DNS provider you chose (DuckDNS or dynv6), using your token, and requests a certificate from Let's Encrypt. The name and the private address it points to become public; see [Trusted HTTPS › Privacy](/en/trusted-https#privacy). These services' own privacy policies apply.
 - **Checking for updates.** The relay asks GitHub for the list of OpenXPlay Relay releases. GitHub sees the public address of the relay's internet connection.
 
 We do not sell or share data with anyone.
@@ -43,7 +43,7 @@ The admin page uses HTTPS and needs the admin password. The login page shows the
 
 ## This website {#website}
 
-openxplay.org has no analytics, and its [check page](/check) runs only in your browser.
+openxplay.org has no analytics, and its [check page](/en/check) runs only in your browser.
 
 ## Children {#children}
 

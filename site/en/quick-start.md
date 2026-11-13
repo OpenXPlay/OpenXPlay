@@ -8,7 +8,7 @@ breadcrumb: Get started
 ---
 
 <script setup>
-import RouteChooser from './.vitepress/theme/components/RouteChooser.vue'
+import RouteChooser from '../.vitepress/theme/components/RouteChooser.vue'
 </script>
 
 # Get started
@@ -20,7 +20,7 @@ OpenXPlay brings your iPhone’s CarPlay to the head unit in one of two ways:
 
 ## iPhone direct connection <Badge type="warning" text="Beta" /> {#iphone-direct}
 
-The iPhone app does the relay’s job on the iPhone itself; the head unit shows CarPlay in its browser, Carlink, CarLife or screen-casting receiver, as with a relay. It is in public beta: open the [TestFlight invitation](https://testflight.apple.com/join/WbKejMWS) on your iPhone, or scan the QR code on the [home page](/#iphone-app). CarPlay needs an [Apple accessory (MFi) identity](#mfi-identity) that you supply, as with a relay.
+The iPhone app does the relay’s job on the iPhone itself; the head unit shows CarPlay in its browser, Carlink, CarLife or screen-casting receiver, as with a relay. It is in public beta: open the [TestFlight invitation](https://testflight.apple.com/join/WbKejMWS) on your iPhone, or scan the QR code on the [home page](/en/#iphone-app). CarPlay needs an [Apple accessory (MFi) identity](#mfi-identity) that you supply, as with a relay.
 
 <div class="oxp-recommended">
 
@@ -73,9 +73,9 @@ Copy the folder [skills/openxplay-guide](https://github.com/OpenXPlay/OpenXPlay/
 | You need | Details |
 | --- | --- |
 | An iPhone with CarPlay | It connects to the relay wirelessly (Bluetooth and Wi-Fi) or by USB cable. |
-| A relay | An Android phone with Android 8.0 or later and the OpenXPlay Relay app; or a UFI003 USB dongle, plus a computer to flash and install it; or a Phicomm N1 TV box: see [Phicomm N1 as the relay](/phicomm-n1). Other arm64 Linux devices can be installed by hand: see [Other Linux devices](/linux-devices). |
+| A relay | An Android phone with Android 8.0 or later and the OpenXPlay Relay app; or a UFI003 USB dongle, plus a computer to flash and install it; or a Phicomm N1 TV box: see [Phicomm N1 as the relay](/en/phicomm-n1). Other arm64 Linux devices can be installed by hand: see [Other Linux devices](/en/linux-devices). |
 | An Apple accessory (MFi) identity | Usually the two files `identity.pk8` and `certificate.p7b`, which you supply yourself; see below. |
-| The head unit’s browser | It must decode video with WebCodecs. Open [Check your head unit](/check) in the head unit’s browser to find out. In a Tesla, see [Tesla](/tesla). |
+| The head unit’s browser | It must decode video with WebCodecs. Open [Check your head unit](/en/check) in the head unit’s browser to find out. In a Tesla, see [Tesla](/en/tesla). |
 
 ::: details What is an Apple accessory (MFi) identity? {#mfi-identity}
 OpenXPlay uses this identity to authenticate with the iPhone as an accessory, and only then does CarPlay start; without an identity, the Android app doesn’t start CarPlay. The guides on this site use the most common form: the two files `identity.pk8` and `certificate.p7b`. The repositories and their builds contain none; you supply your own.
@@ -95,6 +95,6 @@ Without these two files but with another authentication source, choose a remote 
 
 ## After setup {#after-setup}
 
-- [Everyday use and settings](/daily-use): connecting on each drive, and the head-unit page’s resolution, full-screen and other settings.
-- [Trusted HTTPS](/trusted-https): remove the head-unit browser’s certificate warning with a free domain name.
-- [Troubleshooting](/troubleshooting): when the connection, the picture or the sound goes wrong.
+- [Everyday use and settings](/en/daily-use): connecting on each drive, and the head-unit page’s resolution, full-screen and other settings.
+- [Trusted HTTPS](/en/trusted-https): remove the head-unit browser’s certificate warning with a free domain name.
+- [Troubleshooting](/en/troubleshooting): when the connection, the picture or the sound goes wrong.

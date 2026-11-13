@@ -14,17 +14,17 @@ howtoTools:
   - Android head unit with a browser that supports WebCodecs
 next:
   text: Everyday use and settings
-  link: /daily-use
+  link: /en/daily-use
 ---
 
 # Linux relay on other devices <Badge type="info" text="Advanced" />
 
 Besides the UFI003, the OpenXPlay Linux relay can run on other arm64 Linux devices: boards, TV boxes and dongles. This page is for people who are comfortable with SSH and the command line. It shows how to tell whether a device can run the relay, how to install it by hand, and how to update and remove it. As always, nothing is installed on the head unit.
 
-The UFI003 has its own guided installer: see [UFI003 USB dongle as the relay](/ufi003-relay). The Phicomm N1 has its own guide too: see [Phicomm N1 as the relay](/phicomm-n1). OpenXPlay Flasher can’t install other devices yet.
+The UFI003 has its own guided installer: see [UFI003 USB dongle as the relay](/en/ufi003-relay). The Phicomm N1 has its own guide too: see [Phicomm N1 as the relay](/en/phicomm-n1). OpenXPlay Flasher can’t install other devices yet.
 
 ::: warning At your own risk
-Installing the relay by hand on another device is at your own risk. Tell the [community](/community) what worked and what didn’t, with the device, its system and the relay version.
+Installing the relay by hand on another device is at your own risk. Tell the [community](/en/community) what worked and what didn’t, with the device, its system and the relay version.
 :::
 
 ## Requirements {#requirements}
@@ -187,7 +187,7 @@ Without these two files but with another authentication source, choose a remote 
 The admin page’s setup guide asks about:
 
 1. **Your car**.
-2. **Output**: the head unit’s browser, its Carlink app, or both. Carlink needs a second Wi-Fi adapter; with one, only the browser is offered. A Tesla’s browser needs its own adaptation; see [Tesla](/tesla). [Wireless display](/wireless-display) and [CarLife](/carlife) aren’t available on Linux.
+2. **Output**: the head unit’s browser, its Carlink app, or both. Carlink needs a second Wi-Fi adapter; with one, only the browser is offered. A Tesla’s browser needs its own adaptation; see [Tesla](/en/tesla). [Wireless display](/en/wireless-display) and [CarLife](/en/carlife) aren’t available on Linux.
 3. **iPhone connection**: *Wireless* (the default), or *USB cable* with the iPhone plugged into a USB-A port on the relay through a USB-A to Lightning or USB-A to USB-C cable; the head unit still reaches the relay over Wi-Fi.
 4. **Network**: *This relay’s hotspot* or *Use the car’s hotspot*. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay` (WPA2), unless you set your own.
 5. **Get ready**: work through what it lists.
@@ -200,9 +200,9 @@ To switch to another iPhone or pair again: remove the old paired device on Home 
 
 ## Open CarPlay on the head unit {#head-unit .step}
 
-Join the relay’s hotspot from the head unit and open `https://10.77.0.1:8443/` in its browser. The relay takes the first free `10.77.x.1` address, and the admin page lists the head-unit address; with *Use the car’s hotspot*, open the address it lists. Accept the certificate warning the first time; [Troubleshooting](/troubleshooting#certificate-warning) explains why it appears.
+Join the relay’s hotspot from the head unit and open `https://10.77.0.1:8443/` in its browser. The relay takes the first free `10.77.x.1` address, and the admin page lists the head-unit address; with *Use the car’s hotspot*, open the address it lists. Accept the certificate warning the first time; [Troubleshooting](/en/troubleshooting#certificate-warning) explains why it appears.
 
-For the Carlink app, see [Carlink app](/carlink).
+For the Carlink app, see [Carlink app](/en/carlink).
 
 ## Update the relay {#update}
 
@@ -251,6 +251,6 @@ The settings, pairings, keys and identity in `/var/lib/openxplay` are kept; dele
 
 ## Next {#next-steps}
 
-- [Everyday use and settings](/daily-use): connecting on each drive, and the head-unit page’s settings.
-- [Trusted HTTPS](/trusted-https): remove the certificate warning with a free domain name.
-- Something not working? See [Troubleshooting](/troubleshooting), and tell the [community](/community) how your device did.
+- [Everyday use and settings](/en/daily-use): connecting on each drive, and the head-unit page’s settings.
+- [Trusted HTTPS](/en/trusted-https): remove the certificate warning with a free domain name.
+- Something not working? See [Troubleshooting](/en/troubleshooting), and tell the [community](/en/community) how your device did.

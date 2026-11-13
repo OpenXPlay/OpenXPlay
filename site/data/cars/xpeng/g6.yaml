@@ -100,7 +100,7 @@ browser:
   intro:
     en: >-
       The XPeng G6 has a built-in browser based on Chromium 120 with WebCodecs. What follows is what the
-      browser itself reports, the same kind of items as [Check your head unit](/check): H.264 (Baseline, Main
+      browser itself reports, the same kind of items as [Check your head unit](/en/check): H.264 (Baseline, Main
       and High) and H.265 at 720p and 1080p, at 30 and 60 fps, all reported as hardware decoding. The screen
       is 1372×686 CSS pixels. Outside full screen the page gets about 876×518; in full screen it gets either
       the whole screen or 876×579, and about 489×579 in split screen. The browser reports 5 touch points and
@@ -118,7 +118,7 @@ browser:
         zh: 中继只有 2.4 GHz Wi-Fi 时（例如 UFI003），请在网页接收端的设置中把帧率设为 30。2026-10-15—16 的测试中，经 2.4 GHz 连接以 60 帧/秒播放会卡顿；30 帧/秒明显更流畅，偶尔仍有轻微卡顿。
     - label: {en: Full screen and reversing, zh: 全屏与倒车}
       text:
-        en: With the Android relay the page runs full screen by default. The reverse camera makes the browser leave full screen, and this car’s browser doesn’t let the page return by itself (2026-10-18); back on the page, a tap restores full screen. For the current releases, see the [known issue](/daily-use#fullscreen-known-issue).
+        en: With the Android relay the page runs full screen by default. The reverse camera makes the browser leave full screen, and this car’s browser doesn’t let the page return by itself (2026-10-18); back on the page, a tap restores full screen. For the current releases, see the [known issue](/en/daily-use#fullscreen-known-issue).
         zh: 使用安卓中继时，网页默认全屏。倒车影像会让浏览器退出全屏，这台车的浏览器不允许网页自动恢复（2026-10-18）；回到网页后轻触一下恢复全屏，当前版本的问题见[已知问题](/zh/daily-use#fullscreen-known-issue)。
     - label: {en: Car setting, zh: 车型设置}
       text:

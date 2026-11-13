@@ -12,7 +12,7 @@ breadcrumb: Tesla
 A Tesla shows CarPlay in its own browser, like other head units, with one difference: the Tesla browser doesn’t open local-network addresses such as `192.168.43.20`. The relay therefore adds an address the Tesla can open, through a local VPN on the relay phone; nothing leaves the phone.
 
 ::: tip Version
-Android app 0.2.0 and Linux relay 0.1.6 have this adaptation. Please share how it works for you in the [community](/community).
+Android app 0.2.0 and Linux relay 0.1.6 have this adaptation. Please share how it works for you in the [community](/en/community).
 :::
 
 ## What you need {#requirements}
@@ -26,8 +26,8 @@ Android app 0.2.0 and Linux relay 0.1.6 have this adaptation. Please share how i
 
 ## Set it up {#setup}
 
-1. Set up the relay as in [Android phone as the relay](/android-relay), and choose Tesla and your model under *Your car*.
-2. In the app, open Settings → *Tesla browser* and choose one of the ways below. The ones with a trusted name need [Trusted HTTPS](/trusted-https) first. Android asks for VPN consent the first time.
+1. Set up the relay as in [Android phone as the relay](/en/android-relay), and choose Tesla and your model under *Your car*.
+2. In the app, open Settings → *Tesla browser* and choose one of the ways below. The ones with a trusted name need [Trusted HTTPS](/en/trusted-https) first. Android asks for VPN consent the first time.
 3. Start CarPlay. The home screen lists the Tesla address first; open it in the Tesla browser.
 
 | Way | Address on the phone | What to know |

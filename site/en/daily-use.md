@@ -59,10 +59,10 @@ In the app’s Settings → Car and screen, choose the brand, the model and, if 
 
 *CarPlay view areas* can be *Automatic* or *Manual*. *Automatic* picks the most used window sizes the head unit’s browser has recorded; *Manual* uses only the fullscreen and/or windowed size you enter, with this head unit’s most used sizes shown for reference. View areas work only with an automatic resolution, and changes apply at the next connection.
 
-With a Tesla, set up the [Tesla browser](/tesla) as well.
+With a Tesla, set up the [Tesla browser](/en/tesla) as well.
 
 ::: tip Help more cars work out of the box
-If your car isn’t listed, tap *Copy my head-unit screen data* and send it to the developers in the [community](/community), so a later release can include your car.
+If your car isn’t listed, tap *Copy my head-unit screen data* and send it to the developers in the [community](/en/community), so a later release can include your car.
 :::
 
 ## More settings {#more-settings}
@@ -76,6 +76,6 @@ If your car isn’t listed, tap *Copy my head-unit screen data* and send it to t
 
 ## Updates {#updates}
 
-In the app, Settings → About → *Check for updates* shows the newest version with its release notes and downloads the APK in the browser; choose the *Stable* or *Beta* channel there. The app contacts GitHub only when you tap it. All releases are also on [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), and what changed in each is in the [changelog](/changelog). After an Android app update, the head-unit page reloads itself once to the new version.
+In the app, Settings → About → *Check for updates* shows the newest version with its release notes and downloads the APK in the browser; choose the *Stable* or *Beta* channel there. The app contacts GitHub only when you tap it. All releases are also on [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases), and what changed in each is in the [changelog](/en/changelog). After an Android app update, the head-unit page reloads itself once to the new version.
 
-The Linux relay: on the UFI003, update it with OpenXPlay Flasher; on the Phicomm N1 and other Linux devices, use the `openxplay-relay-update` command, which puts the previous version back if the new one doesn’t come up; see [Update the relay](/linux-devices#update).
+The Linux relay: on the UFI003, update it with OpenXPlay Flasher; on the Phicomm N1 and other Linux devices, use the `openxplay-relay-update` command, which puts the previous version back if the new one doesn’t come up; see [Update the relay](/en/linux-devices#update).

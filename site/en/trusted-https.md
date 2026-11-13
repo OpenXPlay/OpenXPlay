@@ -23,7 +23,7 @@ It needs Android app 0.1.5 or later ([download the latest version](https://githu
 
 ## How it works {#how-it-works}
 
-A browser trusts a certificate only when a public certificate authority signed it and the name on it matches the address bar. The relay’s own certificate isn’t signed by a public authority, and an IP address gives the browser no name to check, so the browser warns (see [Certificate warning](/troubleshooting#certificate-warning)). With Trusted HTTPS on, the relay does three things by itself:
+A browser trusts a certificate only when a public certificate authority signed it and the name on it matches the address bar. The relay’s own certificate isn’t signed by a public authority, and an IP address gives the browser no name to check, so the browser warns (see [Certificate warning](/en/troubleshooting#certificate-warning)). With Trusted HTTPS on, the relay does three things by itself:
 
 - **Publishes its address:** it points your name at the relay’s private address on the head unit’s network, such as `192.168.43.20`, and updates it when the address changes, for example after the Android hotspot restarts.
 - **Gets a certificate:** through your provider’s API it adds a temporary record under the name, which proves to Let’s Encrypt that you control the name, and receives a certificate. It renews the certificate before it expires.
@@ -224,9 +224,9 @@ The status line in the app and the admin page shows one of these:
 | *The provider asked to wait* | Too many requests. Nothing to do; the relay tries again at the time shown. |
 | *Can’t reach the provider* | The relay is offline or can’t reach the provider. Check the relay’s internet access; if the provider is down for a while, the relay keeps trying. |
 | *The provider’s name servers didn’t show the change in time* | The check record didn’t reach the provider’s name servers in time, usually because the provider was slow for a moment. The relay tries again by itself, or choose *Request certificate now* later. |
-| *Let’s Encrypt rejected the request: …* | Let’s Encrypt’s reason follows the colon. Check the name and the token; if it keeps happening, post the message in the [community](/community). |
+| *Let’s Encrypt rejected the request: …* | Let’s Encrypt’s reason follows the colon. Check the name and the token; if it keeps happening, post the message in the [community](/en/community). |
 | *Let’s Encrypt asked to wait* | A Let’s Encrypt limit was reached. Wait until the time shown; see [Asked to wait](#rate-limits). |
-| *No head-unit network address yet* | The relay isn’t on the head unit’s network yet, so it has no address to publish. Connect the head unit’s network as in the guide’s [Connect the head unit’s network](/android-relay#step-network). |
+| *No head-unit network address yet* | The relay isn’t on the head unit’s network yet, so it has no address to publish. Connect the head unit’s network as in the guide’s [Connect the head unit’s network](/en/android-relay#step-network). |
 
 After a network or provider problem, the relay tries again at growing intervals: 1 minute, 5 minutes, 30 minutes, 2 hours, 6 hours, then once a day. A new relay address or a settings change starts again at 1 minute. To try again right away, choose *Request certificate now*.
 :::

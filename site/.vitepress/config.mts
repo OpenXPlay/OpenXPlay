@@ -8,8 +8,8 @@ import { carNames, carsPlugin } from './cars'
 import { rememberPage, writeGeneratedFiles } from './generate'
 import { seoHead } from './seo'
 import {
-  BASE, DISCORD_URL, FALLBACK_LOCALE, GITHUB_ORG, LOCALES, SITE_HOST, SITE_NAME, SITE_ROOT,
-  SUPPORT_EMAIL, pageRoute,
+  BASE, DEFAULT_LOCALE, DISCORD_URL, GITHUB_ORG, LOCALES, SITE_HOST, SITE_NAME, SITE_ROOT,
+  SUPPORT_EMAIL, pageRoute, type LocaleKey,
 } from './site'
 
 const repository = (name: string) => `<a href="${GITHUB_ORG}/${name}">${name.replace(/^OpenXPlay-/, '')}</a>`
@@ -25,69 +25,78 @@ const HELP_PAGES = 'faq|troubleshooting|head-units'
 
 const english: DefaultTheme.Config = {
   nav: [
-    { text: 'Get started', link: '/quick-start', activeMatch: `^/(${GUIDE_PAGES})$` },
-    { text: 'How it works', link: '/how-it-works' },
-    { text: 'FAQ', link: '/faq', activeMatch: `^/(${HELP_PAGES})$` },
-    { text: 'Community', link: '/community' },
+    { text: 'Get started', link: '/en/quick-start', activeMatch: `^/en/(${GUIDE_PAGES})$` },
+    { text: 'How it works', link: '/en/how-it-works' },
+    { text: 'FAQ', link: '/en/faq', activeMatch: `^/en/(${HELP_PAGES})$` },
+    { text: 'Community', link: '/en/community' },
   ],
   sidebar: [
     {
       text: 'Start here',
       items: [
-        { text: 'How it works', link: '/how-it-works' },
-        { text: 'Get started', link: '/quick-start' },
-        { text: 'Check your head unit', link: '/check' },
+        { text: 'How it works', link: '/en/how-it-works' },
+        { text: 'Get started', link: '/en/quick-start' },
+        { text: 'Check your head unit', link: '/en/check' },
       ],
     },
     {
       text: 'Set up a relay',
       items: [
-        { text: 'Android phone', link: '/android-relay' },
+        { text: 'Android phone', link: '/en/android-relay' },
         {
           text: 'UFI003 USB dongle',
-          link: '/ufi003-relay',
-          items: [{ text: 'Flash the base image', link: '/ufi003-flash' }],
+          link: '/en/ufi003-relay',
+          items: [{ text: 'Flash the base image', link: '/en/ufi003-flash' }],
         },
-        { text: `Phicomm N1 TV box ${tag('info', 'Advanced')}`, link: '/phicomm-n1' },
-        { text: `Other Linux devices ${tag('info', 'Advanced')}`, link: '/linux-devices' },
-        { text: 'Carlink app', link: '/carlink' },
-        { text: `CarLife ${tag('warning', 'Experimental')}`, link: '/carlife' },
-        { text: `Wireless display ${tag('warning', 'Experimental')}`, link: '/wireless-display' },
-        { text: `Tesla ${tag('warning', 'Experimental')}`, link: '/tesla' },
+        { text: `Phicomm N1 TV box ${tag('info', 'Advanced')}`, link: '/en/phicomm-n1' },
+        { text: `Other Linux devices ${tag('info', 'Advanced')}`, link: '/en/linux-devices' },
+        { text: 'Carlink app', link: '/en/carlink' },
+        { text: `CarLife ${tag('warning', 'Experimental')}`, link: '/en/carlife' },
+        { text: `Wireless display ${tag('warning', 'Experimental')}`, link: '/en/wireless-display' },
+        { text: `Tesla ${tag('warning', 'Experimental')}`, link: '/en/tesla' },
       ],
     },
     {
       text: 'Using it',
       items: [
-        { text: 'Everyday use and settings', link: '/daily-use' },
-        { text: 'Trusted HTTPS', link: '/trusted-https' },
+        { text: 'Everyday use and settings', link: '/en/daily-use' },
+        { text: 'Trusted HTTPS', link: '/en/trusted-https' },
       ],
     },
     {
       text: 'Help',
       items: [
-        { text: 'Troubleshooting', link: '/troubleshooting' },
-        { text: 'FAQ', link: '/faq' },
-        { text: 'Head units', link: '/head-units' },
+        { text: 'Troubleshooting', link: '/en/troubleshooting' },
+        { text: 'FAQ', link: '/en/faq' },
+        { text: 'Head units', link: '/en/head-units' },
       ],
     },
     {
       text: 'Project',
       items: [
-        { text: 'Changelog', link: '/changelog' },
-        { text: 'Community', link: '/community' },
-        { text: 'Developers', link: '/developers' },
-        { text: 'Licensing', link: '/licensing' },
-        { text: 'Privacy', link: '/privacy' },
+        { text: 'Changelog', link: '/en/changelog' },
+        { text: 'Community', link: '/en/community' },
+        { text: 'Developers', link: '/en/developers' },
+        { text: 'Licensing', link: '/en/licensing' },
+        { text: 'Privacy', link: '/en/privacy' },
       ],
     },
   ],
   footer: {
-    message: `GitHub: ${repositoryLinks}<br>Contact: ${mail} · <a href="${BASE}developers">Developers</a> · <a href="${BASE}licensing">Licensing</a> · <a href="${BASE}privacy">Privacy</a> · Site code: <a href="https://opensource.org/license/mit">MIT</a> · Content: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>`,
+    message: `GitHub: ${repositoryLinks}<br>Contact: ${mail} · <a href="${BASE}en/developers">Developers</a> · <a href="${BASE}en/licensing">Licensing</a> · <a href="${BASE}en/privacy">Privacy</a> · Site code: <a href="https://opensource.org/license/mit">MIT</a> · Content: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>`,
     copyright: 'CarPlay and iPhone are trademarks of Apple Inc. OpenXPlay is an independent project and is not affiliated with, endorsed or certified by Apple.',
   },
   outline: { level: [2, 3], label: 'On this page' },
   lastUpdated: { text: 'Last updated', formatOptions: { dateStyle: 'medium' } },
+  // Set in full, so the default language's top-level theme labels never show on English pages.
+  docFooter: { prev: 'Previous page', next: 'Next page' },
+  darkModeSwitchLabel: 'Appearance',
+  lightModeSwitchTitle: 'Switch to light theme',
+  darkModeSwitchTitle: 'Switch to dark theme',
+  sidebarMenuLabel: 'Menu',
+  returnToTopLabel: 'Return to top',
+  langMenuLabel: 'Change language',
+  skipToContentLabel: 'Skip to content',
   notFound: {
     title: 'Page not found',
     quote: 'This page doesn’t exist or has moved.',
@@ -177,12 +186,22 @@ const chinese: DefaultTheme.Config = {
   },
 }
 
+const THEMES: Record<LocaleKey, DefaultTheme.Config> = { zh: chinese, en: english }
+
+const DESCRIPTIONS: Record<LocaleKey, string> = {
+  zh: 'OpenXPlay 让无法安装应用的安卓车机，通过车机自带的浏览器或 Carlink 应用显示 iPhone CarPlay。',
+  en: 'OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps, through the head unit’s browser or Carlink app.',
+}
+
 export default defineConfig({
   base: BASE,
   cleanUrls: true,
   lastUpdated: true,
   srcExclude: ['README.md', 'public/**'],
   title: SITE_NAME,
+  // Pages outside zh/ and en/ (only the not-found page) use the default language.
+  lang: LOCALES[DEFAULT_LOCALE].lang,
+  description: DESCRIPTIONS[DEFAULT_LOCALE],
 
   head: [
     ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: `${BASE}favicon-32.png` }],
@@ -193,28 +212,31 @@ export default defineConfig({
     ['meta', { name: 'author', content: 'OpenXPlay.org' }],
   ],
 
-  // Keep in step with LOCALES in site.ts.
+  // Keep in step with LOCALES in site.ts. There is no root locale: every page lives under its
+  // language's prefix, and the root URLs redirect to DEFAULT_LOCALE (generate.ts).
   locales: {
-    root: {
-      label: 'English',
-      lang: LOCALES.root.lang,
-      title: SITE_NAME,
-      titleTemplate: `:title | ${SITE_NAME}`,
-      description: 'OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps, through the head unit’s browser or Carlink app.',
-      themeConfig: english,
-    },
     zh: {
       label: '简体中文',
       lang: LOCALES.zh.lang,
       link: '/zh/',
       title: SITE_NAME,
       titleTemplate: `:title | ${SITE_NAME}`,
-      description: 'OpenXPlay 让无法安装应用的安卓车机，通过车机自带的浏览器或 Carlink 应用显示 iPhone CarPlay。',
+      description: DESCRIPTIONS.zh,
       themeConfig: chinese,
+    },
+    en: {
+      label: 'English',
+      lang: LOCALES.en.lang,
+      link: '/en/',
+      title: SITE_NAME,
+      titleTemplate: `:title | ${SITE_NAME}`,
+      description: DESCRIPTIONS.en,
+      themeConfig: english,
     },
   },
 
   themeConfig: {
+    ...THEMES[DEFAULT_LOCALE],
     logo: { src: '/logo.png', alt: '' },
     siteTitle: SITE_NAME,
     externalLinkIcon: true,
@@ -227,10 +249,10 @@ export default defineConfig({
   sitemap: {
     hostname: SITE_ROOT,
     transformItems(items) {
-      // Add x-default (the fallback locale's page, as in seo.ts) to every group of language alternates.
+      // Add x-default (the default locale's page, as in seo.ts) to every group of language alternates.
       return items.filter(item => item.url !== '404').map(item => {
         if (!item.links?.length) return item
-        const fallback = item.links.find(link => link.lang === LOCALES[FALLBACK_LOCALE].lang)
+        const fallback = item.links.find(link => link.lang === LOCALES[DEFAULT_LOCALE].lang)
         const links = item.links.filter(link => link.lang !== 'x-default')
         return { ...item, links: fallback ? [...links, { lang: 'x-default', url: fallback.url }] : links }
       })
