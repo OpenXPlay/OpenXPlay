@@ -11,17 +11,17 @@ breadcrumb: Carlink app
 
 If the head unit has no usable browser but does have a Carlink app, try this route: the relay connects to the head unit’s Carlink app over Wi-Fi. Carlink can use H.264 or H.265, depending on what the head unit supports and on the relay’s settings: when the head unit reports H.265 support, the Android relay sends the iPhone’s H.265 picture as it is; otherwise it converts the picture, when needed, to an H.264 format the head unit can show.
 
-This page covers the relay. The [OpenXPlay iPhone app](/#iphone-app) can also connect to the head unit’s Carlink app directly, without a relay.
+This page covers the relay. The [OpenXPlay iPhone app](/en/#iphone-app) can also connect to the head unit’s Carlink app directly, without a relay.
 
 ::: tip Version
-It needs Android app 0.1.5 or later; [download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk). From 0.1.5, the black screen with sound on some head units, such as the XPeng G6, is fixed, and the picture takes the shape of the car’s Carlink window. Results from cars are under [Head units](/head-units#xpeng-g6).
+It needs Android app 0.1.5 or later; [download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk). From 0.1.5, the black screen with sound on some head units, such as the XPeng G6, is fixed, and the picture takes the shape of the car’s Carlink window. Results from cars are under [Head units](/en/head-units#xpeng-g6).
 :::
 
 ## Turn on the Carlink output {#step-enable .step}
 
-**Android phone:** In the setup guide, choose *Carlink app* on the *Car display* page; the guide then recommends *This phone’s hotspot* for wireless CarPlay. To run the browser and Carlink together, use Settings → Developer options → *Combine outputs*. The rest of the relay setup is the same as for the browser route; see [Android phone as the relay](/android-relay).
+**Android phone:** In the setup guide, choose *Carlink app* on the *Car display* page; the guide then recommends *This phone’s hotspot* for wireless CarPlay. To run the browser and Carlink together, use Settings → Developer options → *Combine outputs*. The rest of the relay setup is the same as for the browser route; see [Android phone as the relay](/en/android-relay).
 
-**Linux relay:** It needs two Wi-Fi adapters: the built-in one runs the iPhone’s hotspot and the second joins the head unit’s Carlink Wi-Fi. In the admin page’s setup guide or in Settings → Output, choose *Carlink* or *Browser and Carlink*; with one adapter, only the browser is offered. See [Phicomm N1 as the relay](/phicomm-n1#adapters) or [Other Linux devices](/linux-devices#setup).
+**Linux relay:** It needs two Wi-Fi adapters: the built-in one runs the iPhone’s hotspot and the second joins the head unit’s Carlink Wi-Fi. In the admin page’s setup guide or in Settings → Output, choose *Carlink* or *Browser and Carlink*; with one adapter, only the browser is offered. See [Phicomm N1 as the relay](/en/phicomm-n1#adapters) or [Other Linux devices](/en/linux-devices#setup).
 
 ## Open Carlink on the head unit {#step-open .step}
 
@@ -37,7 +37,7 @@ Enter the pairing code the car screen shows now into the relay (the Android app,
 | --- | --- |
 | Android phone | Carlink needs Android 10 or later. The relay phone joins the car’s Carlink network as a Wi-Fi client, so its Wi-Fi must be on (it needn’t be connected to anything). For wireless CarPlay choose *This phone’s hotspot*: the relay runs its hotspot for the iPhone and joins the car over Wi-Fi at the same time. Some phones turn Wi-Fi off when their hotspot is on; they can’t do both. |
 | UFI003 | It has one Wi-Fi adapter, 2.4 GHz only, so Carlink isn’t available; use the head unit’s browser. |
-| Phicomm N1 | Needs a USB Wi-Fi adapter as well: the built-in adapter runs the iPhone’s hotspot and the USB adapter joins the head unit’s Carlink Wi-Fi, see [One adapter or two](/phicomm-n1#adapters). With the built-in adapter alone, Carlink isn’t available. |
+| Phicomm N1 | Needs a USB Wi-Fi adapter as well: the built-in adapter runs the iPhone’s hotspot and the USB adapter joins the head unit’s Carlink Wi-Fi, see [One adapter or two](/en/phicomm-n1#adapters). With the built-in adapter alone, Carlink isn’t available. |
 
 ::: details Sound but a black picture on the head unit? {#black-screen}
 Some head units recognise a key frame only at the very start of a frame, and Android app 0.1.3 and earlier show a black screen on them. It needs Android app 0.1.5 or later; [update to the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk). 0.1.5 also brings the picture back after the reverse camera.

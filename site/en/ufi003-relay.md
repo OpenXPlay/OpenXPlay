@@ -15,7 +15,7 @@ howtoTools:
   - Android head unit with a browser that supports WebCodecs
 next:
   text: Everyday use and settings
-  link: /daily-use
+  link: /en/daily-use
 ---
 
 # UFI003 USB dongle as the relay
@@ -135,7 +135,7 @@ In the admin page, under **Settings → iPhone connection → Wireless network**
 - **This relay’s hotspot** (the default): opens the relay’s own hotspot; the iPhone joins it automatically and the head unit joins it too.
 - **Use the car’s hotspot**: the relay, the iPhone and the head unit join the car’s hotspot, or another existing 2.4 GHz network.
 
-The UFI003 shows CarPlay in the head unit’s browser only; Carlink needs a second Wi-Fi adapter, see [Carlink app](/carlink).
+The UFI003 shows CarPlay in the head unit’s browser only; Carlink needs a second Wi-Fi adapter, see [Carlink app](/en/carlink).
 
 ## Pair the iPhone {#step-pair .step}
 
@@ -143,7 +143,7 @@ When Home asks you to pair the iPhone, tap *Pair*; pairing stays open for 10 min
 
 ## Open it in the head unit’s browser {#step-open .step}
 
-Join the relay’s network from the head unit and open `https://10.77.0.1:8443/` (with the relay’s own hotspot) or `https://openxplay-car.local:8443/`. Accept the certificate warning the first time; [Troubleshooting](/troubleshooting#certificate-warning) explains why it appears.
+Join the relay’s network from the head unit and open `https://10.77.0.1:8443/` (with the relay’s own hotspot) or `https://openxplay-car.local:8443/`. Accept the certificate warning the first time; [Troubleshooting](/en/troubleshooting#certificate-warning) explains why it appears.
 
 If *Require pairing code* is on in the admin page under Settings → Head-unit access, enter the 8-digit code the relay shows.
 
@@ -155,7 +155,7 @@ If you want to use only the command line and not Flasher, you can flash the dong
 
 ### Flash the base image {#step-image}
 
-Flash the OpenStick Debian 11 image (kernel `5.15.0-handsomekernel+`, aarch64) onto the UFI003. Downloads, checksums and the cautions to read before flashing are in [Flash the UFI003 base image](/ufi003-flash).
+Flash the OpenStick Debian 11 image (kernel `5.15.0-handsomekernel+`, aarch64) onto the UFI003. Downloads, checksums and the cautions to read before flashing are in [Flash the UFI003 base image](/en/ufi003-flash).
 
 ### Install the device package {#step-device}
 
@@ -197,17 +197,17 @@ adb push openxplay-relay_${V}_arm64.deb /root/
 adb shell dpkg -i /root/openxplay-relay_${V}_arm64.deb
 ```
 
-Set `V` to the latest version. The device package has already installed the dependencies, so no internet access is needed. [Install the relay](/linux-devices#install) describes what the package sets up.
+Set `V` to the latest version. The device package has already installed the dependencies, so no internet access is needed. [Install the relay](/en/linux-devices#install) describes what the package sets up.
 
 To build them yourself: the device package with `UFI003/package/build-bundle.sh` in [OpenXPlay-Hardware](https://github.com/OpenXPlay/OpenXPlay-Hardware), the relay package with `rust/packaging/build-deb.sh` in [OpenXPlay-Relay](https://github.com/OpenXPlay/OpenXPlay-Relay).
 
-Then carry on from [Open the admin page](#step-admin). Without Flasher, add your CarPlay identity in the admin page under **Settings → Identity and certificates**, or [put the identity files in place by hand](/linux-devices#identity).
+Then carry on from [Open the admin page](#step-admin). Without Flasher, add your CarPlay identity in the admin page under **Settings → Identity and certificates**, or [put the identity files in place by hand](/en/linux-devices#identity).
 
 :::
 
 ## Next {#next-steps}
 
-- In cars such as the XPeng G6, see the recommended setup under [Head units](/head-units), for example setting the frame rate to 30 on 2.4 GHz: change it in the admin page under **Settings → CarPlay picture → Frame rate**, and the head-unit page follows it.
+- In cars such as the XPeng G6, see the recommended setup under [Head units](/en/head-units), for example setting the frame rate to 30 on 2.4 GHz: change it in the admin page under **Settings → CarPlay picture → Frame rate**, and the head-unit page follows it.
 - To report a problem, save the logs as a file under **Settings → Logs**, or upload them and send us the log ID.
-- [Trusted HTTPS](/trusted-https): remove the certificate warning with a free domain name.
-- Something not working? See [Troubleshooting](/troubleshooting).
+- [Trusted HTTPS](/en/trusted-https): remove the certificate warning with a free domain name.
+- Something not working? See [Troubleshooting](/en/troubleshooting).

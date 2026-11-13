@@ -33,7 +33,7 @@ export const GITHUB_ORG = 'https://github.com/OpenXPlay'
 export const SUPPORT_EMAIL = 'support@openxplay.org'
 export const DISCORD_URL = 'https://discord.gg/j3cKd5Tax'
 
-export type LocaleKey = 'root' | 'zh'
+export type LocaleKey = 'zh' | 'en'
 
 export interface LocaleInfo {
   /** BCP 47 tag for <html lang> and hreflang. */
@@ -48,14 +48,17 @@ export interface LocaleInfo {
   docsHeading: string
 }
 
-// English is the default language, at the root; Simplified Chinese is under zh/.
+// Every language has its own prefix: Simplified Chinese under zh/, English under en/.
 export const LOCALES: Record<LocaleKey, LocaleInfo> = {
-  root: { lang: 'en', ogLocale: 'en_US', prefix: '', home: 'Home', docsHeading: 'Docs (English)' },
   zh: { lang: 'zh-Hans', ogLocale: 'zh_CN', prefix: 'zh/', home: '首页', docsHeading: '文档（简体中文）' },
+  en: { lang: 'en', ogLocale: 'en_US', prefix: 'en/', home: 'Home', docsHeading: 'Docs (English)' },
 }
 
-/** The locale for visitors whose language matches no locale (hreflang x-default). */
-export const FALLBACK_LOCALE: LocaleKey = 'root'
+/**
+ * The default language: the root URLs (/ and /<page>) redirect to its pages, and it is the
+ * hreflang x-default. Changing it changes nothing else.
+ */
+export const DEFAULT_LOCALE: LocaleKey = 'zh'
 
 /** The pages every locale has, in reading order. '' is the home page. */
 export const PAGE_SLUGS = [
@@ -66,10 +69,10 @@ export const PAGE_SLUGS = [
 
 /** Splits a source path such as 'zh/quick-start.md' into its locale and slug ('' for a home page). */
 export function pageRoute(relativePath: string): { locale: LocaleKey; slug: string } {
-  const zh = relativePath.startsWith('zh/')
-  const rest = zh ? relativePath.slice(3) : relativePath
+  const locale = (Object.keys(LOCALES) as LocaleKey[]).find(key => relativePath.startsWith(LOCALES[key].prefix)) ?? DEFAULT_LOCALE
+  const rest = relativePath.startsWith(LOCALES[locale].prefix) ? relativePath.slice(LOCALES[locale].prefix.length) : relativePath
   const slug = rest.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
-  return { locale: zh ? 'zh' : 'root', slug }
+  return { locale, slug }
 }
 
 /** Absolute, clean URL of a page. */

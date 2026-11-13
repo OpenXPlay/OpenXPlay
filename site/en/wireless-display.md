@@ -11,7 +11,7 @@ breadcrumb: Wireless display
 
 If the head unit has no usable browser, Carlink or CarLife but can receive screen casting (DLNA or Miracast), try this route: the head unit shows CarPlay’s picture only and can’t be touched; you operate CarPlay on the relay phone.
 
-This page covers the relay. The [OpenXPlay iPhone app](/#iphone-app) can also cast to the head unit directly, without a relay.
+This page covers the relay. The [OpenXPlay iPhone app](/en/#iphone-app) can also cast to the head unit directly, without a relay.
 
 ::: warning Experimental feature
 It needs Android app 0.2.5 or later; [download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk). The Linux relay has no wireless display output.

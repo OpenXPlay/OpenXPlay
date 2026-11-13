@@ -9,13 +9,13 @@ breadcrumb: Changelog
 
 # Changelog
 
-What changed in each OpenXPlay Relay release, newest first. The Android app and the Linux relay are released separately; Linux releases say “Linux” in their heading, and the iPhone app’s entries say “iPhone app”. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup start at [Get started](/quick-start).
+What changed in each OpenXPlay Relay release, newest first. The Android app and the Linux relay are released separately; Linux releases say “Linux” in their heading, and the iPhone app’s entries say “iPhone app”. Packages and checksums are on GitHub [Releases](https://github.com/OpenXPlay/OpenXPlay-Relay/releases); installation and setup start at [Get started](/en/quick-start).
 
 ## iPhone app public beta {#iphone-beta}
 
 2026-11-05 · [Join on TestFlight](https://testflight.apple.com/join/WbKejMWS)
 
-The OpenXPlay iPhone app connects the iPhone to the head unit directly, without a relay. Like the relay, it shows CarPlay in the head unit’s browser, Carlink, CarLife or screen-casting receiver. Join the public beta with the [TestFlight invitation](https://testflight.apple.com/join/WbKejMWS) or the QR code on the [home page](/#iphone-app).
+The OpenXPlay iPhone app connects the iPhone to the head unit directly, without a relay. Like the relay, it shows CarPlay in the head unit’s browser, Carlink, CarLife or screen-casting receiver. Join the public beta with the [TestFlight invitation](https://testflight.apple.com/join/WbKejMWS) or the QR code on the [home page](/en/#iphone-app).
 
 ## 0.2.6 {#v0-2-6}
 
@@ -33,7 +33,7 @@ Android app: manual CarPlay size, screen width and view areas, a reminder to che
 
 - Android app: in the setup guide, Next on the network page reminds you to check, once the iPhone has connected, that Low Data Mode is off for this Wi-Fi on the iPhone (Settings → Wi-Fi → ⓘ). The network page and the message shown when the iPhone does not join the Wi-Fi say the same.
 - Android app: with this phone’s hotspot, the setup guide asks you to choose *Copy to settings* or *Use my existing hotspot* before Next; neither is preselected.
-- Android app: [Trusted HTTPS](/trusted-https) no longer shows certificate warnings on Android 10 and earlier when a valid domain certificate is configured, and uses a certificate only within both the start and the end of its validity period.
+- Android app: [Trusted HTTPS](/en/trusted-https) no longer shows certificate warnings on Android 10 and earlier when a valid domain certificate is configured, and uses a certificate only within both the start and the end of its validity period.
 
 **Notes**
 
@@ -50,8 +50,8 @@ Android app: a CarLife output, wireless display as an output operated on the pho
 
 **New**
 
-- Android app: a [CarLife](/carlife) output (experimental). CarPlay’s picture and touch go to the car’s CarLife over the same Wi-Fi, this phone’s hotspot or a USB accessory connection; sound stays on the iPhone’s Bluetooth link to the car. Choose it in the setup guide or in Settings → Output; the car’s IP address is optional.
-- Android app: [Wireless display](/wireless-display) (DLNA, Miracast) can be chosen in the setup guide and in Settings → Output, marked *Experimental*. The car shows the picture only; with wireless display only, this phone shows CarPlay and takes touch, with a back button, and Home offers *Show CarPlay* while connected.
+- Android app: a [CarLife](/en/carlife) output (experimental). CarPlay’s picture and touch go to the car’s CarLife over the same Wi-Fi, this phone’s hotspot or a USB accessory connection; sound stays on the iPhone’s Bluetooth link to the car. Choose it in the setup guide or in Settings → Output; the car’s IP address is optional.
+- Android app: [Wireless display](/en/wireless-display) (DLNA, Miracast) can be chosen in the setup guide and in Settings → Output, marked *Experimental*. The car shows the picture only; with wireless display only, this phone shows CarPlay and takes touch, with a back button, and Home offers *Show CarPlay* while connected.
 - Android app: logs keep a connection timeline even when the system log drops records, and an export says when its capture is incomplete.
 
 **Changes**
@@ -64,7 +64,7 @@ Android app: a CarLife output, wireless display as an output operated on the pho
 - Android app: Carlink gives slow head units 4 s to answer the MTU request (the XPeng G9 takes 1.8 s), so the connection no longer fails at service discovery. Thanks, hellowalker.
 - Android app: on Xiaomi phones with Android 10 or 11, Carlink’s Wi-Fi scan priming runs at most once every 2 minutes, leaving scans for the system Wi-Fi dialog, so joining the car’s Wi-Fi fails less often. Thanks, hellowalker.
 - Android app: DiPlay 0.2.22. Wired CarPlay connects on the first attempt after a replug; a wireless start retries as soon as Bluetooth turns on; announcing CarPlay on the hotspot no longer waits about 20 s; wireless music keeps the iPhone’s speed (no stutter); the USB microphone records speech instead of silence; multi-finger gestures are steadier; connections and received data are checked more strictly.
-- Android app: [Trusted HTTPS](/trusted-https) keeps rate limits from the certificate authority per name, account or environment, and 45- and 64-day certificates renew on time.
+- Android app: [Trusted HTTPS](/en/trusted-https) keeps rate limits from the certificate authority per name, account or environment, and 45- and 64-day certificates renew on time.
 
 **Notes**
 
@@ -89,11 +89,11 @@ Linux relay: the first release since 0.1.3. The admin page takes the Android app
 - Interfaces and network roles: the relay lists every Ethernet and Wi-Fi interface with what it can do and picks the one for the iPhone, the head-unit browser and Carlink; you can also choose each. The hotspot band and channel follow the Wi-Fi hardware, with Wi-Fi country and Hotspot security settings (WPA2 by default).
 - Carlink runs on a second Wi-Fi adapter, so the CarPlay hotspot stays up while it joins the car. Carlink remembers how each car hands off, keeps scanning until the car appears and passes the steering-wheel media keys to the iPhone.
 - Admin hotspot (off by default, needs a second Wi-Fi adapter): once turned on, it serves the admin page at `https://10.79.0.1:6975`, paused while Carlink uses that adapter.
-- [Trusted HTTPS](/trusted-https) and the [Tesla browser adaptation](/tesla), as on Android, off by default.
+- [Trusted HTTPS](/en/trusted-https) and the [Tesla browser adaptation](/en/tesla), as on Android, off by default.
 - Logs, Configuration files and Check for updates, as on Android: save the logs as a ZIP or upload them to logs.openxplay.org; the relay contacts GitHub only when you tap Check for updates.
 - Identity and certificates: import or remove the Apple accessory identity (files or a ZIP), or use a remote MFi server or an authentication chip over I2C or a CH341 adapter.
 - Experimental, all on by default, including three switches for iPhones, for example on iOS 16, that connect but never show a picture, and Watch for stalls. If connections get worse, turn off Use experimental options.
-- Each release includes the Debian package and install manifest that [OpenXPlay Flasher](/ufi003-relay#install) uses to install and update the relay. Other hosts can be described in a host profile, `/etc/openxplay/host.json`; see [Other Linux devices](/linux-devices).
+- Each release includes the Debian package and install manifest that [OpenXPlay Flasher](/en/ufi003-relay#install) uses to install and update the relay. Other hosts can be described in a host profile, `/etc/openxplay/host.json`; see [Other Linux devices](/en/linux-devices).
 
 **Changes**
 
@@ -179,8 +179,8 @@ Android app: a steadier CarPlay picture when the iPhone reconnects, ZEEKR in the
 **New**
 
 - Android app: three options under Settings → Experimental, on by default, for handing the CarPlay picture over from an old iPhone connection to a new one: *Isolate screen sessions*, *Reset screen state on reconnect* and *Synchronize screen handoff*.
-- Android app: ZEEKR in the car list. With a ZEEKR chosen, Settings → Car and screen and the setup guide suggest [Trusted HTTPS](/trusted-https) and offer a button to set it up.
-- Android app: the [Tesla browser adaptation](/tesla) moves to its own page, Settings → Tesla browser, always listed after Car and screen; the TeslaMirror-style address comes first and is marked as recommended. Saved choices stay as they were.
+- Android app: ZEEKR in the car list. With a ZEEKR chosen, Settings → Car and screen and the setup guide suggest [Trusted HTTPS](/en/trusted-https) and offer a button to set it up.
+- Android app: the [Tesla browser adaptation](/en/tesla) moves to its own page, Settings → Tesla browser, always listed after Car and screen; the TeslaMirror-style address comes first and is marked as recommended. Saved choices stay as they were.
 - Android app: exported logs record what DLNA and Miracast did (state, failures and statistics every 10 seconds, without web addresses), for testing wireless display through developer options.
 
 **Changes**
@@ -227,7 +227,7 @@ Android app: a redesigned app that checks the connection step by step, car selec
 - Android app: a redesigned app that shows the connection as one path, iPhone → relay phone → car, and checks each step live. Home has three tiles, one headline and at most one action: *Connect*, the fix for the current step, *Retry* or *Start now*. Tap a tile or pull up the drawer below to see every step, why it matters and what to do, such as turning on Bluetooth, pairing the iPhone or entering the Carlink code. A failure says what went wrong and what to do, with its code and time. The running page looks the same.
 - Android app: light and dark appearance, following the system.
 - Android app: Settings → Car and screen chooses the car by brand, model and year: every XPeng model sold in China with its model years, and the Tesla models. Built-in screen data is still only for the XPeng G6 2023. The setup guide now starts with *Your car* and needs a brand and a model; the year can stay *Not sure*. Earlier choices carry over, and setups without a car keep working, with *Choose your car* on Home until you pick one.
-- Android app: the [Tesla browser adaptation](/tesla). The Tesla browser does not open local-network addresses, so with a Tesla chosen, Settings → Car and screen → *Tesla browser* adds an address on the relay phone through a local VPN (169.254.88.1 by default; nothing leaves the phone). There are four ways to reach the page: a trusted name or a direct address on that link-local address, or a TeslaMirror-style or TeslaAndroid-style address; the trusted-name ways need [Trusted HTTPS](/trusted-https) and open without a certificate warning. It needs wireless CarPlay, the *Car browser* output and the relay phone’s hotspot or Wi-Fi Direct; switching between the ways keeps CarPlay running.
+- Android app: the [Tesla browser adaptation](/en/tesla). The Tesla browser does not open local-network addresses, so with a Tesla chosen, Settings → Car and screen → *Tesla browser* adds an address on the relay phone through a local VPN (169.254.88.1 by default; nothing leaves the phone). There are four ways to reach the page: a trusted name or a direct address on that link-local address, or a TeslaMirror-style or TeslaAndroid-style address; the trusted-name ways need [Trusted HTTPS](/en/trusted-https) and open without a certificate warning. It needs wireless CarPlay, the *Car browser* output and the relay phone’s hotspot or Wi-Fi Direct; switching between the ways keeps CarPlay running.
 - Android app: Settings → CarPlay picture → *Frame rate*: *Auto* (30 or 60 fps, from the head unit’s refresh rate) or 30–60 fps in steps of 5. The head-unit page shows and changes the same setting. A change restarts a running session once. It replaces the frame-rate override in developer options; an override that was on carries over.
 - Android app: Settings → CarPlay picture → *Carlink picture size*: *Automatic* (the car’s Carlink window, as before), six presets (1280×720, 1920×1080, 1280×800, 1920×720, 1024×600 and 1024×768) and up to five sizes of your own. The starred size is used for every connection; choosing another tries it for this connection only, restarting CarPlay if Carlink is running.
 - Head-unit page (Android relay): tapping the OpenXPlay icon in CarPlay opens the page’s settings instead of the relay phone’s home screen. They slide in from the right, with quick tiles for sound, full screen and fill, menus for picture, sound and microphone, plugins and about, and choice pages instead of drop-down lists. The floating gear is gone; before CarPlay plays, the status card has a settings button.
@@ -272,7 +272,7 @@ Android app: H.265, Carlink in the car’s window shape with correct touch, trus
 - Android app: when the head unit reports H.265 support, Carlink gets the iPhone’s H.265 picture unchanged: no transcoding on the phone, smoother motion and lower latency.
 - Android app: the Carlink picture takes the shape of the car’s Carlink window instead of a squeezed 1280×720 (1532×1013 on the XPeng G6, for example), and CarPlay view areas work with Carlink too.
 - Android app: Settings → Output → *Reconnect when the window size changes* (off by default). After the car switches its Carlink area, the first touch reconnects so the picture can follow the new size.
-- Android app: [Trusted HTTPS](/trusted-https). Settings → Head-unit access → Trusted HTTPS uses a free name from DuckDNS or dynv6, so the head-unit browser opens the page without a certificate warning.
+- Android app: [Trusted HTTPS](/en/trusted-https). Settings → Head-unit access → Trusted HTTPS uses a free name from DuckDNS or dynv6, so the head-unit browser opens the page without a certificate warning.
 - Android app: Settings → Sound → *CarPlay audio over the car’s Bluetooth (experimental)*, on by default.
 - Android app: video statistics on the home screen, under Settings → CarPlay picture → *Video statistics*.
 - Android app: a manual start checks the relay phone’s Wi-Fi and hotspot, says what is off and opens the right settings; when Carlink fails because Wi-Fi is off, the home screen says so at once.

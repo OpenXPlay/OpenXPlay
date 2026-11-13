@@ -9,7 +9,7 @@ breadcrumb: Developers
 
 # Developers
 
-OpenXPlay is built from independent components: inputs that receive a projection session, outputs that deliver it to software on the head unit, and relay shells that wire the two together. Components talk to each other only through the OXP-Stream model. Licences and commercial exemptions are under [Licensing](/licensing).
+OpenXPlay is built from independent components: inputs that receive a projection session, outputs that deliver it to software on the head unit, and relay shells that wire the two together. Components talk to each other only through the OXP-Stream model. Licences and commercial exemptions are under [Licensing](/en/licensing).
 
 ## Architecture {#architecture}
 

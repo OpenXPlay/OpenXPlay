@@ -16,7 +16,7 @@ howtoTools:
   - Android head unit with a browser that supports WebCodecs
 next:
   text: Everyday use and settings
-  link: /daily-use
+  link: /en/daily-use
 ---
 
 # Phicomm N1 as the relay <Badge type="info" text="Advanced" />
@@ -27,7 +27,7 @@ You install everything from a computer over SSH, so this guide is for people who
 
 ::: warning At your own risk
 - Writing Armbian to the eMMC erases the N1’s current system.
-- Tell the [community](/community) how it went, with the relay and device package versions.
+- Tell the [community](/en/community) how it went, with the relay and device package versions.
 :::
 
 | N1 hardware | What it means for the relay |
@@ -61,7 +61,7 @@ With one adapter, the setup guide doesn’t offer *Carlink app* or *Both*. Unplu
 | A USB drive | 8 GB or more; everything on it is erased. Keep it afterwards as a rescue drive |
 | A network cable and a router | The N1 is wired to the router while you install; the computer joins the same router |
 | A computer | Windows, macOS or Linux that can write a USB drive and run `ssh` (built into Windows 10 and 11) |
-| An Apple accessory (MFi) identity | `identity.pk8` and `certificate.p7b`, supplied by you; see [What is an Apple accessory (MFi) identity?](/quick-start#mfi-identity) |
+| An Apple accessory (MFi) identity | `identity.pk8` and `certificate.p7b`, supplied by you; see [What is an Apple accessory (MFi) identity?](/en/quick-start#mfi-identity) |
 | A USB Wi-Fi adapter (optional) | Only for Carlink; see [One adapter or two](#adapters) |
 
 ## Write Armbian to a USB drive {#usb .step}
@@ -185,11 +185,11 @@ sha256sum --ignore-missing -c SHA256SUMS
 sudo apt-get install --no-install-recommends ./openxplay-relay_${V}_arm64.deb
 ```
 
-Set `V` to the newest version. The device package already installed the dependencies, so this step works offline. The relay runs as a system service and starts at boot; [Install the relay](/linux-devices#install) lists what the package installs.
+Set `V` to the newest version. The device package already installed the dependencies, so this step works offline. The relay runs as a system service and starts at boot; [Install the relay](/en/linux-devices#install) lists what the package installs.
 
 ## Open the admin page {#admin .step}
 
-On a phone or computer on the same network, open `https://<N1 IP>:6975`; an iPhone, a Mac or a Windows computer can also open `https://openxplay-admin.local:6975`. The browser warns that the certificate isn’t trusted; continue to the page. The first password is `openxplay`: sign in, then change it. If you forget it, see [Forgot the admin password?](/linux-devices#reset-password)
+On a phone or computer on the same network, open `https://<N1 IP>:6975`; an iPhone, a Mac or a Windows computer can also open `https://openxplay-admin.local:6975`. The browser warns that the certificate isn’t trusted; continue to the page. The first password is `openxplay`: sign in, then change it. If you forget it, see [Forgot the admin password?](/en/linux-devices#reset-password)
 
 ## Set the Wi-Fi country {#country .step}
 
@@ -199,11 +199,11 @@ Left at *System setting*, the N1 usually follows the worldwide rules (`00`): no 
 
 ## Add your CarPlay identity {#identity .step}
 
-In the admin page, open **Settings → Identity and certificates** and choose `identity.pk8` and `certificate.p7b`, or a ZIP that contains both. You can also [put the files in place by hand](/linux-devices#identity).
+In the admin page, open **Settings → Identity and certificates** and choose `identity.pk8` and `certificate.p7b`, or a ZIP that contains both. You can also [put the files in place by hand](/en/linux-devices#identity).
 
 ## Answer the setup guide {#setup .step}
 
-Work through the admin page’s setup guide: your car, the output (the head unit’s browser, its Carlink app, or both; with one adapter only the browser) and the network, then what it lists under getting ready. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay`, unless you set your own. [Answer the setup guide](/linux-devices#setup) explains each choice.
+Work through the admin page’s setup guide: your car, the output (the head unit’s browser, its Carlink app, or both; with one adapter only the browser) and the network, then what it lists under getting ready. The relay’s own hotspot is `OpenXPlay-Linux-XXXX` with the password `openxplay`, unless you set your own. [Answer the setup guide](/en/linux-devices#setup) explains each choice.
 
 ## Pair the iPhone {#pair .step}
 
@@ -211,7 +211,7 @@ When Home asks you to pair the iPhone, tap *Pair*; pairing stays open for 10 min
 
 ## Open CarPlay on the head unit {#head-unit .step}
 
-Join the relay’s hotspot from the head unit and open `https://10.77.0.1:8443/` in its browser; the admin page lists the head-unit address. Accept the certificate warning the first time; [Troubleshooting](/troubleshooting#certificate-warning) explains why it appears. For the Carlink app, see [Carlink app](/carlink).
+Join the relay’s hotspot from the head unit and open `https://10.77.0.1:8443/` in its browser; the admin page lists the head-unit address. Accept the certificate warning the first time; [Troubleshooting](/en/troubleshooting#certificate-warning) explains why it appears. For the Carlink app, see [Carlink app](/en/carlink).
 
 The N1 is now ready for the car: give it 12 V and the relay starts by itself. [Using it in the car](#in-car) shows how to connect.
 
@@ -226,7 +226,7 @@ The N1 is now ready for the car: give it 12 V and the relay starts by itself. [U
 ### Two adapters {#in-car-two}
 
 1. The iPhone joins the relay’s hotspot `OpenXPlay-Linux-XXXX` by itself and wireless CarPlay starts.
-2. Start the head unit’s Carlink app; the relay joins the head unit’s Carlink Wi-Fi with the USB adapter by itself, see [Carlink app](/carlink). For the head unit’s browser as well, the head unit joins the relay’s hotspot, as with one adapter.
+2. Start the head unit’s Carlink app; the relay joins the head unit’s Carlink Wi-Fi with the USB adapter by itself, see [Carlink app](/en/carlink). For the head unit’s browser as well, the head unit joins the relay’s hotspot, as with one adapter.
 3. Admin page: join the relay’s hotspot from your phone and open `https://openxplay-car.local:6975` or `https://10.77.0.1:6975`. While Carlink isn’t connected, you can also join the admin hotspot `OpenXPlay-Admin` and open `https://openxplay-admin.local:6975` or `https://10.79.0.1:6975`. The admin hotspot is off by default; turn it on under **iPhone connection → Wireless network → Interfaces and network roles**.
 
 `openxplay-car.local` works on the iPhone’s network: the relay’s hotspot, or the car’s hotspot if you chose it; `openxplay-admin.local` works on the other networks, such as the admin hotspot and your home network. iPhones, Macs and Windows computers open these `.local` addresses; many Android phones can’t, so use the IP address there. Bookmark the page or add it to the Home Screen the first time, and you won’t need to type the address again.
@@ -239,7 +239,7 @@ The N1 is now ready for the car: give it 12 V and the relay starts by itself. [U
 
 ## Updates {#updates}
 
-- **Relay:** download and check the new `.deb`, then run `sudo openxplay-relay-update openxplay-relay_<version>_arm64.deb`. If the new version doesn’t come up, it puts the previous one back; see [Update the relay](/linux-devices#update).
+- **Relay:** download and check the new `.deb`, then run `sudo openxplay-relay-update openxplay-relay_<version>_arm64.deb`. If the new version doesn’t come up, it puts the previous one back; see [Update the relay](/en/linux-devices#update).
 - **Device package:** install the newer bundle as in [Install the device package](#device), then reboot. The installer never downgrades installed packages.
 - **Armbian kernel:** after `armbian-update` installs a new kernel, the device package fixes the Ethernet PHY again by itself.
 
@@ -256,10 +256,10 @@ sudo apt-get purge openxplay-phicomm-n1
 
 The first command removes the relay and keeps the settings, pairings and identity in `/var/lib/openxplay`; delete them with `sudo rm -rf /var/lib/openxplay` once you no longer need them. The second removes the device package and puts the original boot device tree back. To go back to the original system, see [Want to keep the original system?](#backup)
 
-The device package uses the OpenXPlay-Hardware licence: open source, no commercial use; see [Licensing](/licensing#licenses).
+The device package uses the OpenXPlay-Hardware licence: open source, no commercial use; see [Licensing](/en/licensing#licenses).
 
 ## Next {#next-steps}
 
-- [Everyday use and settings](/daily-use): connecting on each drive, and the head-unit page’s settings.
-- [Trusted HTTPS](/trusted-https): remove the certificate warning with a free domain name.
-- Something not working? See [Troubleshooting](/troubleshooting), and tell the [community](/community) how your N1 did.
+- [Everyday use and settings](/en/daily-use): connecting on each drive, and the head-unit page’s settings.
+- [Trusted HTTPS](/en/trusted-https): remove the certificate warning with a free domain name.
+- Something not working? See [Troubleshooting](/en/troubleshooting), and tell the [community](/en/community) how your N1 did.

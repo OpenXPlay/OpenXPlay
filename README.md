@@ -48,7 +48,7 @@ Install it by sending this message in [Claude Code](https://claude.com/claude-co
 Install the openxplay-guide skill from https://openxplay.org/agents/skills/index.json into ~/.claude/skills/openxplay-guide/ and check every file’s SHA-256.
 ```
 
-Then start a new conversation and say “Help me set up OpenXPlay”. Other assistants that can read web pages can use it once: ask them to read <https://openxplay.org/agents/skills/openxplay-guide/SKILL.md> and follow it. Changes are in its [changelog](skills/openxplay-guide/CHANGELOG.md); more options are in [Get started](https://openxplay.org/quick-start#ai-assistant).
+Then start a new conversation and say “Help me set up OpenXPlay”. Other assistants that can read web pages can use it once: ask them to read <https://openxplay.org/agents/skills/openxplay-guide/SKILL.md> and follow it. Changes are in its [changelog](skills/openxplay-guide/CHANGELOG.md); more options are in [Get started](https://openxplay.org/en/quick-start#ai-assistant).
 
 ## OpenXPlay and DiPlay
 

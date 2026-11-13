@@ -11,11 +11,11 @@ breadcrumb: How it works
 
 OpenXPlay brings an iPhone’s CarPlay to the head unit in one of two ways. Either way, nothing is installed on the head unit and its system is never modified.
 
-- **iPhone direct**: the OpenXPlay iPhone app does the relay’s job on the iPhone itself and connects to the head unit directly. It is in public beta; [join on TestFlight](/#iphone-app).
+- **iPhone direct**: the OpenXPlay iPhone app does the relay’s job on the iPhone itself and connects to the head unit directly. It is in public beta; [join on TestFlight](/en/#iphone-app).
 - **Relay**: the iPhone connects to a relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle. The relay acts as the CarPlay receiver and passes video, audio and touch on to the head unit.
 
 <figure class="oxp-figure">
-  <img src="../assets/openxplay-relay-animated.svg" width="1800" height="1000" loading="lazy" decoding="async" alt="OpenXPlay connection routes: the iPhone connects to the head unit’s browser, Carlink, wireless display or CarLife directly, or through an Android relay or a Linux relay.">
+  <img src="../../assets/openxplay-relay-animated.svg" width="1800" height="1000" loading="lazy" decoding="async" alt="OpenXPlay connection routes: the iPhone connects to the head unit’s browser, Carlink, wireless display or CarLife directly, or through an Android relay or a Linux relay.">
   <figcaption>Some of OpenXPlay’s connection routes: iPhone direct, or through an Android or Linux relay. It covers only part of the project’s possible solutions.</figcaption>
 </figure>
 
@@ -26,10 +26,10 @@ Today OpenXPlay delivers CarPlay to these head-unit entry points. The relay reac
 | Entry point | How it works | Touch | Status |
 | --- | --- | --- | --- |
 | Browser (web receiver) | H.264 or H.265 video over a secure WebSocket, decoded with WebCodecs | Yes | In development |
-| Carlink app | [Over Wi-Fi](/carlink) | Yes | In development |
-| CarLife | [Over Wi-Fi or USB](/carlife) | Yes | Experimental (Android) |
-| Screen-casting receivers (DLNA, Miracast) | [Wireless display](/wireless-display), operated on the relay phone | No | Experimental (Android) |
-| Tesla browser | The [web receiver](/tesla) at an address the Tesla browser can open | Yes | Experimental |
+| Carlink app | [Over Wi-Fi](/en/carlink) | Yes | In development |
+| CarLife | [Over Wi-Fi or USB](/en/carlife) | Yes | Experimental (Android) |
+| Screen-casting receivers (DLNA, Miracast) | [Wireless display](/en/wireless-display), operated on the relay phone | No | Experimental (Android) |
+| Tesla browser | The [web receiver](/en/tesla) at an address the Tesla browser can open | Yes | Experimental |
 
 ## Up to 28 combinations {#combinations}
 
@@ -47,4 +47,4 @@ The memory and disk figures are a historical measurement from 2026-10-15 on a UF
 
 ## Open source {#open-source}
 
-OpenXPlay’s relays and outputs are open source under AGPL-3.0, and their components talk to each other only through one shared session model. The architecture, repositories and build steps are under [Developers](/developers); licences and commercial exemptions are under [Licensing](/licensing).
+OpenXPlay’s relays and outputs are open source under AGPL-3.0, and their components talk to each other only through one shared session model. The architecture, repositories and build steps are under [Developers](/en/developers); licences and commercial exemptions are under [Licensing](/en/licensing).

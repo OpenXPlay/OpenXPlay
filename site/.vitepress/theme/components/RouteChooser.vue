@@ -46,7 +46,7 @@ const ICONS: Record<Relay | Display, string> = {
   wireless: '<path d="M3 8V6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5H14"/><path d="M3 12a8 8 0 0 1 8 8"/><path d="M3 16a4 4 0 0 1 4 4"/><path d="M3 20h.01"/>',
 }
 
-const TEXT: Record<'root' | 'zh', Text> = {
+const TEXT: Record<'en' | 'zh', Text> = {
   zh: {
     relayQuestion: '用什么作中继？',
     displayQuestion: '车机用什么显示 CarPlay？',
@@ -172,7 +172,7 @@ const TEXT: Record<'root' | 'zh', Text> = {
       },
     },
   },
-  root: {
+  en: {
     relayQuestion: 'What will be the relay?',
     displayQuestion: 'How will the head unit show CarPlay?',
     yourRoute: 'Your setup',
@@ -300,9 +300,9 @@ const TEXT: Record<'root' | 'zh', Text> = {
 }
 
 const { localeIndex } = useData()
-const locale = computed(() => (localeIndex.value === 'zh' ? 'zh' : 'root'))
+const locale = computed(() => (localeIndex.value === 'zh' ? 'zh' : 'en'))
 const t = computed(() => TEXT[locale.value])
-const prefix = computed(() => (locale.value === 'zh' ? '/zh/' : '/'))
+const prefix = computed(() => `/${locale.value}/`)
 
 const relay = ref<Relay>('android')
 const display = ref<Display>('browser')

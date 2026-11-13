@@ -10,7 +10,7 @@ import path from 'node:path'
 import type { HeadConfig, TransformContext } from 'vitepress'
 import { extractFaq, extractHowTo } from './markdown-text'
 import {
-  FALLBACK_LOCALE, GITHUB_ORG, LOCALES, SITE_NAME, SITE_ROOT, SUPPORT_EMAIL,
+  DEFAULT_LOCALE, GITHUB_ORG, LOCALES, SITE_NAME, SITE_ROOT, SUPPORT_EMAIL,
   assetUrl, pageRoute, pageUrl, type LocaleKey,
 } from './site'
 
@@ -19,7 +19,7 @@ const SOCIAL_IMAGE = {
     file: 'og-image-zh.png',
     alt: 'OpenXPlay 中继连接路线：iPhone 经 Android 或 Linux 中继连接车机的浏览器、Carlink、无线投屏或有线投屏',
   },
-  root: {
+  en: {
     file: 'og-image-en.png',
     alt: 'OpenXPlay relay route: an iPhone connects through an Android or Linux relay to the head unit’s browser, Carlink, wireless display or wired display',
   },
@@ -27,7 +27,7 @@ const SOCIAL_IMAGE = {
 
 const SOFTWARE_DESCRIPTION: Record<LocaleKey, string> = {
   zh: '开源中继软件：让无法安装应用的安卓车机通过车机自带的浏览器或 Carlink 应用显示 iPhone CarPlay。可作为 Android 应用运行，也可运行在小型 Linux 设备上。',
-  root: 'Open-source relay software that shows iPhone CarPlay on Android head units that cannot install apps, through the head unit’s browser or Carlink app. Runs as an Android app or on small Linux devices.',
+  en: 'Open-source relay software that shows iPhone CarPlay on Android head units that cannot install apps, through the head unit’s browser or Carlink app. Runs as an Android app or on small Linux devices.',
 }
 
 const organizationId = `${SITE_ROOT}#organization`
@@ -58,8 +58,8 @@ export function seoHead(context: TransformContext): HeadConfig[] {
   for (const key of locales) {
     head.push(['link', { rel: 'alternate', hreflang: LOCALES[key].lang, href: pageUrl(key, slug) }])
   }
-  if (locales.includes(FALLBACK_LOCALE)) {
-    head.push(['link', { rel: 'alternate', hreflang: 'x-default', href: pageUrl(FALLBACK_LOCALE, slug) }])
+  if (locales.includes(DEFAULT_LOCALE)) {
+    head.push(['link', { rel: 'alternate', hreflang: 'x-default', href: pageUrl(DEFAULT_LOCALE, slug) }])
   }
 
   head.push(
