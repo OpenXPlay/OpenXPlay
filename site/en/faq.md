@@ -55,9 +55,11 @@ The relay starts again when power comes back:
 
 ## Privacy and security {#privacy}
 
+These answers are about the relay. For the iPhone direct connection, see the [privacy policy on openxplay.com](https://openxplay.com/privacy).
+
 ### Does OpenXPlay send my data anywhere? {#data}
 
-OpenXPlay works over local connections. The relay serves the receiver page and its admin page itself; video, audio and touch travel between the iPhone, the relay and the head unit over Bluetooth, Wi-Fi or USB, and the Linux relay starts without waiting for Internet access. Plugins are off by default and run offline in the head-unit browser. Vehicle information from Carlink is collected only when you turn it on and stays on the relay device. For the iPhone app, see the [privacy policy](/en/privacy). This website has no analytics, and its check page runs only in your browser.
+OpenXPlay works over local connections. The relay serves the receiver page and its admin page itself; video, audio and touch travel between the iPhone, the relay and the head unit over Bluetooth, Wi-Fi or USB, and the Linux relay starts without waiting for Internet access. Plugins are off by default and run offline in the head-unit browser. Vehicle information from Carlink is collected only when you turn it on and stays on the relay device. See the [privacy policy](/en/privacy). This website has no analytics, and its check page runs only in your browser.
 
 ### Is the relay’s admin page protected? {#admin-password}
 
