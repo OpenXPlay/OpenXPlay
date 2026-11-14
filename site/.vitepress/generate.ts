@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MIT
 // Created by riko chen on 2026-10-17
 
-// Files written into the build output after the pages: robots.txt, llms.txt, llms-full.txt, the
-// root URL redirects to the default language, the agent skills mirror (agents/skills/) and CNAME. They use the page
-// sources, the repository's skills/ and the site URL, so they stay in sync.
+// Files written into the build output after the pages: robots.txt, llms.txt, llms-full.txt, root
+// redirects to the default language, moved page redirects, the agent skills mirror (agents/skills/)
+// and CNAME. They use the page sources, the repository's skills/ and the site URL, so they stay in sync.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -25,6 +25,10 @@ interface PageSummary {
 }
 
 const pages = new Map<string, PageSummary>()
+
+const MOVED_PAGES = {
+  join: 'https://openxplay.com/join',
+}
 
 /** Called from transformPageData: keeps what the generated files need from each page. */
 export function rememberPage(pageData: PageData): void {
@@ -55,12 +59,10 @@ const REPOSITORIES: [string, string][] = [
 const COMPONENT_TEXT: Record<LocaleKey, Record<string, string>> = {
   zh: {
     HeadUnitCheck: '［交互式检测：在车机浏览器中打开本页即可运行，检查浏览器是否提供网页接收端用到的功能，全部在浏览器本地完成；不能代替在车上实际测试。］',
-    JoinGroups: '［加入群聊：显示所选车辆品牌的车主群微信二维码；没有选择品牌，或这个品牌还没有车主群时，显示 OpenXPlay 交流群的二维码。品牌的链接形如 /zh/join#<品牌>。］',
     RouteChooser: '［方案选择：安卓手机 + 车机浏览器（推荐），见[安卓手机作中继](/zh/android-relay)；UFI003 随身 Wi-Fi + 车机浏览器，见[UFI003 作中继](/zh/ufi003-relay)；斐讯 N1 电视盒子（进阶），见[斐讯 N1 作中继](/zh/phicomm-n1)；安卓手机或接上第二块 USB Wi-Fi 网卡的斐讯 N1 + Carlink 应用，见[Carlink 应用](/zh/carlink)；安卓手机 + CarLife（实验性），见[CarLife](/zh/carlife)；安卓手机 + 无线投屏（DLNA、Miracast，实验性），见[无线投屏](/zh/wireless-display)；UFI003 只有一块 Wi-Fi 网卡，只能用车机浏览器。］',
   },
   en: {
     HeadUnitCheck: '[Interactive check: open this page in the head unit’s browser to run it. It checks whether the browser has the features the web receiver uses, entirely in the browser; it doesn’t replace a test in the car.]',
-    JoinGroups: '[Group finder: shows the WeChat QR code of the owner group for the chosen car brand, or the OpenXPlay community group’s when no brand is chosen or the brand has no group yet. A brand’s link looks like /en/join#<brand>.]',
     RouteChooser: '[Setup chooser: Android phone + head-unit browser (recommended), see [Android phone as the relay](/en/android-relay); UFI003 USB dongle + head-unit browser, see [UFI003 as the relay](/en/ufi003-relay); Phicomm N1 TV box (advanced), see [Phicomm N1 as the relay](/en/phicomm-n1); Android phone, or Phicomm N1 with a second USB Wi-Fi adapter, + Carlink app, see [Carlink app](/en/carlink); Android phone + CarLife (experimental), see [CarLife](/en/carlife); Android phone + wireless display (DLNA, Miracast, experimental), see [Wireless display](/en/wireless-display); the UFI003 has a single Wi-Fi adapter, so it offers the head-unit browser only.]',
   },
 }
@@ -172,14 +174,17 @@ function llmsFullTxt(list: PageSummary[], srcDir: string): string {
   return parts.join('\n') + '\n'
 }
 
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  })[char]!)
+}
+
 /**
  * GitHub Pages cannot send HTTP redirects: each root URL (/ and /<page>) gets a page that sends the
  * visitor to the default language's page, keeping the query and hash.
  */
 function writeRootRedirects(out: string): void {
-  const escapeHtml = (value: string) => value.replace(/[&<>"']/g, char => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  })[char]!)
   for (const slug of PAGE_SLUGS) {
     const target = BASE + LOCALES[DEFAULT_LOCALE].prefix + slug
     const title = pages.get(`${LOCALES[DEFAULT_LOCALE].prefix}${slug || 'index'}.md`)?.title || SITE_NAME
@@ -199,6 +204,30 @@ function writeRootRedirects(out: string): void {
   }
 }
 
+/** Moved pages redirect from root and locale URLs, keeping only the hash for links to brands. */
+function writeMovedPageRedirects(out: string): void {
+  const locales = [{ lang: LOCALES[DEFAULT_LOCALE].lang, prefix: '' }, ...Object.values(LOCALES)]
+  for (const [slug, target] of Object.entries(MOVED_PAGES)) {
+    const scriptTarget = JSON.stringify(target).replace(/</g, '\\u003c')
+    for (const { lang, prefix } of locales) {
+      const file = path.join(out, `${prefix}${slug}.html`)
+      fs.mkdirSync(path.dirname(file), { recursive: true })
+      fs.writeFileSync(file, `<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+<script>location.replace(${scriptTarget} + location.hash)</script>
+<meta charset="utf-8">
+<title>${escapeHtml(SITE_NAME)}</title>
+<link rel="canonical" href="${escapeHtml(target)}">
+<meta http-equiv="refresh" content="0; url=${escapeHtml(target)}">
+</head>
+<body><p><a href="${escapeHtml(target)}">${escapeHtml(target)}</a></p></body>
+</html>
+`)
+    }
+  }
+}
+
 /** Called from buildEnd. */
 export function writeGeneratedFiles(siteConfig: SiteConfig): void {
   const out = siteConfig.outDir
@@ -209,6 +238,7 @@ export function writeGeneratedFiles(siteConfig: SiteConfig): void {
   fs.writeFileSync(path.join(out, 'llms.txt'), llmsTxt(list, skills))
   fs.writeFileSync(path.join(out, 'llms-full.txt'), llmsFullTxt(list, siteConfig.srcDir))
   writeRootRedirects(out)
+  writeMovedPageRedirects(out)
 
   // GitHub Pages: a custom domain needs CNAME; a *.github.io address must not have one.
   const cname = path.join(out, 'CNAME')

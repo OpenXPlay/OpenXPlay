@@ -63,7 +63,7 @@ export const DEFAULT_LOCALE: LocaleKey = 'zh'
 /** The pages every locale has, in reading order. '' is the home page. */
 export const PAGE_SLUGS = [
   '', 'how-it-works', 'quick-start', 'check', 'android-relay', 'ufi003-relay', 'ufi003-flash', 'phicomm-n1', 'linux-devices',
-  'carlink', 'carlife', 'wireless-display', 'tesla', 'daily-use', 'trusted-https', 'troubleshooting', 'faq', 'head-units', 'changelog', 'join', 'community', 'developers',
+  'carlink', 'carlife', 'wireless-display', 'tesla', 'daily-use', 'trusted-https', 'troubleshooting', 'faq', 'head-units', 'changelog', 'community', 'developers',
   'licensing', 'privacy',
 ] as const
 
