@@ -27,6 +27,10 @@ brands:
     name: {zh: 埃安, en: AION}
     qr: brands/aion.webp
     updated: 2026-11-13
+  - id: honda
+    name: {zh: 本田, en: Honda}
+    qr: brands/honda.webp
+    updated: 2026-11-14
   - id: great-wall
     name: {zh: 长城, en: Great Wall}
     qr: brands/great-wall.webp
