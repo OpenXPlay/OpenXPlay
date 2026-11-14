@@ -7,11 +7,12 @@ Created by riko chen on 2026-11-13
 // One group's QR code and the brands to choose from. The link picks the brand (/zh/join#byd), so a
 // brand's link opens its owner group directly; with no brand, an unknown one, or a brand without a
 // group, the card shows the community group. Without JavaScript the page shows the community group.
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useData } from 'vitepress'
 // @ts-ignore: provided by groupsPlugin in .vitepress/groups.ts
 import data from 'virtual:oxp-groups'
 import type { Brand, Groups } from '../../groups'
+import placeholder from './qr-placeholder.webp'
 
 interface Text {
   community: string
@@ -24,6 +25,8 @@ interface Text {
   other: string
   copy: string
   copied: string
+  loading: string
+  reload: string
 }
 
 const TEXT: Record<'zh' | 'en', Text> = {
@@ -38,6 +41,8 @@ const TEXT: Record<'zh' | 'en', Text> = {
     other: '其他品牌',
     copy: '复制本群链接',
     copied: '已复制',
+    loading: '加载中',
+    reload: '重新加载',
   },
   en: {
     community: 'Community group',
@@ -50,6 +55,8 @@ const TEXT: Record<'zh' | 'en', Text> = {
     other: 'Other brands',
     copy: 'Copy the link to this group',
     copied: 'Copied',
+    loading: 'Loading',
+    reload: 'Reload',
   },
 }
 
@@ -65,8 +72,125 @@ const title = computed(() =>
   brand.value?.group ? t.value.ownerGroup(brand.value.name[lang.value]) : t.value.community)
 
 const card = ref<HTMLElement>()
+const qr = ref<HTMLImageElement>()
+const shown = ref(groups.fallback.qr)
+// Keep the SSR image visible without JavaScript; hide pending images after hydration.
+const mounted = ref(false)
+const visible = ref(false)
+const loading = ref(false)
+const failed = ref(false)
+const spinning = ref(false)
+const instant = ref(false)
+const loads = new Map<string, Promise<void>>()
+const loaded = new Set<string>()
+const prefetchUrls = [...new Set([
+  ...groups.brands.map(item => item.group?.qr ?? groups.fallback.qr),
+  groups.fallback.qr,
+])]
+let request = 0
+let spinnerTimer: ReturnType<typeof setTimeout> | undefined
+let idleCallback: number | undefined
+let idleTimer: ReturnType<typeof setTimeout> | undefined
+let prefetchIndex = 0
+let prefetching = false
 const copied = ref(false)
 let copiedTimer: ReturnType<typeof setTimeout> | undefined
+
+function loadImage(url: string): Promise<void> {
+  const cached = loads.get(url)
+  if (cached) return cached
+  const promise = (async () => {
+    const image = new Image()
+    image.src = url
+    await image.decode()
+    loaded.add(url)
+  })().catch(error => {
+    loads.delete(url)
+    loaded.delete(url)
+    throw error
+  })
+  loads.set(url, promise)
+  return promise
+}
+
+function warm(url: string): void {
+  if (mounted.value) void loadImage(url).catch(() => {})
+}
+
+function savesData(): boolean {
+  return (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true
+}
+
+function prefetch(): void {
+  if (!mounted.value || loading.value || savesData() || prefetching
+    || idleCallback !== undefined || idleTimer !== undefined) return
+  while (prefetchIndex < prefetchUrls.length
+    && (prefetchUrls[prefetchIndex] === group.value.qr || loaded.has(prefetchUrls[prefetchIndex]))) prefetchIndex++
+  if (prefetchIndex === prefetchUrls.length) return
+  const next = async () => {
+    idleCallback = undefined
+    idleTimer = undefined
+    if (!mounted.value || loading.value || savesData()) return
+    prefetching = true
+    try {
+      await loadImage(prefetchUrls[prefetchIndex++])
+    } catch {}
+    prefetching = false
+    prefetch()
+  }
+  // Give each background image its own idle slot instead of competing with the page.
+  if (typeof window.requestIdleCallback === 'function') {
+    idleCallback = window.requestIdleCallback(() => { void next() })
+  } else {
+    idleTimer = setTimeout(() => { void next() }, 1000)
+  }
+}
+
+function revealImage(): void {
+  const image = qr.value
+  if (!loading.value && image?.complete && image.naturalWidth
+    && image.getAttribute('src') === shown.value) visible.value = true
+}
+
+function showImage(url: string, immediate = false): void {
+  instant.value = immediate && visible.value
+  shown.value = url
+  loading.value = false
+  const image = qr.value
+  // A broken initial <img> needs its source reset after a successful retry.
+  if (image?.getAttribute('src') === url && image.complete && !image.naturalWidth) image.src = url
+  revealImage()
+  prefetch()
+}
+
+async function loadTarget(): Promise<void> {
+  const url = group.value.qr
+  const current = ++request
+  clearTimeout(spinnerTimer)
+  spinning.value = false
+  failed.value = false
+  if (loaded.has(url)) {
+    showImage(url, true)
+    return
+  }
+  instant.value = false
+  loading.value = true
+  spinnerTimer = setTimeout(() => (spinning.value = true), 150)
+  try {
+    await loadImage(url)
+    // A newer choice or an unmount makes this result irrelevant.
+    if (!mounted.value || current !== request || url !== group.value.qr) return
+    showImage(url)
+  } catch {
+    if (!mounted.value || current !== request || url !== group.value.qr) return
+    failed.value = true
+  } finally {
+    if (current === request) {
+      clearTimeout(spinnerTimer)
+      spinning.value = false
+    }
+  }
+}
 
 function fromHash(): void {
   let id = ''
@@ -113,12 +237,28 @@ async function copyLink(): Promise<void> {
   copiedTimer = setTimeout(() => (copied.value = false), 1600)
 }
 
+watch(() => group.value.qr, () => {
+  if (mounted.value) void loadTarget()
+}, { flush: 'sync' })
+
 onMounted(() => {
   fromHash()
+  mounted.value = true
+  if (qr.value?.complete && qr.value.naturalWidth) {
+    visible.value = true
+    loaded.add(shown.value)
+    loads.set(shown.value, Promise.resolve())
+  }
+  void loadTarget()
   window.addEventListener('hashchange', fromHash)
 })
 onBeforeUnmount(() => {
+  mounted.value = false
+  request++
   window.removeEventListener('hashchange', fromHash)
+  clearTimeout(spinnerTimer)
+  if (idleCallback !== undefined) window.cancelIdleCallback(idleCallback)
+  clearTimeout(idleTimer)
   clearTimeout(copiedTimer)
 })
 </script>
@@ -144,7 +284,32 @@ onBeforeUnmount(() => {
         </button>
       </div>
       <p v-if="brand && !brand.group" class="oxp-join__note">{{ t.noGroup(brand.name[lang]) }}</p>
-      <img :key="group.qr" class="oxp-join__qr" :src="group.qr" :alt="t.qrAlt(title)" decoding="async">
+      <div class="oxp-join__frame">
+        <img class="oxp-join__placeholder" :src="placeholder" alt="" aria-hidden="true">
+        <img
+          ref="qr"
+          class="oxp-join__qr"
+          :class="{ 'is-loading': loading, 'is-hidden': mounted && !visible, 'is-instant': instant }"
+          :src="shown"
+          :alt="t.qrAlt(title)"
+          decoding="async"
+          @load="revealImage"
+        >
+        <span v-if="spinning" class="oxp-join__spinner" role="status" :aria-label="t.loading" />
+        <button
+          v-if="failed"
+          class="oxp-join__retry"
+          type="button"
+          :aria-label="t.reload"
+          :title="t.reload"
+          @click="loadTarget"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
       <p class="oxp-join__caption">
         <span>{{ t.scan }}</span>
         <span v-if="group.updated">{{ t.updated(group.updated) }}</span>
@@ -159,10 +324,21 @@ onBeforeUnmount(() => {
             :href="`#${item.id}`"
             :aria-current="chosen === item.id ? 'true' : undefined"
             @click.prevent="choose(item.id)"
+            @pointerenter="warm(item.group?.qr ?? groups.fallback.qr)"
+            @pointerdown="warm(item.group?.qr ?? groups.fallback.qr)"
+            @focus="warm(item.group?.qr ?? groups.fallback.qr)"
           >{{ item.name[lang] }}</a>
         </li>
         <li>
-          <a href="#" class="is-other" :aria-current="chosen === '' ? 'true' : undefined" @click.prevent="choose('')">{{ t.other }}</a>
+          <a
+            href="#"
+            class="is-other"
+            :aria-current="chosen === '' ? 'true' : undefined"
+            @click.prevent="choose('')"
+            @pointerenter="warm(groups.fallback.qr)"
+            @pointerdown="warm(groups.fallback.qr)"
+            @focus="warm(groups.fallback.qr)"
+          >{{ t.other }}</a>
         </li>
       </ul>
     </nav>
@@ -230,7 +406,8 @@ onBeforeUnmount(() => {
   color: var(--vp-c-brand-1);
 }
 
-.oxp-join__copy svg {
+.oxp-join__copy svg,
+.oxp-join__retry svg {
   width: 20px;
   height: 20px;
   fill: none;
@@ -249,12 +426,85 @@ onBeforeUnmount(() => {
   line-height: 22px;
 }
 
+.oxp-join__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 720 / 1094;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgb(250, 250, 250);
+}
+
+.oxp-join__placeholder,
 .oxp-join__qr {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto;
-  border-radius: 10px;
-  background: #fff;
+  height: 100%;
+  object-fit: contain;
+}
+
+.oxp-join__placeholder {
+  filter: blur(10px);
+  transform: scale(1.1);
+}
+
+.oxp-join__qr {
+  background: rgb(250, 250, 250);
+  transition: filter 0.25s, transform 0.25s, opacity 0.25s;
+}
+
+.oxp-join__qr.is-loading {
+  filter: blur(16px);
+  transform: scale(1.04);
+  opacity: 0.6;
+  /* Blur immediately so an old QR never stays sharp under a new title. */
+  transition: none;
+}
+
+.oxp-join__qr.is-hidden {
+  opacity: 0;
+}
+
+.oxp-join__qr.is-instant {
+  transition: none;
+}
+
+.oxp-join__spinner {
+  position: absolute;
+  inset: 0;
+  width: 28px;
+  height: 28px;
+  margin: auto;
+  border: 3px solid rgb(0 0 0 / 12%);
+  border-top-color: var(--vp-c-brand-1);
+  border-radius: 50%;
+  animation: oxp-join-spin 0.8s linear infinite;
+}
+
+.oxp-join__retry {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  border-radius: 50%;
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-bg);
+  box-shadow: 0 1px 6px rgb(0 0 0 / 12%);
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.oxp-join__retry:hover {
+  color: var(--vp-c-text-1);
+  background: var(--vp-c-default-soft);
+}
+
+@keyframes oxp-join-spin {
+  to { transform: rotate(360deg); }
 }
 
 .vp-doc .oxp-join__caption {
@@ -316,5 +566,18 @@ onBeforeUnmount(() => {
   border-style: solid;
   background: var(--vp-c-brand-soft);
   color: var(--vp-c-brand-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oxp-join__qr,
+  .oxp-join__copy,
+  .oxp-join__retry,
+  .vp-doc .oxp-join__brands a {
+    transition: none;
+  }
+
+  .oxp-join__spinner {
+    animation: none;
+  }
 }
 </style>
