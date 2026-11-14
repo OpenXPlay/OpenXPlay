@@ -85,4 +85,4 @@ OpenXPlay 通过本地连接工作：视频、音频和触控经蓝牙、Wi-Fi �
 
 ## 加入交流群 {#join}
 
-分享车机适配情况、反馈问题，或参与测试与开发：QQ 三群 **912159209**，另有微信群和 [Discord](https://discord.gg/j3cKd5Tax)。入群二维码见[交流群](/zh/community)。
+分享车机适配情况、反馈问题，或参与测试与开发：QQ 四群 **1135991362**，另有微信群和 [Discord](https://discord.gg/j3cKd5Tax)。入群二维码见[交流群](/zh/community)。
