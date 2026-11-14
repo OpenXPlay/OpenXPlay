@@ -15,14 +15,14 @@ Share how OpenXPlay works with your head unit, swap experiences, report problems
 
 | Channel | How to join |
 | --- | --- |
-| QQ group 3 | 912159209, or scan the QR code below |
+| QQ group 4 | 1135991362, or scan the QR code below |
 | WeChat group | Scan the QR code below |
 | Discord | [discord.gg/j3cKd5Tax](https://discord.gg/j3cKd5Tax) |
 
 <div class="oxp-community-qr">
   <figure class="oxp-figure">
-    <figcaption>QQ group 3 · 912159209</figcaption>
-    <img src="../../Group/QQ_Group_3.webp" width="720" height="1284" loading="lazy" decoding="async" alt="QR code for joining OpenXPlay QQ group 3, 912159209">
+    <figcaption>QQ group 4 · 1135991362</figcaption>
+    <img src="../../Group/QQ_Group_4.webp" width="720" height="1284" loading="lazy" decoding="async" alt="QR code for joining OpenXPlay QQ group 4, 1135991362">
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>WeChat group</figcaption>
