@@ -23,6 +23,10 @@ fallback:
   updated: 2026-11-13
 
 brands:
+  - id: aion
+    name: {zh: 埃安, en: AION}
+    qr: brands/aion.webp
+    updated: 2026-11-13
   - id: great-wall
     name: {zh: 长城, en: Great Wall}
     qr: brands/great-wall.webp
@@ -31,13 +35,13 @@ brands:
     name: {zh: 飞凡, en: Feifan}
     qr: brands/feifan.webp
     updated: 2026-11-13
-  - id: geely
-    name: {zh: 吉利, en: Geely}
-    qr: brands/geely.webp
-    updated: 2026-11-13
   - id: zeekr
     name: {zh: 极氪, en: Zeekr}
     qr: brands/zeekr.webp
+    updated: 2026-11-13
+  - id: geely
+    name: {zh: 吉利, en: Geely}
+    qr: brands/geely.webp
     updated: 2026-11-13
   - id: jiyue
     name: {zh: 极越, en: Jiyue}
@@ -47,13 +51,33 @@ brands:
     name: {zh: 理想, en: Li Auto}
     qr: brands/li-auto.webp
     updated: 2026-11-13
+  - id: lynk-co
+    name: {zh: 领克, en: 'Lynk & Co'}
+    qr: brands/lynk-co.webp
+    updated: 2026-11-13
   - id: leapmotor
     name: {zh: 零跑, en: Leapmotor}
     qr: brands/leapmotor.webp
     updated: 2026-11-13
+  - id: mazda
+    name: {zh: 马自达, en: Mazda}
+    qr: brands/mazda.webp
+    updated: 2026-11-13
   - id: mg
     name: {zh: 名爵, en: MG}
     qr: brands/mg.webp
+    updated: 2026-11-13
+  - id: qiyuan
+    name: {zh: 启源, en: Qiyuan}
+    qr: brands/qiyuan.webp
+    updated: 2026-11-13
+  - id: nissan
+    name: {zh: 日产, en: Nissan}
+    qr: brands/nissan.webp
+    updated: 2026-11-13
+  - id: roewe
+    name: {zh: 荣威, en: Roewe}
+    qr: brands/roewe.webp
     updated: 2026-11-13
   - id: deepal
     name: {zh: 深蓝, en: Deepal}
@@ -70,4 +94,8 @@ brands:
   - id: xpeng
     name: {zh: 小鹏, en: XPeng}
     qr: brands/xpeng.webp
+    updated: 2026-11-13
+  - id: im
+    name: {zh: 智己, en: IM Motors}
+    qr: brands/im.webp
     updated: 2026-11-13
