@@ -185,8 +185,8 @@ export function extractHowTo(source: string): HowToSection[] {
 
 /**
  * The page's Markdown for llms-full.txt: frontmatter, Vue blocks, comments and heading anchors
- * removed, Vue interpolations of frontmatter values filled in, HTML images reduced to their alt
- * text and site-relative links made absolute.
+ * removed, Vue interpolations of frontmatter values filled in, HTML images and videos reduced to
+ * their accessible descriptions and site-relative links made absolute.
  */
 export function llmsMarkdown(
   source: string,
@@ -205,6 +205,10 @@ export function llmsMarkdown(
     .replace(/<Badge\b[^>]*?\btext="([^"]*)"[^>]*\/>/g, '($1)')
     .replace(/^[ \t]*<\/?div\b[^>]*>[ \t]*$/gm, '')
     .replace(/<code>([^<]*)<\/code>/g, '`$1`')
+    .replace(/<video\b([^>]*)>[\s\S]*?<\/video>/g, (_, attrs: string) => {
+      const label = /\baria-label="([^"]*)"/.exec(attrs)?.[1]
+      return label ? `[Video: ${label}]` : ''
+    })
     .replace(/<img\b[^>]*?\balt="([^"]*)"[^>]*>/g, (_, alt: string) => `[Image: ${alt}]`)
     .replace(/<figure\b[^>]*>([\s\S]*?)<\/figure>/g, (_, inner: string) => inner
       .replace(/<figcaption>([\s\S]*?)<\/figcaption>/g, '$1')

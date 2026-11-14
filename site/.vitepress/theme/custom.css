@@ -503,6 +503,17 @@ Created by riko chen on 2026-10-17
 
 /* ---------------------------------------------------------------- Shared */
 
+.tutorial-video {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(70vh, 640px);
+  margin: 24px 0;
+  border-radius: 12px;
+  background: #000;
+}
+
 /* Figures keep their aspect ratio from the width/height attributes, so nothing shifts on load. */
 .vp-doc .oxp-figure {
   margin: 24px 0;
