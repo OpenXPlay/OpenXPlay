@@ -26,7 +26,7 @@ breadcrumb: 交流群
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>微信群</figcaption>
-    <img src="../../Group/Wechat_Group.webp" width="720" height="1093" loading="lazy" decoding="async" alt="OpenXPlay 微信交流群的入群二维码">
+    <img src="../../Group/Wechat_Group.webp" width="720" height="1094" loading="lazy" decoding="async" alt="OpenXPlay 微信交流群的入群二维码">
   </figure>
 </div>
 
