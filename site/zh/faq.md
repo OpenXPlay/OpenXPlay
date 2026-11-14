@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC-BY-4.0
 # Created by riko chen on 2026-10-17
 title: 常见问题
-description: 关于 OpenXPlay 的常见问题：它是什么、需不需要中继、车机上要不要装软件、哪些车机能用、和 DiPlay 的区别、是否免费、延迟、断电和隐私。
+description: 关于 OpenXPlay 的常见问题：它是什么、需不需要中继、车机上要不要装软件、哪些车机能用、和 DiPlay 的区别、是否免费、延迟、断电、使用手机流量和隐私。
 breadcrumb: 常见问题
 schema: faq
 ---
@@ -52,6 +52,23 @@ DiPlay 面向能够安装应用的车机：在兼容的安卓车机上安装后�
 
 - Linux 中继作为系统服务运行，开机自动启动，出错时自动重启。它启动时不等待网络连接或时间同步；即使设备时钟不准，证书也依然有效。如果生成证书时时钟不准，中继会在时钟同步后替换这些证书，浏览器可能需要你重新接受新证书。
 - 安卓应用可以在手机开机时自动启动。部分手机会阻止自启动；如果 OpenXPlay Relay 没有打开，请手动打开。
+
+### 能不能用手机的流量？车机流量不够用 {#use-iphone-cellular-data}
+
+CarPlay 本身不消耗互联网流量：画面、声音和触控只在 iPhone 与中继或车机之间通过本地 Wi-Fi 传输。上网走哪边由 iOS 决定：所连 Wi-Fi 有可用互联网时走 Wi-Fi，没有时走蜂窝。
+
+如果车机热点用的是车载 SIM 的流量，而你想让这台 iPhone 改用手机流量：打开“设置 → 无线局域网”，点车机网络右侧的 ⓘ，进入“配置 IP → 手动”，保留当前的 IP 地址和子网掩码，把“路由器”一栏留空。CarPlay 仍通过这条 Wi-Fi 工作，互联网流量则走蜂窝；车机自己的上网不受影响。
+
+这个设置只对当前 Wi-Fi 生效；车机更换网段或 DHCP 地址变化后要重新核对。若车机热点还提供 IPv6，互联网流量可能仍走 Wi-Fi。
+
+<div>
+  <video class="tutorial-video" controls muted playsinline loop preload="none"
+         poster="/videos/iphone-cellular-data.webp" width="720" height="1566"
+         aria-label="在 iPhone 的无线局域网设置中手动配置 IP，保留 IP 地址和子网掩码，并将“路由器”留空以使用手机流量">
+    <source src="/videos/iphone-cellular-data.av1.mp4" type='video/mp4; codecs="av01.0.08M.08"'>
+    <source src="/videos/iphone-cellular-data.h264.mp4" type='video/mp4; codecs="avc1.640028"'>
+  </video>
+</div>
 
 ## 隐私与安全 {#privacy}
 

@@ -54,7 +54,18 @@ UFI003 只有一块 Wi-Fi 网卡，只提供车机浏览器方式，不能用于
 4. 使用“使用车机热点”时，iPhone、中继和车机必须在同一个网络中，并且路由器允许设备之间互相访问。
 5. 在应用或管理页面中查看中继状态：等待 iPhone、正在连接或已连接。
 6. 更改网络模式后，iPhone 会自动切换到新网络，CarPlay 大约 30 秒后重新连接。
-7. 如果仍然不行，在管理页面中点“重新连接”。
+7. 在 iPhone 的“设置 → 通用 → CarPlay 车载”中删除已保存的车辆，然后重新连接。
+
+   <div>
+     <video class="tutorial-video" controls muted playsinline loop preload="none"
+            poster="/videos/carplay-forget-car.webp" width="720" height="1566"
+            aria-label="在 iPhone 的“设置 → 通用 → CarPlay 车载”中删除已保存的车辆">
+       <source src="/videos/carplay-forget-car.av1.mp4" type='video/mp4; codecs="av01.0.08M.08"'>
+       <source src="/videos/carplay-forget-car.h264.mp4" type='video/mp4; codecs="avc1.640028"'>
+     </video>
+   </div>
+
+8. 如果仍然不行，在管理页面中点“重新连接”。
 
 ### 用数据线连接时，中继找不到 iPhone {#usb-iphone-not-found}
 
