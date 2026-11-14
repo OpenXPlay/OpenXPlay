@@ -1,0 +1,73 @@
+# SPDX-FileCopyrightText: 2026 OpenXPlay.org
+# SPDX-License-Identifier: CC-BY-4.0
+# Created by riko chen on 2026-11-13
+
+# The groups on the Join a group pages (/zh/join, /en/join); read by .vitepress/groups.ts.
+#
+# fallback  the community group, shown when no brand is chosen and for a brand without a group.
+# brands    one entry per car brand, in the order the page lists them:
+#   id       the brand's link, lowercase letters, digits and hyphens: openxplay.org/zh/join#<id>
+#   name     a plain string for both languages, or {zh: …, en: …}
+#   qr       the group's QR image, a path under the repository's Group/; leave it out while the
+#            brand has no group, and the page shows the fallback group for that brand
+#   updated  optional, the day the QR image was last replaced (2026-11-13)
+#
+# Example:
+#   - id: byd
+#     name: {zh: 比亚迪, en: BYD}
+#     qr: brands/byd.webp
+#     updated: 2026-11-13
+
+fallback:
+  qr: Wechat_Group.webp
+  updated: 2026-11-13
+
+brands:
+  - id: great-wall
+    name: {zh: 长城, en: Great Wall}
+    qr: brands/great-wall.webp
+    updated: 2026-11-13
+  - id: feifan
+    name: {zh: 飞凡, en: Feifan}
+    qr: brands/feifan.webp
+    updated: 2026-11-13
+  - id: geely
+    name: {zh: 吉利, en: Geely}
+    qr: brands/geely.webp
+    updated: 2026-11-13
+  - id: zeekr
+    name: {zh: 极氪, en: Zeekr}
+    qr: brands/zeekr.webp
+    updated: 2026-11-13
+  - id: jiyue
+    name: {zh: 极越, en: Jiyue}
+    qr: brands/jiyue.webp
+    updated: 2026-11-13
+  - id: li-auto
+    name: {zh: 理想, en: Li Auto}
+    qr: brands/li-auto.webp
+    updated: 2026-11-13
+  - id: leapmotor
+    name: {zh: 零跑, en: Leapmotor}
+    qr: brands/leapmotor.webp
+    updated: 2026-11-13
+  - id: mg
+    name: {zh: 名爵, en: MG}
+    qr: brands/mg.webp
+    updated: 2026-11-13
+  - id: deepal
+    name: {zh: 深蓝, en: Deepal}
+    qr: brands/deepal.webp
+    updated: 2026-11-13
+  - id: tesla
+    name: {zh: 特斯拉, en: Tesla}
+    qr: brands/tesla.webp
+    updated: 2026-11-13
+  - id: nio
+    name: {zh: 蔚来, en: NIO}
+    qr: brands/nio.webp
+    updated: 2026-11-13
+  - id: xpeng
+    name: {zh: 小鹏, en: XPeng}
+    qr: brands/xpeng.webp
+    updated: 2026-11-13

@@ -5,6 +5,7 @@
 import { fileURLToPath } from 'node:url'
 import { defineConfig, type DefaultTheme } from 'vitepress'
 import { carNames, carsPlugin } from './cars'
+import { groupsPlugin } from './groups'
 import { rememberPage, writeGeneratedFiles } from './generate'
 import { seoHead } from './seo'
 import {
@@ -22,13 +23,15 @@ const tag = (kind: 'warning' | 'info', text: string) => `<span class="VPBadge ${
 const GUIDE_PAGES = 'quick-start|check|android-relay|ufi003-relay|ufi003-flash|phicomm-n1|linux-devices|carlink|carlife|wireless-display|tesla|daily-use|trusted-https'
 // Pages that belong to "FAQ" in the nav.
 const HELP_PAGES = 'faq|troubleshooting|head-units'
+// Pages that belong to "Join a group" in the nav.
+const GROUP_PAGES = 'join|community'
 
 const english: DefaultTheme.Config = {
   nav: [
     { text: 'Get started', link: '/en/quick-start', activeMatch: `^/en/(${GUIDE_PAGES})$` },
     { text: 'How it works', link: '/en/how-it-works' },
     { text: 'FAQ', link: '/en/faq', activeMatch: `^/en/(${HELP_PAGES})$` },
-    { text: 'Community', link: '/en/community' },
+    { text: 'Join a group', link: '/en/join', activeMatch: `^/en/(${GROUP_PAGES})$` },
   ],
   sidebar: [
     {
@@ -75,6 +78,7 @@ const english: DefaultTheme.Config = {
       text: 'Project',
       items: [
         { text: 'Changelog', link: '/en/changelog' },
+        { text: 'Join a group', link: '/en/join' },
         { text: 'Community', link: '/en/community' },
         { text: 'Developers', link: '/en/developers' },
         { text: 'Licensing', link: '/en/licensing' },
@@ -110,7 +114,7 @@ const chinese: DefaultTheme.Config = {
     { text: '开始使用', link: '/zh/quick-start', activeMatch: `^/zh/(${GUIDE_PAGES})$` },
     { text: '工作原理', link: '/zh/how-it-works' },
     { text: '常见问题', link: '/zh/faq', activeMatch: `^/zh/(${HELP_PAGES})$` },
-    { text: '交流群', link: '/zh/community' },
+    { text: '加入群聊', link: '/zh/join', activeMatch: `^/zh/(${GROUP_PAGES})$` },
   ],
   sidebar: [
     {
@@ -157,6 +161,7 @@ const chinese: DefaultTheme.Config = {
       text: '项目',
       items: [
         { text: '更新日志', link: '/zh/changelog' },
+        { text: '加入群聊', link: '/zh/join' },
         { text: '交流群', link: '/zh/community' },
         { text: '开发者', link: '/zh/developers' },
         { text: '许可证', link: '/zh/licensing' },
@@ -278,10 +283,11 @@ export default defineConfig({
   buildEnd: writeGeneratedFiles,
 
   vite: {
-    // The Head units pages are generated from the car database in data/.
-    plugins: [carsPlugin(fileURLToPath(new URL('..', import.meta.url)))],
-    // The How it works and Community pages show the diagrams and the group QR codes from the
-    // repository's assets/ and Group/, which the development server serves only when allowed.
+    // The Head units pages are generated from the car database in data/, and the Join a group
+    // pages read their groups from data/groups.yaml.
+    plugins: [carsPlugin(fileURLToPath(new URL('..', import.meta.url))), groupsPlugin()],
+    // The How it works, Community and Join a group pages show the diagrams and the group QR codes
+    // from the repository's assets/ and Group/, which the development server serves only when allowed.
     server: { fs: { allow: [fileURLToPath(new URL('../..', import.meta.url))] } },
   },
 })
