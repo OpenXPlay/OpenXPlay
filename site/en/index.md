@@ -17,6 +17,9 @@ hero:
     - theme: alt
       text: Check my head unit
       link: /en/check
+    - theme: alt
+      text: iPhone direct
+      link: https://openxplay.com
 featuresTitle: Three steps to CarPlay
 features:
   - title: Check your head unit
@@ -35,7 +38,9 @@ features:
 
 ## iPhone direct (beta) {#iphone-app}
 
-The OpenXPlay iPhone app connects your iPhone to the head unit directly, without a relay. It is in public beta: scan the QR code with your iPhone’s camera, or open the [TestFlight invitation](https://testflight.apple.com/join/WbKejMWS) on your iPhone.
+The OpenXPlay iPhone app shows your iPhone’s CarPlay on the head unit directly, without a relay. iPhone direct has become very popular with drivers, so it now has its own website: **[openxplay.com](https://openxplay.com)**, with [car compatibility](https://openxplay.com/cars) and [setup guides](https://openxplay.com/start) (in Chinese).
+
+The app is in public beta: scan the QR code with your iPhone’s camera, or open the [TestFlight invitation](https://testflight.apple.com/join/WbKejMWS) on your iPhone.
 
 <figure class="oxp-figure is-qr">
   <a href="https://testflight.apple.com/join/WbKejMWS"><img src="/iphone-app-qr.svg" width="37" height="37" loading="lazy" decoding="async" alt="QR code for joining the OpenXPlay iPhone app beta on TestFlight"></a>
