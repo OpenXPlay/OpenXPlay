@@ -17,6 +17,9 @@ hero:
     - theme: alt
       text: 检测我的车机
       link: /zh/check
+    - theme: alt
+      text: iPhone 直连
+      link: https://openxplay.com
 featuresTitle: 三步用上 CarPlay
 features:
   - title: 检测车机
@@ -35,7 +38,9 @@ features:
 
 ## iPhone 直连（公测） {#iphone-app}
 
-OpenXPlay iPhone App 让 iPhone 直接连接车机，不需要中继。目前正在公开测试：用 iPhone 相机扫描下方二维码，或在 iPhone 上打开 [TestFlight 邀请链接](https://testflight.apple.com/join/WbKejMWS)即可加入。
+OpenXPlay iPhone App 让 iPhone 直接把 CarPlay 显示到车机上，不需要中继。直连方案很受车主欢迎，所以我们为它单独开了一个网站：**[openxplay.com](https://openxplay.com)**，那里有[车型兼容情况](https://openxplay.com/cars)和[使用教程](https://openxplay.com/start)。
+
+App 目前正在公开测试：用 iPhone 相机扫描下方二维码，或在 iPhone 上打开 [TestFlight 邀请链接](https://testflight.apple.com/join/WbKejMWS)即可加入。
 
 <figure class="oxp-figure is-qr">
   <a href="https://testflight.apple.com/join/WbKejMWS"><img src="/iphone-app-qr.svg" width="37" height="37" loading="lazy" decoding="async" alt="加入 OpenXPlay iPhone App TestFlight 公测的二维码"></a>
