@@ -15,14 +15,14 @@ breadcrumb: 交流群
 
 | 渠道 | 加入方式 |
 | --- | --- |
-| QQ 四群 | 1135991362，或扫描下方二维码 |
+| QQ 五群 | 1126557464，或扫描下方二维码 |
 | 微信群 | 扫描下方二维码 |
 | Discord | [discord.gg/j3cKd5Tax](https://discord.gg/j3cKd5Tax) |
 
 <div class="oxp-community-qr">
   <figure class="oxp-figure">
-    <figcaption>QQ 四群 · 1135991362</figcaption>
-    <img src="../../Group/QQ_Group_4.webp" width="720" height="1284" loading="lazy" decoding="async" alt="OpenXPlay QQ 四群 1135991362 的入群二维码">
+    <figcaption>QQ 五群 · 1126557464</figcaption>
+    <img src="../../Group/QQ_Group_5.webp" width="720" height="1284" loading="lazy" decoding="async" alt="OpenXPlay QQ 五群 1126557464 的入群二维码">
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>微信群</figcaption>
