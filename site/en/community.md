@@ -16,7 +16,7 @@ Share how OpenXPlay works with your head unit, swap experiences, report problems
 | Channel | How to join |
 | --- | --- |
 | QQ group 5 | 1126557464, or scan the QR code below |
-| WeChat groups | Scan one of the QR codes below |
+| WeChat group | Scan the QR code below |
 | Discord | [discord.gg/j3cKd5Tax](https://discord.gg/j3cKd5Tax) |
 
 <div class="oxp-community-qr">
@@ -25,16 +25,12 @@ Share how OpenXPlay works with your head unit, swap experiences, report problems
     <img src="../../Group/QQ_Group_5.webp" width="720" height="1284" loading="lazy" decoding="async" alt="QR code for joining OpenXPlay QQ group 5, 1126557464">
   </figure>
   <figure class="oxp-figure is-wechat">
-    <figcaption>OpenXPlay Leapmotor Group 3</figcaption>
-    <img src="../../Group/Wechat_Group.webp" width="720" height="1094" loading="lazy" decoding="async" alt="WeChat QR code for joining OpenXPlay Leapmotor Group 3">
-  </figure>
-  <figure class="oxp-figure" id="wechat-1116">
-    <figcaption>OpenXPlay Community 1116</figcaption>
-    <img src="../../Group/Wechat_Group_1116.webp" width="720" height="1094" loading="lazy" decoding="async" alt="WeChat QR code for joining OpenXPlay Community 1116">
+    <figcaption>WeChat group</figcaption>
+    <img src="../../Group/Wechat_Group.webp" width="720" height="1094" loading="lazy" decoding="async" alt="QR code for joining the OpenXPlay WeChat group">
   </figure>
 </div>
 
-WeChat group QR codes expire after a while and are refreshed when they change. If a code has expired, join through QQ or Discord and ask for a new invitation.
+WeChat group QR codes expire after a while and are refreshed when they change. If the code has expired, join through QQ or Discord and ask for a new invitation.
 
 ## Reporting a problem {#feedback}
 
