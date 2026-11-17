@@ -25,8 +25,12 @@ breadcrumb: 交流群
     <img src="../../Group/QQ_Group_5.webp" width="720" height="1284" loading="lazy" decoding="async" alt="OpenXPlay QQ 五群 1126557464 的入群二维码">
   </figure>
   <figure class="oxp-figure is-wechat">
-    <figcaption>微信群</figcaption>
-    <img src="../../Group/Wechat_Group.webp" width="720" height="1094" loading="lazy" decoding="async" alt="OpenXPlay 微信交流群的入群二维码">
+    <figcaption>OpenXPlay 零跑 3 群</figcaption>
+    <img src="../../Group/Wechat_Group.webp" width="720" height="1094" loading="lazy" decoding="async" alt="OpenXPlay 零跑 3 群的微信入群二维码">
+  </figure>
+  <figure class="oxp-figure" id="wechat-1116">
+    <figcaption>OpenXPlay 交流群 1116</figcaption>
+    <img src="../../Group/Wechat_Group_1116.webp" width="720" height="1094" loading="lazy" decoding="async" alt="OpenXPlay 交流群 1116 的微信入群二维码">
   </figure>
 </div>
 
