@@ -14,7 +14,7 @@ OpenXPlay 主要面向**无法在车机上安装第三方软件、但希望使�
 
 | | 使用方式 |
 | --- | --- |
-| **iPhone 直连**（公测） | OpenXPlay iPhone App 让 iPhone 直接连接车机，不需要中继。[加入 TestFlight 公测](https://testflight.apple.com/join/WbKejMWS) |
+| **iPhone 直连**（公测） | OpenXPlay iPhone App 让 iPhone 直接连接车机，不需要中继。[加入 TestFlight 公测](https://testflight.apple.com/join/pQ8gus9P) |
 | **中继** | 由一部安卓手机或 UFI003 随身 Wi-Fi 等小型 Linux 设备连接 iPhone，再把 CarPlay 转给车机。 |
 
 ## 连接路线

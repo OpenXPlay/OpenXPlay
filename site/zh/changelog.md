@@ -13,9 +13,9 @@ OpenXPlay Relay 每个版本的变化，最新的在最前面。安卓应用和 
 
 ## iPhone App 公开测试 {#iphone-beta}
 
-2026-11-05 · [通过 TestFlight 加入](https://testflight.apple.com/join/WbKejMWS)
+2026-11-05 · [通过 TestFlight 加入](https://testflight.apple.com/join/pQ8gus9P)
 
-OpenXPlay iPhone App 让 iPhone 直接连接车机，不需要中继。和中继一样，它通过车机的浏览器、Carlink、CarLife 或投屏接收功能显示 CarPlay。可以用 [TestFlight 邀请链接](https://testflight.apple.com/join/WbKejMWS)或[首页](/zh/#iphone-app)上的二维码加入公开测试。
+OpenXPlay iPhone App 让 iPhone 直接连接车机，不需要中继。和中继一样，它通过车机的浏览器、Carlink、CarLife 或投屏接收功能显示 CarPlay。可以用 [TestFlight 邀请链接](https://testflight.apple.com/join/pQ8gus9P)或[首页](/zh/#iphone-app)上的二维码加入公开测试。
 
 ## 0.2.6 {#v0-2-6}
 

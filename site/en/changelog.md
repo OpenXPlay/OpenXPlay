@@ -13,9 +13,9 @@ What changed in each OpenXPlay Relay release, newest first. The Android app and 
 
 ## iPhone app public beta {#iphone-beta}
 
-2026-11-05 · [Join on TestFlight](https://testflight.apple.com/join/WbKejMWS)
+2026-11-05 · [Join on TestFlight](https://testflight.apple.com/join/pQ8gus9P)
 
-The OpenXPlay iPhone app connects the iPhone to the head unit directly, without a relay. Like the relay, it shows CarPlay in the head unit’s browser, Carlink, CarLife or screen-casting receiver. Join the public beta with the [TestFlight invitation](https://testflight.apple.com/join/WbKejMWS) or the QR code on the [home page](/en/#iphone-app).
+The OpenXPlay iPhone app connects the iPhone to the head unit directly, without a relay. Like the relay, it shows CarPlay in the head unit’s browser, Carlink, CarLife or screen-casting receiver. Join the public beta with the [TestFlight invitation](https://testflight.apple.com/join/pQ8gus9P) or the QR code on the [home page](/en/#iphone-app).
 
 ## 0.2.6 {#v0-2-6}
 
