@@ -8,6 +8,10 @@ Created by riko chen on 2026-10-29
 
 Every change to this skill raises `metadata.version` in `SKILL.md` and adds an entry here; the website build refuses a changed skill without both. MAJOR: older copies would give wrong or unsafe guidance (also raise `minimum-version`). MINOR: a new route, device or step. PATCH: wording and links.
 
+## 0.8.5 (2026-11-17)
+
+- The iPhone app TestFlight invitation is now https://testflight.apple.com/join/pQ8gus9P.
+
 ## 0.8.4 (2026-11-16)
 
 - Community links now use QQ group 5, number 1126557464.
