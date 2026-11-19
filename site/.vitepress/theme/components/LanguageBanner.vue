@@ -4,68 +4,76 @@ SPDX-License-Identifier: MIT
 Created by riko chen on 2026-10-17
 -->
 <script setup lang="ts">
-// Offers English on a Chinese page to visitors whose browser has no Chinese language, and
-// Simplified Chinese on an English page to visitors whose browser prefers any Chinese language.
-// It renders only in the browser (never
+// Offers the visitor's language on a page in another language. On an English page it offers
+// Simplified Chinese or Russian, whichever comes first in the browser's languages; on a Chinese or
+// Russian page it offers, to visitors whose browser doesn't have the page's language, the first of
+// the other languages in the browser's list, or English. It renders only in the browser (never
 // during the build), never redirects, and floats over the page so nothing moves when it appears.
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useData, useRoute, withBase } from 'vitepress'
 
-// The page language the visitor chose to stay in ('zh-Hans' or 'en').
-const STORAGE_KEY = 'openxplay.languagePrompt'
-// zh, zh-CN, zh-TW, zh-Hans, zh-Hant, ... and the ISO 639-3 Chinese languages (cmn, yue, ...).
-const CHINESE_TAG = /^(zh|cmn|yue|wuu|hak|nan|gan|hsn|cdo|cjy|cpx|czh|czo|mnp|lzh)(?:[-_]|$)/i
+type Language = 'zh' | 'en' | 'ru'
 
-interface Offer {
-  /** Language of the page the banner appears on. */
-  pageLang: string
-  /** Shown to visitors who do (true) or don't (false) read Chinese. */
-  forChinese: boolean
-  /** Language and path prefix of the offered page. */
-  targetLang: string
-  targetPrefix: string
-  bannerLang: string
-  label: string
-  headline: string
-  secondLang: string
-  second: string
-  switchText: string
-  stayText: string
+// The page language the visitor chose to stay in ('zh-Hans', 'en' or 'ru').
+const STORAGE_KEY = 'openxplay.languagePrompt'
+const TAGS: Record<Language, RegExp> = {
+  // zh, zh-CN, zh-TW, zh-Hans, zh-Hant, ... and the ISO 639-3 Chinese languages (cmn, yue, ...).
+  zh: /^(zh|cmn|yue|wuu|hak|nan|gan|hsn|cdo|cjy|cpx|czh|czo|mnp|lzh)(?:[-_]|$)/i,
+  en: /^en(?:[-_]|$)/i,
+  ru: /^ru(?:[-_]|$)/i,
 }
 
-const OFFERS: Record<string, Offer> = {
+interface Words {
+  /** BCP 47 tag of the page and of the banner text. */
+  lang: string
+  /** Name of the language selector, in this language. */
+  label: string
+  /** "This site is also available in <language>.", in this language. */
+  available: Record<Language, string>
+  /** Switch to this language, in this language. */
+  switchText: string
+  /** "Stay in <language>", in this language. */
+  stay: Record<Language, string>
+}
+
+const WORDS: Record<Language, Words> = {
   zh: {
-    pageLang: 'zh-Hans',
-    forChinese: false,
-    targetLang: 'en',
-    targetPrefix: 'en/',
-    bannerLang: 'en',
-    label: 'Language / 语言选择',
-    headline: 'This site is also available in English.',
-    secondLang: 'zh-Hans',
-    second: '本站提供英文版。',
-    switchText: 'Switch to English',
-    stayText: 'Stay in Chinese',
+    lang: 'zh-Hans',
+    label: '语言选择',
+    available: { zh: '本站提供简体中文版。', en: '本站提供英文版。', ru: '本站提供俄文版。' },
+    switchText: '切换到简体中文',
+    stay: { zh: '继续使用简体中文', en: '继续使用英文', ru: '继续使用俄文' },
   },
   en: {
-    pageLang: 'en',
-    forChinese: true,
-    targetLang: 'zh-Hans',
-    targetPrefix: 'zh/',
-    bannerLang: 'zh-Hans',
-    label: '语言选择 / Language',
-    headline: '本站提供简体中文版。',
-    secondLang: 'en',
-    second: 'This site is also available in Simplified Chinese.',
-    switchText: '切换到简体中文',
-    stayText: '继续使用英文',
+    lang: 'en',
+    label: 'Language',
+    available: {
+      zh: 'This site is also available in Simplified Chinese.',
+      en: 'This site is also available in English.',
+      ru: 'This site is also available in Russian.',
+    },
+    switchText: 'Switch to English',
+    stay: { zh: 'Stay in Chinese', en: 'Stay in English', ru: 'Stay in Russian' },
+  },
+  ru: {
+    lang: 'ru',
+    label: 'Язык',
+    available: {
+      zh: 'Этот сайт доступен и на упрощённом китайском языке.',
+      en: 'Этот сайт доступен и на английском языке.',
+      ru: 'Этот сайт доступен и на русском языке.',
+    },
+    switchText: 'Перейти на русский',
+    stay: { zh: 'Остаться на китайском', en: 'Остаться на английском', ru: 'Остаться на русском' },
   },
 }
+
+const LANGUAGES = Object.keys(WORDS) as Language[]
 
 const { localeIndex, page } = useData()
 const route = useRoute()
 const mounted = ref(false)
-const readsChinese = ref(false)
+const browserLanguages = ref<Language[]>([])
 const stayedIn = ref<string | null>(null)
 const hash = ref('')
 
@@ -86,7 +94,9 @@ function updateHash(): void {
 }
 
 onMounted(() => {
-  readsChinese.value = browserTags().some(tag => CHINESE_TAG.test(tag.trim()))
+  browserLanguages.value = browserTags()
+    .map(tag => LANGUAGES.find(language => TAGS[language].test(tag.trim())))
+    .filter((language): language is Language => !!language)
   stayedIn.value = readStayedIn()
   updateHash()
   window.addEventListener('hashchange', updateHash)
@@ -97,31 +107,57 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', updateHash))
 
 watch(() => route.path, () => { if (mounted.value) updateHash() })
 
-const offer = computed(() => OFFERS[localeIndex.value])
+const pageLanguage = computed(() => LANGUAGES.find(language => language === localeIndex.value))
+
+/** The language to offer: none when the visitor reads the page's language (English is everyone's fallback). */
+const target = computed<Language | undefined>(() => {
+  const current = pageLanguage.value
+  if (!current) return undefined
+  if (current === 'en') return browserLanguages.value.find(language => language !== 'en')
+  if (browserLanguages.value.includes(current)) return undefined
+  return browserLanguages.value.find(language => language !== current) ?? 'en'
+})
+
+const offer = computed(() => {
+  const from = pageLanguage.value
+  const to = target.value
+  if (!from || !to) return undefined
+  return {
+    pageLang: WORDS[from].lang,
+    targetLang: WORDS[to].lang,
+    label: `${WORDS[to].label} / ${WORDS[from].label}`,
+    headline: WORDS[to].available[to],
+    second: WORDS[from].available[to],
+    switchText: WORDS[to].switchText,
+    stayText: WORDS[to].stay[from],
+    prefix: `${to}/`,
+  }
+})
 
 const visible = computed(() => {
   const current = offer.value
-  return mounted.value && !!current && !page.value.isNotFound
-    && readsChinese.value === current.forChinese && stayedIn.value !== current.pageLang
+  return mounted.value && !!current && !page.value.isNotFound && stayedIn.value !== current.pageLang
 })
 
 const targetHref = computed(() => {
-  const slug = page.value.relativePath.replace(/^(zh|en)\//, '').replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
-  return withBase(`/${offer.value.targetPrefix}${slug}`) + hash.value
+  const slug = page.value.relativePath.replace(/^(zh|en|ru)\//, '').replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
+  return withBase(`/${offer.value?.prefix ?? ''}${slug}`) + hash.value
 })
 
 function stay(): void {
-  stayedIn.value = offer.value.pageLang
-  try { window.localStorage.setItem(STORAGE_KEY, offer.value.pageLang) } catch { /* the choice lasts for this page view */ }
+  const current = offer.value
+  if (!current) return
+  stayedIn.value = current.pageLang
+  try { window.localStorage.setItem(STORAGE_KEY, current.pageLang) } catch { /* the choice lasts for this page view */ }
 }
 </script>
 
 <template>
   <Transition name="oxp-language">
-    <aside v-if="visible" class="oxp-language" :lang="offer.bannerLang" :aria-label="offer.label">
+    <aside v-if="visible && offer" class="oxp-language" :lang="offer.targetLang" :aria-label="offer.label">
       <p class="oxp-language__text">
         <strong>{{ offer.headline }}</strong>
-        <span :lang="offer.secondLang">{{ offer.second }}</span>
+        <span :lang="offer.pageLang">{{ offer.second }}</span>
       </p>
       <div class="oxp-language__actions">
         <a class="oxp-language__switch" :href="targetHref" :hreflang="offer.targetLang">{{ offer.switchText }}</a>

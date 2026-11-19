@@ -43,8 +43,8 @@ export function rememberPage(pageData: PageData): void {
 const SUMMARY = 'OpenXPlay shows iPhone CarPlay on Android head units that cannot install apps. A relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle — connects to the iPhone as a CarPlay receiver and passes video, audio and touch on to software the head unit already has: its browser (the web receiver, which decodes H.264 or H.265 with WebCodecs) or a Carlink app. Nothing is installed on the head unit. The code is open source under AGPL-3.0, with commercial exemptions available from ' + SUPPORT_EMAIL + '.'
 
 const NOTES = [
-  'Terminology: a "head unit" (Chinese: 车机) is the car’s built-in Android infotainment screen; a "relay" (Chinese: 中继) is the device between the iPhone and the head unit.',
-  'The site is available in Simplified Chinese under /zh/ and in English under /en/, with the same page paths; the root URLs redirect to the default language.',
+  'Terminology: a "head unit" (Chinese: 车机; Russian: головное устройство) is the car’s built-in Android infotainment screen; a "relay" (Chinese: 中继; Russian: ретранслятор) is the device between the iPhone and the head unit.',
+  'The site is available in Simplified Chinese under /zh/, in English under /en/ and in Russian under /ru/, with the same page paths; the root URLs redirect to the default language.',
 ]
 
 const REPOSITORIES: [string, string][] = [
@@ -64,6 +64,10 @@ const COMPONENT_TEXT: Record<LocaleKey, Record<string, string>> = {
   en: {
     HeadUnitCheck: '[Interactive check: open this page in the head unit’s browser to run it. It checks whether the browser has the features the web receiver uses, entirely in the browser; it doesn’t replace a test in the car.]',
     RouteChooser: '[Setup chooser: Android phone + head-unit browser (recommended), see [Android phone as the relay](/en/android-relay); UFI003 USB dongle + head-unit browser, see [UFI003 as the relay](/en/ufi003-relay); Phicomm N1 TV box (advanced), see [Phicomm N1 as the relay](/en/phicomm-n1); Android phone, or Phicomm N1 with a second USB Wi-Fi adapter, + Carlink app, see [Carlink app](/en/carlink); Android phone + CarLife (experimental), see [CarLife](/en/carlife); Android phone + wireless display (DLNA, Miracast, experimental), see [Wireless display](/en/wireless-display); the UFI003 has a single Wi-Fi adapter, so it offers the head-unit browser only.]',
+  },
+  ru: {
+    HeadUnitCheck: '[Интерактивная проверка: откройте эту страницу в браузере головного устройства, чтобы запустить её. Она проверяет, есть ли в браузере функции, которые использует веб-приёмник; всё выполняется в самом браузере. Проверка не заменяет испытание в автомобиле.]',
+    RouteChooser: '[Выбор схемы: телефон Android + браузер головного устройства (рекомендуется), см. [Телефон Android в роли ретранслятора](/ru/android-relay); USB-модем UFI003 + браузер головного устройства, см. [UFI003 в роли ретранслятора](/ru/ufi003-relay); ТВ-приставка Phicomm N1 (для опытных), см. [Phicomm N1 в роли ретранслятора](/ru/phicomm-n1); телефон Android или Phicomm N1 со вторым USB-адаптером Wi-Fi + приложение Carlink, см. [Приложение Carlink](/ru/carlink); телефон Android + CarLife (экспериментально), см. [CarLife](/ru/carlife); телефон Android + беспроводная трансляция (DLNA, Miracast, экспериментально), см. [Беспроводная трансляция](/ru/wireless-display); у UFI003 только один адаптер Wi-Fi, поэтому с ним доступен только браузер головного устройства.]',
   },
 }
 
@@ -128,7 +132,7 @@ function llmsTxt(list: PageSummary[], skills: SkillEntry[]): string {
     '',
     '## Optional',
     '',
-    `- [Full text](${SITE_ROOT}llms-full.txt): every page of this site in both languages as Markdown`,
+    `- [Full text](${SITE_ROOT}llms-full.txt): every page of this site in every language as Markdown`,
     `- [Sitemap](${SITE_ROOT}sitemap.xml): all page URLs with their language alternates`,
     '',
   )
@@ -152,7 +156,7 @@ function llmsFullTxt(list: PageSummary[], srcDir: string): string {
     '',
     `> ${SUMMARY}`,
     '',
-    'Every page of the site in English and Simplified Chinese, generated from the page sources at build time.',
+    'Every page of the site in Simplified Chinese, English and Russian, generated from the page sources at build time.',
   ]
   for (const page of list) {
     const { locale } = pageRoute(page.relativePath)
@@ -207,9 +211,13 @@ function writeRootRedirects(out: string): void {
 /** Moved pages redirect from root and locale URLs, keeping only the hash for links to brands. */
 function writeMovedPageRedirects(out: string): void {
   const locales = [{ lang: LOCALES[DEFAULT_LOCALE].lang, prefix: '' }, ...Object.values(LOCALES)]
-  for (const [slug, target] of Object.entries(MOVED_PAGES)) {
-    const scriptTarget = JSON.stringify(target).replace(/</g, '\\u003c')
+  for (const [slug, chineseTarget] of Object.entries(MOVED_PAGES)) {
     for (const { lang, prefix } of locales) {
+      // openxplay.com keeps Simplified Chinese at its root and other languages under the same prefixes.
+      const target = prefix && prefix !== LOCALES.zh.prefix
+        ? chineseTarget.replace(/^(https:\/\/[^/]+\/)/, `$1${prefix}`)
+        : chineseTarget
+      const scriptTarget = JSON.stringify(target).replace(/</g, '\\u003c')
       const file = path.join(out, `${prefix}${slug}.html`)
       fs.mkdirSync(path.dirname(file), { recursive: true })
       fs.writeFileSync(file, `<!DOCTYPE html>

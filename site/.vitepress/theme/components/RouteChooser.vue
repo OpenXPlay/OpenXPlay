@@ -46,7 +46,7 @@ const ICONS: Record<Relay | Display, string> = {
   wireless: '<path d="M3 8V6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5H14"/><path d="M3 12a8 8 0 0 1 8 8"/><path d="M3 16a4 4 0 0 1 4 4"/><path d="M3 20h.01"/>',
 }
 
-const TEXT: Record<'en' | 'zh', Text> = {
+const TEXT: Record<'en' | 'zh' | 'ru', Text> = {
   zh: {
     relayQuestion: '用什么作中继？',
     displayQuestion: '车机用什么显示 CarPlay？',
@@ -297,10 +297,135 @@ const TEXT: Record<'en' | 'zh', Text> = {
       },
     },
   },
+  ru: {
+    relayQuestion: 'Что будет ретранслятором?',
+    displayQuestion: 'Как головное устройство будет показывать CarPlay?',
+    yourRoute: 'Ваша схема',
+    needsLabel: 'Что понадобится',
+    relays: [
+      { key: 'android', name: 'Телефон Android', tag: 'Рекомендуется', tagKind: 'tip', desc: 'Установите приложение и пройдите мастер настройки. Нужен Android 8.0 или новее.' },
+      { key: 'ufi003', name: 'USB-модем UFI003', desc: 'Недорогое маленькое устройство, которое запускается при подаче питания; для установки нужен компьютер.' },
+      { key: 'n1', name: 'ТВ-приставка Phicomm N1', tag: 'Для опытных', tagKind: 'info', desc: 'Её точка доступа может работать на 5 ГГц, и она запускается при подаче питания; устанавливается из командной строки.' },
+    ],
+    displays: [
+      { key: 'browser', name: 'Браузер головного устройства', tag: 'Рекомендуется', tagKind: 'tip', desc: 'Показывает изображение с iPhone напрямую, с сенсорным управлением. Браузер должен поддерживать WebCodecs.' },
+      { key: 'carlink', name: 'Приложение Carlink', desc: 'Стоит попробовать, если у головного устройства нет подходящего браузера, но есть приложение Carlink.' },
+      { key: 'carlife', name: 'CarLife', tag: 'Экспериментально', tagKind: 'warning', desc: 'Стоит попробовать, если у головного устройства есть CarLife; по Wi-Fi или USB.' },
+      { key: 'wireless', name: 'Беспроводная трансляция', tag: 'Экспериментально', tagKind: 'warning', desc: 'Стоит попробовать, если головное устройство принимает только трансляцию DLNA или Miracast; показывается только изображение.' },
+    ],
+    results: {
+      'android-browser': {
+        title: 'Телефон Android + браузер головного устройства',
+        summary: 'Рекомендуемая схема. Установите OpenXPlay Relay на телефон и пройдите мастер настройки; первая настройка занимает около 10 минут. На головное устройство ничего не устанавливается.',
+        needs: ['iPhone с CarPlay', 'Телефон с Android 8.0 или новее', 'Идентификатор аксессуара Apple (MFi)', 'Головное устройство, браузер которого поддерживает WebCodecs'],
+        action: 'Инструкция для телефона Android',
+        link: 'android-relay',
+        secondary: { text: 'Сначала проверьте браузер головного устройства', link: 'check' },
+      },
+      'android-carlink': {
+        title: 'Телефон Android + приложение Carlink',
+        summary: 'Ретранслятор подключается к приложению Carlink на головном устройстве по Wi-Fi. Используйте приложение для Android версии 0.1.5 или новее.',
+        needs: ['iPhone с CarPlay', 'Телефон с Android 10 или новее', 'Идентификатор аксессуара Apple (MFi)', 'Головное устройство с приложением Carlink'],
+        note: 'Не выключайте Wi-Fi на телефоне-ретрансляторе и используйте для беспроводного CarPlay точку доступа этого телефона.',
+        action: 'Инструкция для Carlink',
+        link: 'carlink',
+        secondary: { text: 'Проверенные головные устройства', link: 'head-units' },
+      },
+      'ufi003-browser': {
+        title: 'USB-модем UFI003 + браузер головного устройства',
+        summary: 'Установите систему и Linux-ретранслятор на UFI003 с компьютера: лучше поручить это ИИ-ассистенту, который выполнит инструкцию по установке с помощью OpenXPlay Flasher, или установить самостоятельно в приложении Flasher. После установки ретранслятор запускается при каждой подаче питания на модем.',
+        needs: ['iPhone с CarPlay', 'USB-модем UFI003 и компьютер', 'Идентификатор аксессуара Apple (MFi)', 'Головное устройство, браузер которого поддерживает WebCodecs и которое может подключаться к Wi-Fi 2,4 ГГц'],
+        note: 'Для первой установки нужен Mac или компьютер с Windows. Wi-Fi у UFI003 работает только на 2,4 ГГц.',
+        action: 'Инструкция для UFI003',
+        link: 'ufi003-relay',
+        secondary: { text: 'Сначала проверьте браузер головного устройства', link: 'check' },
+      },
+      'ufi003-carlink': {
+        title: 'USB-модем UFI003 + приложение Carlink',
+        summary: 'У UFI003 только один адаптер Wi-Fi, поэтому он показывает CarPlay только в браузере головного устройства. Для Carlink используйте телефон Android или Phicomm N1 со вторым USB-адаптером Wi-Fi.',
+        needs: [],
+        unavailable: true,
+        action: 'Инструкция для Carlink',
+        link: 'carlink',
+        secondary: { text: 'Использовать браузер головного устройства', link: 'ufi003-relay' },
+      },
+      'n1-browser': {
+        title: 'ТВ-приставка Phicomm N1 + браузер головного устройства',
+        summary: 'Установите на N1 Armbian, затем по SSH пакет устройства и Linux-ретранслятор; это подходит тем, кто уверенно работает с командной строкой. После установки ретранслятор запускается при каждой подаче питания на приставку, а её точка доступа может работать на 5 ГГц.',
+        needs: ['iPhone с CarPlay', 'Phicomm N1, USB-накопитель, сетевой кабель и компьютер', 'Идентификатор аксессуара Apple (MFi)', 'Головное устройство, браузер которого поддерживает WebCodecs'],
+        action: 'Инструкция для Phicomm N1',
+        link: 'phicomm-n1',
+        secondary: { text: 'Сначала проверьте браузер головного устройства', link: 'check' },
+      },
+      'n1-carlink': {
+        title: 'ТВ-приставка Phicomm N1 + приложение Carlink',
+        summary: 'Ретранслятор подключается к приложению Carlink на головном устройстве по Wi-Fi. Нужен Linux-ретранслятор версии 0.1.6 или новее.',
+        needs: ['iPhone с CarPlay', 'Phicomm N1, USB-накопитель, сетевой кабель и компьютер', 'Второй адаптер Wi-Fi с подключением по USB', 'Идентификатор аксессуара Apple (MFi)', 'Головное устройство с приложением Carlink'],
+        note: 'Встроенный адаптер N1 работает как точка доступа для iPhone, а USB-адаптер подключается к Wi-Fi приложения Carlink на головном устройстве.',
+        action: 'Инструкция для Phicomm N1',
+        link: 'phicomm-n1',
+        secondary: { text: 'Инструкция для Carlink', link: 'carlink' },
+      },
+      'android-carlife': {
+        title: 'Телефон Android + CarLife',
+        summary: 'Ретранслятор передаёт изображение и сенсорное управление CarPlay в CarLife на головном устройстве через общую сеть Wi-Fi, точку доступа телефона-ретранслятора или USB. Это экспериментальная функция; нужно приложение для Android версии 0.2.5 или новее.',
+        needs: ['iPhone с CarPlay', 'Телефон с Android 8.0 или новее', 'Идентификатор аксессуара Apple (MFi)', 'Головное устройство с CarLife'],
+        note: 'Звук воспроизводится с iPhone через его Bluetooth-подключение к автомобилю.',
+        action: 'Инструкция для CarLife',
+        link: 'carlife',
+        secondary: { text: 'Инструкция для телефона Android', link: 'android-relay' },
+      },
+      'android-wireless': {
+        title: 'Телефон Android + беспроводная трансляция',
+        summary: 'Ретранслятор транслирует изображение CarPlay на приёмник DLNA или Miracast головного устройства, а управляете CarPlay вы на телефоне-ретрансляторе. Это экспериментальная функция; нужно приложение для Android версии 0.2.5 или новее.',
+        needs: ['iPhone с CarPlay', 'Телефон с Android 8.0 или новее', 'Идентификатор аксессуара Apple (MFi)', 'Головное устройство, которое принимает трансляцию DLNA или Miracast'],
+        note: 'Касаться CarPlay на головном устройстве нельзя.',
+        action: 'Инструкция для беспроводной трансляции',
+        link: 'wireless-display',
+        secondary: { text: 'Инструкция для телефона Android', link: 'android-relay' },
+      },
+      'ufi003-carlife': {
+        title: 'USB-модем UFI003 + CarLife',
+        summary: 'Вывод в CarLife есть только в приложении для Android, в Linux-ретрансляторе его нет. Для CarLife используйте телефон Android.',
+        needs: [],
+        unavailable: true,
+        action: 'Инструкция для CarLife',
+        link: 'carlife',
+        secondary: { text: 'Использовать браузер головного устройства', link: 'ufi003-relay' },
+      },
+      'ufi003-wireless': {
+        title: 'USB-модем UFI003 + беспроводная трансляция',
+        summary: 'Беспроводная трансляция есть только в приложении для Android, в Linux-ретрансляторе её нет. Для беспроводной трансляции используйте телефон Android.',
+        needs: [],
+        unavailable: true,
+        action: 'Инструкция для беспроводной трансляции',
+        link: 'wireless-display',
+        secondary: { text: 'Использовать браузер головного устройства', link: 'ufi003-relay' },
+      },
+      'n1-carlife': {
+        title: 'ТВ-приставка Phicomm N1 + CarLife',
+        summary: 'Вывод в CarLife есть только в приложении для Android, в Linux-ретрансляторе его нет. Для CarLife используйте телефон Android.',
+        needs: [],
+        unavailable: true,
+        action: 'Инструкция для CarLife',
+        link: 'carlife',
+        secondary: { text: 'Использовать браузер головного устройства', link: 'phicomm-n1' },
+      },
+      'n1-wireless': {
+        title: 'ТВ-приставка Phicomm N1 + беспроводная трансляция',
+        summary: 'Беспроводная трансляция есть только в приложении для Android, в Linux-ретрансляторе её нет. Для беспроводной трансляции используйте телефон Android.',
+        needs: [],
+        unavailable: true,
+        action: 'Инструкция для беспроводной трансляции',
+        link: 'wireless-display',
+        secondary: { text: 'Использовать браузер головного устройства', link: 'phicomm-n1' },
+      },
+    },
+  },
 }
 
 const { localeIndex } = useData()
-const locale = computed(() => (localeIndex.value === 'zh' ? 'zh' : 'en'))
+const locale = computed<'en' | 'zh' | 'ru'>(() => (localeIndex.value === 'zh' || localeIndex.value === 'ru' ? localeIndex.value : 'en'))
 const t = computed(() => TEXT[locale.value])
 const prefix = computed(() => `/${locale.value}/`)
 

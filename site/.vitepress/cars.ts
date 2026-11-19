@@ -13,8 +13,10 @@
 //      (car-models.json), for example data/cars/nio/et5t.yaml with `brand: nio` and `model: et5t`.
 //   2. Start the file with the SPDX header (CC-BY-4.0, like every page) and fill in the fields
 //      described by the Car interface below; copy an existing car as a template.
-//   3. Text fields take Markdown. A plain string is shown in both languages; use `{en: …, zh: …}`
-//      when the wording differs, with /en/ links in the English text and /zh/ links in the Chinese text.
+//   3. Text fields take Markdown. A plain string is shown in every language; use `{en: …, zh: …, ru: …}`
+//      when the wording differs, with /en/ links in the English text, /zh/ links in the Chinese text and
+//      /ru/ links in the Russian text. `ru` may be left out: Russian pages then show the English text,
+//      with its /en/ links pointing to the Russian pages.
 //   4. `npm run build`: a missing field, an unknown key, a bad date or a wrong value stops the build
 //      with the file and the field at fault.
 
@@ -33,8 +35,8 @@ const MARKER = /^[ \t]*<!--\s*@cars\s+([\w-]+)\s*-->[ \t]*$/gm
 // ---------------------------------------------------------------------------------------------
 // Data model
 
-/** Markdown shown in both languages, or per language. */
-export type Text = string | { en: string; zh: string }
+/** Markdown shown in every language, or per language (Russian falls back to English). */
+export type Text = string | { en: string; zh: string; ru?: string }
 
 export const ROUTES = ['browser', 'carlink', 'carlife', 'dlna', 'airplay'] as const
 export type Route = typeof ROUTES[number]
@@ -192,7 +194,7 @@ const id = (value: unknown, where: string) => {
 
 const text = (value: unknown, where: string) => {
   if (typeof value === 'string') { if (!value.trim()) fail(where, 'empty text'); return }
-  object(value, where, { en: nonEmpty, zh: nonEmpty })
+  object(value, where, { en: nonEmpty, zh: nonEmpty }, { ru: nonEmpty })
 }
 
 const nonEmpty = (value: unknown, where: string) => {
@@ -354,6 +356,8 @@ interface Words {
   colon: (label: string) => string
   paren: (text: string) => string
   listJoin: string
+  /** Joins the last two items of a list: ' and '. */
+  and: string
   browserDetails: string
   browserDetailsIntro: (date: string) => string
   report: Record<Exclude<keyof BrowserReport, 'date'>, string>
@@ -397,6 +401,7 @@ const WORDS: Record<LocaleKey, Words> = {
     colon: label => `**${label}:**`,
     paren: value => ` (${value})`,
     listJoin: ', ',
+    and: ' and ',
     browserDetails: 'Browser details',
     browserDetailsIntro: day => `What OpenXPlay read from the car’s browser on ${day}. [Check your head unit](/en/check) reports the same kinds of items, so you can compare.`,
     report: { browser: 'Browser', gpu: 'GPU', cpu: 'CPU', memory: 'Memory', screen: 'Screen', window: 'Browser window', touch: 'Touch', apis: 'Web APIs', audio: 'Audio' },
@@ -438,6 +443,7 @@ const WORDS: Record<LocaleKey, Words> = {
     colon: label => `**${label}：**`,
     paren: value => `（${value}）`,
     listJoin: '、',
+    and: ' 和 ',
     browserDetails: '浏览器参数',
     browserDetailsIntro: day => `${day} OpenXPlay 从车机浏览器读取到的信息。[检测车机](/zh/check)会报告同类项目，可以拿来对照。`,
     report: { browser: '浏览器', gpu: '图形处理器', cpu: '处理器', memory: '内存', screen: '屏幕', window: '浏览器窗口', touch: '触控', apis: 'Web API', audio: '音频' },
@@ -461,15 +467,55 @@ const WORDS: Record<LocaleKey, Words> = {
     connectionRow: { wifi: 'Wi-Fi', pairing: '配对', 'vehicle-info': '车辆信息' },
     workaround: '怎么办',
   },
-}
-
-function language(locale: LocaleKey): 'en' | 'zh' {
-  return locale === 'zh' ? 'zh' : 'en'
+  ru: {
+    notRecorded: 'Не записано',
+    status: { pass: 'Работает', fail: 'Не работает', fixed: 'Исправлено' },
+    route: { browser: 'Браузер', carlink: 'Carlink', carlife: 'CarLife', dlna: 'Беспроводная трансляция (DLNA)', airplay: 'AirPlay' },
+    item: {
+      picture: 'Изображение', touch: 'Сенсорное управление', sound: 'Звук', reverse: 'После камеры заднего вида', fullscreen: 'Полноэкранный режим',
+      'vehicle-info': 'Сведения об автомобиле', reconnect: 'Повторное подключение',
+    },
+    inCarHead: ['Автомобиль', 'ПО головного устройства', 'Способ', 'Ретранслятор', 'Дата', 'Результат'],
+    benchHead: ['Приёмник', 'Способ', 'Ретранслятор и источник изображения', 'Дата', 'Результат'],
+    item0: 'Пункт',
+    results: 'Результаты испытаний',
+    setup: 'Рекомендуемые настройки',
+    browser: 'Браузер (веб-приёмник)',
+    carlink: 'Приложение Carlink',
+    colon: label => `**${label}:**`,
+    paren: value => ` (${value})`,
+    listJoin: ', ',
+    and: ' и ',
+    browserDetails: 'Сведения о браузере',
+    browserDetailsIntro: day => `Что OpenXPlay считал из браузера автомобиля ${day}. [Проверка головного устройства](/ru/check) сообщает о тех же пунктах, так что их можно сравнить.`,
+    report: { browser: 'Браузер', gpu: 'Графический процессор', cpu: 'Процессор', memory: 'Память', screen: 'Экран', window: 'Окно браузера', touch: 'Сенсорное управление', apis: 'Веб-API', audio: 'Звук' },
+    reportHead: ['Пункт', 'Результат'],
+    video: 'Декодирование видео',
+    videoRates: rates => `Все форматы ниже поддерживаются при ${rates} кадрах/с.`,
+    decode: { hardware: 'Аппаратно', software: 'Программно', unsupported: 'Не поддерживается' },
+    hardwareMeans: '«Аппаратно» означает, что браузер сообщил о формате как об энергоэффективном; обычно это значит, что его обрабатывает аппаратный декодер.',
+    formatHead: 'Формат',
+    audio: 'Звук в браузере',
+    audioHead: ['Формат звука', 'Браузер заявляет', 'Воспроизводится'],
+    audioObserved: day => `Наблюдалось в автомобиле ${day}.`,
+    audioCodec: { AAC_LC: 'AAC', PCM_S16LE: 'PCM', OPUS: 'Opus' },
+    yes: 'Да',
+    no: 'Нет',
+    carlinkVideo: 'Поддержка видео в Carlink',
+    carlinkVideoHead: ['Пункт', 'Приложение Carlink в автомобиле'],
+    carlinkVideoRow: { h264: 'H.264', native: 'Нативный режим видео', h265: 'H.265', display: 'Размер изображения', audio: 'Звук мультимедиа' },
+    connection: 'Подключение и сопряжение',
+    connectionHead: ['Пункт', 'Что происходит'],
+    connectionRow: { wifi: 'Wi-Fi', pairing: 'Сопряжение', 'vehicle-info': 'Сведения об автомобиле' },
+    workaround: 'Что делать',
+  },
 }
 
 function t(value: Text | undefined, locale: LocaleKey): string {
   if (value === undefined) return ''
-  return (typeof value === 'string' ? value : value[language(locale)]).trim()
+  if (typeof value === 'string') return value.trim()
+  if (locale === 'ru' && !value.ru) return value.en.trim().replace(/\]\(\/en\//g, '](/ru/')
+  return (value[locale] ?? value.en).trim()
 }
 
 /** One table cell: no line breaks, pipes escaped. */
@@ -598,7 +644,7 @@ function browser(car: Car, section: BrowserSection, locale: LocaleKey): string {
   if (section.video) {
     const video = section.video
     parts.push(details(words.video, `${id}-video`, [
-      words.videoRates(video.rates.join(locale === 'zh' ? ' 和 ' : ' and ')),
+      words.videoRates(video.rates.join(words.and)),
       table([words.formatHead, ...video.sizes], video.formats.map(format => [format.name, ...format.decode.map(value => words.decode[value])])),
       video.formats.some(format => format.decode.includes('hardware')) ? words.hardwareMeans : '',
       video.notes ? video.notes.map(note => `- ${t(note, locale)}`).join('\n') : '',
@@ -643,11 +689,10 @@ function carSection(car: Car, locale: LocaleKey): string {
 
 /** Car names in test order, for a page description: “the XPeng G6, the XPeng P7+ and the NIO ET5T”. */
 export function carNames(locale: LocaleKey, db = loadDatabase()): string {
-  const names = db.cars.map(car => (locale === 'zh' ? '' : 'the ') + t(car.name, locale))
+  const names = db.cars.map(car => (locale === 'en' ? 'the ' : '') + t(car.name, locale))
   if (names.length < 2) return names.join('')
-  return locale === 'zh'
-    ? `${names.slice(0, -1).join('、')} 和${names[names.length - 1]}`
-    : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`
+  if (locale === 'zh') return `${names.slice(0, -1).join('、')} 和${names[names.length - 1]}`
+  return `${names.slice(0, -1).join(', ')}${WORDS[locale].and}${names[names.length - 1]}`
 }
 
 const BLOCKS: Record<string, (db: Database, locale: LocaleKey) => string> = {
