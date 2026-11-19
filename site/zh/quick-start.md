@@ -20,7 +20,7 @@ OpenXPlay 有两种方式把 iPhone 的 CarPlay 送到车机上：
 
 ## iPhone 直连 <Badge type="warning" text="公测" /> {#iphone-direct}
 
-iPhone App 在 iPhone 上完成中继的工作；车机和使用中继时一样，用浏览器、Carlink、CarLife 或投屏接收功能显示 CarPlay。目前正在公开测试：在 iPhone 上打开 [TestFlight 邀请链接](https://testflight.apple.com/join/pQ8gus9P)，或扫描[首页](/zh/#iphone-app)上的二维码。和使用中继时一样，CarPlay 需要你自备 [Apple 配件（MFi）身份](#mfi-identity)。
+iPhone App 在 iPhone 上完成中继的工作；车机和使用中继时一样，用浏览器、Carlink、CarLife 或投屏接收功能显示 CarPlay。目前正在公开测试：在 iPhone 上打开 [openxplay.com](https://openxplay.com)，或扫描[首页](/zh/#iphone-app)上的二维码。和使用中继时一样，CarPlay 需要你自备 [Apple 配件（MFi）身份](#mfi-identity)。
 
 <div class="oxp-recommended">
 

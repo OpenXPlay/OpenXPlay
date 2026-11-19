@@ -12,7 +12,7 @@ Think of it as a set of CarPlay building blocks that you combine freely. It cove
 
 | | How it works |
 | --- | --- |
-| **iPhone direct** (beta) | The OpenXPlay iPhone app connects the iPhone to the head unit directly, without a relay. [Join the TestFlight beta](https://testflight.apple.com/join/pQ8gus9P) |
+| **iPhone direct** (beta) | The OpenXPlay iPhone app connects the iPhone to the head unit directly, without a relay. [Join the beta](https://openxplay.com) |
 | **Relay** | An Android phone or a small Linux device such as a UFI003 dongle connects to the iPhone and passes CarPlay on to the head unit. |
 
 ## Connection routes
