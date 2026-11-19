@@ -13,10 +13,10 @@
 //      (car-models.json), for example data/cars/nio/et5t.yaml with `brand: nio` and `model: et5t`.
 //   2. Start the file with the SPDX header (CC-BY-4.0, like every page) and fill in the fields
 //      described by the Car interface below; copy an existing car as a template.
-//   3. Text fields take Markdown. A plain string is shown in every language; use `{en: …, zh: …, ru: …}`
-//      when the wording differs, with /en/ links in the English text, /zh/ links in the Chinese text and
-//      /ru/ links in the Russian text. `ru` may be left out: Russian pages then show the English text,
-//      with its /en/ links pointing to the Russian pages.
+//   3. Text fields take Markdown. A plain string is shown in every language; use `{en: …, zh: …, ru: …, es: …}`
+//      when the wording differs, with /en/ links in the English text, /zh/ links in the Chinese text,
+//      /ru/ links in the Russian text and /es/ links in the Spanish text. `ru` and `es` may be left out:
+//      those pages then show the English text, with its /en/ links pointing to their own language's pages.
 //   4. `npm run build`: a missing field, an unknown key, a bad date or a wrong value stops the build
 //      with the file and the field at fault.
 
@@ -35,8 +35,8 @@ const MARKER = /^[ \t]*<!--\s*@cars\s+([\w-]+)\s*-->[ \t]*$/gm
 // ---------------------------------------------------------------------------------------------
 // Data model
 
-/** Markdown shown in every language, or per language (Russian falls back to English). */
-export type Text = string | { en: string; zh: string; ru?: string }
+/** Markdown shown in every language, or per language (Russian and Spanish fall back to English). */
+export type Text = string | { en: string; zh: string; ru?: string; es?: string }
 
 export const ROUTES = ['browser', 'carlink', 'carlife', 'dlna', 'airplay'] as const
 export type Route = typeof ROUTES[number]
@@ -194,7 +194,7 @@ const id = (value: unknown, where: string) => {
 
 const text = (value: unknown, where: string) => {
   if (typeof value === 'string') { if (!value.trim()) fail(where, 'empty text'); return }
-  object(value, where, { en: nonEmpty, zh: nonEmpty }, { ru: nonEmpty })
+  object(value, where, { en: nonEmpty, zh: nonEmpty }, { ru: nonEmpty, es: nonEmpty })
 }
 
 const nonEmpty = (value: unknown, where: string) => {
@@ -509,12 +509,54 @@ const WORDS: Record<LocaleKey, Words> = {
     connectionRow: { wifi: 'Wi-Fi', pairing: 'Сопряжение', 'vehicle-info': 'Сведения об автомобиле' },
     workaround: 'Что делать',
   },
+  es: {
+    notRecorded: 'No registrado',
+    status: { pass: 'Funciona', fail: 'No funciona', fixed: 'Corregido' },
+    route: { browser: 'Navegador', carlink: 'Carlink', carlife: 'CarLife', dlna: 'Transmisión inalámbrica (DLNA)', airplay: 'AirPlay' },
+    item: {
+      picture: 'Imagen', touch: 'Control táctil', sound: 'Sonido', reverse: 'Después de la cámara de reversa', fullscreen: 'Pantalla completa',
+      'vehicle-info': 'Información del vehículo', reconnect: 'Volver a conectar',
+    },
+    inCarHead: ['Auto', 'Software de la unidad principal', 'Ruta', 'Retransmisor', 'Fecha', 'Resultado'],
+    benchHead: ['Receptor', 'Ruta', 'Retransmisor y fuente de imagen', 'Fecha', 'Resultado'],
+    item0: 'Elemento',
+    results: 'Resultados de las pruebas',
+    setup: 'Configuración recomendada',
+    browser: 'Navegador (receptor web)',
+    carlink: 'App Carlink',
+    colon: label => `**${label}:**`,
+    paren: value => ` (${value})`,
+    listJoin: ', ',
+    and: ' y ',
+    browserDetails: 'Detalles del navegador',
+    browserDetailsIntro: day => `Lo que OpenXPlay leyó del navegador del auto el ${day}. [Verifica tu unidad principal](/es/check) informa los mismos tipos de elementos, así que puedes compararlos.`,
+    report: { browser: 'Navegador', gpu: 'GPU', cpu: 'CPU', memory: 'Memoria', screen: 'Pantalla', window: 'Ventana del navegador', touch: 'Control táctil', apis: 'API web', audio: 'Audio' },
+    reportHead: ['Elemento', 'Resultado'],
+    video: 'Decodificación de video',
+    videoRates: rates => `Todos los formatos de abajo son compatibles a ${rates} fps.`,
+    decode: { hardware: 'Hardware', software: 'Software', unsupported: 'No compatible' },
+    hardwareMeans: '“Hardware” significa que el navegador informó el formato como eficiente en energía, lo que normalmente indica que lo procesa un decodificador por hardware.',
+    formatHead: 'Formato',
+    audio: 'Sonido en el navegador',
+    audioHead: ['Formato de audio', 'El navegador declara', 'Se reproduce'],
+    audioObserved: day => `Observado en el auto el ${day}.`,
+    audioCodec: { AAC_LC: 'AAC', PCM_S16LE: 'PCM', OPUS: 'Opus' },
+    yes: 'Sí',
+    no: 'No',
+    carlinkVideo: 'Compatibilidad de video de Carlink',
+    carlinkVideoHead: ['Elemento', 'La app Carlink del auto'],
+    carlinkVideoRow: { h264: 'H.264', native: 'Modo de video nativo', h265: 'H.265', display: 'Tamaño de pantalla', audio: 'Audio multimedia' },
+    connection: 'Conexión y enlace',
+    connectionHead: ['Elemento', 'Qué pasa'],
+    connectionRow: { wifi: 'Wi-Fi', pairing: 'Enlace', 'vehicle-info': 'Información del vehículo' },
+    workaround: 'Qué hacer',
+  },
 }
 
 function t(value: Text | undefined, locale: LocaleKey): string {
   if (value === undefined) return ''
   if (typeof value === 'string') return value.trim()
-  if (locale === 'ru' && !value.ru) return value.en.trim().replace(/\]\(\/en\//g, '](/ru/')
+  if (locale !== 'zh' && !value[locale]) return value.en.trim().replace(/\]\(\/en\//g, `](/${locale}/`)
   return (value[locale] ?? value.en).trim()
 }
 

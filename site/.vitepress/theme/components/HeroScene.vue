@@ -43,6 +43,16 @@ const TEXT = {
     screen: 'Головное устройство',
     screenSub: 'Во встроенном браузере',
   },
+  es: {
+    label: 'El iPhone llega a la unidad principal directamente con la app OpenXPlay, o entrega CarPlay a un retransmisor (un teléfono Android o un módem USB) que lo pasa; se muestra en el navegador de la propia unidad principal, y el control táctil vuelve al iPhone.',
+    direct: 'Directo desde el iPhone',
+    phone: 'iPhone',
+    phoneSub: 'Inalámbrico o USB',
+    relay: 'Retransmisor',
+    relaySub: 'Teléfono Android o módem USB',
+    screen: 'Unidad principal',
+    screenSub: 'En su propio navegador',
+  },
 } as const
 
 const { localeIndex } = useData()

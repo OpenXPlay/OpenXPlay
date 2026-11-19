@@ -10,6 +10,7 @@ summary:
   en: 2023 model; the car’s system version wasn’t recorded.
   zh: 2023 款，整车系统版本没有记录。
   ru: Модель 2023 года; версия системы автомобиля не записана.
+  es: Modelo 2023; no se registró la versión del sistema del auto.
 
 tests:
   - year: g6-2023
@@ -20,11 +21,13 @@ tests:
       en: UFI003, Linux relay development build; Android phone, 0.1.3 development build
       zh: UFI003，Linux 中继开发版；安卓手机，0.1.3 开发版
       ru: UFI003, сборка Linux-ретранслятора для разработки; телефон Android, сборка 0.1.3 для разработки
+      es: UFI003, compilación de desarrollo del retransmisor Linux; teléfono Android, compilación de desarrollo 0.1.3
     date: 2026-10-15..2026-10-18
     result:
       en: Picture shown; with the Android relay, it fits full screen and windows
       zh: 有画面；使用安卓中继时，画面贴合全屏和窗口
       ru: Изображение есть; с ретранслятором на Android оно подстраивается под полноэкранный режим и окна
+      es: Se muestra la imagen; con el retransmisor Android, se ajusta a pantalla completa y a ventanas
   - year: g6-2023
     variant: {en: '2023', zh: 2023 款}
     software: Carlink v2.0.4-202512161819-c0d784a
@@ -33,20 +36,22 @@ tests:
       en: Android phone, 0.1.4-rc.1 test builds and later development builds
       zh: 安卓手机，0.1.4-rc.1 测试版和之后的开发版
       ru: Телефон Android, тестовые сборки 0.1.4-rc.1 и последующие сборки для разработки
+      es: Teléfono Android, compilaciones de prueba 0.1.4-rc.1 y compilaciones de desarrollo posteriores
     date: 2026-10-20..2026-10-22
     result:
       en: Picture shown in H.264 and H.265
       zh: H.264 和 H.265 都有画面
       ru: Изображение есть в H.264 и H.265
+      es: Se muestra la imagen en H.264 y H.265
 
 results:
   - item: picture
     browser:
       status: pass
-      text: {en: 'UFI003 (10-15—16), Android relay (10-18)', zh: UFI003（10-15—16），安卓中继（10-18）, ru: 'UFI003 (10-15—16), ретранслятор на Android (10-18)'}
+      text: {en: 'UFI003 (10-15—16), Android relay (10-18)', zh: UFI003（10-15—16），安卓中继（10-18）, ru: 'UFI003 (10-15—16), ретранслятор на Android (10-18)', es: 'UFI003 (10-15—16), retransmisor Android (10-18)'}
     carlink:
       status: pass
-      text: {en: H.264 and H.265 (10-20—22), zh: H.264 和 H.265（10-20—22）, ru: H.264 и H.265 (10-20—22)}
+      text: {en: H.264 and H.265 (10-20—22), zh: H.264 和 H.265（10-20—22）, ru: H.264 и H.265 (10-20—22), es: H.264 y H.265 (10-20—22)}
   - item: touch
     browser: {status: unrecorded}
     carlink:
@@ -55,6 +60,7 @@ results:
         en: touches landed off target with the picture in the Carlink window’s shape (10-21); fixed in Android app 0.1.5
         zh: 画面按 Carlink 窗口比例显示时触控曾偏移（10-21），安卓应用 0.1.5 修复
         ru: когда изображение имело форму окна Carlink, касания попадали мимо цели (10-21); исправлено в приложении для Android 0.1.5
+        es: los toques caían fuera del objetivo con la imagen en la forma de la ventana de Carlink (10-21); corregido en la app de Android 0.1.5
   - item: reverse
     browser:
       status: note
@@ -62,12 +68,14 @@ results:
         en: The browser leaves full screen and the page can’t return by itself (10-18)
         zh: 浏览器退出全屏，网页不能自动恢复（10-18）
         ru: Браузер выходит из полноэкранного режима, и страница не может вернуться в него сама (10-18)
+        es: El navegador sale de pantalla completa y la página no puede volver sola (10-18)
     carlink:
       status: fixed
       text:
         en: the H.265 picture stayed black (10-20); fixed in Android app 0.1.5
         zh: H.265 画面曾黑屏（10-20），安卓应用 0.1.5 修复
         ru: изображение H.265 оставалось чёрным (10-20); исправлено в приложении для Android 0.1.5
+        es: la imagen H.265 se quedaba en negro (10-20); corregido en la app de Android 0.1.5
   - item: fullscreen
     browser:
       status: pass
@@ -75,16 +83,18 @@ results:
         en: with the Android relay, the picture fits full screen and windows and switches without reconnecting (10-18)
         zh: 使用安卓中继时画面贴合全屏和窗口，切换不重连（10-18）
         ru: с ретранслятором на Android изображение подстраивается под полноэкранный режим и окна и переключается без повторного подключения (10-18)
+        es: con el retransmisor Android, la imagen se ajusta a pantalla completa y a ventanas, y cambia sin volver a conectarse (10-18)
     carlink:
       status: fail
       text:
         en: switching to full screen during a session doesn’t fill the screen (10-22)
         zh: 会话中切到全屏时画面不铺满（10-22）
         ru: при переходе в полноэкранный режим во время сеанса изображение не заполняет экран (10-22)
+        es: cambiar a pantalla completa durante una sesión no llena la pantalla (10-22)
   - item: vehicle-info
     carlink:
       status: fail
-      text: {en: the car sent no data (10-20), zh: 车机没有发来数据（10-20）, ru: автомобиль не передал данных (10-20)}
+      text: {en: the car sent no data (10-20), zh: 车机没有发来数据（10-20）, ru: автомобиль не передал данных (10-20), es: el auto no envió datos (10-20)}
   - item: reconnect
     carlink:
       status: fail
@@ -92,23 +102,27 @@ results:
         en: an owner reported that every later connection still needs the car’s pairing-code page open (10-23)
         zh: 车主反馈之后每次仍要先打开车机的配对码页面（10-23）
         ru: владелец сообщил, что при каждом следующем подключении по-прежнему нужно открывать на автомобиле страницу с кодом сопряжения (10-23)
+        es: un propietario informó que cada conexión posterior todavía necesita la página del código de enlace del auto abierta (10-23)
 
 setup:
-  - label: {en: Which to choose, zh: 怎么选, ru: Что выбрать}
+  - label: {en: Which to choose, zh: 怎么选, ru: Что выбрать, es: Cuál elegir}
     text:
       en: Both routes have shown a picture in the car. The browser route has been tested more and runs full screen with the Android relay; the Carlink route uses the car’s own Carlink app.
       zh: 两条路线在车上都显示过画面。浏览器路线测得更多，使用安卓中继时可以全屏；Carlink 路线用车机自带的 Carlink 应用。
       ru: Оба способа показали изображение в автомобиле. Способ через браузер испытан больше и с ретранслятором на Android работает в полноэкранном режиме; способ через Carlink использует собственное приложение Carlink автомобиля.
-  - label: {en: Browser route, zh: 浏览器路线, ru: Через браузер}
+      es: Las dos rutas han mostrado imagen en el auto. La ruta del navegador se ha probado más y funciona en pantalla completa con el retransmisor Android; la ruta de Carlink usa la propia app Carlink del auto.
+  - label: {en: Browser route, zh: 浏览器路线, ru: Через браузер, es: Ruta del navegador}
     text:
       en: Use the Android relay and choose XPeng G6 2023 in Settings → Car and screen. On a relay with only 2.4 GHz Wi-Fi, such as the UFI003, set the frame rate to 30 in the web receiver’s settings. If the picture takes long to appear with H.265, set *Video codec* to *Force H.264*.
       zh: 推荐用安卓中继，并在“设置 → 车型与屏幕”中选择小鹏 G6 2023 款。中继只有 2.4 GHz Wi-Fi 时（例如 UFI003），在网页接收端的设置中把帧率设为 30。使用 H.265 时画面迟迟不出现，就把“视频编码”改为“强制 H.264”。
       ru: Используйте ретранслятор на Android и выберите XPeng G6 2023 в Settings → Car and screen. На ретрансляторе только с Wi-Fi 2,4 ГГц, например UFI003, установите в настройках веб-приёмника частоту кадров 30. Если с H.265 изображение долго не появляется, установите *Video codec* в *Force H.264*.
-  - label: {en: Carlink route, zh: Carlink 路线, ru: Через Carlink}
+      es: Usa el retransmisor Android y elige XPeng G6 2023 en Settings → Car and screen. En un retransmisor que solo tiene Wi-Fi de 2.4 GHz, como el UFI003, pon la frecuencia de cuadros en 30 en la configuración del receptor web. Si la imagen tarda en aparecer con H.265, pon *Video codec* en *Force H.264*.
+  - label: {en: Carlink route, zh: Carlink 路线, ru: Через Carlink, es: Ruta de Carlink}
     text:
       en: Use Android app 0.1.5 or later ([download the latest version](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)) on a relay phone with 5 GHz Wi-Fi (Carlink needs Android 10 or later); on the first connection, enter the pairing code shown on the car’s screen into the relay. Leave *Video codec* on *Automatic* and the relay sends the H.265 picture as it is.
       zh: 使用安卓应用 0.1.5 或更新版本（[下载最新版本](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)），中继手机需要支持 5 GHz Wi-Fi（Carlink 需要 Android 10 及以上），第一次连接时在中继中输入车机屏幕上的配对码。“视频编码”保持“自动”，中继会直接发送 H.265 画面。
       ru: Используйте приложение для Android 0.1.5 или новее ([скачать последнюю версию](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)) на телефоне-ретрансляторе с Wi-Fi 5 ГГц (для Carlink нужен Android 10 или новее); при первом подключении введите в ретрансляторе код сопряжения, показанный на экране автомобиля. Оставьте *Video codec* в положении *Automatic*, и ретранслятор передаст изображение H.265 как есть.
+      es: Usa la app de Android 0.1.5 o posterior ([descarga la versión más reciente](https://github.com/OpenXPlay/OpenXPlay-Relay/releases/latest/download/openxplay-relay.apk)) en un teléfono retransmisor con Wi-Fi de 5 GHz (Carlink necesita Android 10 o posterior); en la primera conexión, ingresa en el retransmisor el código de enlace que aparece en la pantalla del auto. Deja *Video codec* en *Automatic* y el retransmisor envía la imagen H.265 tal como llega.
 
 browser:
   intro:
@@ -128,59 +142,77 @@ browser:
       1372×686 CSS-пикселей. Вне полноэкранного режима странице доступно около 876×518; в полноэкранном
       режиме — либо весь экран, либо 876×579, а при разделении экрана — около 489×579. Браузер сообщает о
       5 точках касания и AudioWorklet (нужен для воспроизведения звука CarPlay в браузере).
+    es: >-
+      El XPeng G6 tiene un navegador integrado basado en Chromium 120 con WebCodecs. Lo que sigue es lo que
+      informa el propio navegador, los mismos tipos de elementos que [Verifica tu unidad principal](/es/check): H.264
+      (Baseline, Main y High) y H.265 en 720p y 1080p, a 30 y 60 fps, todo informado como decodificación por
+      hardware. La pantalla es de 1372×686 píxeles CSS. Fuera de pantalla completa la página tiene unos 876×518; en
+      pantalla completa tiene toda la pantalla o 876×579, y unos 489×579 en pantalla dividida. El navegador informa
+      5 puntos táctiles y AudioWorklet (necesario para reproducir el sonido de CarPlay en el navegador).
   points:
-    - label: {en: Video format, zh: 视频格式, ru: Формат видео}
+    - label: {en: Video format, zh: 视频格式, ru: Формат видео, es: Formato de video}
       text:
         en: 'In the test with the Linux relay on a UFI003 on 2026-10-16, H.264 was the most reliable: with H.265, a page opened or reloaded mid-session once waited more than 40 seconds for a picture. The Linux relay has since learned to switch to H.264 when the picture waits too long.'
         zh: 2026-10-16 用 UFI003 上的 Linux 中继测试时，H.264 最可靠：使用 H.265 时，中途打开或刷新网页后曾要等 40 多秒才出现画面。Linux 中继之后加入了画面等太久就改用 H.264 的处理。
         ru: 'При испытании с Linux-ретранслятором на UFI003 2026-10-16 самым надёжным оказался H.264: с H.265 страница, открытая или перезагруженная посреди сеанса, однажды ждала изображения более 40 секунд. С тех пор Linux-ретранслятор научился переключаться на H.264, если изображения приходится ждать слишком долго.'
-    - label: {en: Frame rate, zh: 帧率, ru: Частота кадров}
+        es: 'En la prueba con el retransmisor Linux en un UFI003 el 2026-10-16, H.264 fue el más confiable: con H.265, una página abierta o recargada a mitad de una sesión esperó una vez más de 40 segundos por la imagen. Desde entonces, el retransmisor Linux aprendió a cambiar a H.264 cuando la imagen tarda demasiado.'
+    - label: {en: Frame rate, zh: 帧率, ru: Частота кадров, es: Cuadros por segundo}
       text:
         en: On a relay with only 2.4 GHz Wi-Fi, such as the UFI003, set the frame rate to 30 in the web receiver’s settings. In the tests of 2026-10-15—16, 60 fps stuttered over the 2.4 GHz link; 30 fps was clearly smoother, with occasional slight stutter.
         zh: 中继只有 2.4 GHz Wi-Fi 时（例如 UFI003），请在网页接收端的设置中把帧率设为 30。2026-10-15—16 的测试中，经 2.4 GHz 连接以 60 帧/秒播放会卡顿；30 帧/秒明显更流畅，偶尔仍有轻微卡顿。
         ru: На ретрансляторе только с Wi-Fi 2,4 ГГц, например UFI003, установите в настройках веб-приёмника частоту кадров 30. В испытаниях 2026-10-15—16 при 60 кадрах/с изображение по каналу 2,4 ГГц подтормаживало; при 30 кадрах/с было заметно плавнее, лишь изредка с небольшими рывками.
-    - label: {en: Full screen and reversing, zh: 全屏与倒车, ru: Полноэкранный режим и задний ход}
+        es: En un retransmisor que solo tiene Wi-Fi de 2.4 GHz, como el UFI003, pon la frecuencia de cuadros en 30 en la configuración del receptor web. En las pruebas del 2026-10-15—16, a 60 fps la imagen se trababa por el enlace de 2.4 GHz; a 30 fps fue claramente más fluida, con alguna trabada leve ocasional.
+    - label: {en: Full screen and reversing, zh: 全屏与倒车, ru: Полноэкранный режим и задний ход, es: Pantalla completa y reversa}
       text:
         en: With the Android relay the page runs full screen by default. The reverse camera makes the browser leave full screen, and this car’s browser doesn’t let the page return by itself (2026-10-18); back on the page, a tap restores full screen. For the current releases, see the [known issue](/en/daily-use#fullscreen-known-issue).
         zh: 使用安卓中继时，网页默认全屏。倒车影像会让浏览器退出全屏，这台车的浏览器不允许网页自动恢复（2026-10-18）；回到网页后轻触一下恢复全屏，当前版本的问题见[已知问题](/zh/daily-use#fullscreen-known-issue)。
         ru: С ретранслятором на Android страница по умолчанию открывается в полноэкранном режиме. Камера заднего вида выводит браузер из полноэкранного режима, а браузер этого автомобиля не позволяет странице вернуться в него самостоятельно (2026-10-18); вернувшись на страницу, коснитесь экрана, чтобы восстановить полноэкранный режим. О текущих версиях см. [известную проблему](/ru/daily-use#fullscreen-known-issue).
-    - label: {en: Car setting, zh: 车型设置, ru: Настройка автомобиля}
+        es: Con el retransmisor Android, la página se abre en pantalla completa de forma predeterminada. La cámara de reversa hace que el navegador salga de pantalla completa, y el navegador de este auto no deja que la página vuelva sola (2026-10-18); al regresar a la página, un toque restablece la pantalla completa. Para las versiones actuales, consulta el [problema conocido](/es/daily-use#fullscreen-known-issue).
+    - label: {en: Car setting, zh: 车型设置, ru: Настройка автомобиля, es: Configuración del auto}
       text:
         en: 'In the Android relay’s Settings → Car and screen, choose XPeng G6 2023: the relay uses its built-in screen data so CarPlay fits full screen, windows and split screen, switching without reconnecting.'
         zh: 在安卓中继的“设置 → 车型与屏幕”中选择小鹏 G6 2023 款，中继会使用内置的屏幕数据，让 CarPlay 画面贴合全屏、窗口和分屏，切换时不用重新连接。
         ru: 'В Settings → Car and screen ретранслятора на Android выберите XPeng G6 2023: ретранслятор использует встроенные данные об экране, чтобы CarPlay подстраивался под полноэкранный режим, окна и разделённый экран и переключался без повторного подключения.'
+        es: 'En Settings → Car and screen del retransmisor Android, elige XPeng G6 2023: el retransmisor usa sus datos de pantalla integrados para que CarPlay se ajuste a pantalla completa, ventanas y pantalla dividida, y cambie sin volver a conectarse.'
   report:
     date: 2026-10-16
     browser:
       en: Chromium 120.0.6099.144 (its user agent claims desktop Linux x86_64)
       zh: Chromium 120.0.6099.144（用户代理自称桌面版 Linux x86_64）
       ru: Chromium 120.0.6099.144 (его user agent выдаёт себя за настольный Linux x86_64)
+      es: Chromium 120.0.6099.144 (su user agent dice ser Linux x86_64 de escritorio)
     gpu:
       en: Qualcomm Adreno 640 through ANGLE, OpenGL ES 3.2; maximum texture size 4096; no WebGPU
       zh: Qualcomm Adreno 640（经 ANGLE），OpenGL ES 3.2；最大纹理尺寸 4096；不提供 WebGPU
       ru: Qualcomm Adreno 640 через ANGLE, OpenGL ES 3.2; максимальный размер текстуры 4096; WebGPU нет
-    cpu: {en: 8 cores, zh: 8 核, ru: 8 ядер}
+      es: Qualcomm Adreno 640 mediante ANGLE, OpenGL ES 3.2; tamaño máximo de textura 4096; sin WebGPU
+    cpu: {en: 8 cores, zh: 8 核, ru: 8 ядер, es: 8 núcleos}
     memory:
       en: 8 GB reported device memory; JavaScript heap limit about 1.1 GB
       zh: 报告的设备内存为 8 GB；JavaScript 堆上限约 1.1 GB
       ru: Заявленная память устройства — 8 ГБ; предел кучи JavaScript — около 1,1 ГБ
+      es: Memoria del dispositivo informada de 8 GB; límite del heap de JavaScript de aproximadamente 1.1 GB
     screen:
       en: 1372×686 CSS pixels at device pixel ratio 1.75 (about 2400×1200 physical pixels), landscape, 59.9 Hz
       zh: 1372×686 CSS 像素，设备像素比 1.75（约 2400×1200 物理像素），横屏，59.9 Hz
       ru: 1372×686 CSS-пикселей при devicePixelRatio 1,75 (около 2400×1200 физических пикселей), альбомная ориентация, 59,9 Гц
+      es: 1372×686 píxeles CSS con una densidad de píxeles de 1.75 (unos 2400×1200 píxeles físicos), horizontal, 59.9 Hz
     window:
       en: 876×518 CSS pixels outside full screen; 1372×686 or 876×579 in full screen; about 489×579 in split screen
       zh: 不全屏时 876×518 CSS 像素；全屏时 1372×686 或 876×579；分屏时约 489×579
       ru: 876×518 CSS-пикселей вне полноэкранного режима; 1372×686 или 876×579 в полноэкранном режиме; около 489×579 при разделении экрана
-    touch: {en: 5 touch points, zh: 5 个触摸点, ru: 5 точек касания}
+      es: 876×518 píxeles CSS fuera de pantalla completa; 1372×686 o 876×579 en pantalla completa; unos 489×579 en pantalla dividida
+    touch: {en: 5 touch points, zh: 5 个触摸点, ru: 5 точек касания, es: 5 puntos táctiles}
     apis:
       en: WebCodecs (VideoDecoder, VideoFrame), OffscreenCanvas, requestVideoFrameCallback, AudioWorklet; secure context
       zh: WebCodecs（VideoDecoder、VideoFrame）、OffscreenCanvas、requestVideoFrameCallback、AudioWorklet；安全上下文
       ru: WebCodecs (VideoDecoder, VideoFrame), OffscreenCanvas, requestVideoFrameCallback, AudioWorklet; защищённый контекст
+      es: WebCodecs (VideoDecoder, VideoFrame), OffscreenCanvas, requestVideoFrameCallback, AudioWorklet; contexto seguro
     audio:
       en: AAC and Opus decoders; 48 kHz; 5 ms base latency
       zh: AAC 和 Opus 解码器；采样率 48 kHz；基础延迟 5 ms
       ru: Декодеры AAC и Opus; 48 кГц; базовая задержка 5 мс
+      es: Decodificadores AAC y Opus; 48 kHz; latencia base de 5 ms
   video:
     rates: [30, 60]
     sizes: [1280×720, 1920×1080]
@@ -193,9 +225,11 @@ browser:
       - en: 'The browser’s “smooth” flag is unreliable: it reported H.264 High at 720p and 30 fps as not smooth, but 60 fps and 1080p as smooth.'
         zh: 浏览器报告的“流畅”（smooth）标志不可靠：它把 720p、30 帧/秒的 H.264 High 报告为不流畅，却把 60 帧/秒和 1080p 报告为流畅。
         ru: 'Признак «smooth» (плавно), который сообщает браузер, ненадёжен: H.264 High в 720p при 30 кадрах/с он назвал неплавным, а при 60 кадрах/с и в 1080p — плавным.'
+        es: 'La marca “smooth” (fluido) del navegador no es confiable: informó H.264 High en 720p a 30 fps como no fluido, pero a 60 fps y en 1080p como fluido.'
       - en: 'Measured decode latency: about 33–59 ms per frame for H.264 and about 28 ms for H.265. This is the hardware decoder’s pipeline latency, not a throughput limit.'
         zh: 实测解码延迟：H.264 每帧约 33–59 ms，H.265 约 28 ms。这是硬件解码器的流水线延迟，并不说明解码速度跟不上。
         ru: 'Измеренная задержка декодирования: около 33–59 мс на кадр для H.264 и около 28 мс для H.265. Это задержка конвейера аппаратного декодера, а не предел пропускной способности.'
+        es: 'Latencia de decodificación medida: unos 33–59 ms por cuadro para H.264 y unos 28 ms para H.265. Es la latencia del pipeline del decodificador por hardware, no un límite de rendimiento.'
 
 carlink:
   intro:
@@ -214,20 +248,29 @@ carlink:
       Автомобиль создаёт для Carlink собственную сеть Wi-Fi 5 ГГц, и ретранслятор подключается к ней, поэтому
       ретранслятору нужен Wi-Fi 5 ГГц. UFI003 не может работать с Carlink; Linux-ретранслятор использует для
       Carlink второй адаптер Wi-Fi.
+    es: >-
+      Probado en el auto con compilaciones de desarrollo del retransmisor Android; la imagen se muestra, y los
+      [resultados de las pruebas](#xpeng-g6-results) detallan cada elemento. La app de Android 0.1.3 y anteriores
+      reproducen sonido en este auto pero dejan la imagen en negro; 0.1.5 lo corrige. El auto crea su propia red
+      Wi-Fi de 5 GHz para Carlink y el retransmisor se conecta a ella, así que el retransmisor necesita Wi-Fi de
+      5 GHz. El UFI003 no puede usar Carlink; el retransmisor Linux ejecuta Carlink en un segundo adaptador Wi-Fi.
   video:
     h264:
       en: Constrained Baseline only, no Constrained High; level 3.1
       zh: 仅 Constrained Baseline，不支持 Constrained High；级别 3.1
       ru: Только Constrained Baseline, без Constrained High; уровень 3.1
-    native: {en: '1280×720, progressive, 30 fps', zh: 1280×720，逐行扫描，30 帧/秒, ru: '1280×720, прогрессивная развёртка, 30 кадров/с'}
+      es: Solo Constrained Baseline, sin Constrained High; nivel 3.1
+    native: {en: '1280×720, progressive, 30 fps', zh: 1280×720，逐行扫描，30 帧/秒, ru: '1280×720, прогрессивная развёртка, 30 кадров/с', es: '1280×720, progresivo, 30 fps'}
     h265:
       en: Reported as supported (`iccoa_support_hevc`); shows the iPhone’s H.265 picture directly, measured at up to about 58 fps
       zh: 车机声明支持（`iccoa_support_hevc`），可以直接显示 iPhone 的 H.265 画面，实测最高约 58 帧/秒
       ru: Заявлена поддержка (`iccoa_support_hevc`); изображение H.265 с iPhone показывается напрямую, измерено до примерно 58 кадров/с
+      es: Informado como compatible (`iccoa_support_hevc`); muestra la imagen H.265 del iPhone directamente, medido hasta unos 58 fps
     display:
       en: The Carlink window (two thirds of the screen) is 1532×1013 at 240 dpi, unlike the 1280×720 video mode. From Android app 0.1.5, CarPlay takes this window’s shape and H.265 is sent at about 1532×1014; the car maps touches by the size of the picture it receives. When you switch to full screen during a session, the car doesn’t tell the relay the new size
       zh: Carlink 窗口（三分之二屏）为 1532×1013，240 dpi，与 1280×720 的视频模式不同。安卓应用 0.1.5 起，CarPlay 按这个窗口的比例显示，H.265 直接以约 1532×1014 发送；车机按收到的画面尺寸换算触控。会话中切换到全屏时，车机不会告诉中继新尺寸
       ru: Окно Carlink (две трети экрана) — 1532×1013 при 240 dpi, в отличие от видеорежима 1280×720. Начиная с приложения для Android 0.1.5, CarPlay принимает форму этого окна, а H.265 передаётся в размере около 1532×1014; автомобиль пересчитывает касания по размеру получаемого изображения. При переходе в полноэкранный режим во время сеанса автомобиль не сообщает ретранслятору новый размер
+      es: La ventana de Carlink (dos tercios de la pantalla) es de 1532×1013 a 240 dpi, a diferencia del modo de video de 1280×720. Desde la app de Android 0.1.5, CarPlay toma la forma de esta ventana y H.265 se envía a unos 1532×1014; el auto ubica los toques según el tamaño de la imagen que recibe. Cuando cambias a pantalla completa durante una sesión, el auto no le informa al retransmisor el nuevo tamaño
     audio: AAC
     notes:
       en: |-
@@ -242,16 +285,23 @@ carlink:
         Кодек, запрошенный у iPhone, и кодек сеанса Carlink не всегда совпадают. Этот автомобиль заявляет поддержку H.265, поэтому при параметре разработчика *Carlink H.265* в положении *Automatic (default)* сеанс Carlink от начала до конца использует H.265. Когда *Video codec* стоит в положении *Automatic*, ретранслятор передаёт изображение H.265 с iPhone в автомобиль без изменений, если его формат и размер подходят, без перекодирования на телефоне; если iPhone вместо этого отправляет H.264 (например, с *Force H.264*), ретранслятор преобразует его в H.265.
 
         Сеанс использует H.264, только если *Carlink H.265* установлен в *Off*. Тогда iPhone отправляет H.264 High, который приложение Carlink автомобиля показать не может, поэтому ретранслятор преобразует его в H.264 Constrained Baseline 3.1, уменьшая изображение в форме окна Carlink до размеров, допустимых на этом уровне; ретранслятор на Android делает это аппаратным кодировщиком.
+      es: |-
+        El códec que se le pide al iPhone y el códec de la sesión de Carlink no siempre son iguales. Este auto informa compatibilidad con H.265, así que con la opción para desarrolladores *Carlink H.265* en *Automatic (default)*, la sesión de Carlink usa H.265 de principio a fin. Con *Video codec* en *Automatic*, el retransmisor pasa la imagen H.265 del iPhone al auto sin cambios cuando su formato y tamaño encajan, sin transcodificar en el teléfono; si el iPhone envía H.264 en su lugar (por ejemplo, con *Force H.264*), el retransmisor la convierte a H.265.
+
+        La sesión usa H.264 solo con *Carlink H.265* en *Off*. Entonces el iPhone envía H.264 High, que la app Carlink del auto no puede mostrar, así que el retransmisor la convierte a H.264 Constrained Baseline 3.1, escalada en la forma de la ventana de Carlink para que quepa en ese nivel; el retransmisor Android lo hace con su codificador por hardware.
   connection:
     wifi:
       en: The car creates its own 5 GHz Wi-Fi network for Carlink and the relay joins it, so the relay needs 5 GHz Wi-Fi, switched on. With wireless CarPlay on *This phone’s hotspot*, the Android relay ran a 5 GHz hotspot and joined the car over Wi-Fi at the same time, steadily for about an hour in testing.
       zh: 车机为 Carlink 建立自己的 5 GHz Wi-Fi，中继加入这个网络，因此中继需要支持 5 GHz Wi-Fi，并且 Wi-Fi 要保持打开。无线 CarPlay 使用“此手机的热点”时，安卓中继同时开 5 GHz 热点并用 Wi-Fi 连接车机，实测连续约一小时稳定。
       ru: Автомобиль создаёт для Carlink собственную сеть Wi-Fi 5 ГГц, и ретранслятор подключается к ней, поэтому ретранслятору нужен включённый Wi-Fi 5 ГГц. С беспроводным CarPlay через *This phone’s hotspot* ретранслятор на Android одновременно держал точку доступа 5 ГГц и подключение к автомобилю по Wi-Fi; в испытаниях это стабильно работало около часа.
+      es: El auto crea su propia red Wi-Fi de 5 GHz para Carlink y el retransmisor se conecta a ella, así que el retransmisor necesita Wi-Fi de 5 GHz encendido. Con CarPlay inalámbrico en *This phone’s hotspot*, el retransmisor Android mantuvo un punto de acceso de 5 GHz y se conectó al auto por Wi-Fi al mismo tiempo, de forma estable durante aproximadamente una hora en las pruebas.
     pairing:
       en: On the first connection, enter the pairing code shown on the car’s screen into the relay. The relay remembers the pairing, so the code normally isn’t needed again; connecting by itself after the car starts may need the car’s Carlink pairing-code page open.
       zh: 第一次连接时，在中继中输入车机屏幕上显示的配对码。中继会记住配对，之后通常不用再输入；车机开机后自动连接时，可能需要先打开车机 Carlink 应用的配对码页面。
       ru: При первом подключении введите в ретрансляторе код сопряжения, показанный на экране автомобиля. Ретранслятор запоминает сопряжение, поэтому обычно код больше не нужен; для автоматического подключения после запуска автомобиля может потребоваться открыть на нём страницу с кодом сопряжения Carlink.
+      es: En la primera conexión, ingresa en el retransmisor el código de enlace que aparece en la pantalla del auto. El retransmisor recuerda el enlace, así que normalmente el código no se necesita de nuevo; para conectarse solo después de que el auto arranca, puede ser necesario tener abierta la página del código de enlace de Carlink en el auto.
     vehicle-info:
       en: 'Tested with this Carlink version (2026-10-20): the car accepted the vehicle information connection, but sent no data after changing gear, switching the lights and changing the day/night theme.'
       zh: 已在这个 Carlink 版本上测试（2026-10-20）：车机接受了车辆信息连接，但换挡、开关车灯和切换日夜主题后都没有发来数据。
       ru: 'Испытано с этой версией Carlink (2026-10-20): автомобиль принял подключение для сведений об автомобиле, но не передал данных после переключения передачи, включения и выключения фар и смены дневной и ночной темы.'
+      es: 'Probado con esta versión de Carlink (2026-10-20): el auto aceptó la conexión de información del vehículo, pero no envió datos después de cambiar de marcha, encender y apagar las luces y cambiar el tema de día/noche.'

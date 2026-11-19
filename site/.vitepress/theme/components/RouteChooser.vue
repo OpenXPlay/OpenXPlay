@@ -46,7 +46,7 @@ const ICONS: Record<Relay | Display, string> = {
   wireless: '<path d="M3 8V6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5H14"/><path d="M3 12a8 8 0 0 1 8 8"/><path d="M3 16a4 4 0 0 1 4 4"/><path d="M3 20h.01"/>',
 }
 
-const TEXT: Record<'en' | 'zh' | 'ru', Text> = {
+const TEXT: Record<'en' | 'zh' | 'ru' | 'es', Text> = {
   zh: {
     relayQuestion: '用什么作中继？',
     displayQuestion: '车机用什么显示 CarPlay？',
@@ -422,10 +422,135 @@ const TEXT: Record<'en' | 'zh' | 'ru', Text> = {
       },
     },
   },
+  es: {
+    relayQuestion: '¿Qué usarás como retransmisor?',
+    displayQuestion: '¿Cómo mostrará CarPlay la unidad principal?',
+    yourRoute: 'Tu configuración',
+    needsLabel: 'Necesitas',
+    relays: [
+      { key: 'android', name: 'Teléfono Android', tag: 'Recomendado', tagKind: 'tip', desc: 'Instala una app y sigue su asistente de configuración. Necesita Android 8.0 o posterior.' },
+      { key: 'ufi003', name: 'Módem USB UFI003', desc: 'Un dispositivo pequeño y económico que arranca al recibir energía; para instalarlo se necesita una computadora.' },
+      { key: 'n1', name: 'TV box Phicomm N1', tag: 'Avanzado', tagKind: 'info', desc: 'Su punto de acceso puede usar 5 GHz y arranca al recibir energía; se instala desde la línea de comandos.' },
+    ],
+    displays: [
+      { key: 'browser', name: 'Navegador de la unidad principal', tag: 'Recomendado', tagKind: 'tip', desc: 'Muestra la imagen del iPhone directamente, con control táctil. El navegador debe admitir WebCodecs.' },
+      { key: 'carlink', name: 'App Carlink', desc: 'Vale la pena probarla cuando la unidad principal no tiene un navegador que sirva, pero sí una app Carlink.' },
+      { key: 'carlife', name: 'CarLife', tag: 'Experimental', tagKind: 'warning', desc: 'Vale la pena probarlo cuando la unidad principal tiene CarLife; por Wi-Fi o USB.' },
+      { key: 'wireless', name: 'Transmisión inalámbrica', tag: 'Experimental', tagKind: 'warning', desc: 'Vale la pena probarla cuando la unidad principal solo recibe transmisiones DLNA o Miracast; solo muestra la imagen.' },
+    ],
+    results: {
+      'android-browser': {
+        title: 'Teléfono Android + navegador de la unidad principal',
+        summary: 'La configuración recomendada. Instala OpenXPlay Relay en el teléfono y sigue el asistente de configuración; la primera configuración toma unos 10 minutos. No se instala nada en la unidad principal.',
+        needs: ['Un iPhone con CarPlay', 'Un teléfono con Android 8.0 o posterior', 'Una identidad de accesorio de Apple (MFi)', 'Una unidad principal cuyo navegador admita WebCodecs'],
+        action: 'Ver la guía del teléfono Android',
+        link: 'android-relay',
+        secondary: { text: 'Primero verifica el navegador de la unidad principal', link: 'check' },
+      },
+      'android-carlink': {
+        title: 'Teléfono Android + app Carlink',
+        summary: 'El retransmisor se conecta a la app Carlink de la unidad principal por Wi-Fi. Usa la app de Android 0.1.5 o posterior.',
+        needs: ['Un iPhone con CarPlay', 'Un teléfono con Android 10 o posterior', 'Una identidad de accesorio de Apple (MFi)', 'Una unidad principal con una app Carlink'],
+        note: 'Deja el Wi-Fi del teléfono retransmisor encendido y usa el punto de acceso de ese teléfono para CarPlay inalámbrico.',
+        action: 'Ver la guía de Carlink',
+        link: 'carlink',
+        secondary: { text: 'Ver las unidades principales probadas', link: 'head-units' },
+      },
+      'ufi003-browser': {
+        title: 'Módem USB UFI003 + navegador de la unidad principal',
+        summary: 'Instala el sistema y el retransmisor Linux en el UFI003 desde una computadora: de preferencia, deja que un asistente de IA siga las instrucciones de instalación con OpenXPlay Flasher, o instálalo tú mismo en la app Flasher. Una vez instalado, el retransmisor arranca cada vez que el módem recibe energía.',
+        needs: ['Un iPhone con CarPlay', 'Un módem USB UFI003 y una computadora', 'Una identidad de accesorio de Apple (MFi)', 'Una unidad principal cuyo navegador admita WebCodecs y que pueda conectarse a Wi-Fi de 2.4 GHz'],
+        note: 'La primera instalación necesita una Mac o una PC con Windows. El Wi-Fi del UFI003 es solo de 2.4 GHz.',
+        action: 'Ver la guía del UFI003',
+        link: 'ufi003-relay',
+        secondary: { text: 'Primero verifica el navegador de la unidad principal', link: 'check' },
+      },
+      'ufi003-carlink': {
+        title: 'Módem USB UFI003 + app Carlink',
+        summary: 'El UFI003 tiene un solo adaptador Wi-Fi, así que muestra CarPlay solo en el navegador de la unidad principal. Para Carlink, usa un teléfono Android o un Phicomm N1 con un segundo adaptador Wi-Fi USB.',
+        needs: [],
+        unavailable: true,
+        action: 'Ver la guía de Carlink',
+        link: 'carlink',
+        secondary: { text: 'Usar el navegador de la unidad principal', link: 'ufi003-relay' },
+      },
+      'n1-browser': {
+        title: 'TV box Phicomm N1 + navegador de la unidad principal',
+        summary: 'Instala Armbian en el N1 y luego, por SSH, el paquete del dispositivo y el retransmisor Linux; es para quienes se sienten cómodos con la línea de comandos. Una vez instalado, el retransmisor arranca cada vez que el TV box recibe energía, y su punto de acceso puede usar 5 GHz.',
+        needs: ['Un iPhone con CarPlay', 'Un Phicomm N1, una memoria USB, un cable de red y una computadora', 'Una identidad de accesorio de Apple (MFi)', 'Una unidad principal cuyo navegador admita WebCodecs'],
+        action: 'Ver la guía del Phicomm N1',
+        link: 'phicomm-n1',
+        secondary: { text: 'Primero verifica el navegador de la unidad principal', link: 'check' },
+      },
+      'n1-carlink': {
+        title: 'TV box Phicomm N1 + app Carlink',
+        summary: 'El retransmisor se conecta a la app Carlink de la unidad principal por Wi-Fi. Necesita el retransmisor Linux 0.1.6 o posterior.',
+        needs: ['Un iPhone con CarPlay', 'Un Phicomm N1, una memoria USB, un cable de red y una computadora', 'Un segundo adaptador Wi-Fi, por USB', 'Una identidad de accesorio de Apple (MFi)', 'Una unidad principal con una app Carlink'],
+        note: 'El adaptador integrado del N1 crea el punto de acceso para el iPhone, y el adaptador USB se conecta al Wi-Fi de Carlink de la unidad principal.',
+        action: 'Ver la guía del Phicomm N1',
+        link: 'phicomm-n1',
+        secondary: { text: 'Ver la guía de Carlink', link: 'carlink' },
+      },
+      'android-carlife': {
+        title: 'Teléfono Android + CarLife',
+        summary: 'El retransmisor envía la imagen y el control táctil de CarPlay al CarLife de la unidad principal por la misma red Wi-Fi, el punto de acceso del teléfono retransmisor o USB. Es experimental; necesita la app de Android 0.2.5 o posterior.',
+        needs: ['Un iPhone con CarPlay', 'Un teléfono con Android 8.0 o posterior', 'Una identidad de accesorio de Apple (MFi)', 'Una unidad principal con CarLife'],
+        note: 'El sonido sale del iPhone por su conexión Bluetooth con el auto.',
+        action: 'Ver la guía de CarLife',
+        link: 'carlife',
+        secondary: { text: 'Ver la guía del teléfono Android', link: 'android-relay' },
+      },
+      'android-wireless': {
+        title: 'Teléfono Android + transmisión inalámbrica',
+        summary: 'El retransmisor transmite la imagen de CarPlay al receptor DLNA o Miracast de la unidad principal, y tú manejas CarPlay en el teléfono retransmisor. Es experimental; necesita la app de Android 0.2.5 o posterior.',
+        needs: ['Un iPhone con CarPlay', 'Un teléfono con Android 8.0 o posterior', 'Una identidad de accesorio de Apple (MFi)', 'Una unidad principal que reciba transmisiones DLNA o Miracast'],
+        note: 'CarPlay no se puede tocar en la unidad principal.',
+        action: 'Ver la guía de transmisión inalámbrica',
+        link: 'wireless-display',
+        secondary: { text: 'Ver la guía del teléfono Android', link: 'android-relay' },
+      },
+      'ufi003-carlife': {
+        title: 'Módem USB UFI003 + CarLife',
+        summary: 'Solo la app de Android tiene la salida a CarLife; el retransmisor Linux no. Para CarLife, usa un teléfono Android.',
+        needs: [],
+        unavailable: true,
+        action: 'Ver la guía de CarLife',
+        link: 'carlife',
+        secondary: { text: 'Usar el navegador de la unidad principal', link: 'ufi003-relay' },
+      },
+      'ufi003-wireless': {
+        title: 'Módem USB UFI003 + transmisión inalámbrica',
+        summary: 'Solo la app de Android tiene transmisión inalámbrica; el retransmisor Linux no. Para la transmisión inalámbrica, usa un teléfono Android.',
+        needs: [],
+        unavailable: true,
+        action: 'Ver la guía de transmisión inalámbrica',
+        link: 'wireless-display',
+        secondary: { text: 'Usar el navegador de la unidad principal', link: 'ufi003-relay' },
+      },
+      'n1-carlife': {
+        title: 'TV box Phicomm N1 + CarLife',
+        summary: 'Solo la app de Android tiene la salida a CarLife; el retransmisor Linux no. Para CarLife, usa un teléfono Android.',
+        needs: [],
+        unavailable: true,
+        action: 'Ver la guía de CarLife',
+        link: 'carlife',
+        secondary: { text: 'Usar el navegador de la unidad principal', link: 'phicomm-n1' },
+      },
+      'n1-wireless': {
+        title: 'TV box Phicomm N1 + transmisión inalámbrica',
+        summary: 'Solo la app de Android tiene transmisión inalámbrica; el retransmisor Linux no. Para la transmisión inalámbrica, usa un teléfono Android.',
+        needs: [],
+        unavailable: true,
+        action: 'Ver la guía de transmisión inalámbrica',
+        link: 'wireless-display',
+        secondary: { text: 'Usar el navegador de la unidad principal', link: 'phicomm-n1' },
+      },
+    },
+  },
 }
 
 const { localeIndex } = useData()
-const locale = computed<'en' | 'zh' | 'ru'>(() => (localeIndex.value === 'zh' || localeIndex.value === 'ru' ? localeIndex.value : 'en'))
+const locale = computed<keyof typeof TEXT>(() => (localeIndex.value in TEXT ? localeIndex.value as keyof typeof TEXT : 'en'))
 const t = computed(() => TEXT[locale.value])
 const prefix = computed(() => `/${locale.value}/`)
 

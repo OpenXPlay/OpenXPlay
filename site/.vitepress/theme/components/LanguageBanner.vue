@@ -5,22 +5,24 @@ Created by riko chen on 2026-10-17
 -->
 <script setup lang="ts">
 // Offers the visitor's language on a page in another language. On an English page it offers
-// Simplified Chinese or Russian, whichever comes first in the browser's languages; on a Chinese or
-// Russian page it offers, to visitors whose browser doesn't have the page's language, the first of
+// Simplified Chinese, Russian or Spanish, whichever comes first in the browser's languages; on a
+// Chinese, Russian or Spanish page it offers, to visitors whose browser doesn't have the page's language, the first of
 // the other languages in the browser's list, or English. It renders only in the browser (never
 // during the build), never redirects, and floats over the page so nothing moves when it appears.
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useData, useRoute, withBase } from 'vitepress'
 
-type Language = 'zh' | 'en' | 'ru'
+type Language = 'zh' | 'en' | 'ru' | 'es'
 
-// The page language the visitor chose to stay in ('zh-Hans', 'en' or 'ru').
+// The page language the visitor chose to stay in ('zh-Hans', 'en', 'ru' or 'es-419').
 const STORAGE_KEY = 'openxplay.languagePrompt'
 const TAGS: Record<Language, RegExp> = {
   // zh, zh-CN, zh-TW, zh-Hans, zh-Hant, ... and the ISO 639-3 Chinese languages (cmn, yue, ...).
   zh: /^(zh|cmn|yue|wuu|hak|nan|gan|hsn|cdo|cjy|cpx|czh|czo|mnp|lzh)(?:[-_]|$)/i,
   en: /^en(?:[-_]|$)/i,
   ru: /^ru(?:[-_]|$)/i,
+  // Any Spanish (es, es-419, es-MX, es-ES, ...): Latin American Spanish is the site's only Spanish.
+  es: /^es(?:[-_]|$)/i,
 }
 
 interface Words {
@@ -40,9 +42,9 @@ const WORDS: Record<Language, Words> = {
   zh: {
     lang: 'zh-Hans',
     label: '语言选择',
-    available: { zh: '本站提供简体中文版。', en: '本站提供英文版。', ru: '本站提供俄文版。' },
+    available: { zh: '本站提供简体中文版。', en: '本站提供英文版。', ru: '本站提供俄文版。', es: '本站提供西班牙文版。' },
     switchText: '切换到简体中文',
-    stay: { zh: '继续使用简体中文', en: '继续使用英文', ru: '继续使用俄文' },
+    stay: { zh: '继续使用简体中文', en: '继续使用英文', ru: '继续使用俄文', es: '继续使用西班牙文' },
   },
   en: {
     lang: 'en',
@@ -51,9 +53,10 @@ const WORDS: Record<Language, Words> = {
       zh: 'This site is also available in Simplified Chinese.',
       en: 'This site is also available in English.',
       ru: 'This site is also available in Russian.',
+      es: 'This site is also available in Spanish.',
     },
     switchText: 'Switch to English',
-    stay: { zh: 'Stay in Chinese', en: 'Stay in English', ru: 'Stay in Russian' },
+    stay: { zh: 'Stay in Chinese', en: 'Stay in English', ru: 'Stay in Russian', es: 'Stay in Spanish' },
   },
   ru: {
     lang: 'ru',
@@ -62,9 +65,22 @@ const WORDS: Record<Language, Words> = {
       zh: 'Этот сайт доступен и на упрощённом китайском языке.',
       en: 'Этот сайт доступен и на английском языке.',
       ru: 'Этот сайт доступен и на русском языке.',
+      es: 'Этот сайт доступен и на испанском языке.',
     },
     switchText: 'Перейти на русский',
-    stay: { zh: 'Остаться на китайском', en: 'Остаться на английском', ru: 'Остаться на русском' },
+    stay: { zh: 'Остаться на китайском', en: 'Остаться на английском', ru: 'Остаться на русском', es: 'Остаться на испанском' },
+  },
+  es: {
+    lang: 'es-419',
+    label: 'Idioma',
+    available: {
+      zh: 'Este sitio también está disponible en chino simplificado.',
+      en: 'Este sitio también está disponible en inglés.',
+      ru: 'Este sitio también está disponible en ruso.',
+      es: 'Este sitio también está disponible en español.',
+    },
+    switchText: 'Cambiar a español',
+    stay: { zh: 'Seguir en chino', en: 'Seguir en inglés', ru: 'Seguir en ruso', es: 'Seguir en español' },
   },
 }
 
@@ -140,7 +156,7 @@ const visible = computed(() => {
 })
 
 const targetHref = computed(() => {
-  const slug = page.value.relativePath.replace(/^(zh|en|ru)\//, '').replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
+  const slug = page.value.relativePath.replace(/^(zh|en|ru|es)\//, '').replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
   return withBase(`/${offer.value?.prefix ?? ''}${slug}`) + hash.value
 })
 

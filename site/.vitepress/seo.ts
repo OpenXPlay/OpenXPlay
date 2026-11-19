@@ -28,12 +28,18 @@ const SOCIAL_IMAGE = {
     file: 'og-image-en.png',
     alt: 'Схема OpenXPlay: iPhone подключается через ретранслятор на Android или Linux к браузеру головного устройства, Carlink, беспроводной или проводной трансляции экрана',
   },
+  // The English image: its labels are English.
+  es: {
+    file: 'og-image-en.png',
+    alt: 'Ruta de OpenXPlay: un iPhone se conecta a través de un retransmisor Android o Linux al navegador de la unidad principal, a Carlink, a la transmisión de pantalla inalámbrica o a la transmisión de pantalla por cable',
+  },
 } as const
 
 const SOFTWARE_DESCRIPTION: Record<LocaleKey, string> = {
   zh: '开源中继软件：让无法安装应用的安卓车机通过车机自带的浏览器或 Carlink 应用显示 iPhone CarPlay。可作为 Android 应用运行，也可运行在小型 Linux 设备上。',
   en: 'Open-source relay software that shows iPhone CarPlay on Android head units that cannot install apps, through the head unit’s browser or Carlink app. Runs as an Android app or on small Linux devices.',
   ru: 'Ретранслятор с открытым исходным кодом, который показывает iPhone CarPlay на головных устройствах Android, на которые нельзя установить приложения, через встроенный браузер или приложение Carlink. Работает как приложение для Android или на небольших устройствах с Linux.',
+  es: 'Software retransmisor de código abierto que muestra CarPlay del iPhone en unidades principales Android que no pueden instalar apps, a través del navegador o la app Carlink de la unidad principal. Funciona como app de Android o en pequeños dispositivos Linux.',
 }
 
 const organizationId = `${SITE_ROOT}#organization`
