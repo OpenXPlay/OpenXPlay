@@ -11,7 +11,7 @@ Created by riko chen on 2026-10-17
 import { computed, onMounted, ref } from 'vue'
 import { useData } from 'vitepress'
 
-type Lang = 'en' | 'zh'
+type Lang = 'en' | 'zh' | 'ru'
 type Verdict = 'full' | 'h264' | 'partial' | 'unsupported' | 'insecure'
 type Tri = boolean | undefined
 
@@ -161,10 +161,66 @@ const TEXT = {
     copy: '复制报告', copied: '报告已复制。', copyFailed: '此处无法自动复制。请选中下方报告文字后手动复制。',
     rerun: '重新检测', report: '显示报告文字',
   },
+  ru: {
+    checking: 'Проверяем этот браузер…',
+    fallback: 'Если это сообщение не меняется, этот браузер не может выполнить проверку. Скорее всего, он слишком старый для веб-приёмника, которому нужен WebCodecs.',
+    privacy: 'Всё выполняется на этой странице. Ничего не отправляется и не сохраняется.',
+    verdicts: {
+      full: ['Проверка пройдена, с H.265', 'Браузер сообщает о функциях видео, звука и микрофона, которые использует веб-приёмник, и указывает, что может аппаратно декодировать H.265 (HEVC), поэтому ретранслятор может использовать H.265.'],
+      h264: ['Проверка пройдена, только H.264', 'Браузер сообщает о функциях видео, звука и микрофона, которые использует веб-приёмник, но не указывает на аппаратное декодирование H.265, поэтому ретранслятор отправляет на этот экран H.264.'],
+      partial: ['Изображение будет, но части функций нет', 'Браузер сообщает о том, что нужно веб-приёмнику для показа изображения, но некоторых функций из списка ниже у него нет.'],
+      unsupported: ['Не поддерживается: нужен браузер с WebCodecs', ''],
+      insecure: ['Откройте эту страницу по HTTPS', 'Браузеры включают WebCodecs только на защищённых (HTTPS) страницах, поэтому здесь проверку выполнить нельзя. Откройте эту страницу по адресу https://.'],
+    },
+    reasons: {
+      noDecoder: 'В этом браузере нет WebCodecs VideoDecoder, с помощью которого веб-приёмник декодирует видео CarPlay. Если на головном устройстве есть другой браузер, попробуйте его.',
+      noH264: 'WebCodecs есть, но браузер не сообщает о декодировании H.264, которое нужно веб-приёмнику.',
+      noWorker: 'В браузере нет Web Workers или OffscreenCanvas, с помощью которых веб-приёмник декодирует и отрисовывает видео.',
+      noSocket: 'В браузере нет WebSocket, по которому ретранслятор передаёт сеанс CarPlay.',
+    },
+    codec: {
+      hevc: 'Он указывает на аппаратное декодирование H.265.',
+      h264: 'Он не указывает на аппаратное декодирование H.265, поэтому ретранслятор отправляет H.264.',
+    },
+    joiner: ' ',
+    abilities: {
+      audio: 'Звук', microphone: 'Микрофон', touch: 'Сенсорное управление', supported: 'Поддерживается', missing: 'Нет', noTouch: 'Не обнаружено',
+      points: (n: number) => {
+        const tens = n % 100
+        const ones = n % 10
+        const word = tens >= 11 && tens <= 14 ? 'точек' : ones === 1 ? 'точка' : ones >= 2 && ones <= 4 ? 'точки' : 'точек'
+        return `${n} ${word}`
+      },
+    },
+    scope: 'Проверка только спрашивает браузер, что он поддерживает. Она не воспроизводит видео, не подключается к ретранслятору, не записывает звук и не передаёт касания, поэтому не заменяет испытание в автомобиле.',
+    notes: {
+      software: 'Браузер не сообщает об аппаратном декодировании H.264. CarPlay может работать, но видео может подтормаживать.',
+      noAudio: 'Нет AudioWorklet: браузер может показывать CarPlay, но не может воспроизводить его звук.',
+      noAac: 'Нет декодирования AAC: веб-приёмник всё равно может воспроизводить несжатый звук (PCM).',
+      noMic: 'Нет доступа к микрофону: Siri и звонки не смогут использовать микрофон головного устройства через этот браузер.',
+      singleTouch: 'Сообщается только об одной точке касания, поэтому жесты несколькими пальцами работать не будут.',
+      noTouch: 'Сенсорный экран не обнаружен. Касания всё же могут поступать в браузер как ввод мышью.',
+    },
+    sections: { video: 'Декодирование видео (WebCodecs)', features: 'Функции браузера', audio: 'Звук и микрофон', screen: 'Экран и сенсорное управление', browser: 'Браузер' },
+    columns: { format: 'Формат', size: 'Размер', codec: 'Строка кодека', supported: 'Поддерживается', hardware: 'Аппаратно', software: 'Программно', efficient: 'Энергоэффективно' },
+    hardwareNote: '«Аппаратно» и «Программно» — ответы браузера на подсказки декодеру prefer-hardware и prefer-software; «Энергоэффективно» берётся из Media Capabilities и обычно означает аппаратный декодер. Некоторые браузеры отвечают на это неточно.',
+    labels: {
+      secure: 'Защищённая страница (HTTPS)', videoDecoder: 'WebCodecs VideoDecoder', worker: 'Web Workers', offscreen: 'Передача OffscreenCanvas',
+      webSocket: 'WebSocket', fullscreen: 'Полноэкранный режим', mediaCapabilities: 'Media Capabilities',
+      audioContext: 'AudioContext', audioWorklet: 'AudioWorklet', audioDecoder: 'WebCodecs AudioDecoder', aac: 'AAC (mp4a.40.2)', opus: 'Opus',
+      microphone: 'API микрофона (getUserMedia)', sampleRate: 'Частота дискретизации вывода',
+      screenSize: 'Экран (CSS-пиксели)', pixels: 'Экран (физические пиксели)', dpr: 'Плотность пикселей (devicePixelRatio)', viewport: 'Область просмотра', orientation: 'Ориентация',
+      colorDepth: 'Глубина цвета', refresh: 'Примерная частота обновления', touchPoints: 'Точки касания (maxTouchPoints)', pointer: 'Грубый указатель (касание)',
+      userAgent: 'User agent', brands: 'Бренды (UA Client Hints)', platform: 'Платформа', mobile: 'Мобильное устройство', languages: 'Языки', cores: 'Ядра процессора', memory: 'Память устройства',
+    },
+    yes: 'Да', no: 'Нет', unknown: 'Неизвестно', notExposed: 'Не сообщается', required: 'обязательно',
+    copy: 'Скопировать отчёт', copied: 'Отчёт скопирован.', copyFailed: 'Здесь копирование заблокировано. Выделите текст отчёта ниже и скопируйте его.',
+    rerun: 'Проверить снова', report: 'Показать текст отчёта',
+  },
 } as const
 
 const { lang } = useData()
-const language = computed<Lang>(() => (lang.value.startsWith('zh') ? 'zh' : 'en'))
+const language = computed<Lang>(() => (lang.value.startsWith('zh') ? 'zh' : lang.value.startsWith('ru') ? 'ru' : 'en'))
 const t = computed(() => TEXT[language.value])
 
 const state = ref<'idle' | 'running' | 'done'>('idle')

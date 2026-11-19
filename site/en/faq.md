@@ -55,7 +55,7 @@ The relay starts again when power comes back:
 
 ## Privacy and security {#privacy}
 
-These answers are about the relay. For the iPhone direct connection, see the [privacy policy on openxplay.com](https://openxplay.com/privacy).
+These answers are about the relay. For the iPhone direct connection, see the [privacy policy on openxplay.com](https://openxplay.com/en/privacy).
 
 ### Does OpenXPlay send my data anywhere? {#data}
 

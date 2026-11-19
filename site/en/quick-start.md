@@ -20,7 +20,7 @@ OpenXPlay brings your iPhone’s CarPlay to the head unit in one of two ways:
 
 ## iPhone direct connection <Badge type="warning" text="Beta" /> {#iphone-direct}
 
-The iPhone app does the relay’s job on the iPhone itself; the head unit shows CarPlay in its browser, Carlink, CarLife or screen-casting receiver, as with a relay. It is in public beta: open [openxplay.com](https://openxplay.com) on your iPhone, or scan the QR code on the [home page](/en/#iphone-app). CarPlay needs an [Apple accessory (MFi) identity](#mfi-identity) that you supply, as with a relay.
+The iPhone app does the relay’s job on the iPhone itself; the head unit shows CarPlay in its browser, Carlink, CarLife or screen-casting receiver, as with a relay. It is in public beta: open [openxplay.com](https://openxplay.com/en/) on your iPhone, or scan the QR code on the [home page](/en/#iphone-app). CarPlay needs an [Apple accessory (MFi) identity](#mfi-identity) that you supply, as with a relay.
 
 <div class="oxp-recommended">
 

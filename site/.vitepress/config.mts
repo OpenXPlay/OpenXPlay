@@ -28,7 +28,7 @@ const english: DefaultTheme.Config = {
     { text: 'Get started', link: '/en/quick-start', activeMatch: `^/en/(${GUIDE_PAGES})$` },
     { text: 'How it works', link: '/en/how-it-works' },
     { text: 'FAQ', link: '/en/faq', activeMatch: `^/en/(${HELP_PAGES})$` },
-    { text: 'Join a group', link: 'https://openxplay.com/join' },
+    { text: 'Join a group', link: 'https://openxplay.com/en/join' },
   ],
   sidebar: [
     {
@@ -186,11 +186,93 @@ const chinese: DefaultTheme.Config = {
   },
 }
 
-const THEMES: Record<LocaleKey, DefaultTheme.Config> = { zh: chinese, en: english }
+const russian: DefaultTheme.Config = {
+  nav: [
+    { text: 'Быстрый старт', link: '/ru/quick-start', activeMatch: `^/ru/(${GUIDE_PAGES})$` },
+    { text: 'Как это работает', link: '/ru/how-it-works' },
+    { text: 'Частые вопросы', link: '/ru/faq', activeMatch: `^/ru/(${HELP_PAGES})$` },
+    { text: 'Вступить в чат', link: 'https://openxplay.com/ru/join' },
+  ],
+  sidebar: [
+    {
+      text: 'С чего начать',
+      items: [
+        { text: 'Как это работает', link: '/ru/how-it-works' },
+        { text: 'Быстрый старт', link: '/ru/quick-start' },
+        { text: 'Проверка головного устройства', link: '/ru/check' },
+      ],
+    },
+    {
+      text: 'Настройка ретранслятора',
+      items: [
+        { text: 'Телефон Android', link: '/ru/android-relay' },
+        {
+          text: 'USB-модем UFI003',
+          link: '/ru/ufi003-relay',
+          items: [{ text: 'Прошивка базового образа', link: '/ru/ufi003-flash' }],
+        },
+        { text: `ТВ-приставка Phicomm N1 ${tag('info', 'Для опытных')}`, link: '/ru/phicomm-n1' },
+        { text: `Другие устройства на Linux ${tag('info', 'Для опытных')}`, link: '/ru/linux-devices' },
+        { text: 'Приложение Carlink', link: '/ru/carlink' },
+        { text: `CarLife ${tag('warning', 'Экспериментально')}`, link: '/ru/carlife' },
+        { text: `Беспроводная трансляция ${tag('warning', 'Экспериментально')}`, link: '/ru/wireless-display' },
+        { text: `Tesla ${tag('warning', 'Экспериментально')}`, link: '/ru/tesla' },
+      ],
+    },
+    {
+      text: 'Использование',
+      items: [
+        { text: 'Повседневное использование и настройки', link: '/ru/daily-use' },
+        { text: 'Доверенный HTTPS', link: '/ru/trusted-https' },
+      ],
+    },
+    {
+      text: 'Помощь',
+      items: [
+        { text: 'Решение проблем', link: '/ru/troubleshooting' },
+        { text: 'Частые вопросы', link: '/ru/faq' },
+        { text: 'Головные устройства', link: '/ru/head-units' },
+      ],
+    },
+    {
+      text: 'Проект',
+      items: [
+        { text: 'История изменений', link: '/ru/changelog' },
+        { text: 'Сообщество', link: '/ru/community' },
+        { text: 'Разработчикам', link: '/ru/developers' },
+        { text: 'Лицензии', link: '/ru/licensing' },
+        { text: 'Конфиденциальность', link: '/ru/privacy' },
+      ],
+    },
+  ],
+  footer: {
+    message: `GitHub: ${repositoryLinks}<br>Контакты: ${mail} · <a href="${BASE}ru/developers">Разработчикам</a> · <a href="${BASE}ru/licensing">Лицензии</a> · <a href="${BASE}ru/privacy">Конфиденциальность</a> · Код сайта: <a href="https://opensource.org/license/mit">MIT</a> · Содержимое: <a href="https://creativecommons.org/licenses/by/4.0/deed.ru">CC BY 4.0</a>`,
+    copyright: 'CarPlay и iPhone — товарные знаки Apple Inc. OpenXPlay — независимый проект, не связанный с Apple, не одобренный и не сертифицированный ею.',
+  },
+  outline: { level: [2, 3], label: 'На этой странице' },
+  lastUpdated: { text: 'Обновлено', formatOptions: { dateStyle: 'medium' } },
+  docFooter: { prev: 'Предыдущая страница', next: 'Следующая страница' },
+  darkModeSwitchLabel: 'Оформление',
+  lightModeSwitchTitle: 'Включить светлую тему',
+  darkModeSwitchTitle: 'Включить тёмную тему',
+  sidebarMenuLabel: 'Меню',
+  returnToTopLabel: 'Наверх',
+  langMenuLabel: 'Сменить язык',
+  skipToContentLabel: 'Перейти к содержимому',
+  notFound: {
+    title: 'Страница не найдена',
+    quote: 'Этой страницы нет или она перемещена.',
+    linkLabel: 'Перейти на главную страницу',
+    linkText: 'На главную',
+  },
+}
+
+const THEMES: Record<LocaleKey, DefaultTheme.Config> = { zh: chinese, en: english, ru: russian }
 
 const DESCRIPTIONS: Record<LocaleKey, string> = {
   zh: 'OpenXPlay 让无法安装应用的安卓车机，通过车机自带的浏览器或 Carlink 应用显示 iPhone CarPlay。',
   en: 'OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps, through the head unit’s browser or Carlink app.',
+  ru: 'OpenXPlay показывает iPhone CarPlay на головных устройствах Android, на которые нельзя установить приложения, через встроенный браузер или приложение Carlink.',
 }
 
 export default defineConfig({
@@ -199,7 +281,7 @@ export default defineConfig({
   lastUpdated: true,
   srcExclude: ['README.md', 'public/**'],
   title: SITE_NAME,
-  // Pages outside zh/ and en/ (only the not-found page) use the default language.
+  // Pages outside the locale directories (only the not-found page) use the default language.
   lang: LOCALES[DEFAULT_LOCALE].lang,
   description: DESCRIPTIONS[DEFAULT_LOCALE],
 
@@ -232,6 +314,15 @@ export default defineConfig({
       titleTemplate: `:title | ${SITE_NAME}`,
       description: DESCRIPTIONS.en,
       themeConfig: english,
+    },
+    ru: {
+      label: 'Русский',
+      lang: LOCALES.ru.lang,
+      link: '/ru/',
+      title: SITE_NAME,
+      titleTemplate: `:title | ${SITE_NAME}`,
+      description: DESCRIPTIONS.ru,
+      themeConfig: russian,
     },
   },
 

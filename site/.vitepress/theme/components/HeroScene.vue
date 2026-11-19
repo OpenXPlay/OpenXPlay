@@ -33,6 +33,16 @@ const TEXT = {
     screen: 'Head unit',
     screenSub: 'Shown in its own browser',
   },
+  ru: {
+    label: 'iPhone подключается к головному устройству напрямую через приложение OpenXPlay или передаёт CarPlay ретранслятору (телефону Android или USB-модему), который передаёт его дальше; CarPlay показывается во встроенном браузере головного устройства, а касания возвращаются на iPhone.',
+    direct: 'Напрямую с iPhone',
+    phone: 'iPhone',
+    phoneSub: 'Беспроводное или USB',
+    relay: 'Ретранслятор',
+    relaySub: 'Телефон Android или USB-модем',
+    screen: 'Головное устройство',
+    screenSub: 'Во встроенном браузере',
+  },
 } as const
 
 const { localeIndex } = useData()

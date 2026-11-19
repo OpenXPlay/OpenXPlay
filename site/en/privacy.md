@@ -12,7 +12,7 @@ breadcrumb: Privacy
 This policy covers the relay solution published by OpenXPlay.org: the OpenXPlay Relay Android app, the Linux relay and this website. Last updated: 13 November 2026.
 
 ::: tip iPhone direct connection
-The OpenXPlay iPhone app, which connects to the head unit without a relay, has its own [privacy policy on openxplay.com](https://openxplay.com/privacy).
+The OpenXPlay iPhone app, which connects to the head unit without a relay, has its own [privacy policy on openxplay.com](https://openxplay.com/en/privacy).
 :::
 
 ## In short {#summary}
