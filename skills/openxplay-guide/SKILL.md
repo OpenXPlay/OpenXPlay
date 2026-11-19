@@ -6,7 +6,7 @@ name: openxplay-guide
 description: "Set up OpenXPlay: iPhone CarPlay on an Android head unit, either directly with the OpenXPlay iPhone app or through a relay, with nothing installed on the head unit. Introduces the project and openxplay.org, interviews the user about their car, iPhone, spare devices and computer, recommends a route (the iPhone app directly, or an Android phone, UFI003 dongle or another arm64 Linux device as the relay; the head unit's browser, Carlink, CarLife, screen casting or Tesla browser to show it), judges unlisted Linux devices, then guides the install and first connection one step at a time, running computer-side steps itself and asking before anything risky; when something goes wrong it helps and points to community groups. Use it whenever someone asks what OpenXPlay is, wants to install, set up, troubleshoot or choose hardware for OpenXPlay or OpenXPlay Relay, asks whether their car, phone, TV box or board can run it, or wants CarPlay on a car screen that cannot install apps, in any language, including Chinese."
 license: CC-BY-4.0
 metadata:
-  version: "0.8.5"
+  version: "0.8.6"
   minimum-version: "0.1.0"
   source: "https://github.com/OpenXPlay/OpenXPlay/tree/main/skills/openxplay-guide"
 ---
@@ -88,7 +88,7 @@ Pick the setup first, then the display, then (for a relay) the relay and the net
 
 **Setup**
 
-1. They want no extra hardware, and are fine with a beta: **iPhone direct**. They join the public beta with TestFlight on the iPhone ([invitation](https://testflight.apple.com/join/pQ8gus9P); the QR code is on the [home page](https://openxplay.org/#iphone-app)), install the OpenXPlay app and follow it. The display choices below apply too. Don't explain how the app works inside; for its own steps, follow what the app shows and the user reports.
+1. They want no extra hardware, and are fine with a beta: **iPhone direct**. They join the public beta with TestFlight on the iPhone (open [openxplay.com](https://openxplay.com) on the iPhone, or scan the QR code on the [home page](https://openxplay.org/#iphone-app)), install the OpenXPlay app and follow it. The display choices below apply too. Don't explain how the app works inside; for its own steps, follow what the app shows and the user reports.
 2. They want the most proven setup, or the iPhone app does not fit: **a relay**, chosen below.
 
 **Display**
