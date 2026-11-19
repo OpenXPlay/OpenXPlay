@@ -21,12 +21,19 @@ summary:
     не начал передавать изображение ретранслятору. На том же телефоне та же проблема возникала с *This phone’s
     hotspot*, так что причина не обязательно в автомобиле; она ещё выясняется. Год выпуска модели, система
     головного устройства и версия Carlink не записаны.
+  es: >-
+    El 2026-10-31 un propietario conectó Carlink con la app de Android 0.2.3 en un teléfono con Android 15, y no
+    apareció la imagen de CarPlay: el auto y el retransmisor establecieron la conexión de Carlink, pero el iPhone
+    nunca empezó a enviar su imagen al retransmisor. El mismo teléfono tuvo el mismo problema con *This phone’s
+    hotspot*, así que la causa no está necesariamente en el auto; todavía se está investigando. No se registraron
+    el año del modelo, el sistema de la unidad principal ni la versión de Carlink.
 
 tests:
   - route: carlink
-    relay: {en: 'Android phone, 0.2.3', zh: 安卓手机，0.2.3, ru: 'Телефон Android, 0.2.3'}
+    relay: {en: 'Android phone, 0.2.3', zh: 安卓手机，0.2.3, ru: 'Телефон Android, 0.2.3', es: 'Teléfono Android, 0.2.3'}
     date: 2026-10-31
     result:
       en: No picture; the cause is still being investigated (owner’s log)
       zh: 没有画面，原因还在调查（车主的日志）
       ru: Изображения нет; причина ещё выясняется (журнал владельца)
+      es: Sin imagen; la causa todavía se está investigando (registro del propietario)

@@ -43,8 +43,8 @@ export function rememberPage(pageData: PageData): void {
 const SUMMARY = 'OpenXPlay shows iPhone CarPlay on Android head units that cannot install apps. A relay — an Android phone running the OpenXPlay Relay app, or a small Linux device such as the UFI003 USB dongle — connects to the iPhone as a CarPlay receiver and passes video, audio and touch on to software the head unit already has: its browser (the web receiver, which decodes H.264 or H.265 with WebCodecs) or a Carlink app. Nothing is installed on the head unit. The code is open source under AGPL-3.0, with commercial exemptions available from ' + SUPPORT_EMAIL + '.'
 
 const NOTES = [
-  'Terminology: a "head unit" (Chinese: 车机; Russian: головное устройство) is the car’s built-in Android infotainment screen; a "relay" (Chinese: 中继; Russian: ретранслятор) is the device between the iPhone and the head unit.',
-  'The site is available in Simplified Chinese under /zh/, in English under /en/ and in Russian under /ru/, with the same page paths; the root URLs redirect to the default language.',
+  'Terminology: a "head unit" (Chinese: 车机; Russian: головное устройство; Spanish: unidad principal) is the car’s built-in Android infotainment screen; a "relay" (Chinese: 中继; Russian: ретранслятор; Spanish: retransmisor) is the device between the iPhone and the head unit.',
+  'The site is available in Simplified Chinese under /zh/, in English under /en/, in Russian under /ru/ and in Latin American Spanish under /es/, with the same page paths; the root URLs redirect to the default language.',
 ]
 
 const REPOSITORIES: [string, string][] = [
@@ -69,6 +69,10 @@ const COMPONENT_TEXT: Record<LocaleKey, Record<string, string>> = {
     HeadUnitCheck: '[Интерактивная проверка: откройте эту страницу в браузере головного устройства, чтобы запустить её. Она проверяет, есть ли в браузере функции, которые использует веб-приёмник; всё выполняется в самом браузере. Проверка не заменяет испытание в автомобиле.]',
     RouteChooser: '[Выбор схемы: телефон Android + браузер головного устройства (рекомендуется), см. [Телефон Android в роли ретранслятора](/ru/android-relay); USB-модем UFI003 + браузер головного устройства, см. [UFI003 в роли ретранслятора](/ru/ufi003-relay); ТВ-приставка Phicomm N1 (для опытных), см. [Phicomm N1 в роли ретранслятора](/ru/phicomm-n1); телефон Android или Phicomm N1 со вторым USB-адаптером Wi-Fi + приложение Carlink, см. [Приложение Carlink](/ru/carlink); телефон Android + CarLife (экспериментально), см. [CarLife](/ru/carlife); телефон Android + беспроводная трансляция (DLNA, Miracast, экспериментально), см. [Беспроводная трансляция](/ru/wireless-display); у UFI003 только один адаптер Wi-Fi, поэтому с ним доступен только браузер головного устройства.]',
   },
+  es: {
+    HeadUnitCheck: '[Verificación interactiva: abre esta página en el navegador de la unidad principal para ejecutarla. Comprueba si el navegador tiene las funciones que usa el receptor web, todo dentro del navegador; no reemplaza una prueba en el auto.]',
+    RouteChooser: '[Selector de configuración: teléfono Android + navegador de la unidad principal (recomendado), consulta [Teléfono Android como retransmisor](/es/android-relay); módem USB UFI003 + navegador de la unidad principal, consulta [UFI003 como retransmisor](/es/ufi003-relay); TV box Phicomm N1 (avanzado), consulta [Phicomm N1 como retransmisor](/es/phicomm-n1); teléfono Android, o Phicomm N1 con un segundo adaptador Wi-Fi USB, + app Carlink, consulta [App Carlink](/es/carlink); teléfono Android + CarLife (experimental), consulta [CarLife](/es/carlife); teléfono Android + transmisión inalámbrica (DLNA, Miracast, experimental), consulta [Transmisión inalámbrica](/es/wireless-display); el UFI003 tiene un solo adaptador Wi-Fi, así que solo ofrece el navegador de la unidad principal.]',
+  },
 }
 
 function orderedPages(): PageSummary[] {
@@ -77,8 +81,9 @@ function orderedPages(): PageSummary[] {
     for (const slug of PAGE_SLUGS) {
       const relativePath = `${LOCALES[locale].prefix}${slug || 'index'}.md`
       const page = pages.get(relativePath)
-      if (!page) throw new Error(`generate: no page data for ${relativePath}`)
-      result.push(page)
+      if (page) result.push(page)
+      // A page another language has but this one doesn't yet (see untranslatedPage in config.mts).
+      else if (locale === DEFAULT_LOCALE) throw new Error(`generate: no page data for ${relativePath}`)
     }
   }
   return result
@@ -156,7 +161,7 @@ function llmsFullTxt(list: PageSummary[], srcDir: string): string {
     '',
     `> ${SUMMARY}`,
     '',
-    'Every page of the site in Simplified Chinese, English and Russian, generated from the page sources at build time.',
+    'Every page of the site in Simplified Chinese, English, Russian and Latin American Spanish, generated from the page sources at build time.',
   ]
   for (const page of list) {
     const { locale } = pageRoute(page.relativePath)

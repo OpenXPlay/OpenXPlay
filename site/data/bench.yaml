@@ -9,50 +9,60 @@ tests:
       en: Samsung Internet 21.1 on a Samsung Galaxy S20+ phone (Android 13), standing in for the head unit
       zh: 三星 Galaxy S20+ 手机（Android 13）上的三星浏览器 21.1，代替车机
       ru: Samsung Internet 21.1 на телефоне Samsung Galaxy S20+ (Android 13) вместо головного устройства
+      es: Samsung Internet 21.1 en un teléfono Samsung Galaxy S20+ (Android 13), en lugar de la unidad principal
     route: browser
     relay:
       en: Development builds of the Android relay and of the Linux relay on a UFI003, with a real iPhone; also replayed video
       zh: 开发版的安卓中继和 UFI003 上的 Linux 中继，接真实 iPhone；另用回放的视频测过
       ru: Сборки для разработки ретранслятора на Android и Linux-ретранслятора на UFI003 с настоящим iPhone; также воспроизводилось записанное видео
+      es: Compilaciones de desarrollo del retransmisor Android y del retransmisor Linux en un UFI003, con un iPhone real; también video reproducido
     date: 2026-10-14..2026-10-20
     result:
       en: H.264 and H.265 picture and touch work; tap to return to full screen failed, and entering or leaving full screen made CarPlay reconnect (see the [known issue](/en/daily-use#fullscreen-known-issue))
       zh: H.264 和 H.265 画面、触控通过；轻触恢复全屏失败，进出全屏会让 CarPlay 重新连接（见[已知问题](/zh/daily-use#fullscreen-known-issue)）
       ru: Изображение H.264 и H.265 и сенсорное управление работают; возврат в полноэкранный режим касанием не сработал, а вход в полноэкранный режим и выход из него приводили к повторному подключению CarPlay (см. [известную проблему](/ru/daily-use#fullscreen-known-issue))
+      es: La imagen H.264 y H.265 y el control táctil funcionan; tocar para volver a pantalla completa falló, y entrar o salir de pantalla completa hacía que CarPlay se volviera a conectar (consulta el [problema conocido](/es/daily-use#fullscreen-known-issue))
   - receiver:
       en: Carlink demo app 2.0.6 on the same S20+, standing in for the head unit
       zh: 同一部 S20+ 上的 Carlink 演示应用 2.0.6，代替车机
       ru: Демонстрационное приложение Carlink 2.0.6 на том же S20+ вместо головного устройства
+      es: App de demostración Carlink 2.0.6 en el mismo S20+, en lugar de la unidad principal
     route: carlink
     relay:
       en: Development tools on a Raspberry Pi 5, replaying recorded video
       zh: 树莓派 5 上的开发工具，回放录好的视频
       ru: Инструменты разработки на Raspberry Pi 5, воспроизводящие записанное видео
+      es: Herramientas de desarrollo en una Raspberry Pi 5, reproduciendo video grabado
     date: 2026-10-14
-    result: {en: Picture and touch positions correct, zh: 画面和触控位置正确, ru: Изображение и точки касания верны}
+    result: {en: Picture and touch positions correct, zh: 画面和触控位置正确, ru: Изображение и точки касания верны, es: Imagen y posiciones táctiles correctas}
   - receiver:
       en: Xiaomi REDMI G Pro 27U monitor (Xiaomi hyperDLNA)
       zh: 小米 REDMI G Pro 27U 显示器（Xiaomi hyperDLNA）
       ru: Монитор Xiaomi REDMI G Pro 27U (Xiaomi hyperDLNA)
+      es: Monitor Xiaomi REDMI G Pro 27U (Xiaomi hyperDLNA)
     route: dlna
     relay:
       en: Development tool on a Mac, replaying a recording of the iPhone’s picture
       zh: Mac 上的开发工具，回放 iPhone 录下的画面
       ru: Инструмент разработки на Mac, воспроизводящий запись изображения с iPhone
+      es: Herramienta de desarrollo en una Mac, reproduciendo una grabación de la imagen del iPhone
     date: 2026-10-22, 2026-10-27
-    result: {en: H.264 and H.265 keep playing; no touch, zh: H.264 和 H.265 都能持续播放；不能触控, ru: H.264 и H.265 воспроизводятся без перерывов; касаний нет}
+    result: {en: H.264 and H.265 keep playing; no touch, zh: H.264 和 H.265 都能持续播放；不能触控, ru: H.264 и H.265 воспроизводятся без перерывов; касаний нет, es: H.264 y H.265 se siguen reproduciendo; sin control táctil}
   - receiver:
       en: CarLife 4.0.0.43 on a Samsung phone, standing in for the head unit
       zh: 三星手机上的 CarLife 4.0.0.43，代替车机
       ru: CarLife 4.0.0.43 на телефоне Samsung вместо головного устройства
+      es: CarLife 4.0.0.43 en un teléfono Samsung, en lugar de la unidad principal
     route: carlife
     routeDetail: Wi-Fi
     relay:
       en: Android phone Redmi 14C, 0.2.5 development build, with a real iPhone; also replayed H.265 video
       zh: 安卓手机 Redmi 14C，0.2.5 开发版，接真实 iPhone；另用回放的 H.265 视频测过
       ru: Телефон Android Redmi 14C, сборка 0.2.5 для разработки, с настоящим iPhone; также воспроизводилось записанное видео H.265
+      es: Teléfono Android Redmi 14C, compilación de desarrollo 0.2.5, con un iPhone real; también video H.265 reproducido
     date: 2026-11-02
     result:
       en: 1920×864 picture; touch correct for opening Settings, Back, Home and swiping between pages, and the picture returns after CarLife restarts; H.265 keeps playing after the relay phone’s hardware converts it to H.264
       zh: 1920×864 画面；打开设置、返回、回到主屏和左右滑动的触控都正确，CarLife 重启后画面恢复；H.265 经中继手机的硬件转为 H.264 后持续播放
       ru: Изображение 1920×864; касания верны при открытии настроек, кнопках «Назад» и «Домой» и пролистывании страниц, а после перезапуска CarLife изображение возвращается; H.265 воспроизводится без перерывов после аппаратного преобразования в H.264 на телефоне-ретрансляторе
+      es: Imagen de 1920×864; el control táctil es correcto al abrir Configuración, Atrás, Inicio y deslizar entre páginas, y la imagen vuelve después de que CarLife se reinicia; H.265 se sigue reproduciendo después de que el hardware del teléfono retransmisor lo convierte a H.264

@@ -33,7 +33,7 @@ export const GITHUB_ORG = 'https://github.com/OpenXPlay'
 export const SUPPORT_EMAIL = 'support@openxplay.org'
 export const DISCORD_URL = 'https://discord.gg/j3cKd5Tax'
 
-export type LocaleKey = 'zh' | 'en' | 'ru'
+export type LocaleKey = 'zh' | 'en' | 'ru' | 'es'
 
 export interface LocaleInfo {
   /** BCP 47 tag for <html lang> and hreflang. */
@@ -48,11 +48,13 @@ export interface LocaleInfo {
   docsHeading: string
 }
 
-// Every language has its own prefix: Simplified Chinese under zh/, English under en/, Russian under ru/.
+// Every language has its own prefix: Simplified Chinese under zh/, English under en/, Russian under ru/,
+// Latin American Spanish under es/.
 export const LOCALES: Record<LocaleKey, LocaleInfo> = {
   zh: { lang: 'zh-Hans', ogLocale: 'zh_CN', prefix: 'zh/', home: '首页', docsHeading: '文档（简体中文）' },
   en: { lang: 'en', ogLocale: 'en_US', prefix: 'en/', home: 'Home', docsHeading: 'Docs (English)' },
   ru: { lang: 'ru', ogLocale: 'ru_RU', prefix: 'ru/', home: 'Главная', docsHeading: 'Документация (на русском)' },
+  es: { lang: 'es-419', ogLocale: 'es_LA', prefix: 'es/', home: 'Inicio', docsHeading: 'Documentación (en español)' },
 }
 
 /**

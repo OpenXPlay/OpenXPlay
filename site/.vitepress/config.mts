@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: MIT
 // Created by riko chen on 2026-10-17
 
+import fs from 'node:fs'
+import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig, type DefaultTheme } from 'vitepress'
 import { carNames, carsPlugin } from './cars'
@@ -9,8 +11,24 @@ import { rememberPage, writeGeneratedFiles } from './generate'
 import { seoHead } from './seo'
 import {
   BASE, DEFAULT_LOCALE, DISCORD_URL, GITHUB_ORG, LOCALES, SITE_HOST, SITE_NAME, SITE_ROOT,
-  SUPPORT_EMAIL, pageRoute, type LocaleKey,
+  PAGE_SLUGS, SUPPORT_EMAIL, pageRoute, type LocaleKey,
 } from './site'
+
+const SRC_DIR = fileURLToPath(new URL('..', import.meta.url))
+
+/**
+ * A link to a page that a language doesn't have yet, such as /es/<slug> before that page is
+ * translated. The page simply has no version in that language: the build doesn't stop on links to it,
+ * and the sitemap, hreflang alternates (seo.ts) and llms files (generate.ts) leave it out.
+ */
+function untranslatedPage(url: string): boolean {
+  const match = /^\/([a-z]+)\/(.*)$/.exec(url)
+  if (!match || !(match[1] in LOCALES)) return false
+  const slug = match[2].replace(/(^|\/)index$/, '')
+  return (PAGE_SLUGS as readonly string[]).includes(slug)
+    && fs.existsSync(path.join(SRC_DIR, LOCALES[DEFAULT_LOCALE].prefix, `${slug || 'index'}.md`))
+    && !fs.existsSync(path.join(SRC_DIR, LOCALES[match[1] as LocaleKey].prefix, `${slug || 'index'}.md`))
+}
 
 const repository = (name: string) => `<a href="${GITHUB_ORG}/${name}">${name.replace(/^OpenXPlay-/, '')}</a>`
 const repositoryLinks = ['OpenXPlay', 'OpenXPlay-Relay', 'OpenXPlay-Stream', 'OpenXPlay-Hardware', 'OpenXPlay-Web-Plugins', 'OpenXPlay-DiPlay']
@@ -267,12 +285,94 @@ const russian: DefaultTheme.Config = {
   },
 }
 
-const THEMES: Record<LocaleKey, DefaultTheme.Config> = { zh: chinese, en: english, ru: russian }
+const spanish: DefaultTheme.Config = {
+  nav: [
+    { text: 'Inicio rápido', link: '/es/quick-start', activeMatch: `^/es/(${GUIDE_PAGES})$` },
+    { text: 'Cómo funciona', link: '/es/how-it-works' },
+    { text: 'Preguntas frecuentes', link: '/es/faq', activeMatch: `^/es/(${HELP_PAGES})$` },
+    { text: 'Unirse a un grupo', link: 'https://openxplay.com/es/join' },
+  ],
+  sidebar: [
+    {
+      text: 'Empieza aquí',
+      items: [
+        { text: 'Cómo funciona', link: '/es/how-it-works' },
+        { text: 'Inicio rápido', link: '/es/quick-start' },
+        { text: 'Verifica tu unidad principal', link: '/es/check' },
+      ],
+    },
+    {
+      text: 'Configura un retransmisor',
+      items: [
+        { text: 'Teléfono Android', link: '/es/android-relay' },
+        {
+          text: 'Módem USB UFI003',
+          link: '/es/ufi003-relay',
+          items: [{ text: 'Flashear la imagen base', link: '/es/ufi003-flash' }],
+        },
+        { text: `TV box Phicomm N1 ${tag('info', 'Avanzado')}`, link: '/es/phicomm-n1' },
+        { text: `Otros dispositivos Linux ${tag('info', 'Avanzado')}`, link: '/es/linux-devices' },
+        { text: 'App Carlink', link: '/es/carlink' },
+        { text: `CarLife ${tag('warning', 'Experimental')}`, link: '/es/carlife' },
+        { text: `Transmisión inalámbrica ${tag('warning', 'Experimental')}`, link: '/es/wireless-display' },
+        { text: `Tesla ${tag('warning', 'Experimental')}`, link: '/es/tesla' },
+      ],
+    },
+    {
+      text: 'Uso',
+      items: [
+        { text: 'Uso diario y configuración', link: '/es/daily-use' },
+        { text: 'HTTPS de confianza', link: '/es/trusted-https' },
+      ],
+    },
+    {
+      text: 'Ayuda',
+      items: [
+        { text: 'Solución de problemas', link: '/es/troubleshooting' },
+        { text: 'Preguntas frecuentes', link: '/es/faq' },
+        { text: 'Unidades principales', link: '/es/head-units' },
+      ],
+    },
+    {
+      text: 'Proyecto',
+      items: [
+        { text: 'Historial de cambios', link: '/es/changelog' },
+        { text: 'Comunidad', link: '/es/community' },
+        { text: 'Desarrolladores', link: '/es/developers' },
+        { text: 'Licencias', link: '/es/licensing' },
+        { text: 'Privacidad', link: '/es/privacy' },
+      ],
+    },
+  ],
+  footer: {
+    message: `GitHub: ${repositoryLinks}<br>Contacto: ${mail} · <a href="${BASE}es/developers">Desarrolladores</a> · <a href="${BASE}es/licensing">Licencias</a> · <a href="${BASE}es/privacy">Privacidad</a> · Código del sitio: <a href="https://opensource.org/license/mit">MIT</a> · Contenido: <a href="https://creativecommons.org/licenses/by/4.0/deed.es">CC BY 4.0</a>`,
+    copyright: 'CarPlay y iPhone son marcas comerciales de Apple Inc. OpenXPlay es un proyecto independiente y no está afiliado, respaldado ni certificado por Apple.',
+  },
+  outline: { level: [2, 3], label: 'En esta página' },
+  lastUpdated: { text: 'Última actualización', formatOptions: { dateStyle: 'medium' } },
+  docFooter: { prev: 'Página anterior', next: 'Página siguiente' },
+  darkModeSwitchLabel: 'Apariencia',
+  lightModeSwitchTitle: 'Cambiar al tema claro',
+  darkModeSwitchTitle: 'Cambiar al tema oscuro',
+  sidebarMenuLabel: 'Menú',
+  returnToTopLabel: 'Volver arriba',
+  langMenuLabel: 'Cambiar idioma',
+  skipToContentLabel: 'Ir al contenido',
+  notFound: {
+    title: 'Página no encontrada',
+    quote: 'Esta página no existe o se movió.',
+    linkLabel: 'Ir a la página de inicio',
+    linkText: 'Ir al inicio',
+  },
+}
+
+const THEMES: Record<LocaleKey, DefaultTheme.Config> = { zh: chinese, en: english, ru: russian, es: spanish }
 
 const DESCRIPTIONS: Record<LocaleKey, string> = {
   zh: 'OpenXPlay 让无法安装应用的安卓车机，通过车机自带的浏览器或 Carlink 应用显示 iPhone CarPlay。',
   en: 'OpenXPlay shows iPhone CarPlay on Android head units that can’t install apps, through the head unit’s browser or Carlink app.',
   ru: 'OpenXPlay показывает iPhone CarPlay на головных устройствах Android, на которые нельзя установить приложения, через встроенный браузер или приложение Carlink.',
+  es: 'OpenXPlay muestra CarPlay del iPhone en unidades principales Android que no pueden instalar apps, a través del navegador o la app Carlink de la unidad principal.',
 }
 
 export default defineConfig({
@@ -280,6 +380,7 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   srcExclude: ['README.md', 'public/**'],
+  ignoreDeadLinks: [untranslatedPage],
   title: SITE_NAME,
   // Pages outside the locale directories (only the not-found page) use the default language.
   lang: LOCALES[DEFAULT_LOCALE].lang,
@@ -323,6 +424,15 @@ export default defineConfig({
       titleTemplate: `:title | ${SITE_NAME}`,
       description: DESCRIPTIONS.ru,
       themeConfig: russian,
+    },
+    es: {
+      label: 'Español',
+      lang: LOCALES.es.lang,
+      link: '/es/',
+      title: SITE_NAME,
+      titleTemplate: `:title | ${SITE_NAME}`,
+      description: DESCRIPTIONS.es,
+      themeConfig: spanish,
     },
   },
 
@@ -370,7 +480,7 @@ export default defineConfig({
 
   vite: {
     // The Head units pages are generated from the car database in data/.
-    plugins: [carsPlugin(fileURLToPath(new URL('..', import.meta.url)))],
+    plugins: [carsPlugin(SRC_DIR)],
     // The How it works and Community pages show the diagrams and the group QR codes
     // from the repository's assets/ and Group/, which the development server serves only when allowed.
     server: { fs: { allow: [fileURLToPath(new URL('../..', import.meta.url))] } },

@@ -11,7 +11,7 @@ Created by riko chen on 2026-10-17
 import { computed, onMounted, ref } from 'vue'
 import { useData } from 'vitepress'
 
-type Lang = 'en' | 'zh' | 'ru'
+type Lang = 'en' | 'zh' | 'ru' | 'es'
 type Verdict = 'full' | 'h264' | 'partial' | 'unsupported' | 'insecure'
 type Tri = boolean | undefined
 
@@ -217,10 +217,64 @@ const TEXT = {
     copy: 'Скопировать отчёт', copied: 'Отчёт скопирован.', copyFailed: 'Здесь копирование заблокировано. Выделите текст отчёта ниже и скопируйте его.',
     rerun: 'Проверить снова', report: 'Показать текст отчёта',
   },
+  es: {
+    checking: 'Verificando este navegador…',
+    fallback: 'Si este mensaje no cambia, este navegador no puede ejecutar la verificación. Lo más probable es que sea demasiado antiguo para el receptor web, que necesita WebCodecs.',
+    privacy: 'Todo se ejecuta dentro de esta página. No se envía ni se guarda nada.',
+    verdicts: {
+      full: ['Verificación superada, con H.265', 'Este navegador informa las funciones de video, sonido y micrófono que usa el receptor web, e indica que puede decodificar H.265 (HEVC) por hardware, así que el retransmisor puede usar H.265.'],
+      h264: ['Verificación superada, solo H.264', 'Este navegador informa las funciones de video, sonido y micrófono que usa el receptor web, pero no indica decodificación de H.265 por hardware, así que el retransmisor envía H.264 a esta pantalla.'],
+      partial: ['Habrá imagen, pero faltan algunas funciones', 'Este navegador informa lo que el receptor web necesita para mostrar la imagen, pero le faltan algunas de las funciones que aparecen abajo.'],
+      unsupported: ['No compatible: se necesita un navegador con WebCodecs', ''],
+      insecure: ['Abre esta página por HTTPS', 'Los navegadores activan WebCodecs solo en páginas seguras (HTTPS), así que la verificación no puede ejecutarse aquí. Abre la dirección https:// de esta página.'],
+    },
+    reasons: {
+      noDecoder: 'Este navegador no tiene WebCodecs VideoDecoder, que el receptor web usa para decodificar el video de CarPlay. Si la unidad principal tiene otro navegador, pruébalo.',
+      noH264: 'WebCodecs está presente, pero no informa decodificación de H.264, que el receptor web necesita.',
+      noWorker: 'Al navegador le faltan Web Workers u OffscreenCanvas, que el receptor web usa para decodificar y dibujar el video.',
+      noSocket: 'Al navegador le falta WebSocket, por donde el retransmisor envía la sesión de CarPlay.',
+    },
+    codec: {
+      hevc: 'Indica decodificación de H.265 por hardware.',
+      h264: 'No indica decodificación de H.265 por hardware, así que el retransmisor envía H.264.',
+    },
+    joiner: ' ',
+    abilities: {
+      audio: 'Sonido', microphone: 'Micrófono', touch: 'Control táctil', supported: 'Compatible', missing: 'No disponible', noTouch: 'No detectado',
+      points: (n: number) => (n === 1 ? '1 punto' : `${n} puntos`),
+    },
+    scope: 'La verificación solo le pregunta al navegador qué admite. No reproduce video, no se conecta a un retransmisor, no graba sonido ni envía toques, así que no reemplaza probarlo en el auto.',
+    notes: {
+      software: 'El navegador no informa decodificación de H.264 por hardware. CarPlay puede funcionar, pero el video podría trabarse.',
+      noAudio: 'Sin AudioWorklet: el navegador puede mostrar CarPlay, pero no puede reproducir su sonido.',
+      noAac: 'Sin decodificación de AAC: el receptor web igual puede reproducir audio sin comprimir (PCM).',
+      noMic: 'Sin acceso al micrófono: Siri y las llamadas no pueden usar el micrófono de la unidad principal a través de este navegador.',
+      singleTouch: 'Solo se informa un punto táctil, así que los gestos con varios dedos no funcionarán.',
+      noTouch: 'No se informa pantalla táctil. Los toques igual pueden llegar al navegador como entrada de mouse.',
+    },
+    sections: { video: 'Decodificación de video (WebCodecs)', features: 'Funciones del navegador', audio: 'Audio y micrófono', screen: 'Pantalla y control táctil', browser: 'Navegador' },
+    columns: { format: 'Formato', size: 'Tamaño', codec: 'Cadena de códec', supported: 'Compatible', hardware: 'Hardware', software: 'Software', efficient: 'Eficiente' },
+    hardwareNote: '“Hardware” y “Software” son las respuestas del navegador a las sugerencias de decodificador prefer-hardware y prefer-software; “Eficiente” viene de Media Capabilities y suele indicar un decodificador por hardware. Algunos navegadores responden esto de forma poco precisa.',
+    labels: {
+      secure: 'Página segura (HTTPS)', videoDecoder: 'WebCodecs VideoDecoder', worker: 'Web Workers', offscreen: 'Transferencia de OffscreenCanvas',
+      webSocket: 'WebSocket', fullscreen: 'Pantalla completa', mediaCapabilities: 'Media Capabilities',
+      audioContext: 'AudioContext', audioWorklet: 'AudioWorklet', audioDecoder: 'WebCodecs AudioDecoder', aac: 'AAC (mp4a.40.2)', opus: 'Opus',
+      microphone: 'API del micrófono (getUserMedia)', sampleRate: 'Frecuencia de muestreo de salida',
+      screenSize: 'Pantalla (píxeles CSS)', pixels: 'Pantalla (píxeles del dispositivo)', dpr: 'Densidad de píxeles (devicePixelRatio)', viewport: 'Área visible', orientation: 'Orientación',
+      colorDepth: 'Profundidad de color', refresh: 'Frecuencia de actualización estimada', touchPoints: 'Puntos táctiles (maxTouchPoints)', pointer: 'Puntero impreciso (táctil)',
+      userAgent: 'User agent', brands: 'Marcas (UA Client Hints)', platform: 'Plataforma', mobile: 'Dispositivo móvil', languages: 'Idiomas', cores: 'Núcleos de CPU', memory: 'Memoria del dispositivo',
+    },
+    yes: 'Sí', no: 'No', unknown: 'Desconocido', notExposed: 'No disponible', required: 'obligatorio',
+    copy: 'Copiar informe', copied: 'Informe copiado.', copyFailed: 'Aquí no se puede copiar. Selecciona el texto del informe abajo y cópialo.',
+    rerun: 'Verificar de nuevo', report: 'Mostrar el texto del informe',
+  },
 } as const
 
 const { lang } = useData()
-const language = computed<Lang>(() => (lang.value.startsWith('zh') ? 'zh' : lang.value.startsWith('ru') ? 'ru' : 'en'))
+const language = computed<Lang>(() => {
+  const tag = lang.value
+  return tag.startsWith('zh') ? 'zh' : tag.startsWith('ru') ? 'ru' : tag.startsWith('es') ? 'es' : 'en'
+})
 const t = computed(() => TEXT[language.value])
 
 const state = ref<'idle' | 'running' | 'done'>('idle')
