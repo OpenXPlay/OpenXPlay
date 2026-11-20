@@ -15,18 +15,18 @@ breadcrumb: Сообщество
 
 | Канал | Как присоединиться |
 | --- | --- |
-| Группа QQ 5 | 1126557464 или отсканируйте QR-код ниже |
+| Группа QQ | 627265786 или отсканируйте QR-код ниже |
 | Группа WeChat | Отсканируйте QR-код ниже |
 | Discord | [discord.gg/j3cKd5Tax](https://discord.gg/j3cKd5Tax) |
 
 <div class="oxp-community-qr">
   <figure class="oxp-figure">
-    <figcaption>Группа QQ 5 · 1126557464</figcaption>
-    <img src="../../Group/QQ_Group_5.webp" width="720" height="1284" loading="lazy" decoding="async" alt="QR-код для вступления в группу QQ 5 OpenXPlay, 1126557464">
+    <figcaption>Группа QQ · 627265786</figcaption>
+    <img src="../../Group/QQ_Group_5.webp" width="720" height="1284" loading="lazy" decoding="async" alt="QR-код для вступления в группу QQ OpenXPlay, 627265786">
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>Группа WeChat</figcaption>
-    <img src="../../Group/Wechat_Group.webp" width="720" height="1094" loading="lazy" decoding="async" alt="QR-код для вступления в группу WeChat OpenXPlay">
+    <img src="../../Group/Wechat_Group.webp" width="720" height="1105" loading="lazy" decoding="async" alt="QR-код для вступления в группу WeChat OpenXPlay">
   </figure>
 </div>
 

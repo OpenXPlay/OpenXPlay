@@ -15,18 +15,18 @@ Cuenta cómo funciona OpenXPlay con tu unidad principal, comparte experiencias, 
 
 | Canal | Cómo unirte |
 | --- | --- |
-| Grupo 5 de QQ | 1126557464, o escanea el código QR de abajo |
+| Grupo de QQ | 627265786, o escanea el código QR de abajo |
 | Grupo de WeChat | Escanea el código QR de abajo |
 | Discord | [discord.gg/j3cKd5Tax](https://discord.gg/j3cKd5Tax) |
 
 <div class="oxp-community-qr">
   <figure class="oxp-figure">
-    <figcaption>Grupo 5 de QQ · 1126557464</figcaption>
-    <img src="../../Group/QQ_Group_5.webp" width="720" height="1284" loading="lazy" decoding="async" alt="Código QR para unirse al grupo 5 de QQ de OpenXPlay, 1126557464">
+    <figcaption>Grupo de QQ · 627265786</figcaption>
+    <img src="../../Group/QQ_Group_5.webp" width="720" height="1284" loading="lazy" decoding="async" alt="Código QR para unirse al grupo de QQ de OpenXPlay, 627265786">
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>Grupo de WeChat</figcaption>
-    <img src="../../Group/Wechat_Group.webp" width="720" height="1094" loading="lazy" decoding="async" alt="Código QR para unirse al grupo de WeChat de OpenXPlay">
+    <img src="../../Group/Wechat_Group.webp" width="720" height="1105" loading="lazy" decoding="async" alt="Código QR para unirse al grupo de WeChat de OpenXPlay">
   </figure>
 </div>
 
