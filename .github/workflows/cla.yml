@@ -39,4 +39,4 @@ jobs:
           remote-repository-name: cla-signatures
           path-to-signatures: signatures/cla.json
           branch: main
-          allowlist: riko2chen,dependabot[bot]
+          allowlist: riko2chen,dependabot[bot],cursoragent
