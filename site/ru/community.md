@@ -22,7 +22,7 @@ breadcrumb: Сообщество
 <div class="oxp-community-qr">
   <figure class="oxp-figure">
     <figcaption>Группа QQ · 627265786</figcaption>
-    <img src="../../Group/QQ_Group_5.webp" width="720" height="1284" loading="lazy" decoding="async" alt="QR-код для вступления в группу QQ OpenXPlay, 627265786">
+    <img src="../../Group/QQ_Group_5.webp" width="720" height="1280" loading="lazy" decoding="async" alt="QR-код для вступления в группу QQ OpenXPlay, 627265786">
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>Группа WeChat</figcaption>

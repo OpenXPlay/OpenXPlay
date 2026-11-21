@@ -22,7 +22,7 @@ Cuenta cómo funciona OpenXPlay con tu unidad principal, comparte experiencias, 
 <div class="oxp-community-qr">
   <figure class="oxp-figure">
     <figcaption>Grupo de QQ · 627265786</figcaption>
-    <img src="../../Group/QQ_Group_5.webp" width="720" height="1284" loading="lazy" decoding="async" alt="Código QR para unirse al grupo de QQ de OpenXPlay, 627265786">
+    <img src="../../Group/QQ_Group_5.webp" width="720" height="1280" loading="lazy" decoding="async" alt="Código QR para unirse al grupo de QQ de OpenXPlay, 627265786">
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>Grupo de WeChat</figcaption>

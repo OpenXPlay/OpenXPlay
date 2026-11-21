@@ -22,7 +22,7 @@ Share how OpenXPlay works with your head unit, swap experiences, report problems
 <div class="oxp-community-qr">
   <figure class="oxp-figure">
     <figcaption>QQ group · 627265786</figcaption>
-    <img src="../../Group/QQ_Group_5.webp" width="720" height="1284" loading="lazy" decoding="async" alt="QR code for joining the OpenXPlay QQ group, 627265786">
+    <img src="../../Group/QQ_Group_5.webp" width="720" height="1280" loading="lazy" decoding="async" alt="QR code for joining the OpenXPlay QQ group, 627265786">
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>WeChat group</figcaption>

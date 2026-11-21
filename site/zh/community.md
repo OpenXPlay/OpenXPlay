@@ -22,7 +22,7 @@ breadcrumb: 交流群
 <div class="oxp-community-qr">
   <figure class="oxp-figure">
     <figcaption>QQ 交流群 · 627265786</figcaption>
-    <img src="../../Group/QQ_Group_5.webp" width="720" height="1284" loading="lazy" decoding="async" alt="OpenXPlay QQ 交流群 627265786 的入群二维码">
+    <img src="../../Group/QQ_Group_5.webp" width="720" height="1280" loading="lazy" decoding="async" alt="OpenXPlay QQ 交流群 627265786 的入群二维码">
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>微信群</figcaption>
