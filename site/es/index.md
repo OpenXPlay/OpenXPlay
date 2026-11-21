@@ -90,4 +90,4 @@ Hay más respuestas en las [Preguntas frecuentes](/es/faq); para problemas con l
 
 ## Únete a la comunidad {#join}
 
-Cuenta cómo funciona OpenXPlay con tu unidad principal, reporta problemas o ayuda a probar y desarrollar el proyecto: [Discord](https://discord.gg/j3cKd5Tax), el grupo 5 de QQ **1126557464** y un grupo de WeChat. Los códigos QR están en la página [Comunidad](/es/community).
+Cuenta cómo funciona OpenXPlay con tu unidad principal, reporta problemas o ayuda a probar y desarrollar el proyecto: [Discord](https://discord.gg/j3cKd5Tax), el grupo de QQ **627265786** y un grupo de WeChat. Los códigos QR están en la página [Comunidad](/es/community).

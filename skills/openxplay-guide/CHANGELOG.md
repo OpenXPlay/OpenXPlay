@@ -8,6 +8,10 @@ Created by riko chen on 2026-10-29
 
 Every change to this skill raises `metadata.version` in `SKILL.md` and adds an entry here; the website build refuses a changed skill without both. MAJOR: older copies would give wrong or unsafe guidance (also raise `minimum-version`). MINOR: a new route, device or step. PATCH: wording and links.
 
+## 0.8.7 (2026-11-20)
+
+- Community links now use QQ group number 627265786.
+
 ## 0.8.6 (2026-11-18)
 
 - iPhone direct users now join the beta through https://openxplay.com instead of a TestFlight link.
