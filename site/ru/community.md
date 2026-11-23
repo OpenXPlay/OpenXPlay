@@ -26,7 +26,7 @@ breadcrumb: Сообщество
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>Группа WeChat</figcaption>
-    <img src="../../Group/Wechat_Group.webp" width="720" height="1105" loading="lazy" decoding="async" alt="QR-код для вступления в группу WeChat OpenXPlay">
+    <img src="../../Group/Wechat_Group.webp" width="720" height="1094" loading="lazy" decoding="async" alt="QR-код для вступления в группу WeChat OpenXPlay">
   </figure>
 </div>
 
