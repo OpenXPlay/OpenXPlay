@@ -26,7 +26,7 @@ Cuenta cómo funciona OpenXPlay con tu unidad principal, comparte experiencias, 
   </figure>
   <figure class="oxp-figure is-wechat">
     <figcaption>Grupo de WeChat</figcaption>
-    <img src="../../Group/Wechat_Group.webp" width="720" height="1094" loading="lazy" decoding="async" alt="Código QR para unirse al grupo de WeChat de OpenXPlay">
+    <img src="../../Group/Wechat_Group.webp" width="720" height="1105" loading="lazy" decoding="async" alt="Código QR para unirse al grupo de WeChat de OpenXPlay">
   </figure>
 </div>
 
