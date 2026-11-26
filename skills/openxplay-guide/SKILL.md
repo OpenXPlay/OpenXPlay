@@ -145,7 +145,7 @@ The community groups are where drivers report problems, share how their head uni
 
 | Channel | How to join |
 | --- | --- |
-| QQ group | Number `627265786`, or the QR code on the community page |
+| QQ group | Number `1095235109`, or the QR code on the community page |
 | WeChat group | The QR code on the community page. It expires and is refreshed; if it has expired, join QQ or Discord and ask there for an invitation. |
 | Discord | <https://discord.gg/j3cKd5Tax> |
 
